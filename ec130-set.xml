@@ -1,0 +1,432 @@
+<?xml version="1.0"?>
+<!--
+************************************************************************
+EC 130 simulation config.
+
+************************************************************************
+-->
+
+<PropertyList>
+	<sim>
+		<description>Eurocopter EC130</description>
+		<author>Heiko Schulz</author>
+		<status>alpha</status>
+		<license>GPL v2</license>
+		<aircraft-version>0.1</aircraft-version>
+
+		<flight-model>yasim</flight-model>
+		<aero>ec130</aero>
+		<fuel-fraction>0.8</fuel-fraction>
+
+		<!--<startup>
+			<splash-texture>Aircraft/ec130/splash.rgb</splash-texture>
+		</startup>-->
+
+		<sound>
+			<path>Aircraft/ec135/Sounds/sound.xml</path>
+		</sound>
+
+
+		
+		<model>
+			<path archive="y">Aircraft/ec130/Models/ec130.xml</path>
+			<variant type="int">0</variant>
+			<livery>
+                              <file type="string">Bavarian Police "Edelweiss"</file>
+            </livery>
+	    <liverytail>
+	    <file type="string">Bavarian Police "Edelweiss"</file>
+	    </liverytail>
+			<ec130>
+				<state type="int">0</state>
+				<rotor-step-deg type="float">-1.0</rotor-step-deg>
+
+				<hide-gsdi>true</hide-gsdi>
+				<binocular_standart type="bool">true</binocular_standart>
+				<binocular_tri type="bool">false</binocular_tri>
+				<winch>false</winch>
+				<mirror>false</mirror>
+				<wirecutter_skid>false</wirecutter_skid>
+				<wirecutter_up>false</wirecutter_up>
+				<nose>false</nose>
+				<nosefl>true</nosefl>
+				<radardome>false</radardome>
+				<antennaset>true</antennaset>
+				<plateleft>false</plateleft>
+				<plateright>true</plateright>
+
+
+
+
+
+
+			</ec130>
+		</model>
+
+		<!--view-->
+		<chase-distance-m type="double" archive="y">-20.0</chase-distance-m>
+
+  <view n="100">
+    <name>Passanger Seat View</name>
+    <internal archive="y">true</internal>
+    <type>lookfrom</type>
+    <config>
+      <from-model type="bool">true</from-model>
+      <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+      <x-offset-m archive="y"> 0.03 </x-offset-m> <!--right-->
+      <y-offset-m archive="y">  0.58 </y-offset-m> <!--up-->
+      <z-offset-m archive="y"> -3.67 </z-offset-m> <!--back-->
+      <pitch-offset-deg>-15</pitch-offset-deg>
+      <default-field-of-view-deg>55</default-field-of-view-deg>
+      <dynamic-view type="bool">true</dynamic-view>
+    </config>
+  </view>
+  
+  <view n="101">
+    <name>Passanger Seat View back</name>
+    <internal archive="y">true</internal>
+    <type>lookfrom</type>
+    <config>
+      <from-model type="bool">true</from-model>
+      <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+      <x-offset-m archive="y"> 0.29 </x-offset-m> <!--right-->
+      <y-offset-m archive="y">  0.58 </y-offset-m> <!--up-->
+      <z-offset-m archive="y"> -2.75 </z-offset-m> <!--back-->
+      <pitch-offset-deg>-15</pitch-offset-deg>
+      <default-field-of-view-deg>55</default-field-of-view-deg>
+      <dynamic-view type="bool">true</dynamic-view>
+    </config>
+  </view>
+
+  <view n="102">
+    <name>Tail Camera View</name>
+    <type>lookfrom</type>
+    <internal archive="y">true</internal>
+    <config>
+      <from-model type="bool">true</from-model>
+      <from-model-idx type="int">0</from-model-idx>
+      <ground-level-nearplane-m type="double">0.01f</ground-level-nearplane-m>
+      <default-field-of-view-deg type="double">30</default-field-of-view-deg>
+      <pitch-offset-deg>-5</pitch-offset-deg>
+      <x-offset-m archive="y"> 0.000 </x-offset-m> <!--Right-->
+      <y-offset-m archive="y"> 2.000 </y-offset-m> <!--Up-->
+      <z-offset-m archive="y"> 9.227 </z-offset-m> <!--Back-->
+    </config>
+  </view>
+
+  <view n="0">
+    <internal archive="y">true</internal>
+    <config>
+      <x-offset-m archive="y">  -0.68 </x-offset-m> <!--right-->
+      <y-offset-m archive="y">  0.40 </y-offset-m> <!--up-->
+      <z-offset-m archive="y"> -3.67 </z-offset-m> <!--back-->
+      <pitch-offset-deg>-15</pitch-offset-deg>
+      <dynamic-view type="bool">true</dynamic-view>
+    </config>
+  </view>
+
+  <view n="1">
+    <config>
+      <target-z-offset-m archive="y" type="double">0</target-z-offset-m>
+    </config>
+  </view>
+
+  <view n="2">
+    <config>
+      <target-z-offset-m archive="y" type="double">0</target-z-offset-m>
+    </config>
+  </view>
+
+  <view n="3">
+    <config>
+      <target-z-offset-m archive="y" type="double">0</target-z-offset-m>
+    </config>
+  </view>
+
+  <view n="4">
+    <config>
+      <target-z-offset-m archive="y" type="double">0</target-z-offset-m>
+    </config>
+  </view>
+
+  <view n="5">
+    <config>
+      <target-z-offset-m archive="y" type="double">0</target-z-offset-m>
+    </config>
+  </view>
+
+  <view n="6">
+    <config>
+      <target-z-offset-m archive="y" type="double">0</target-z-offset-m>
+    </config>
+  </view>
+
+
+
+		<weight n="0">
+      <name>Pilot</name>
+      <weight-lb>180</weight-lb>
+      <max-lb>300</max-lb>
+    </weight>
+
+    <weight n="1">
+      <name>Co-Pilot</name>
+      <weight-lb>180</weight-lb>
+      <max-lb>300</max-lb>
+    </weight>
+
+    <weight n="2">
+      <name>Right Passenger</name>
+      <weight-lb>160</weight-lb>
+      <max-lb>300</max-lb>
+    </weight>
+
+    <weight n="3">
+      <name>Middle Passenger</name>
+      <weight-lb>160</weight-lb>
+      <max-lb>300</max-lb>
+    </weight>
+
+    <weight n="4">
+      <name>Left Passenger</name>
+      <weight-lb>160</weight-lb>
+      <max-lb>300</max-lb>
+    </weight>
+
+    <weight n="5">
+      <name>Load</name>
+      <weight-lb>250</weight-lb>
+      <max-lb>800</max-lb>
+    </weight>
+
+		<help>
+			<title>EC 130 - help</title>
+			<line></line>
+			
+			<line>Help</line>
+			<line></line>
+			<line>starting the engines -> press }-key</line>
+			<line>shut down the engines -> press {-key</line>
+			<line>toggle rotor brake -> press N-key</line>
+			<line>collective -> page up/down- keys</line>
+			<line>Open/ Close doors -> click the menu "EC130" panel above</line>
+			<line>change livery ->press l-key</line>
+			<line>landinglight ->press g/G-key</line>
+
+
+		</help>
+
+		<hitches>
+			<!-- make sure some properties do exist, when the list for multiplayer transfere is defined-->
+			<!-- they need to be in the same value, as they are initilized in the FDM, to get the same values after reset
+    should fix this somehow-->
+			<aerotow>
+				<tow>
+					<length type="float">60</length>
+					<elastic-constant type="float">10000</elastic-constant>
+					<weight-per-m-kg-m type="float">1</weight-per-m-kg-m>
+					<dist type="float">1</dist>
+					<connected-to-property-node type="bool"></connected-to-property-node>
+					<brake-force type="float">100000</brake-force>
+					<connected-to-ai-or-mp-callsign type ="string">*</connected-to-ai-or-mp-callsign>
+					<end-force-x type ="float">0</end-force-x>
+					<end-force-y type ="float">0</end-force-y>
+					<end-force-z type ="float">0</end-force-z>
+				</tow>
+				<speed-in-tow-direction type="float">0</speed-in-tow-direction>
+				<open type="bool">true</open>
+				<local-pos-x type="float">0</local-pos-x>
+				<local-pos-y type="float">0</local-pos-y>
+				<local-pos-z type="float">0</local-pos-z>
+				<is-slave type="bool">true</is-slave>
+			</aerotow>
+		</hitches>
+
+		<menubar>
+			<default>
+				<menu n="10">
+					<label>EC130</label>
+					<enabled type="bool">true</enabled>
+					<item>
+						<label>Open/close pilots door</label>
+						<binding>
+							<command>nasal</command>
+							<script>ec130.pilotDoor.toggle();</script>
+						</binding>
+					</item>
+					<item>
+						<label>Open/close Copilots door</label>
+						<binding>
+							<command>nasal</command>
+							<script>ec130.copilotDoor.toggle();</script>
+						</binding>
+					</item>
+					<item>
+						<label>Open/close right backdoor</label>
+						<binding>
+							<command>nasal</command>
+							<script>ec130.ribackDoor.toggle();</script>
+						</binding>
+					</item>
+					<item>
+						<label>Open/close left backdoor</label>
+						<binding>
+							<command>nasal</command>
+							<script>ec130.lebackDoor.toggle();</script>
+						</binding>
+					</item>
+					<item>
+						<label>Open/close reardoors</label>
+						<binding>
+							<command>nasal</command>
+							<script>ec130.rearDoors.toggle();</script>
+						</binding>
+					</item>
+					<item>
+						<label>Show/hide GSDI</label>
+						<binding>
+							<command>property-toggle</command>
+							<property>/sim/model/hide-gsdi</property>
+						</binding>
+					</item>
+				</menu>
+			</default>
+		</menubar>
+	</sim>
+
+	<controls>
+		<engines>
+			<engine n="0">
+				<magnetos>0</magnetos>
+			</engine>
+		</engines>
+
+
+		<lighting>
+			<strobe type="bool">true</strobe>
+			<beacon type="bool">true</beacon>
+			<nav-lights type="bool">true</nav-lights>
+		</lighting>
+	</controls>
+
+	<instrumentation>
+		<gsdi>
+			<serviceable type="bool">true</serviceable>
+		</gsdi>
+		<hsi>
+			<serviceable type="bool" archive="y">true</serviceable>
+		</hsi>
+	</instrumentation>
+
+	<input>
+		<keyboard>
+
+			<!-- Livery Box -->
+			<key n="108">
+				<name>l</name>
+				<desc>Show livery select dialog</desc>
+				<binding>
+					<command>nasal</command>
+					<script>aircraft.livery.dialog.toggle()</script>
+				</binding>
+			</key>
+
+			<key n="78">
+				<name>N</name>
+				<desc>Toggle rotor brake</desc>
+				<binding>
+					<command>nasal</command>
+					<script>
+						var p = "/controls/rotor/brake";
+						setprop(p, !getprop(p));
+					</script>
+				</binding>
+			</key>
+
+			<key n="110">
+				<name>n</name>
+				<desc>Apply rotor brake</desc>
+				<binding>
+					<command>nasal</command>
+					<script>interpolate("/controls/rotor/brake", 1.0, 2)</script>
+				</binding>
+				<mod-up>
+					<binding>
+						<command>nasal</command>
+						<script>interpolate("/controls/rotor/brake", 0.0, 2)</script>
+					</binding>
+				</mod-up>
+			</key>
+
+			<key n="123">
+				<name>{</name>
+				<desc>Shutdown Engines</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ec130.engines(0)</script>
+				</binding>
+			</key>
+
+			<key n="125">
+				<name>}</name>
+				<desc>Start Engines</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ec130.engines(1)</script>
+				</binding>
+			</key>
+
+			<key n="79">
+				<name>O</name>
+				<desc>Open aerotow hook</desc>
+				<binding>
+					<command>property-assign</command>
+					<property>/sim/hitches/aerotow/open</property>
+					<value type="bool">true</value>
+				</binding>
+			</key>
+			<key n="111">
+				<name>o</name>
+				<desc>Lock aerotow hook</desc>
+				<binding>
+					<command>property-assign</command>
+					<property>/sim/hitches/aerotow/open</property>
+					<value type="bool">false</value>
+				</binding>
+			</key>
+			<key n="15">
+				<name>Ctrl-o</name>
+				<desc>Find aircraft for aerotow</desc>
+				<binding>
+					<command>property-assign</command>
+					<property>/controls/aerotow/find-aircraft</property>
+					<value type="bool">true</value>
+				</binding>
+				<mod-up>
+					<binding>
+						<command>property-assign</command>
+						<property>/controls/aerotow/find-aircraft</property>
+						<value type="bool">false</value>
+					</binding>
+				</mod-up>
+			</key>
+
+		</keyboard>
+	</input>
+
+
+	<nasal>
+		<ec130>
+			<file>Aircraft/ec130/Models/ec130.nas</file>
+			
+		</ec130>
+	</nasal>
+
+
+	<rotors>
+		<main>
+			<rpm type="double">500</rpm>
+		</main>
+	</rotors>
+
+</PropertyList>
