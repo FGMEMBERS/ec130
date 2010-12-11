@@ -1,0 +1,231 @@
+<PropertyList>
+	<path>engineflightpage.ac</path>
+<!--enginepage-->
+
+<animation>
+	 <type>select</type>
+	<object-name>TQneedle</object-name>
+		<object-name>T4needle</object-name>
+		<object-name>NGneedle</object-name>
+		<object-name>fuel</object-name>
+		<object-name>face</object-name>
+	 <condition>
+		<greater-than>
+				 <property>/systems/electrical/volts</property>
+				 <value>60</value>
+		</greater-than>
+	</condition>
+ </animation>
+ 
+ 
+<model>
+  <path>Aircraft/ec130/Models/Instruments/VEMD/enginepage-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>0.012</y-m>
+   <z-m>-0.069</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">consumables/fuel/tank/level-lbs</property>
+    <factor type="double">0.5</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%4.0f</format>
+     <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ 
+ <model>
+ <path>Aircraft/ec130/Models/Instruments/VEMD/enginepage-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>0.041</y-m>
+   <z-m>-0.053</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">/sim/model/ec130/torque-pct</property>
+    <factor type="double">1</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%4.0f</format>
+     <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ 
+ <model>
+ <path>Aircraft/ec130/Models/Instruments/VEMD/enginepage-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>0.062</y-m>
+   <z-m>-0.025</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">/engines/engine/tot-degc</property>
+    <factor type="double">1</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%4.0f</format>
+     <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ 
+ <model>
+ <path>Aircraft/ec130/Models/Instruments/VEMD/enginepage-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>0.084</y-m>
+   <z-m>-0.053</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">/engines/engine/n1-pct</property>
+    <factor type="double">1</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%4.0f</format>
+     <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ 
+ <model>
+ <path>Aircraft/ec130/Models/Instruments/VEMD/enginepage-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>0.093</y-m>
+   <z-m>-0.069</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">environment/temperature-degc</property>
+    <factor type="double">1</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%4.0f</format>
+     <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ 
+ <animation>
+  <type>textranslate</type>
+  <object-name>fuel</object-name>
+  <property>consumables/fuel/tank/level-lbs</property>
+  <interpolation>
+   <entry><ind>  0</ind><dep>   0</dep></entry>
+   <entry><ind>  16</ind><dep>0.053</dep></entry>
+   <entry><ind> 262</ind><dep>0.125</dep></entry>
+   <entry><ind>  524</ind><dep>0.25</dep></entry>
+   <entry><ind>  1048</ind><dep>0.5</dep></entry>
+       </interpolation>
+  <axis>
+   <x>0</x>
+   <y>-1</y>
+   <z>0</z>
+  </axis>
+</animation>
+
+<animation>
+  <type>rotate</type>
+  <object-name>TQneedle</object-name>
+  <property>/sim/model/ec130/torque-pct</property>
+  <interpolation>
+   <entry><ind>  0</ind><dep>   0</dep></entry>
+   <entry><ind>  10</ind><dep>16</dep></entry>
+   <entry><ind>  20</ind><dep>33</dep></entry>
+   <entry><ind>  30</ind><dep>49</dep></entry>
+   <entry><ind>  40</ind><dep>66</dep></entry>
+   <entry><ind>  50</ind><dep>82.26</dep></entry>
+   <entry><ind>  60</ind><dep>98</dep></entry>
+   <entry><ind>  70</ind><dep>115.32</dep></entry>
+   <entry><ind>  80</ind><dep>132.21</dep></entry>
+   <entry><ind>  90</ind><dep>147.8</dep></entry>
+   <entry><ind>  100</ind><dep>164.5</dep></entry>
+   <entry><ind>  104</ind><dep>172.38</dep></entry>
+    </interpolation>
+   		<center>
+			<x-m>0.00</x-m>
+			<y-m>0.036</y-m>
+			<z-m>-0.050</z-m>
+		</center>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+</animation>
+
+<animation>
+  <type>rotate</type>
+  <object-name>T4needle</object-name>
+  <property>/engines/engine/tot-degc</property>
+  <interpolation>
+   <entry><ind>  0</ind><dep>   0</dep></entry>
+   <entry><ind>  300</ind><dep>12.55</dep></entry>
+   <entry><ind>  400</ind><dep>25.61</dep></entry>
+   <entry><ind>  500</ind><dep>38.34</dep></entry>
+   <entry><ind>  600</ind><dep>51</dep></entry>
+   <entry><ind>  700</ind><dep>64</dep></entry>
+   <entry><ind>  800</ind><dep>81.67</dep></entry>
+   <entry><ind>  849</ind><dep>88.41</dep></entry>
+   <entry><ind>  900</ind><dep>96.64</dep></entry>
+    <entry><ind>  915</ind><dep>97.38</dep></entry>
+    </interpolation>
+    <center>
+			<x-m>0.00</x-m>
+			<y-m>0.058</y-m>
+			<z-m>-0.040</z-m>
+		</center>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+</animation>
+
+
+ <animation>
+  <type>rotate</type>
+  <object-name>NGneedle</object-name>
+  <property>/engines/engine/n1-pct</property>
+  <interpolation>
+   <entry><ind>  0</ind><dep>   0</dep></entry>
+    <entry><ind>  97.1</ind><dep>67</dep></entry>
+   <entry><ind>  101.1</ind><dep>109.96</dep></entry>
+   <entry><ind>  102.3</ind><dep>122</dep></entry>
+    </interpolation>
+    <center>
+			<x-m>0.00</x-m>
+			<y-m>0.079</y-m>
+			<z-m>-0.048</z-m>
+		</center>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+</animation>
+ 
+	
+</PropertyList>

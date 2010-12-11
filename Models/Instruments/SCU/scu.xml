@@ -1,0 +1,477 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>scu2.ac</path>
+ 
+ <animation>
+    <type>material</type>
+    <object-name>text</object-name>
+       <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+   <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+    </emission>
+  </animation>
+ 
+<animation>
+        <type>pick</type>
+        <object-name>batepu</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+            <property>controls/electric/battery-switch</property>
+            </binding>
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+    <object-name>batepu_led</object-name>
+      <condition>
+      <greater-than>
+        <property>controls/electric/battery-switch</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+  
+  <animation>
+        <type>pick</type>
+        <object-name>directbat</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+            <property>controls/electric/directbat-switch</property>
+            </binding>
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+    <object-name>directbat_led</object-name>
+       <object-name>directbat_led2</object-name>
+      <condition>
+      <greater-than>
+       <property>controls/electric/directbat-switch</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+  
+  <animation>
+        <type>pick</type>
+        <object-name>gene</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+            <property>controls/electric/engine[0]/generator</property>
+            </binding>
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+    <object-name>gene_led</object-name>
+     
+      <condition>
+      <greater-than>
+       <property>controls/electric/engine[0]/generator</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+  
+   <animation>
+        <type>pick</type>
+        <object-name>horn</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+            <property>controls/electric/horn</property>
+            </binding>
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+    <object-name>horn_led</object-name>
+     
+      <condition>
+      <greater-than>
+       <property>controls/electric/horn</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+  
+  <animation>
+        <type>pick</type>
+        <object-name>domelt</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+              <property>controls/lighting/dome-light</property>
+            </binding>
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+    <object-name>domelt_led</object-name>
+     
+      <condition>
+      <greater-than>
+         <property>controls/lighting/dome-light</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+  
+  <animation>
+        <type>pick</type>
+        <object-name>avionic</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+              <property>controls/electric/avionics-switch</property>
+            </binding>
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+    <object-name>avionic_led</object-name>
+     
+      <condition>
+      <greater-than>
+       <property>controls/electric/avionics-switch</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+  
+  <animation>
+        <type>pick</type>
+        <object-name>generst</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-assign</command>
+    <property>controls/electric/engine[0]generator</property>
+    <value type="double">-1</value>
+            </binding>
+	     <mod-up>
+    <binding>
+    <command>property-assign</command>
+    <property>controls/electric/engine[0]generator</property>
+    <value type="double">0</value>
+    </binding>
+   </mod-up>          
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+    <object-name>generst_led</object-name>
+     
+      <condition>
+      <less-than>
+    <property>controls/electric/engine[0]generator</property>
+        <value>0</value>
+      </less-than>
+    </condition>
+  </animation>
+  
+  
+   <animation>
+        <type>pick</type>
+        <object-name>acollt</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+              <property>controls/lighting/beacon</property>
+            </binding>
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+    <object-name>acollt_led</object-name>
+     
+      <condition>
+      <greater-than>
+         <property>controls/lighting/beacon</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+  
+    <animation>
+        <type>pick</type>
+        <object-name>poslt</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+              <property>controls/lighting/nav-lights</property>
+            </binding>
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+    <object-name>poslt_led</object-name>
+     
+      <condition>
+      <greater-than>
+         <property>controls/lighting/nav-lights</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+  
+  <animation>
+        <type>pick</type>
+        <object-name>fuelp</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+              <property>controls/fuel/tank/boost-pump</property>
+            </binding>
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+    <object-name>fuelp_led</object-name>
+    <object-name>fuelp_led2</object-name>
+     
+      <condition>
+      <greater-than>
+      <property>controls/fuel/tank/boost-pump</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+  
+  <animation>
+        <type>pick</type>
+        <object-name>instl1</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+              <property>controls/lighting/instrument-lights</property>
+            </binding>
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+    <object-name>instl1_led</object-name>
+    
+      <condition>
+      <greater-than>
+        <property>controls/lighting/instrument-lights</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+  
+  <animation>
+        <type>pick</type>
+        <object-name>instl2</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+              <property>controls/lighting/instruments-lights2</property>
+            </binding>
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+    <object-name>instl2_led</object-name>
+    
+      <condition>
+      <greater-than>
+      <property>controls/lighting/instruments-lights2</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+  
+  <animation>
+        <type>pick</type>
+        <object-name>pitot12</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+              <property>controls/anti-ice/pitot-heat</property>
+            </binding>
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+         <object-name>pitot_led</object-name>
+    
+      <condition>
+      <greater-than>
+             <property>controls/anti-ice/pitot-heat</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+  
+  <animation>
+        <type>pick</type>
+        <object-name>horizon</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+              <property>/instrumentation/attitude-indicator/serviceable</property>
+            </binding>
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+         <object-name>horizon_led</object-name>
+    
+      <condition>
+      <greater-than>
+          <property>/instrumentation/attitude-indicator/serviceable</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+  
+  <animation>
+        <type>pick</type>
+        <object-name>gyro</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+                    <property>controls/electric/gyrocompass</property>
+            </binding>
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+         <object-name>gyro_led</object-name>
+    
+      <condition>
+      <greater-than>
+           <property>controls/electric/gyrocompass</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+  
+  <animation>
+        <type>pick</type>
+        <object-name>crank</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+                <property>controls/engines/engine/starter</property>
+            </binding>
+        </action>
+    </animation>
+    
+<animation>
+    <type>select</type>
+         <object-name>crank_led</object-name>
+    
+      <condition>
+      <greater-than>
+          <property>controls/engines/engine/starter</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+  
+  <animation>
+        <type>pick</type>
+        <object-name>firetest</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+             <property>controls/electric/warningtest</property>
+            </binding>
+        </action>
+    </animation>
+    
+     <animation>
+        <type>pick</type>
+        <object-name>wltest</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+          <property>controls/electric/firetest</property>
+            </binding>
+        </action>
+    </animation>
+    
+    <animation>
+        <type>pick</type>
+        <object-name>servotest</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+          <property>controls/electric/servotest</property>
+            </binding>
+        </action>
+    </animation>
+    
+    
+  
+
+    
+    
+
+
+
+ 
+</PropertyList>
+
+

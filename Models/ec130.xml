@@ -1,13 +1,28 @@
 <?xml version="1.0"?>
 
-<!-- Eurocopter EC 130 Helicopter by Heiko Schulz, animation set -->
+<!-- Eurocopter EC 130 Helicopter by Heiko Schulz, animation set 
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
 
 <PropertyList>
 
 
 	<path>ec130.ac</path>
 	<offsets>
-		<z-m>0.5</z-m>
+		<z-m>0</z-m>
 		<y-m>0</y-m>
 		<x-m>0</x-m>
 
@@ -16,293 +31,347 @@
 	</offsets>
 	
 <!--shader-->
-<animation>
-		<type>shader</type>
-		<shader>chrome</shader>
-		<texture>glass_shader.png</texture>
-		<object-name>glas</object-name>
-		<object-name>rightwindow</object-name>
-		<object-name>leftwindow</object-name>
-		<object-name>rearwindow</object-name>
-		<object-name>backwindow</object-name>
-</animation>
-	
-<!--instruments-->
+<effect>
+		<inherits-from>Aircraft/ec130/Models/Effects/ec130reflect</inherits-from>
+		<object-name>fuselage</object-name>
+		<object-name>fenestron</object-name>
+		<object-name>elevator</object-name>
+		<object-name>fin</object-name>
+		<object-name>frontdoorr</object-name>
+		<object-name>frontdoorl</object-name>
+		<object-name>backdoorr</object-name>
+		<object-name>backdoorl</object-name>
+		<object-name>luggagel</object-name>
+		<object-name>luggager</object-name>
+		<object-name>door</object-name>
+		<object-name>fuel</object-name>
+</effect>
+
+<effect>
+		<inherits-from>Aircraft/ec130/Models/Effects/ec130reflectglas</inherits-from>
+		<object-name>windscreen</object-name>
+		<object-name>windowl</object-name>
+		<object-name>windowr</object-name>
+		<object-name>windowbl</object-name>
+		<object-name>windowbr</object-name>
+</effect>
+
+<!--pilot-->
+
 <model>
-		<name>HSI</name>
-		<path>Aircraft/ec130/Models/ki525a.xml</path>
+    <name>Pilote</name>
+    <path>Aircraft/ec130/Models/pilot.xml</path>
+    <offsets>
+      <x-m> 0.0 </x-m>
+      <y-m> 0.0 </y-m>
+      <z-m> 0.0 </z-m>
+    </offsets>
+  </model>	
+  
+  <!--mobile Ground Power Unit-->
+  <model>
+    <name>MGPU</name>
+    <path>Aircraft/ec130/Models/mgpu.xml</path>
+    <offsets>
+      <x-m> 0.0 </x-m>
+      <y-m> 0.0 </y-m>
+      <z-m> 0.0 </z-m>
+    </offsets>
+  </model>	
+  
+  <!--stick-->
+  <animation>
+    <type>rotate</type>
+    <object-name>stickgrip</object-name>
+    <object-name>griphead</object-name>
+    <property>/controls/flight/aileron</property>
+    <factor>-8</factor>
+    <center>
+      <x-m> -4.159 </x-m>
+      <y-m>  -0.680 </y-m>
+      <z-m> -1.036 </z-m>
+    </center>
+    <axis>
+      <x> 1 </x>
+      <y> 0 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+  
+  <animation>
+    <type>rotate</type>
+    <object-name>stickgrip</object-name>
+    <object-name>griphead</object-name>
+    <property>/controls/flight/elevator</property>
+    <factor>-8</factor>
+    <center>
+     <x-m> -4.159 </x-m>
+      <y-m>  -0.680 </y-m>
+      <z-m> -1.036 </z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+  
+<!--panel-->
+<model>
+		<name>AI</name>
+		<path>Aircraft/ec130/Models/Instruments/AI/AI.xml</path>
 
 		<offsets>
-
-			<x-m>-4.345</x-m>
-			<y-m>-0.637</y-m>
-			<z-m>-0.544</z-m>
-
-			<pitch-deg>-10</pitch-deg>
+			<x-m>-4.556</x-m>
+			<y-m>-0.573</y-m>
+			<z-m>-0.284</z-m>
+		<pitch-deg>-10</pitch-deg>
 
 		</offsets>
-	</model>
-	
+</model>
+
 <model>
 		<name>ASI</name>
-		<path>Aircraft/Instruments-3d/asi/asi.xml</path>
+		<path>Aircraft/ec130/Models/Instruments/ASI/asi.xml</path>
 
 		<offsets>
-
-			<x-m>-4.360</x-m>
-			<y-m>-0.722</y-m>
-			<z-m>-0.445</z-m>
-
-			<pitch-deg>-10</pitch-deg>
+			<x-m>-4.571</x-m>
+			<y-m>-0.671</y-m>
+			<z-m>-0.285</z-m>
+		<pitch-deg>-10</pitch-deg>
 
 		</offsets>
-	</model>
-	
-<model>
-		<name>ATI</name>
-		<path>Aircraft/ec130/Models/ai-gauge.xml</path>
+</model>
 
-		<offsets>
-
-			<x-m>-4.365</x-m>
-			<y-m>-0.634</y-m>
-			<z-m>-0.450</z-m>
-
-			<pitch-deg>-10</pitch-deg>
-
-		</offsets>
-	</model>
-	
-<model>
-		<name>TC</name>
-		<path>Aircraft/Instruments-3d/tc/tc.xml</path>
-
-		<offsets>
-
-			<x-m>-4.348</x-m>
-			<y-m>-0.724</y-m>
-			<z-m>-0.527</z-m>
-
-			<pitch-deg>-10</pitch-deg>
-
-		</offsets>
-	</model>
-	
 <model>
 		<name>alt</name>
-		<path>Aircraft/Instruments-3d/alt/alt.xml</path>
+		<path>Aircraft/ec130/Models/Instruments/ALT/alt2-3d.xml</path>
 
 		<offsets>
-
-			<x-m>-4.3628</x-m>
-			<y-m>-0.549</y-m>
-			<z-m>-0.450</z-m>
-
-			<pitch-deg>-10</pitch-deg>
+			<x-m>-4.57</x-m>
+			<y-m>-0.478</y-m>
+			<z-m>-0.281</z-m>
+		<pitch-deg>-10</pitch-deg>
 
 		</offsets>
-	</model>
-	
+</model>
+
 <model>
-		<name>vsi</name>
-		<path>Aircraft/Instruments-3d/vsi/vsi.xml</path>
+		<name>kcs55</name>
+		<path>Aircraft/ec130/Models/Instruments/kcs55/ki525a.xml</path>
 
 		<offsets>
-
-			<x-m>-4.348</x-m>
-			<y-m>-0.549</y-m>
-			<z-m>-0.526</z-m>
-
-			<pitch-deg>-10</pitch-deg>
+			<x-m>-4.552</x-m>
+			<y-m>-0.574</y-m>
+			<z-m>-0.394</z-m>
+		<pitch-deg>-10</pitch-deg>
 
 		</offsets>
-	</model>
-	
+</model>
+
+
 <model>
-		<name>tach</name>
-		<path>Aircraft/ec130/Models/tach.xml</path>
+		<name>VSI</name>
+		<path>Aircraft/ec130/Models/Instruments/VSI/VSI.xml</path>
 
 		<offsets>
+			<x-m>-4.556</x-m>
+			<y-m>-0.475</y-m>
+			<z-m>-0.370</z-m>
+		<pitch-deg>-10</pitch-deg>
 
-			<x-m>-4.375</x-m>
-			<y-m>-0.549</y-m>
+		</offsets>
+</model>
+
+<model>
+		<name>Turn</name>
+		<path>Aircraft/ec130/Models/Instruments/Turn/Turn.xml</path>
+
+		<offsets>
+			<x-m>-4.555</x-m>
+			<y-m>-0.671</y-m>
 			<z-m>-0.369</z-m>
-
-			<pitch-deg>-10</pitch-deg>
+		<pitch-deg>-10</pitch-deg>
 
 		</offsets>
-	</model>
-	
+</model>
+
+
 <model>
-		<name>clock</name>
-		<path>Aircraft/Instruments-3d/clock/clock.xml</path>
+		<name>Clock</name>
+		<path>Aircraft/ec130/Models/Instruments/Clock/clock.xml</path>
+
+		<offsets>
+			<x-m>-4.532</x-m>
+			<y-m>-0.672</y-m>
+			<z-m>-0.449</z-m>
+		<pitch-deg>-10</pitch-deg>
+
+		</offsets>
+</model>	
+
+<model>
+		<name>Warnpanel</name>
+		<path>Aircraft/ec130/Models/Instruments/CWS/CWS.xml</path>
+
+		<offsets>
+			<x-m>-4.567</x-m>
+			<y-m>-0.600</y-m>
+			<z-m>-0.214</z-m>
+		<pitch-deg>-10</pitch-deg>
+
+		</offsets>
+</model>	
+
+<model>
+		<name>Lighting</name>
+		<path>Aircraft/ec130/Models/Instruments/Lighting/lighting.xml</path>
+
+		<offsets>
+			<x-m>-4.522</x-m>
+			<y-m>-0.507</y-m>
+			<z-m>-0.451</z-m>
+		<pitch-deg>-10</pitch-deg>
+
+		</offsets>
+</model>	
+
+<model>
+		<name>VEMD</name>
+		<path>Aircraft/ec130/Models/Instruments/VEMD/vemd.xml</path>
+
+		<offsets>
+			<x-m>-4.575</x-m>
+			<y-m>-0.342</y-m>
+			<z-m>-0.269</z-m>
+		<pitch-deg>-10</pitch-deg>
+
+		</offsets>
+</model>	
+
+<model>
+		<name>Enginepanel</name>
+		<path>Aircraft/ec130/Models/Instruments/Enginepanel/enginepanel.xml</path>
+
+		<offsets>
+			<x-m>-4.500</x-m>
+			<y-m>-0.377</y-m>
+			<z-m>-0.520</z-m>
+		<pitch-deg>-21</pitch-deg>
+
+		</offsets>
+</model>	
+
+<model>
+		<name>KX155A</name>
+		<path>Aircraft/ec130/Models/Instruments/KX155A/KX155A.xml</path>
+
+		<offsets>
+			<x-m>-4.425</x-m>
+			<y-m>-0.366</y-m>
+			<z-m>-0.590</z-m>
+		<pitch-deg>-80</pitch-deg>
+
+		</offsets>
+</model>	
+
+<model>
+		<name>kt70</name>
+		<path>Aircraft/ec130/Models/Instruments/kt70/kt70.xml</path>
+
+		<offsets>
+			<x-m>-4.377</x-m>
+			<y-m>-0.366</y-m>
+			<z-m>-0.591</z-m>
+		<pitch-deg>-80</pitch-deg>
+
+		</offsets>
+</model>
+
+<model>
+		<name>RPM</name>
+		<path>Aircraft/ec130/Models/Instruments/Tach/tach.xml</path>
+
+		<offsets>
+			<x-m>-4.586</x-m>
+			<y-m>-0.475</y-m>
+			<z-m>-0.195</z-m>
+		<pitch-deg>-10</pitch-deg>
+
+		</offsets>
+</model>
+
+<model>
+		<name>SCU</name>
+		<path>Aircraft/ec130/Models/Instruments/SCU/scu.xml</path>
+
+		<offsets>
+			<x-m>-4.298</x-m>
+			<y-m>-0.364</y-m>
+			<z-m>-0.694</z-m>
+		<pitch-deg>9</pitch-deg>
+
+		</offsets>
+</model>
+
+<model>
+		<name>Breakers</name>
+		<path>Aircraft/ec130/Models/Instruments/Breakers/breakerspanel.xml</path>
+
+		<offsets>
+			<x-m>-4.194</x-m>
+			<y-m>-0.364</y-m>
+			<z-m>-0.707</z-m>
+		<pitch-deg>9</pitch-deg>
+
+		</offsets>
+</model>
+
+<model>
+		<name>Breakers2</name>
+		<path>Aircraft/ec130/Models/Instruments/Breakers/breakers.xml</path>
+
+		<offsets>
+			<x-m>-4.127</x-m>
+			<y-m>-0.364</y-m>
+			<z-m>-0.719</z-m>
+		<pitch-deg>9</pitch-deg>
+
+		</offsets>
+</model>
+
+
+
+<model>
+		<name>levers</name>
+		<path>Aircraft/ec130/Models/Instruments/Levers/levers.xml</path>
+
+		<offsets>
+			<x-m>-4.018</x-m>
+			<y-m>-0.178</y-m>
+			<z-m>0.300</z-m>
+		<pitch-deg>0</pitch-deg>
+
+		</offsets>
+</model>
+
+
+
+<!--rotor-->	
+<model>
+		<name>mainrotor</name>
+		<path>Aircraft/ec130/Models/rotor/rotoranimation.xml</path>
 
 		<offsets>
 
-			<x-m>-4.338</x-m>
-			<y-m>-0.721</y-m>
-			<z-m>-0.577</z-m>
+			<x-m>-1.987</x-m>
+			<y-m>0</y-m>
+			<z-m>1.371</z-m>
 
-			<pitch-deg>-10</pitch-deg>
+			<pitch-deg>-2</pitch-deg>
 
 		</offsets>
-	</model>
-	
-	<!-- rotor animation-->
-<animation>
-		<name>mainrotors</name>
-		<object-name>blades</object-name>
-		<object-name>starflex</object-name>
-	</animation>
-
-	<!-- main rotor tilt-->
-
-	<animation>
-		<type>rotate</type>
-		<object-name>starflex</object-name>
-		<object-name>blurred</object-name>
-		<object-name>mast</object-name>		
-		<offset-deg>5</offset-deg>
-		<axis>
-			<x>0</x>
-			<y>-1</y>
-			<z>0</z>
-		</axis>
-		<center>
-			<x-m>-0.1966</x-m>
-			<y-m>0.0</y-m>
-			<z-m>0.712</z-m>
-		</center>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>blades</object-name>
-		
-		<offset-deg>5</offset-deg>
-		<axis>
-			<x>0</x>
-			<y>-1</y>
-			<z>0</z>
-		</axis>
-		<center>
-			<x-m>-0.1966</x-m>
-			<y-m>0.0</y-m>
-			<z-m>0.712</z-m>
-		</center>
-	</animation>
-
-
-
-	<!--main rotor (always visible parts) -->
-
-	<animation>
-		<type>spin</type>
-		<object-name>starflex</object-name>
-		<object-name>blurred</object-name>
-		<property>rotors/main/rpm</property>
-		<factor>1.0</factor>
-		<axis>
-			<x1-m>-1.966</x1-m>
-			<y1-m>0.0</y1-m>
-			<z1-m>1.438</z1-m>
-			<x2-m>-1.966</x2-m>
-			<y2-m>0.0</y2-m>
-			<z2-m>1.065</z2-m>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>spin</type>
-		<object-name>blades</object-name>
-		<property>rotors/main/rpm</property>
-		<factor>1.0</factor>
-		<axis>
-			<x1-m>-1.966</x1-m>
-			<y1-m>0.0</y1-m>
-			<z1-m>1.438</z1-m>
-			<x2-m>-1.966</x2-m>
-			<y2-m>0.0</y2-m>
-			<z2-m>1.065</z2-m>
-		</axis>
-	</animation>
-
-	<!-- main rotor disc -->
-
-
-	<animation>
-		<type>material</type>
-		<object-name>blurred</object-name>
-		<transparency>
-			<alpha-prop>rotors/main/rpm</alpha-prop>
-			<factor>0.004</factor>
-			<offset>-0.25</offset>
-			<max>0.4</max>
-		</transparency>
-		<threshold>0.001</threshold>
-	</animation>
-
-
-	<animation>
-		<type>select</type>
-		<object-name>mainrotors</object-name>
-		<condition>
-			<less-than>
-				<property>rotors/main/rpm</property>
-				<value>175</value>
-			</less-than>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>blurred</object-name>
-		<property>rotors/main/blade[0]/position-deg</property>
-		<factor>1</factor>
-		<axis>
-			<x1-m>-1.966</x1-m>
-			<y1-m>0.0</y1-m>
-			<z1-m>1.438</z1-m>
-			<x2-m>-1.966</x2-m>
-			<y2-m>0.0</y2-m>
-			<z2-m>1.065</z2-m>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>noshadow</type>
-		<object-name>blurred</object-name>
-	</animation>
-
-	<!-- main rotor blades -->
-
-
-	<animation>
-		<type>material</type>
-		<object-name>mainrotors</object-name>
-		<global type="bool">true</global>
-		<transparency>
-			<alpha-prop>rotors/main/rpm</alpha-prop>
-			<factor>-0.0050</factor>
-			<offset>1</offset>
-			<max>1</max>
-		</transparency>
-	</animation>-->
-
-	<animation>
-		<type>rotate</type>
-		<object-name>starflex</object-name>
-		<property>rotors/main/blade[0]/position-deg</property>
-		<offset-deg>45</offset-deg>
-		<axis>
-			<x1-m>-1.966</x1-m>
-			<y1-m>0.0</y1-m>
-			<z1-m>1.438</z1-m>
-			<x2-m>-1.966</x2-m>
-			<y2-m>0.0</y2-m>
-			<z2-m>1.065</z2-m>
-		</axis>
-	</animation>
+</model>
 
 	
 

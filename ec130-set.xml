@@ -4,19 +4,34 @@
 EC 130 simulation config.
 
 ************************************************************************
+
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
 -->
 
 <PropertyList>
 	<sim>
 		<description>Eurocopter EC130</description>
-		<author>Heiko Schulz</author>
-		<status>alpha</status>
+		<author>Heiko Schulz, Maik Justus (FDM), Melchior Franz (Nasal)</author>
+		<status>beta</status>
 		<license>GPL v2</license>
-		<aircraft-version>0.1</aircraft-version>
+		<aircraft-version>1</aircraft-version>
 
 		<flight-model>yasim</flight-model>
 		<aero>ec130</aero>
-		<fuel-fraction>0.8</fuel-fraction>
+		 <fuel-fraction type="double">0.2</fuel-fraction>
 
 		<!--<startup>
 			<splash-texture>Aircraft/ec130/splash.rgb</splash-texture>
@@ -25,6 +40,7 @@ EC 130 simulation config.
 		<sound>
 			<path>Aircraft/ec135/Sounds/sound.xml</path>
 		</sound>
+ 
 
 
 		
@@ -42,63 +58,148 @@ EC 130 simulation config.
 				<rotor-step-deg type="float">-1.0</rotor-step-deg>
 
 				<hide-gsdi>true</hide-gsdi>
-				<binocular_standart type="bool">true</binocular_standart>
-				<binocular_tri type="bool">false</binocular_tri>
-				<winch>false</winch>
-				<mirror>false</mirror>
-				<wirecutter_skid>false</wirecutter_skid>
-				<wirecutter_up>false</wirecutter_up>
-				<nose>false</nose>
-				<nosefl>true</nosefl>
-				<radardome>false</radardome>
-				<antennaset>true</antennaset>
-				<plateleft>false</plateleft>
-				<plateright>true</plateright>
+				
 
 
+<doors>
+					<door>
+						<position-norm type="double">0.0</position-norm>
+						<name type="string">pilot's door</name>
+					</door>
 
+					<door>
+						<position-norm type="double">0.0</position-norm>
+						<name type="string">copilot's door</name>
+					</door>
+
+					<door>
+						<position-norm type="double">0.0</position-norm>
+						<name type="string">right backdoor</name>
+					</door>
+
+					<door>
+						<position-norm type="double">0.0</position-norm>
+						<name type="string">left backdoor</name>
+					</door>
+
+					<door>
+						<position-norm type="double">0.0</position-norm>
+						<name type="string">right reardoor</name>
+					</door>
+
+					<door>
+						<position-norm type="double">0.0</position-norm>
+						<name type="string">left reardoor</name>
+					</door>
+				</doors>
+				
 
 
 
 			</ec130>
 		</model>
+<systems>
+ <path>Aircraft/ec130/Systems/systems.xml</path>
+ <autopilot>
+ <path>Aircraft/ec130/filter.xml</path>
+ </autopilot>
+            <electrical>
+                <path></path>
+            </electrical>
+</systems>
+<instrumentation>
+<path>Aircraft/ec130/Systems/instruments.xml</path>
+</instrumentation>
+
+		
+
 
 		<!--view-->
 		<chase-distance-m type="double" archive="y">-20.0</chase-distance-m>
 
+  
+
+  <view n="0">
+  <internal type="bool">true</internal>
+    <config>
+      <x-offset-m archive="y">  -0.67 </x-offset-m> <!--right-->
+      <y-offset-m archive="y">  0.03</y-offset-m> <!--up-->
+      <z-offset-m archive="y"> -3.93 </z-offset-m> <!--back-->
+      <pitch-offset-deg>-15</pitch-offset-deg>
+      <default-field-of-view-deg>60.0</default-field-of-view-deg>
+      <dynamic-view type="bool">true</dynamic-view>
+    </config>
+  </view>
+  
+  <view n="1">
+		<name>Cockpit</name>
+		<type>lookfrom</type>
+	
+
+		<internal type="bool">true</internal>
+		<config>
+			<from-model type="bool">true</from-model>
+			<from-model-idx type="int">0</from-model-idx>
+			<x-offset-m type="double">-0.69</x-offset-m> <!--right -->
+			<y-offset-m type="double">0.4</y-offset-m>  <!--up -->
+			<z-offset-m type="double">-3.84</z-offset-m>  <!--back -->
+                               <dynamic-view type="bool">true</dynamic-view>
+			<pitch-offset-deg>-15.0</pitch-offset-deg>
+			<default-field-of-view-deg>90.0</default-field-of-view-deg>
+			<limits>
+				<enabled type="bool">true</enabled>
+				<left>
+					<heading-max-deg type="double">140</heading-max-deg>
+					<x-offset-max-m type="double">0.10</x-offset-max-m>
+					<x-offset-threshold-deg type="double">65</x-offset-threshold-deg>
+				</left>
+				<right>
+					<heading-max-deg type="double">160</heading-max-deg>
+					<x-offset-max-m type="double">0.15</x-offset-max-m>
+					<x-offset-threshold-deg type="double">65</x-offset-threshold-deg>
+				</right>
+			</limits>
+		</config>
+				</view>
+
+  
   <view n="100">
     <name>Passanger Seat View</name>
-    <internal archive="y">true</internal>
+  <internal type="bool">true</internal>
     <type>lookfrom</type>
     <config>
-      <from-model type="bool">true</from-model>
+   <from-model type="bool">true</from-model>
+			<from-model-idx type="int">0</from-model-idx>
       <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
-      <x-offset-m archive="y"> 0.03 </x-offset-m> <!--right-->
-      <y-offset-m archive="y">  0.58 </y-offset-m> <!--up-->
-      <z-offset-m archive="y"> -3.67 </z-offset-m> <!--back-->
+      <x-offset-m archive="y"> 0.00 </x-offset-m> 
+      <y-offset-m archive="y">  0.40 </y-offset-m> 
+      <z-offset-m archive="y"> -3.81 </z-offset-m> 
       <pitch-offset-deg>-15</pitch-offset-deg>
-      <default-field-of-view-deg>55</default-field-of-view-deg>
+       <heading-offset-deg>65</heading-offset-deg>
+      <default-field-of-view-deg>71</default-field-of-view-deg>
       <dynamic-view type="bool">true</dynamic-view>
     </config>
   </view>
   
   <view n="101">
     <name>Passanger Seat View back</name>
-    <internal archive="y">true</internal>
+ <internal type="bool">true</internal>
     <type>lookfrom</type>
     <config>
-      <from-model type="bool">true</from-model>
+     <from-model type="bool">true</from-model>
+<from-model-idx type="int">0</from-model-idx>
       <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
       <x-offset-m archive="y"> 0.29 </x-offset-m> <!--right-->
-      <y-offset-m archive="y">  0.58 </y-offset-m> <!--up-->
+      <y-offset-m archive="y">  0.4 </y-offset-m> <!--up-->
       <z-offset-m archive="y"> -2.75 </z-offset-m> <!--back-->
       <pitch-offset-deg>-15</pitch-offset-deg>
-      <default-field-of-view-deg>55</default-field-of-view-deg>
+      <heading-offset-deg>45</heading-offset-deg>
+      <default-field-of-view-deg>71</default-field-of-view-deg>
       <dynamic-view type="bool">true</dynamic-view>
     </config>
   </view>
 
-  <view n="102">
+  <view n="4">
     <name>Tail Camera View</name>
     <type>lookfrom</type>
     <internal archive="y">true</internal>
@@ -114,53 +215,6 @@ EC 130 simulation config.
     </config>
   </view>
 
-  <view n="0">
-    <internal archive="y">true</internal>
-    <config>
-      <x-offset-m archive="y">  -0.68 </x-offset-m> <!--right-->
-      <y-offset-m archive="y">  0.40 </y-offset-m> <!--up-->
-      <z-offset-m archive="y"> -3.67 </z-offset-m> <!--back-->
-      <pitch-offset-deg>-15</pitch-offset-deg>
-      <dynamic-view type="bool">true</dynamic-view>
-    </config>
-  </view>
-
-  <view n="1">
-    <config>
-      <target-z-offset-m archive="y" type="double">0</target-z-offset-m>
-    </config>
-  </view>
-
-  <view n="2">
-    <config>
-      <target-z-offset-m archive="y" type="double">0</target-z-offset-m>
-    </config>
-  </view>
-
-  <view n="3">
-    <config>
-      <target-z-offset-m archive="y" type="double">0</target-z-offset-m>
-    </config>
-  </view>
-
-  <view n="4">
-    <config>
-      <target-z-offset-m archive="y" type="double">0</target-z-offset-m>
-    </config>
-  </view>
-
-  <view n="5">
-    <config>
-      <target-z-offset-m archive="y" type="double">0</target-z-offset-m>
-    </config>
-  </view>
-
-  <view n="6">
-    <config>
-      <target-z-offset-m archive="y" type="double">0</target-z-offset-m>
-    </config>
-  </view>
-
 
 
 		<weight n="0">
@@ -171,31 +225,43 @@ EC 130 simulation config.
 
     <weight n="1">
       <name>Co-Pilot</name>
-      <weight-lb>180</weight-lb>
+      <weight-lb>0</weight-lb>
       <max-lb>300</max-lb>
     </weight>
 
     <weight n="2">
-      <name>Right Passenger</name>
-      <weight-lb>160</weight-lb>
+      <name>Right Front Passenger</name>
+      <weight-lb>0</weight-lb>
       <max-lb>300</max-lb>
     </weight>
 
     <weight n="3">
-      <name>Middle Passenger</name>
-      <weight-lb>160</weight-lb>
+      <name>Right Rear Passenger</name>
+      <weight-lb>0</weight-lb>
       <max-lb>300</max-lb>
     </weight>
 
     <weight n="4">
-      <name>Left Passenger</name>
-      <weight-lb>160</weight-lb>
+      <name>Middle Passenger</name>
+      <weight-lb>0</weight-lb>
+      <max-lb>300</max-lb>
+    </weight>
+    
+     <weight n="5">
+      <name>Middle Passenger</name>
+      <weight-lb>0</weight-lb>
       <max-lb>300</max-lb>
     </weight>
 
-    <weight n="5">
+    <weight n="6">
+      <name>Left Rear Passenger</name>
+      <weight-lb>0</weight-lb>
+      <max-lb>300</max-lb>
+    </weight>
+
+    <weight n="7">
       <name>Load</name>
-      <weight-lb>250</weight-lb>
+      <weight-lb>0</weight-lb>
       <max-lb>800</max-lb>
     </weight>
 
@@ -204,84 +270,16 @@ EC 130 simulation config.
 			<line></line>
 			
 			<line>Help</line>
-			<line></line>
-			<line>starting the engines -> press }-key</line>
-			<line>shut down the engines -> press {-key</line>
-			<line>toggle rotor brake -> press N-key</line>
-			<line>collective -> page up/down- keys</line>
-			<line>Open/ Close doors -> click the menu "EC130" panel above</line>
-			<line>change livery ->press l-key</line>
-			<line>landinglight ->press g/G-key</line>
-
-
+			
 		</help>
 
-		<hitches>
-			<!-- make sure some properties do exist, when the list for multiplayer transfere is defined-->
-			<!-- they need to be in the same value, as they are initilized in the FDM, to get the same values after reset
-    should fix this somehow-->
-			<aerotow>
-				<tow>
-					<length type="float">60</length>
-					<elastic-constant type="float">10000</elastic-constant>
-					<weight-per-m-kg-m type="float">1</weight-per-m-kg-m>
-					<dist type="float">1</dist>
-					<connected-to-property-node type="bool"></connected-to-property-node>
-					<brake-force type="float">100000</brake-force>
-					<connected-to-ai-or-mp-callsign type ="string">*</connected-to-ai-or-mp-callsign>
-					<end-force-x type ="float">0</end-force-x>
-					<end-force-y type ="float">0</end-force-y>
-					<end-force-z type ="float">0</end-force-z>
-				</tow>
-				<speed-in-tow-direction type="float">0</speed-in-tow-direction>
-				<open type="bool">true</open>
-				<local-pos-x type="float">0</local-pos-x>
-				<local-pos-y type="float">0</local-pos-y>
-				<local-pos-z type="float">0</local-pos-z>
-				<is-slave type="bool">true</is-slave>
-			</aerotow>
-		</hitches>
-
+		
 		<menubar>
 			<default>
 				<menu n="10">
 					<label>EC130</label>
 					<enabled type="bool">true</enabled>
-					<item>
-						<label>Open/close pilots door</label>
-						<binding>
-							<command>nasal</command>
-							<script>ec130.pilotDoor.toggle();</script>
-						</binding>
-					</item>
-					<item>
-						<label>Open/close Copilots door</label>
-						<binding>
-							<command>nasal</command>
-							<script>ec130.copilotDoor.toggle();</script>
-						</binding>
-					</item>
-					<item>
-						<label>Open/close right backdoor</label>
-						<binding>
-							<command>nasal</command>
-							<script>ec130.ribackDoor.toggle();</script>
-						</binding>
-					</item>
-					<item>
-						<label>Open/close left backdoor</label>
-						<binding>
-							<command>nasal</command>
-							<script>ec130.lebackDoor.toggle();</script>
-						</binding>
-					</item>
-					<item>
-						<label>Open/close reardoors</label>
-						<binding>
-							<command>nasal</command>
-							<script>ec130.rearDoors.toggle();</script>
-						</binding>
-					</item>
+					
 					<item>
 						<label>Show/hide GSDI</label>
 						<binding>
@@ -289,47 +287,92 @@ EC 130 simulation config.
 							<property>/sim/model/hide-gsdi</property>
 						</binding>
 					</item>
+					<item>
+						
+			
+			<label>Supply External Power</label>
+			<binding>
+				<command>property-toggle</command>
+				<property>/controls/electric/external-power</property>
+			</binding>
+		
+					</item>
 				</menu>
 			</default>
 		</menubar>
-	</sim>
+		
+		
+		
+</sim>
+	
+<consumables>
+		<fuel>
+			<tank>
+				<name>Main</name>
+				<selected type="bool" write="n">1</selected>
+				<density-ppg type="double" write="n">6.682</density-ppg>
+			</tank>
+
+			
+		</fuel>
+	</consumables>
 
 	<controls>
+	<!--cold and dark as we all like it!-->
+	
+	<rotor>
+	                    <brake type ="double">1</brake>
+			<reltarget type="double">0</reltarget>
+			<maxreltorque type="double">0</maxreltorque>
+		</rotor>
+	
 		<engines>
 			<engine n="0">
-				<magnetos>0</magnetos>
+				<magnetos>1</magnetos>
+				<propeller-pitch alias="/controls/engines/power-trim"/>
+				<mixture alias="/controls/engines/power-balance"/>
+				<startselector type="bool">0</startselector>
+				<switchguard type="bool">0</switchguard>
 			</engine>
-		</engines>
+			<engine n="1">
+				<magnetos>1</magnetos>
+				<propeller-pitch alias="/controls/engines/power-trim"/>
+				<mixture alias="/controls/engines/power-balance"/>
+				<throttle alias="/controls/engines/engine[0]/throttle"/>
+			</engine>
+			<power-trim type="double">0</power-trim>
+			<power-balance type="double">0</power-balance>
+	</engines>
 
 
 		<lighting>
-			<strobe type="bool">true</strobe>
-			<beacon type="bool">true</beacon>
-			<nav-lights type="bool">true</nav-lights>
+			<beacon type="bool">false</beacon>
+			<nav-lights type="bool">false</nav-lights>
 		</lighting>
+		
 	</controls>
 
+
 	<instrumentation>
-		<gsdi>
+      	  <kcs55 include="Systems/kcs55.xml"/>
+        		<gsdi>
 			<serviceable type="bool">true</serviceable>
 		</gsdi>
-		<hsi>
-			<serviceable type="bool" archive="y">true</serviceable>
-		</hsi>
 	</instrumentation>
 
 	<input>
 		<keyboard>
 
 			<!-- Livery Box -->
-			<key n="108">
-				<name>l</name>
-				<desc>Show livery select dialog</desc>
+			<!--<key n="79">
+				<name>O</name>
+				<desc>start timer</desc>
 				<binding>
-					<command>nasal</command>
-					<script>aircraft.livery.dialog.toggle()</script>
-				</binding>
-			</key>
+				<command>nasal</command>
+				<script>ec130.begin()</script>
+			</binding>
+			</key>-->
+  
 
 			<key n="78">
 				<name>N</name>
@@ -357,59 +400,47 @@ EC 130 simulation config.
 					</binding>
 				</mod-up>
 			</key>
+			
+                               <key n="102">
+				<name>f</name>
+				<desc>Force Trim Release</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ec130.ftr_start()</script>
+				</binding>
+				<mod-up>
+					<binding>
+						<command>nasal</command>
+						<script>ec130.ftr_stop()</script>
+					</binding>
+				</mod-up>
+			</key>
 
-			<key n="123">
+			<!--<key n="123">
 				<name>{</name>
 				<desc>Shutdown Engines</desc>
 				<binding>
 					<command>nasal</command>
-					<script>ec130.engines(0)</script>
+					<script>ec130.shutdown()</script>
+					<condition>
+						<property>/sim/signals/fdm-initialized</property>
+					</condition>
 				</binding>
-			</key>
+</key>
 
 			<key n="125">
 				<name>}</name>
 				<desc>Start Engines</desc>
 				<binding>
 					<command>nasal</command>
-					<script>ec130.engines(1)</script>
+					<script>ec130.startup()</script>
+					<condition>
+						<property>/sim/signals/fdm-initialized</property>
+					</condition>
 				</binding>
-			</key>
+</key>-->
 
-			<key n="79">
-				<name>O</name>
-				<desc>Open aerotow hook</desc>
-				<binding>
-					<command>property-assign</command>
-					<property>/sim/hitches/aerotow/open</property>
-					<value type="bool">true</value>
-				</binding>
-			</key>
-			<key n="111">
-				<name>o</name>
-				<desc>Lock aerotow hook</desc>
-				<binding>
-					<command>property-assign</command>
-					<property>/sim/hitches/aerotow/open</property>
-					<value type="bool">false</value>
-				</binding>
-			</key>
-			<key n="15">
-				<name>Ctrl-o</name>
-				<desc>Find aircraft for aerotow</desc>
-				<binding>
-					<command>property-assign</command>
-					<property>/controls/aerotow/find-aircraft</property>
-					<value type="bool">true</value>
-				</binding>
-				<mod-up>
-					<binding>
-						<command>property-assign</command>
-						<property>/controls/aerotow/find-aircraft</property>
-						<value type="bool">false</value>
-					</binding>
-				</mod-up>
-			</key>
+			
 
 		</keyboard>
 	</input>
@@ -417,15 +448,28 @@ EC 130 simulation config.
 
 	<nasal>
 		<ec130>
-			<file>Aircraft/ec130/Models/ec130.nas</file>
-			
+		           <file>Aircraft/ec130/Nasal/savestate.nas</file>	
+			<file>Aircraft/ec130/Nasal/ec130.nas</file>
+			<file>Aircraft/ec130/Nasal/flightcontrols.nas</file>
+			<file>Aircraft/ec130/Nasal/Electrical.nas</file>
+			<file>Aircraft/ec130/Nasal/fadec.nas</file>
+			<file>Aircraft/ec130/Systems/kcs55.nas</file>
+			<file>Aircraft/ec130/Nasal/systems.nas</file>
+			<file>Aircraft/ec130/Nasal/rotorloads.nas</file>
+			<file>Aircraft/ec130/Models/Instruments/VEMD/timer.nas</file>
+			<file>Aircraft/ec130/Models/Instruments/VEMD/VEMD.nas</file>
+			<file>Aircraft/ec130/Models/Instruments/VEMD/roc.nas</file>
+			 <file>Aircraft/ec130/Models/Instruments/CWS/CWS.nas</file>
+			   <script><![CDATA[
+              KCS55.new();
+            ]]></script>
 		</ec130>
 	</nasal>
 
 
 	<rotors>
 		<main>
-			<rpm type="double">500</rpm>
+			<rpm type="double">0</rpm>
 		</main>
 	</rotors>
 
