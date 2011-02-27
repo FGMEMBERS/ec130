@@ -20,7 +20,7 @@
 <PropertyList>
 
 
-	<path>ec130.ac</path>
+	<path>ec130.2.ac</path>
 	<offsets>
 		<z-m>0</z-m>
 		<y-m>0</y-m>
@@ -79,7 +79,7 @@
     </offsets>
   </model>	
   
-  <!--stick
+  <!--stick-->
   <animation>
     <type>rotate</type>
     <object-name>stickgrip</object-name>
@@ -114,7 +114,7 @@
       <y> 1 </y>
       <z> 0 </z>
     </axis>
-  </animation>-->
+  </animation>
   
 <!--panel-->
 <model>
@@ -469,152 +469,6 @@
 		<texture>default.png</texture>
 	</animation>
 	
-<!--lights-->
-<animation>
-   <type>select</type>
-   <object-name>navlight_left</object-name>
-   <object-name>navlight_right</object-name>
-   <object-name>navlight_back</object-name>
-     <object-name>navlight_front</object-name>
-     <object-name>navlight_front2</object-name>
-      <condition>
-   <greater-than>
-     <property>sim/multiplay/generic/int[2]</property>
-     <value>24</value>
-     </greater-than>
-   </condition>
- </animation>
- 
- <animation>
-		<type>flash</type>
-		<object-name>navlight_front</object-name>
-		<center>
-			<x-m>-3.418</x-m>
-			<y-m>0.395</y-m>
-			<z-m>-1.317</z-m>
-		</center>
-		<axis>
-			<x>-1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
-		<power>5</power>
-		<factor>1</factor>
-		<offset>0</offset>
-		<two-sides type="bool">false</two-sides>
-		<min>0.01</min>
-		<max>1</max>
-	</animation>
-	
-<animation>
-   <type>select</type>
-   <object-name>landing_light</object-name>
-   <object-name>landing_light2</object-name>
-   
-   <condition>
-   <greater-than>
-     <property>sim/multiplay/generic/int[1]</property>
-     <value>24</value>
-     </greater-than>
-   </condition>
- </animation>
- 
- <animation>
-		<type>flash</type>
-		<object-name>landing_light</object-name>
-		<center>
-			<x-m>-3.410</x-m>
-			<y-m>-0.486</y-m>
-			<z-m>-1.295</z-m>
-		</center>
-		<axis>
-			<x>-1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
-		<power>5</power>
-		<factor>1</factor>
-		<offset>0</offset>
-		<two-sides type="bool">false</two-sides>
-		<min>0.01</min>
-		<max>1</max>
-	</animation>
-	
- <!--beacon-->
- <animation>
-   <type>select</type>
-   <object-name>Plane.005X</object-name>
-    <condition>
-   <greater-than>
-     <property>sim/multiplay/generic/int[0]</property>
-     <value>24</value>
-     </greater-than>
-   </condition>
- </animation>
- 
- <animation>
-   <type>select</type>
-   <object-name>Plane.005X</object-name>
-   <condition>
-     <property>/sim/model/ec130/lighting/beacon-top/state</property>
-   </condition>
- </animation>
- 
- 	<animation>
-		<type>range</type>
-		<min-m>0</min-m>
-		<max-m>25000</max-m>
-	</animation>
-
-	<Plane.005Xparams>
-		<light-near>0.4</light-near>
-		<light-med>0.8</light-med>
-		<light-far>10</light-far>
-	</Plane.005Xparams>
-
-	
-
-	<animation>
-		<type>alpha-test</type>
-		<object-name>Plane.005X</object-name>
-		<alpha-factor>0.001</alpha-factor>
-	</animation>
-
-	<animation>
-		<type>translate</type>
-		<object-name>Plane.005X</object-name>
-		<offset-m>5.05421</offset-m>
-		<axis>
-			<x>4.677532</x>
-			<y>0.050192</y>
-			<z>1.913951</z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>billboard</type>
-		<object-name>Plane.005X</object-name>
-		<spherical type="bool">true</spherical>
-	</animation>
-
-	<animation>
-		<type>dist-scale</type>
-		<object-name>Plane.005X</object-name>
-		<interpolation>
-			<entry>
-				<ind>0</ind>
-				<dep alias="../../../../Plane.005Xparams/light-near"/>
-			</entry>
-			<entry>
-				<ind>500</ind>
-				<dep alias="../../../../Plane.005Xparams/light-med"/>
-			</entry>
-			<entry>
-				<ind>16000</ind>
-				<dep alias="../../../../Plane.005Xparams/light-far"/>
-			</entry>
-		</interpolation>
-	</animation>
 
 
 </PropertyList>

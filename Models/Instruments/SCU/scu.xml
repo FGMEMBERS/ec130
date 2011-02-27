@@ -185,17 +185,6 @@
         </action>
     </animation>
     
-<animation>
-    <type>select</type>
-    <object-name>generst_led</object-name>
-     
-      <condition>
-      <less-than>
-    <property>controls/electric/engine[0]generator</property>
-        <value>0</value>
-      </less-than>
-    </condition>
-  </animation>
   
   
    <animation>
@@ -412,41 +401,37 @@
         </action>
     </animation>
     
-<animation>
-    <type>select</type>
-         <object-name>crank_led</object-name>
-    
-      <condition>
-      <greater-than>
-          <property>controls/engines/engine/starter</property>
-        <value>0</value>
-      </greater-than>
-    </condition>
-  </animation>
+
   
   <animation>
         <type>pick</type>
-        <object-name>firetest</object-name>
+        <object-name>firettest</object-name>
         <action>
             <button>0</button>
             <repeatable>false</repeatable>
             <binding>
             <command>property-toggle</command>
-             <property>controls/electric/warningtest</property>
+             <property>controls/electric/firetest</property>
             </binding>
         </action>
     </animation>
     
      <animation>
         <type>pick</type>
-        <object-name>wltest</object-name>
+        <object-name>wlttest</object-name>
         <action>
             <button>0</button>
             <repeatable>false</repeatable>
             <binding>
             <command>property-toggle</command>
-          <property>controls/electric/firetest</property>
+          <property>controls/electric/warningtest</property>
             </binding>
+	    <mod-up>
+	     <binding>
+            <command>property-toggle</command>
+          <property>controls/electric/warningtest</property>
+            </binding>
+	    </mod-up>
         </action>
     </animation>
     
@@ -462,7 +447,37 @@
             </binding>
         </action>
     </animation>
-    
+
+    <animation>
+        <type>pick</type>
+        <object-name>floatarm</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+          <property>controls/gear/floats-armed</property>
+            </binding>
+        </action>
+    </animation>
+  
+<animation>
+    <type>select</type>
+   <object-name>floatarm_led</object-name>
+     <condition>
+	<property>controls/gear/floats-armed</property>
+</condition>
+  </animation>
+
+<animation>
+		<type>select</type>
+		<object-name>floatarm_text</object-name>
+		
+		<object-name>floatarm</object-name>
+		<condition>
+			<property>sim/model/ec130/emerg_floats</property>
+		</condition>
+</animation>
     
   
 

@@ -28,7 +28,8 @@ var watt_list=[];
 strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
 aircraft.light.new("controls/lighting/strobe-state", [0.05, 1.30], strobe_switch);
 beacon_switch = props.globals.getNode("controls/lighting/beacon", 1);
-aircraft.light.new("controls/lighting/beacon-state", [1.0, 1.0], beacon_switch);
+aircraft.light.new("controls/lighting/beacon-state", [0.5, 1.0], beacon_switch);
+
 
 #var battery = Battery.new(switch-prop,volts,amps,amp_hours,charge_percent,charge_amps);
 Battery = {
@@ -194,6 +195,10 @@ init_switches = func() {
 
     append(switch_list,"controls/electric/firetest");
     append(output_list,"firetest");
+    append(watt_list,0.5);
+    
+    append(switch_list,"controls/electric/CWS");
+    append(output_list,"CWS");
     append(watt_list,0.5);
     
     append(switch_list,"controls/electric/servo");

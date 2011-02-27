@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<sim>
+		<model>
+			
+				<livery>
+					<name type="string">D-HTLL</name>
+					 <index type="int">1</index>
+					  <texture>DHTLL.png</texture>
+				</livery>
+				<ec130>
+				<state type="int">0</state>
+				<rotor-step-deg type="float">-1.0</rotor-step-deg>
+				<emerg_floats>false</emerg_floats>
+				<basket_left>false</basket_left>
+				<basket_right>false</basket_right>
+				<mirror>false</mirror>
+				<FLIR>false</FLIR>
+				<searchlight>false</searchlight>
+				<wirecutter>false</wirecutter>
+				<hide-gsdi>true</hide-gsdi>
+			</ec130>
+		   </model>
+	  <rendering>
+    <refl_correction type="string">0.0</refl_correction>
+    </rendering>
+	</sim>
+</PropertyList>

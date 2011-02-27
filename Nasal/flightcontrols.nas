@@ -76,17 +76,17 @@ dst1elevator = props.globals.getNode("/controls/flight/elevator_dst1",1);
 dst0aileron = props.globals.getNode("/controls/flight/aileron_dst0",1);
 dst0elevator = props.globals.getNode("/controls/flight/elevator_dst0",1);
 
-#if (rl > servosp){
-#dst1aileron.setValue(1-(rl - 18) / (22 - 18));
-#dst1elevator.setValue(1-(rl - 18) / (22 - 18));
-#dst0aileron.setValue(-1-(rl - 18) / (22 - 18));
-#dst0elevator.setValue(-1-(rl - 18) / (22 - 18));
-#}else{
-#dst1aileron.setValue(1);
-#dst1elevator.setValue(1);
-#dst0aileron.setValue(-1);
-#dst0elevator.setValue(-1);
-#}
+if (rl > servosp){
+dst1aileron.setValue(1-(rl - 18) / (22 - 18));
+dst1elevator.setValue(1-(rl - 18) / (22 - 18));
+dst0aileron.setValue(-1-(rl - 18) / (22 - 18));
+dst0elevator.setValue(-1-(rl - 18) / (22 - 18));
+}else{
+dst1aileron.setValue(1);
+dst1elevator.setValue(1);
+dst0aileron.setValue(-1);
+dst0elevator.setValue(-1);
+}
 
 settimer(interaction, 0.1);
 }
@@ -95,5 +95,23 @@ init = func {
    settimer(interaction, 0.0);
 }
 init();
+
+##############
+var emerg_floats = func {
+
+EF= getprop("/sim/model/ec130/emerg_floats");
+
+if (EF == "false"){
+setprop("/controls/gear/floats-inflat", "false");
+}
+
+
+
+
+settimer(emerg_floats, 0.1);
+}
+emerg_floats();
+
+
 
 

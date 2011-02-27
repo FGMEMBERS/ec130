@@ -2,7 +2,7 @@
 12/11/2010
 
 1. Information:
-This Model of an Eurocopter EC130 B4is made for FlightGear and stands under the terms of GPLv2.
+This Model of an Eurocopter EC130 B4 is made for FlightGear and stands under the terms of GPLv2.
 
 This model is standing under heavily work progress so please accept that there are a lot of thing which might not working as you want. 
 For updates use the GIT-version and read the GIT-logs and some threads in the officiasl FlightGear Forum!
@@ -34,13 +34,13 @@ mfranz@aon.at
 - no Autostart
 - fuel state saved on exit
 - Force Trim Release
+-emergency floats
 
 3. To-do:
 - fixing the FLI to a more realistic behaviour
 - adding the rotorspeed management to FADEC
 - VEMD: switching the pages, fixing of some bugs
 - some minor optimization of the 3d-model
-- freezing of the UVmap and Paintkit
 - better views
 - flight manual as pdf
 - failures
@@ -70,25 +70,42 @@ The fuel tank sits below the engine- due to gravitity the fuellines are empty.
 So you need first electrical power:
 3.)BAT EPU on and GEN on 
 4.) VEMD after a testing phase you should see the Enginestartpage- 3 halfcircles with Torque, Ng (aka N2) and T4.
+5.= W/LT test depress and release
+
 
 Engine Starting
 
 1.)Fuel P on Now the pump can fill up the lines to the engine with fuel. It needs about 30 sec. On the real thing you don't see any effect. On this model the FUEL-P sign on the warning panel may dissapear.
-2.)Start Selector: On 
+2. A/Col-Light: On
+3.)Start Selector: On 
 The starter is released and will bring up NG to about 17-18%. Fuel is injected then automatically, NG increases, T4 increases, rotor is turning, engine oil pressure increases.
 Also some warnings on the warning panel will dissapear.
 At NG = 60% the Enginestartpage dissapears and the FLI-pages comes up.
 
 When Ng> 67% engine is now in Idle. 
 
+
 3.)set Fuel P offNot needed anymore- the engines sucks now the fuel.
 
 Run Up
 
 Twist grip set to Flight (100%) Drag the mouse up with MMB pressed. (not in Controll-mode or View-mode!) That's like Melchiors Bo105.
+
+
+Before Takeoff:
+
+Landing Light: as required ("l"-key ( like "L"etter))
+NavLights: as required
 All warnings and cautions should be off now, Rotor-RPM increases to >370.
 If Rotor-RPM >370 you can lift off. 
 Please note it is a french system!
+
+Takeoff Check and Procedure:
+-increase collective pitch until you  hover at 5 ft- check all engine values and warning lights off
+-increase airspeed until 40 ktn at 10 ft, then increasing to 50ktn at 20ft, then increase to 70ktn and climb to cruise level. 
+
+Cruise
+-airspeed about 100-137 with TRQ as required (best at 82%)
 
 Shutdown
 Twistgrip to Idle detent: drag the mouse down with MMB pressed
@@ -102,6 +119,9 @@ If Rotor-RPM <70 Flightreportpage appears and shows flight duration time and the
 When FlightGear is exit as usual flightnumber and fuel level state is saved and will be load up again next time.
 
 No warranties!
+
+
+
 
 5. Force Trim Release
 
@@ -118,8 +138,18 @@ that is how to use it:
 	(3) move stick/yoke to neutral position (center)
 	(4) release FTR button (f-key)
 
+6.Emergency Floats:
 
-6. Additional informations:
+If selected the floats has to be armed with the button on the SCU.
+In the case of ermergency press "e"-key. The Floates will be inflated immediately.
+
+The emergency floats can only repacked on ground!
+
+7.Landing Lights:
+
+Press "l"-key (l like "L"etter)
+
+8. Additional informations:
 Like many french helicopters the hydraulics are to weak for acrobatic and heavy maneuvers.
 Maneuvers with high g-loads (high rotor loads) will lead to jackstall or also known as hydraulic transparency.
 Forces from the rotor are feed back to the cyclic controls, and can lock them. So in some certain flightstates there will be no control, 

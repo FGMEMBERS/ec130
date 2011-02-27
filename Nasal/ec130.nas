@@ -1,12 +1,12 @@
 # (c) Melchior FRANZ  < mfranz # flightgear : org > Thanks for it- currently there is no better solutionout there!
 
 print("\x1b[35m
- _____                                _              ____        _  ___  ____
-| ____|   _ _ __ ___   ___ ___  _ __ | |_ ___ _ __  | __ )  ___ / |/ _ \| ___|
-|  _|| | | | '__/ _ \ / __/ _ \| '_ \| __/ _ \ '__| |  _ \ / _ \| | | | |___ \
-| |__| |_| | | | (_) | (_| (_) | |_) | ||  __/ |    | |_) | (_) | | |_| |___) |
-|_____\__,_|_|  \___/ \___\___/| .__/ \__\___|_|    |____/ \___/|_|\___/|____/
-                               |_|
+  ______   _____      __  ____      ___      ____    _  _   
+ |  ____| / ____|    /_ | |___ \    / _ \     |  _ \   | || |  
+ | |__   | |              | |  __) |   | | | |    | |_)|  | || |_ 
+ |  __|  | |              | | |__ <   | | | |    |  _<   |__   _|
+ | |____| |____        | | ___) | | |_| |    | |_) |    | |  
+ |______|\_____|     |_||____/  \___/     |____/    |_|  
 \x1b[m");
 
 
@@ -26,7 +26,8 @@ var bell = func(x, spread = 2) pow(math.e, -(x * x) / spread);
 var max = func(a, b) a > b ? a : b;
 var min = func(a, b) a < b ? a : b;
 
-
+# liveries =========================================================
+aircraft.livery.init("Aircraft/ec130/Models/liveries");
 
 # timers ============================================================
 aircraft.timer.new("/sim/time/hobbs/helicopter", nil).start();
@@ -60,39 +61,6 @@ var nav_light_loop = func {
 nav_light_loop();
 
 
-
-# doors =============================================================
-var Doors = {
-	new: func {
-		var m = { parents: [Doors] };
-		m.active = 0;
-		m.list = [];
-		foreach (var d; props.globals.getNode("sim/model/ec130/doors").getChildren("door"))
-			append(m.list, aircraft.door.new(d, 2.5));
-		return m;
-	},
-	next: func {
-		me.select(me.active + 1);
-	},
-	previous: func {
-		me.select(me.active - 1);
-	},
-	select: func(which) {
-		me.active = which;
-		if (me.active < 0)
-			me.active = size(me.list) - 1;
-		elsif (me.active >= size(me.list))
-			me.active = 0;
-		gui.popupTip("Selecting " ~ me.list[me.active].node.getNode("name").getValue());
-	},
-	toggle: func {
-		me.list[me.active].toggle();
-	},
-	reset: func {
-		foreach (var d; me.list)
-			d.setpos(0);
-	},
-};
 
 
 
@@ -716,18 +684,6 @@ setlistener("sim/current-view/view-number", func {
 
 
 var volume = props.globals.getNode("sim/model/ec130/sound/volume", 1);
-var update_volume = func {
-	var door_open = 0;
-	foreach (var d; doors.list) {
-		if (!d.enabledN.getValue() or d.positionN.getValue() > 0.001) {
-			door_open = 1;
-			break;
-		}
-	}
-	volume.setDoubleValue(1 - (0.8 - 0.6 * door_open) * internal);
-}
-
-
 
 # crash handler =====================================================
 var crash = func {
@@ -735,12 +691,6 @@ var crash = func {
 		# crash
 		setprop("sim/model/ec130/tail-angle-deg", 35);
 		setprop("sim/model/ec130/shadow", 0);
-		setprop("sim/model/ec130/doors/door[0]/position-norm", 0.2);
-		setprop("sim/model/ec130/doors/door[1]/position-norm", 0.9);
-		setprop("sim/model/ec130/doors/door[2]/position-norm", 0.2);
-		setprop("sim/model/ec130/doors/door[3]/position-norm", 0.6);
-		setprop("sim/model/ec130/doors/door[4]/position-norm", 0.1);
-		setprop("sim/model/ec130/doors/door[5]/position-norm", 0.05);
 		setprop("rotors/main/rpm", 0);
 		setprop("rotors/main/blade[0]/flap-deg", -60);
 		setprop("rotors/main/blade[1]/flap-deg", -50);
@@ -763,7 +713,7 @@ var crash = func {
 		# uncrash (for replay)
 		setprop("sim/model/ec130/tail-angle-deg", 0);
 		setprop("sim/model/ec130/shadow", 1);
-		doors.reset();
+		
 		setprop("rotors/tail/rpm", 2219);
 		setprop("rotors/main/rpm", 442);
 		for (i = 0; i < 4; i += 1) {
@@ -912,7 +862,7 @@ var main_loop = func {
 	update_torque(dt);
 	update_stall(dt);
 	update_slide();
-	update_volume();
+
 	update_absorber();
 	fuel.update(dt);
 	engines.update(dt);
@@ -924,7 +874,7 @@ var main_loop = func {
 var replay = 0;
 var crashed = 0;
 
-var doors = Doors.new();
+
 #var config_dialog = gui.Dialog.new("/sim/gui/dialogs/ec130/config/dialog", "Aircraft/ec130/Dialogs/config.xml");
 
 

@@ -80,6 +80,10 @@
 		<object-name>blade3b</object-name>
 		<object-name>blade3c</object-name>
 		<object-name>blade3d</object-name>
+		<object-name>bladearm1</object-name>
+		<object-name>bladearm2</object-name>
+		<object-name>bladearm3</object-name>
+		<object-name>flexbeam</object-name>
 </animation>
 
 	
@@ -95,9 +99,8 @@
 		<object-name>bladearm3</object-name>
 		<object-name>flexbeam</object-name>
 		<object-name>star</object-name>
-		<object-name>staebe</object-name>
+		<object-name>rods</object-name>
 		<object-name>plate1</object-name>
-		<object-name>plate2</object-name>
 		<property>rotors/main/rpm</property>
 		<factor>1</factor>
 		<center>
@@ -198,7 +201,7 @@
 			<alpha-prop>rotors/main/rpm</alpha-prop>
 			<factor>0.004</factor>
 			<offset>-0.25</offset>
-			<max>0.4</max>
+			<max>1.0</max>
 		</transparency>
 		<threshold>0.001</threshold>
 	</animation>
@@ -886,11 +889,63 @@
 		</axis>
 	</animation>
 	
+<animation>
+		<name>rotordisc</name>
+		<object-name>blurred1</object-name>
+		<object-name>blurred1a</object-name>
+		<object-name>blurred1b</object-name>
+		<object-name>blurred1c</object-name>
+		<object-name>blurred1d</object-name>
+		<object-name>blurred2</object-name>
+		<object-name>blurred2a</object-name>
+		<object-name>blurred2b</object-name>
+		<object-name>blurred2c</object-name>
+		<object-name>blurred2d</object-name>
+		<object-name>blurred3</object-name>
+		<object-name>blurred3a</object-name>
+		<object-name>blurred3b</object-name>
+		<object-name>blurred3c</object-name>
+		<object-name>blurred3d</object-name>
+</animation>
+
+<animation>
+		<object-name>rotordisc</object-name>
+               <property>rotors/main/roll-deg</property>
+		<factor>1</factor>
+		<center>
+			<x-m>0.005002</x-m>
+			<y-m>-0.000831</y-m>
+			<z-m>-0.001126</z-m>
+		</center>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+<animation>
+		<object-name>rotordisc</object-name>
+               <property>rotors/main/yaw-deg</property>
+		<factor>1</factor>
+		<center>
+			<x-m>0.005002</x-m>
+			<y-m>-0.000831</y-m>
+			<z-m>-0.001126</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
 
 
 
 
-	<!--tail rotor animation-->
+
+
+	<!--tail rotor animation- disabled until modelling is finished
 	<animation>
 		<type>material</type>
 		<object-name>rotor_disc_T</object-name>
@@ -911,16 +966,7 @@
 	<animation>
 		<type>material</type>
 		<object-name>Tblade</object-name>
-		<!--<object-name>tblade1</object-name>
-    <object-name>tblade2</object-name>
-    <object-name>tblade3</object-name>
-    <object-name>tblade4</object-name>
-    <object-name>tblade5</object-name>
-    <object-name>tblade6</object-name>
-    <object-name>tblade7</object-name>
-    <object-name>tblade8</object-name>
-    <object-name>tblade9</object-name>
-    <object-name>tblade10</object-name>-->
+		
 		<global type="bool">true</global>
 		<transparency>
 			<alpha-prop>rotors/tail/rpm</alpha-prop>
@@ -935,16 +981,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>Tblade</object-name>
-		<!--<object-name>tblade2</object-name>
-		<object-name>tblade2</object-name>
-    <object-name>tblade3</object-name>
-		<object-name>tblade4</object-name>
-    <object-name>tblade5</object-name>
-		<object-name>tblade6</object-name>
-    <object-name>tblade7</object-name>
-		<object-name>tblade8</object-name>
-    <object-name>tblade9</object-name>
-		<object-name>tblade10</object-name>-->
+		
 		<property>rotors/tail/blade[0]/position-deg</property>
 		<axis>
 			<x1-m>5.106</x1-m>
@@ -959,16 +996,7 @@
 	<animation>
 		<name>tailrotors</name>
 		<object-name>Tblade</object-name>
-		<!--<object-name>tblade1</object-name>
-		<object-name>tblade2</object-name>
-    <object-name>tblade3</object-name>
-		<object-name>tblade4</object-name>
-    <object-name>tblade5</object-name>
-		<object-name>tblade6</object-name>
-    <object-name>tblade7</object-name>
-		<object-name>tblade8</object-name>
-    <object-name>tblade9</object-name>
-		<object-name>tblade10</object-name>-->
+		
 	</animation>
 
 	<animation>
@@ -991,7 +1019,7 @@
 				<value>201</value>
 			</less-than>
 		</condition>
-	</animation>
+	</animation>-->
 
 
 
