@@ -22036,7 +22036,7 @@ OBJECT poly
 name "backdoorl"
 data 8
 Mesh.013
-texture "flightgear.png"
+texture "FLIGHTGEAR.png"
 texrep 1 1
 crease 80.000000
 numvert 102
@@ -23397,7 +23397,7 @@ OBJECT poly
 name "backdoorr"
 data 8
 Mesh.005
-texture "flightgear.png"
+texture "FLIGHTGEAR.png"
 texrep 1 1
 crease 80.000000
 numvert 40
@@ -32684,7 +32684,7 @@ OBJECT poly
 name "door"
 data 8
 Mesh.014
-texture "flightgear.png"
+texture "FLIGHTGEAR.png"
 texrep 1 1
 crease 80.000000
 numvert 33
@@ -32867,7 +32867,7 @@ OBJECT poly
 name "exhaust"
 data 12
 Cylinder.002
-texture "flightgear.png"
+texture "FLIGHTGEAR.png"
 texrep 1 1
 crease 30.000000
 numvert 204
@@ -37522,7 +37522,7 @@ OBJECT poly
 name "frontdoorl"
 data 8
 Mesh.008
-texture "flightgear.png"
+texture "FLIGHTGEAR.png"
 texrep 1 1
 crease 80.000000
 numvert 148
@@ -39405,7 +39405,7 @@ OBJECT poly
 name "frontdoorr"
 data 8
 Mesh.004
-texture "flightgear.png"
+texture "FLIGHTGEAR.png"
 texrep 1 1
 crease 80.000000
 numvert 154
@@ -42044,7 +42044,7 @@ OBJECT poly
 name "fuselage"
 data 8
 Mesh.025
-texture "flightgear.png"
+texture "FLIGHTGEAR.png"
 texrep 1 1
 crease 80.000000
 numvert 4630
@@ -85158,7 +85158,7 @@ OBJECT poly
 name "luggagel"
 data 8
 Mesh.001
-texture "flightgear.png"
+texture "FLIGHTGEAR.png"
 texrep 1 1
 crease 80.000000
 numvert 66
@@ -85617,7 +85617,7 @@ OBJECT poly
 name "luggager"
 data 8
 Mesh.003
-texture "flightgear.png"
+texture "FLIGHTGEAR.png"
 texrep 1 1
 crease 80.000000
 numvert 69
@@ -142417,7 +142417,7 @@ OBJECT poly
 name "wirecutter"
 data 8
 Mesh.085
-texture "flightgear.png"
+texture "FLIGHTGEAR.png"
 texrep 1 1
 crease 80.000000
 numvert 47
