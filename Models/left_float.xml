@@ -4,7 +4,7 @@
 <animation>
   <type>scale</type>
   <object-name>left_float</object-name>
-    <property>sim/multiplay/generic/int[3]</property>
+    <property>sim/multiplay/generic/float[0]</property>
   <x-min>1.0</x-min>
   <y-min>1.0</y-min>
   <z-min>1.0</z-min>

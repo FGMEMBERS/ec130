@@ -69,7 +69,7 @@
        stall-change-over="5.5" 
        cyclic-factor="1.0" 
        rotor-correction-factor="0.9" 
-       downwashfactor ="0.1" 
+       downwashfactor ="0.8" 
        
       
     
@@ -109,7 +109,7 @@
 	  lift-factor-stall="0.18"
 	  stall-change-over="5.5"
 	  drag-factor-stall="8"
-	  rotor-correction-factor="0.7"
+	  rotor-correction-factor="0.8"
 >
 		>
 		<control-input axis="/controls/flight/rudder" control="COLLECTIVE" invert="true"
@@ -169,7 +169,7 @@
                chord="0.550"
                sweep="0"
                incidence="0">
-	       <stall aoa="0" width="0" peak="1.5"/>
+	       <stall aoa="-27" width="0" peak="1.5"/>
 	</hstab>
 	
 

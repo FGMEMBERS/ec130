@@ -1,5 +1,5 @@
 ##FlightManual EC 130##
-12/11/2010
+03/02/2011
 
 1. Information:
 This Model of an Eurocopter EC130 B4 is made for FlightGear and stands under the terms of GPLv2.

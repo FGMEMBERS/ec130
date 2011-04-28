@@ -30,6 +30,18 @@
 		
 	</offsets>
 	
+<nasal>
+        <load>
+            var livery_update = aircraft.livery_update.new(
+	    "Aircraft/ec130/Models/liveries", 5,
+	    func { print("ec130 livery update") });
+        </load>
+
+        <unload>
+            livery_update.stop();
+        </unload>
+    </nasal>
+	
 <!--shader-->
 <effect>
 		<inherits-from>Aircraft/ec130/Models/Effects/ec130reflect</inherits-from>
