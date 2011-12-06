@@ -1,17 +1,16 @@
 var test = func{
 
-#var lat = props.globals.getNode("/position/latitude-deg", 1);
-#var long = props.globals.getNode("/position/longitude-deg", 1);
+var brake = props.globals.getNode("/controls/rotor/brake", 1);
 
-if (getprop("/controls/engines/engine/magnetos") >1){
-interpolate("position/latitude-deg", 34.2699200,5);
-interpolate("position/longitude-deg", -116.8494700,5);
-#fgcommand( "presets-commit" );
 
-#lat.setDoubleValue(34.2659200);
-#long.setDoubleValue(-116.8484700);
+if (getprop("/controls/rotor/brake") >1){
+setprop("/controls/rotor/brake", 1);
 }
-settimer(test, 0.1);
+if (getprop("/controls/rotor/brake") <0){
+setprop("/controls/rotor/brake", 0);
+}
+
+settimer(test, 0.01);
 }
 test();
   

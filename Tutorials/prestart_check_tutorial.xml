@@ -1,0 +1,132 @@
+<PropertyList>
+	<name>Engine Prestart Check</name>
+	<description>This tutorial teaches the EC130 B4 engine Prestart Check procedure</description>
+
+	<init>
+		<set>
+			<property>/sim/current-view/view-number</property>
+			<value>0</value>
+		</set>
+		
+		
+	</init>
+
+	<step>
+		<view>
+			<heading-offset-deg>300</heading-offset-deg>
+			<pitch-offset-deg>13.1</pitch-offset-deg>
+			<roll-offset-deg>0.0</roll-offset-deg>
+			<x-offset-m>-0.67</x-offset-m>
+			<y-offset-m>0.03</y-offset-m>
+			<z-offset-m>-3.93</z-offset-m>
+			<field-of-view>60</field-of-view>
+		</view>
+
+		<marker>
+			<x-m>3.1858</x-m>
+			<y-m>-0.2587</y-m>
+			<z-m>0.2151</z-m>
+			<scale>3.0000</scale>
+		</marker>
+
+		<message>
+		Push the Rotorbrake lever forward
+		</message>
+		<exit>
+			<condition>
+			<less-than>
+				<property>/controls/rotor/brake</property>
+			<value>0.1</value>
+			</less-than>
+			</condition>
+		</exit>
+	</step>
+	
+	<step>
+		<view>
+			<heading-offset-deg>300</heading-offset-deg>
+			<pitch-offset-deg>13.1</pitch-offset-deg>
+			<roll-offset-deg>0.0</roll-offset-deg>
+			<x-offset-m>-0.67</x-offset-m>
+			<y-offset-m>0.03</y-offset-m>
+			<z-offset-m>-3.93</z-offset-m>
+			<field-of-view>60</field-of-view>
+		</view>
+
+		<marker>
+			<x-m>3.1858</x-m>
+			<y-m>-0.2587</y-m>
+			<z-m>0.2151</z-m>
+			<scale>3.0000</scale>
+		</marker>
+
+		<message>
+		Push the Cutoff lever forward
+		</message>
+		<exit>
+			<condition>
+			<less-than>
+			<property>/controls/engines/engine/cutoff</property>
+			<value>0.1</value>
+			</less-than>
+			</condition>
+		</exit>
+	</step>
+	
+	<step>
+		<view>
+			<heading-offset-deg>4.5</heading-offset-deg>
+			<pitch-offset-deg>-13.1</pitch-offset-deg>
+			<roll-offset-deg>0.0</roll-offset-deg>
+			<x-offset-m>-0.67</x-offset-m>
+			<y-offset-m>0.03</y-offset-m>
+			<z-offset-m>-3.93</z-offset-m>
+			<field-of-view>40</field-of-view>
+		</view>
+
+		
+
+		<message>
+		The fuel tank sits below the engine- due to gravitity the fuellines are empty.
+                     So you need first electrical power-press F10-key, go to "EC130" and select "Supply External Power":
+		</message>
+		<exit>
+			<condition>
+			
+				<property>/controls/electric/external-power</property>
+			
+			</condition>
+		</exit>
+	</step>
+
+	<step>
+		<message>
+		BAT EPU on and GEN on 
+		</message>
+		<view>
+			<heading-offset-deg>330.65</heading-offset-deg>
+			<pitch-offset-deg>-51.77</pitch-offset-deg>
+			<roll-offset-deg>0.0</roll-offset-deg>
+			<x-offset-m>-0.67</x-offset-m>
+			<y-offset-m>0.03</y-offset-m>
+			<z-offset-m>-3.93</z-offset-m>
+			<field-of-view>35.7</field-of-view>
+		</view>
+
+		<exit>
+			<condition>
+			<property>/controls/electric/battery-switch</property>
+			<property>/controls/electric/engine/generator</property>					
+			</condition>
+		</exit>
+	</step>
+
+	<end>
+		<message>On the VEMD after a testing phase you should see the Enginestartpage- 3 halfcircles with Torque, Ng (aka N2) and T4.</message>
+		<view>
+			<heading-offset-deg>341.37</heading-offset-deg>
+			<pitch-offset-deg>-36.46</pitch-offset-deg>
+			<field-of-view>65</field-of-view>
+		</view>
+	</end>
+</PropertyList>

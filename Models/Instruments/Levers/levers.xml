@@ -20,7 +20,7 @@
     
 
     
-<animation>
+<!--<animation>
         <type>pick</type>
         <object-name>rotorbrakelever</object-name>
         <action>
@@ -37,14 +37,35 @@
 					</binding>
 				</mod-up>
         </action>
+    </animation>-->
+    
+<animation>
+      <type>pick</type>
+       <object-name>rotorbrakelever</object-name>
+      <visible>true</visible>
+      <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+          <command>nasal</command>
+          <script>ec130.mouseHandlerY.set( "/controls/rotor/brake", -0.01 );</script>
+         </binding>
+         <mod-up>
+          <binding>
+           <command>nasal</command>
+           <script>ec130.mouseHandlerY.set()</script>
+          </binding>
+         </mod-up>
+      </action>
     </animation>
+    
     
 <animation>
     <type>rotate</type>
     <object-name>cutofflever</object-name>
    
     <property>controls/engines/engine/cutoff</property>
-    <factor>-30</factor>
+      <factor>-30</factor>
     <center>
       <x-m>0 </x-m>
       <y-m>  -0.031 </y-m>
@@ -61,7 +82,7 @@
     <type>rotate</type>
     <object-name>rotorbrakelever</object-name>
    
-  <property>controls/rotor/brake</property>
+  <property>/controls/rotor/brake</property>
     <factor>-30</factor>
     <center>
       <x-m>0 </x-m>

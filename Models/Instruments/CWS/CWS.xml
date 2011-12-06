@@ -236,7 +236,7 @@
         <object-name>CWS</object-name>
 	       <condition>
 	       	          <greater-than>
-            <property>/systems/electrical/batt-volts</property>
+            <property>/systems/electrical/volts</property>
 	    <value>6</value>
 	    </greater-than>
 	   

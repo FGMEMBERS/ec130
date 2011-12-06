@@ -49,16 +49,16 @@ var visibility = props.globals.getNode("environment/visibility-m", 1);
 var sun_angle = props.globals.getNode("sim/time/sun-angle-rad", 1);
 var nav_lights = props.globals.getNode("sim/model/ec130/lighting/nav-lights", 1);
 
-var nav_light_loop = func {
-	if (nav_light_switch.getValue())
-		nav_lights.setValue(visibility.getValue() < 5000 or sun_angle.getValue() > 1.4);
-	else
-		nav_lights.setValue(0);
+#var nav_light_loop = func {
+#	if (nav_light_switch.getValue())
+#		nav_lights.setValue(visibility.getValue() < 5000 or sun_angle.getValue() > 1.4);
+#	else
+#		nav_lights.setValue(0);
+#
+#	settimer(nav_light_loop, 3);
+#}
 
-	settimer(nav_light_loop, 3);
-}
-
-nav_light_loop();
+#nav_light_loop();
 
 
 

@@ -44,7 +44,7 @@
 	
 <!--shader-->
 <effect>
-		<inherits-from>Aircraft/ec130/Models/Effects/ec130reflect</inherits-from>
+		<inherits-from>Aircraft/ec130/Models/Effects/ec130reflect-uber</inherits-from>
 		<object-name>fuselage</object-name>
 		<object-name>frontdoorr</object-name>
 		<object-name>frontdoorl</object-name>
@@ -58,7 +58,7 @@
 </effect>
 
 <effect>
-		<inherits-from>Aircraft/ec130/Models/Effects/ec130reflectglas</inherits-from>
+		<inherits-from>Aircraft/ec130/Models/Effects/ec130reflectglas-uber</inherits-from>
 		<object-name>windscreen</object-name>
 		<object-name>windowl</object-name>
 		<object-name>windowr</object-name>

@@ -96,7 +96,7 @@ EC 130 simulation config.
       <y-offset-m archive="y">  0.03</y-offset-m> <!--up-->
       <z-offset-m archive="y"> -3.93 </z-offset-m> <!--back-->
       <pitch-offset-deg>-15</pitch-offset-deg>
-      <default-field-of-view-deg>60.0</default-field-of-view-deg>
+      <default-field-of-view-deg>55.0</default-field-of-view-deg>
       <dynamic-view type="bool">true</dynamic-view>
     </config>
   </view>
@@ -218,6 +218,8 @@ EC 130 simulation config.
             <string  alias="/sim/multiplay/callsign"/>
         </generic>
     </multiplay>
+    
+    <flight-recorder include="Systems/flight-recorder.xml"/>
 
 		<help>
 			<title>EC 130 - help</title>
@@ -228,6 +230,9 @@ EC 130 simulation config.
 			<line>For startup read the flightmanual under Aircraft/ec130/flightmanual.text</line>
 			
 		</help>
+
+
+	<tutorials include="Tutorials/ec130_tutorials.xml"/>
 
 		
 		<menubar>
@@ -275,6 +280,8 @@ EC 130 simulation config.
 		
 		
 </sim>
+
+
 
 <limits>
 <vne>155</vne>
@@ -338,6 +345,9 @@ EC 130 simulation config.
         		<gsdi>
 			<serviceable type="bool">true</serviceable>
 		</gsdi>
+	<attitude-indicator>
+	<serviceable type="bool">false</serviceable>
+	</attitude-indicator>
 	</instrumentation>
 
 	<input>
@@ -450,6 +460,7 @@ EC 130 simulation config.
 
 	<nasal>
 		<ec130>
+		           <file>Aircraft/ec130/Nasal/test.nas</file>
 			 <file>Aircraft/ec130/Nasal/mousehandlery.nas</file>	
 			<file>Aircraft/ec130/Nasal/mousehandlerx.nas</file>
 		           <file>Aircraft/ec130/Nasal/savestate.nas</file>
