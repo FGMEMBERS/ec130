@@ -13,24 +13,24 @@
 
 	<step>
 		<view>
-			<heading-offset-deg>300</heading-offset-deg>
-			<pitch-offset-deg>13.1</pitch-offset-deg>
+			<heading-offset-deg>299.8</heading-offset-deg>
+			<pitch-offset-deg>4.1</pitch-offset-deg>
 			<roll-offset-deg>0.0</roll-offset-deg>
-			<x-offset-m>-0.67</x-offset-m>
-			<y-offset-m>0.03</y-offset-m>
-			<z-offset-m>-3.93</z-offset-m>
-			<field-of-view>60</field-of-view>
+			<x-offset-m>-0.7</x-offset-m>
+			<y-offset-m>0.0</y-offset-m>
+			<z-offset-m>-3.9</z-offset-m>
+			<field-of-view>65</field-of-view>
 		</view>
 
 		<marker>
-			<x-m>3.1858</x-m>
-			<y-m>-0.2587</y-m>
-			<z-m>0.2151</z-m>
+			<x-m>-4.1175</x-m>
+			<y-m>-0.1851</y-m>
+			<z-m>0.1300</z-m>
 			<scale>3.0000</scale>
 		</marker>
 
 		<message>
-		Push the Rotorbrake lever forward
+		Push the Rotorbrake lever forward by point and drag with LMB pressed
 		</message>
 		<exit>
 			<condition>
@@ -44,19 +44,19 @@
 	
 	<step>
 		<view>
-			<heading-offset-deg>300</heading-offset-deg>
-			<pitch-offset-deg>13.1</pitch-offset-deg>
+			<heading-offset-deg>292.8</heading-offset-deg>
+			<pitch-offset-deg>15.8</pitch-offset-deg>
 			<roll-offset-deg>0.0</roll-offset-deg>
-			<x-offset-m>-0.67</x-offset-m>
-			<y-offset-m>0.03</y-offset-m>
-			<z-offset-m>-3.93</z-offset-m>
-			<field-of-view>60</field-of-view>
+			<x-offset-m>-0.7</x-offset-m>
+			<y-offset-m>0.0</y-offset-m>
+			<z-offset-m>-3.9</z-offset-m>
+			<field-of-view>37.1</field-of-view>
 		</view>
 
 		<marker>
-			<x-m>3.1858</x-m>
-			<y-m>-0.2587</y-m>
-			<z-m>0.2151</z-m>
+			<x-m>-4.0588</x-m>
+			<y-m>-0.2</y-m>
+			<z-m>0.1870</z-m>
 			<scale>3.0000</scale>
 		</marker>
 
@@ -101,17 +101,24 @@
 
 	<step>
 		<message>
-		BAT EPU on and GEN on 
+		BAT EPU on and GENE on 
 		</message>
 		<view>
-			<heading-offset-deg>330.65</heading-offset-deg>
-			<pitch-offset-deg>-51.77</pitch-offset-deg>
+			<heading-offset-deg>323.3</heading-offset-deg>
+			<pitch-offset-deg>-51.6</pitch-offset-deg>
 			<roll-offset-deg>0.0</roll-offset-deg>
-			<x-offset-m>-0.67</x-offset-m>
-			<y-offset-m>0.03</y-offset-m>
-			<z-offset-m>-3.93</z-offset-m>
-			<field-of-view>35.7</field-of-view>
+			<x-offset-m>-0.7</x-offset-m>
+			<y-offset-m>0.0</y-offset-m>
+			<z-offset-m>-3.9</z-offset-m>
+			<field-of-view>35.5</field-of-view>
 		</view>
+		
+		<marker>
+			<x-m>-4.3555</x-m>
+			<y-m>-0.4008</y-m>
+			<z-m>-0.6626</z-m>
+			<scale>4.0000</scale>
+		</marker>
 
 		<exit>
 			<condition>
@@ -124,9 +131,10 @@
 	<end>
 		<message>On the VEMD after a testing phase you should see the Enginestartpage- 3 halfcircles with Torque, Ng (aka N2) and T4.</message>
 		<view>
-			<heading-offset-deg>341.37</heading-offset-deg>
-			<pitch-offset-deg>-36.46</pitch-offset-deg>
-			<field-of-view>65</field-of-view>
+			<heading-offset-deg>332.00</heading-offset-deg>
+			<pitch-offset-deg>-21.7</pitch-offset-deg>
+			<field-of-view>35.5</field-of-view>
 		</view>
+		
 	</end>
 </PropertyList>

@@ -43,7 +43,7 @@ MATERIAL "Material.137" rgb 0 0 0 amb 0.001359 0.001359 0.001359 emis 0 0 0 spec
 MATERIAL "Material.138" rgb 0.28 0.28 0.28 amb 0.28 0.28 0.28 emis 0 0 0 spec 1 1 1 shi 128 trans 0.1
 MATERIAL "Material.139" rgb 0 0 0 amb 0 0 0 emis 0 0 0 spec 1 1 1 shi 32 trans 0
 MATERIAL "Material.140" rgb 0 0 0 amb 0 0 0 emis 0 0 0 spec 1 1 1 shi 32 trans 0
-MATERIAL "windscreen" rgb 0.56 0.56 0.56 amb 0.56 0.56 0.56 emis 0 0 0 spec 1 1 1 shi 128 trans 0.15
+MATERIAL "windscreen" rgb 0.56 0.56 0.56 amb 0.56 0.56 0.56 emis 0 0 0 spec 1 1 1 shi 128 trans 0.3
 MATERIAL "Material.142" rgb 0 0 0 amb 0 0 0 emis 0 0 0 spec 1 1 1 shi 32 trans 0
 MATERIAL "yellow" rgb 1 1 1 amb 1 1 1 emis 0 0 0 spec 1 1 1 shi 32 trans 0
 MATERIAL "yellow.001" rgb 1 1 1 amb 1 1 1 emis 0 0 0 spec 1 1 1 shi 32 trans 0

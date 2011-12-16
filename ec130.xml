@@ -44,7 +44,7 @@
        relbladecenter="0.6" 
        dynamic="0.65"
        rellenflaphinge="0.05" 
-       delta3="0" delta="0.185" 
+       delta3="0" delta="0.19" 
        pitch-a="10" pitch-b="15" 
        flapmin="-13" flapmax="13" 
        flap0="-7.5" flap0factor="0" phi0="45"
@@ -94,7 +94,7 @@
 	nx="0.00" ny="1" nz="-0.007" fx="1" fy="0" fz="0" ccw="0"
 	  maxcollective="-8.5" mincollective="10.0"
 	  diameter="1" numblades="10" weightperblade="1" relbladecenter="0.7"
-	  dynamic="1" rpm="3568" rellenflaphinge="0.1" delta3="0" translift="0" delta="0.25"
+	  dynamic="1" rpm="3568" rellenflaphinge="0.1" delta3="0" translift="0" delta="0.25" twist="7.0" 
 	  pitch-a="10"
 	  pitch-b="15"
 	  airfoil-lift-coefficient="6.3"
@@ -129,8 +129,8 @@
 	  rotorgear-friction="1.4"
 	  engine-prop-factor="0.005"
 	  engine-accel-limit="100"
-	  yasimdragfactor="25"
-	  yasimliftfactor="24"
+	  yasimdragfactor="19"
+	  yasimliftfactor="18"
 >
 		>
 		 <control-input axis="/controls/engines/engine[0]/magnetos" control="ROTORGEARENGINEON"/>

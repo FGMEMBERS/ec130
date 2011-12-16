@@ -62,11 +62,11 @@ EC 130 simulation config.
 				<FLIR>false</FLIR>
 				<searchlight>false</searchlight>
 				<wirecutter>false</wirecutter>
-				<hide-gsdi>true</hide-gsdi>
+				<show-gsdi>false</show-gsdi>
 			</ec130>
 		</model>
   <rendering>
-    <refl_correction type="string">-0.1</refl_correction>
+    <refl_correction type="float">-0.1</refl_correction>
     </rendering>
 <systems>
  <path>Aircraft/ec130/Systems/systems.xml</path>
@@ -116,7 +116,7 @@ EC 130 simulation config.
       <z-offset-m archive="y"> -3.81 </z-offset-m> 
       <pitch-offset-deg>-15</pitch-offset-deg>
        <heading-offset-deg>65</heading-offset-deg>
-      <default-field-of-view-deg>71</default-field-of-view-deg>
+      <default-field-of-view-deg>55</default-field-of-view-deg>
       <dynamic-view type="bool">true</dynamic-view>
     </config>
   </view>
@@ -134,7 +134,7 @@ EC 130 simulation config.
       <z-offset-m archive="y"> -2.75 </z-offset-m> <!--back-->
       <pitch-offset-deg>-15</pitch-offset-deg>
       <heading-offset-deg>45</heading-offset-deg>
-      <default-field-of-view-deg>71</default-field-of-view-deg>
+      <default-field-of-view-deg>55</default-field-of-view-deg>
       <dynamic-view type="bool">true</dynamic-view>
     </config>
   </view>
@@ -245,7 +245,7 @@ EC 130 simulation config.
 						<label>Show/hide GSDI</label>
 						<binding>
 							<command>property-toggle</command>
-							<property>/sim/model/hide-gsdi</property>
+							<property>/sim/model/show-gsdi</property>
 						</binding>
 				</item>
 				<item>
@@ -466,6 +466,7 @@ EC 130 simulation config.
 		           <file>Aircraft/ec130/Nasal/savestate.nas</file>
 			<file>Aircraft/ec130/Nasal/externalweights.nas</file>
 			<file>Aircraft/ec130/Nasal/ec130.nas</file>
+			<file>Aircraft/ec130/Nasal/woolthread.nas</file>
 			<file>Aircraft/ec130/Nasal/limits.nas</file>
 			<file>Aircraft/ec130/Nasal/flightcontrols.nas</file>
 			<file>Aircraft/ec130/Nasal/Electrical.nas</file>

@@ -30,6 +30,11 @@
 		
 	</offsets>
 	
+		<!-- Tutorial Marker -->
+	<model>
+		<path>Models/Aircraft/marker.xml</path>
+	</model>
+	
 <nasal>
         <load>
             var livery_update = aircraft.livery_update.new(
@@ -129,6 +134,31 @@
   </animation>-->
   
 <!--panel-->
+<model>
+		<name>woolthread</name>
+		<path>Aircraft/ec130/Models/Instruments/woolthread/woolthread.xml</path>
+		<offsets>
+			<x-m>-4.802</x-m>
+			<y-m>-0.263</y-m>
+			<z-m>-0.129</z-m>
+
+			<pitch-deg>-10</pitch-deg>
+
+		</offsets>
+	</model>
+<model>
+		<name>GSDI</name>
+		<path>Aircraft/ec130/Models/Instruments/gsdi/gsdi.xml</path>
+		<offsets>
+			<x-m>-4.5</x-m>
+			<y-m>-0.6</y-m>
+			<z-m>-0.1</z-m>
+
+			<pitch-deg>-10</pitch-deg>
+
+		</offsets>
+	</model>
+
 <model>
 		<name>AI</name>
 		<path>Aircraft/ec130/Models/Instruments/AI/AI.xml</path>

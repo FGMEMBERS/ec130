@@ -77,10 +77,10 @@ dst0aileron = props.globals.getNode("/controls/flight/aileron_dst0",1);
 dst0elevator = props.globals.getNode("/controls/flight/elevator_dst0",1);
 
 if (rl > servosp){
-dst1aileron.setValue(1-(rl - 18) / (22 - 18));
-dst1elevator.setValue(1-(rl - 18) / (22 - 18));
-dst0aileron.setValue(-1-(rl - 18) / (22 - 18));
-dst0elevator.setValue(-1-(rl - 18) / (22 - 18));
+dst1aileron.setValue(1-(rl - 18) / (26 - 18));
+dst1elevator.setValue(1-(rl - 18) / (26 - 18));
+dst0aileron.setValue(-1-(rl - 18) / (26 - 18));
+dst0elevator.setValue(-1-(rl - 18) / (26 - 18));
 }else{
 dst1aileron.setValue(1);
 dst1elevator.setValue(1);

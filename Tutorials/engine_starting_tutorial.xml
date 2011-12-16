@@ -13,20 +13,20 @@
 
 	<step>
 		<view>
-			<heading-offset-deg>325</heading-offset-deg>
-			<pitch-offset-deg>-55.5</pitch-offset-deg>
+			<heading-offset-deg>317.3</heading-offset-deg>
+			<pitch-offset-deg>-49.1</pitch-offset-deg>
 			<roll-offset-deg>0.0</roll-offset-deg>
-			<x-offset-m>-0.67</x-offset-m>
-			<y-offset-m>0.03</y-offset-m>
-			<z-offset-m>-3.93</z-offset-m>
-			<field-of-view>37</field-of-view>
+			<x-offset-m>-0.7</x-offset-m>
+			<y-offset-m>0.0</y-offset-m>
+			<z-offset-m>-3.9</z-offset-m>
+			<field-of-view>26.2</field-of-view>
 		</view>
 
 		<marker>
-			<x-m>3.1858</x-m>
-			<y-m>-0.2587</y-m>
-			<z-m>0.2151</z-m>
-			<scale>3.0000</scale>
+			<x-m>-4.3331</x-m>
+			<y-m>-0.3124</y-m>
+			<z-m>-0.6702</z-m>
+			<scale>4.0000</scale>
 		</marker>
 
 		<message>
@@ -57,22 +57,23 @@
 		</exit>
 	</step>
 	
+	
 	<step>
 		<view>
-			<heading-offset-deg>338</heading-offset-deg>
-			<pitch-offset-deg>-33</pitch-offset-deg>
+			<heading-offset-deg>326.9</heading-offset-deg>
+			<pitch-offset-deg>-37.2</pitch-offset-deg>
 			<roll-offset-deg>0.0</roll-offset-deg>
-			<x-offset-m>-0.67</x-offset-m>
-			<y-offset-m>0.03</y-offset-m>
-			<z-offset-m>-3.93</z-offset-m>
-			<field-of-view>52.3</field-of-view>
+			<x-offset-m>-0.7</x-offset-m>
+			<y-offset-m>0.0</y-offset-m>
+			<z-offset-m>-3.9</z-offset-m>
+			<field-of-view>32.6</field-of-view>
 		</view>
 
 		<marker>
-			<x-m>3.1858</x-m>
-			<y-m>-0.2587</y-m>
-			<z-m>0.2151</z-m>
-			<scale>3.0000</scale>
+			<x-m>-4-4892</x-m>
+			<y-m>-0.3207</y-m>
+			<z-m>-0.5174</z-m>
+			<scale>2.0000</scale>
 		</marker>
 
 		<message>
@@ -90,21 +91,16 @@
 	
 <step>
 		<view>
-			<heading-offset-deg>338</heading-offset-deg>
-			<pitch-offset-deg>-33</pitch-offset-deg>
+			<heading-offset-deg>331.4</heading-offset-deg>
+			<pitch-offset-deg>-22.8</pitch-offset-deg>
 			<roll-offset-deg>0.0</roll-offset-deg>
-			<x-offset-m>-0.67</x-offset-m>
+			<x-offset-m>-0.7</x-offset-m>
 			<y-offset-m>0.03</y-offset-m>
-			<z-offset-m>-3.93</z-offset-m>
-			<field-of-view>52.3</field-of-view>
+			<z-offset-m>-3.9</z-offset-m>
+			<field-of-view>44.1</field-of-view>
 		</view>
 
-		<marker>
-			<x-m>3.1858</x-m>
-			<y-m>-0.2587</y-m>
-			<z-m>0.2151</z-m>
-			<scale>3.0000</scale>
-		</marker>
+		
 
 		<message>
 		The engine will spool up now!
@@ -130,12 +126,7 @@
 			<field-of-view>52.3</field-of-view>
 		</view>
 
-		<marker>
-			<x-m>3.1858</x-m>
-			<y-m>-0.2587</y-m>
-			<z-m>0.2151</z-m>
-			<scale>3.0000</scale>
-		</marker>
+		
 
 		<message>
 		External power isn't needed anymore- deselect "Supply External Power" if needed
@@ -151,20 +142,20 @@
 	
 <step>
 		<view>
-			<heading-offset-deg>323</heading-offset-deg>
-			<pitch-offset-deg>-49</pitch-offset-deg>
+			<heading-offset-deg>320</heading-offset-deg>
+			<pitch-offset-deg>-46</pitch-offset-deg>
 			<roll-offset-deg>0.0</roll-offset-deg>
-			<x-offset-m>-0.67</x-offset-m>
-			<y-offset-m>0.03</y-offset-m>
-			<z-offset-m>-3.93</z-offset-m>
-			<field-of-view>37</field-of-view>
+			<x-offset-m>-0.7</x-offset-m>
+			<y-offset-m>0.0</y-offset-m>
+			<z-offset-m>-3.9</z-offset-m>
+			<field-of-view>31</field-of-view>
 		</view>
 
 		<marker>
-			<x-m>3.1858</x-m>
-			<y-m>-0.2587</y-m>
-			<z-m>0.2151</z-m>
-			<scale>3.0000</scale>
+			<x-m>-4.3322</x-m>
+			<y-m>-0.2992</y-m>
+			<z-m>-0.6669</z-m>
+			<scale>1.7</scale>
 		</marker>
 
 		<message>
