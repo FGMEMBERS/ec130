@@ -1,5 +1,5 @@
-##FlightManual EC 130##
-03/02/2011
+##FlightManual EC 130 B4##
+02/19/2012
 
 1. Information:
 This Model of an Eurocopter EC130 B4 is made for FlightGear and stands under the terms of GPLv2.
@@ -19,6 +19,7 @@ Heiko Schulz
 Heiko.H.Schulz@gmx.net
 
 Author dynamic flight model:
+Heiko Schulz 
 
 Author Nasal:
 Heiko Schulz

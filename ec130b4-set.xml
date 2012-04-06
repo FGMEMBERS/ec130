@@ -23,14 +23,18 @@ EC 130 simulation config.
 
 <PropertyList>
 	<sim>
-		<description>Eurocopter EC130</description>
+		<description>Eurocopter EC130 B4</description>
 		<author>Heiko Schulz, Melchior Franz (Nasal)</author>
-		<status>beta</status>
+		<status>early production</status>
+                    <rating>
+                    <FDM type="int">4</FDM>
+                    <systems type="int">4</systems>
+                     <cockpit type="int">3</cockpit>
+                    <model type="int">4</model>
+                    </rating>
 		<license>GPL v2</license>
-		<aircraft-version>1</aircraft-version>
-
 		<flight-model>yasim</flight-model>
-		<aero>ec130</aero>
+		<aero>ec130b4</aero>
 		 <fuel-fraction type="double">0.2</fuel-fraction>
 
 		<!--<startup>
@@ -47,7 +51,7 @@ EC 130 simulation config.
         </runways>
 </airport>
 		<model>
-			<path archive="y">Aircraft/ec130/Models/ec130.xml</path>
+			<path archive="y">Aircraft/ec130/Models/ec130b4.xml</path>
 			<variant type="int">0</variant>
 			<livery>
                               <file type="string">FlightGear</file>

@@ -15,7 +15,51 @@
  General Public License for more details.
  
  -->
+ 
+ <!--EC130 B4
+  Max  weight: 2427kg (5350 lbs)
+  Min weight: 1500kg (3307 lbs)
+  Empty weight: 3015 lbs
+  
+  Max Range: 
 
+  Length: 12.64m
+  width: 2.31m
+  width with hstab: 2.73m
+
+  Main Rotor diameter: 10.69m
+  Type: Starflex
+  Disc area: ?? sqm
+  Number of Blades: 3
+  Rotor speed: 386rpm
+  airfoil:  ONERA OA211  -> Lift/drag curve needed                            
+
+  Tail rotor diameter: 1m
+  Type: Fenestron (TM)
+  Number of Blades: 10
+  Rotor speed: 3568rpm
+  disc area: ?? sqm
+  airfoil: ONERA OA209/OA207  -> Lift/drag curve needed
+  
+  Fuel Capacity: 142.7 US gal = 540liters = 427kg
+
+  1 Turbomeca ARRIEL 2B1
+  max power: 557kw, power rating (MTOP): 747SHP
+  max continous: 543 kw, power rating (MCP): 728SHP
+  
+
+
+  CoG from the Flight Manual:
+  
+  Datum 133.8inch inches forward of main rotor head center line.
+  cg- between 124 inch and 140.9inch from datum
+  
+  Airspeed Limits Never Exceed Power on: 155 kt at Hp = 0, less 3kt/1000ft
+ 
+  FDM based on datas from Flight Manual EC130 B4, Fenestron data from Dave's All The World Fenestrons and EC135 Flight Manual 
+  and help by a forums user with contact to a AS350pilot
+
+-->
 <airplane mass="3015">
 
 <!--not necessary for helis, but useful to prevent sliding on ground engine-out-->
@@ -71,10 +115,7 @@
        cyclic-factor="1.0" 
        rotor-correction-factor="0.9" 
        downwashfactor ="0.8" 
-       
-      
-    
-		>
+       balance="0.999905">
   
 		<control-input axis="/controls/flight/aileron-trim" control="CYCLICAIL" split="true"/>
 		<control-input axis="/controls/flight/aileron" control="CYCLICAIL"
@@ -89,37 +130,41 @@
 					   dst0="1.0" dst1="-1.0"/>
 	</rotor>
 
-
+<!--flapmin/max should be in theory = zero, but then it doesn't produce any thrust. S0 +/-1.5, lift coefficient 3.85, drag 0.00385.Bug me-->
 	<rotor name="tail"  x="-4.4" y="-0.125" z="0.109" 
-	nx="0.00" ny="1" nz="-0.007" fx="1" fy="0" fz="0" ccw="0"
-	  maxcollective="-8.5" mincollective="10.0"
-	  diameter="1" numblades="10" weightperblade="1" relbladecenter="0.7"
-	  dynamic="1" rpm="3568" rellenflaphinge="0.1" delta3="0" translift="0" delta="0.25" twist="7.0" 
+	nx="0.00" ny="1" nz="-0.00" fx="1" fy="0" fz="0" ccw="0"
+	  maxcollective="-16.8" mincollective="34.2"
+	  diameter="1" numblades="10" weightperblade="0.64" relbladecenter="0.5"
+	  dynamic="1.4" rpm="3568" rellenflaphinge="0.35" delta3="0" translift="0" delta="0.5" twist="-7.0" 
 	  pitch-a="10"
 	  pitch-b="15"
-	  airfoil-lift-coefficient="6.3"
-	  airfoil-drag-coefficient0="0.0017"
-	  airfoil-drag-coefficient1="0.10"
+	  flapmin="-1.5"
+          flapmax="1.5"
+          flap0="0"
+	  airfoil-lift-coefficient="3.85"
+	  airfoil-drag-coefficient0="0.00385"
+	  airfoil-drag-coefficient1="0.15"
 	  notorque="0"
 	  taper="1"
-	  chord="0.205"
+	  chord="0.05"
 	  number-of-segments="5"
 	  number-of-parts="4"
-	  rel-len-blade-start="0.4"
-	  incidence-stall-zero-speed="18"
-	  incidence-stall-half-sonic-speed="9"
+	  rel-len-blade-start="0.35"
+	  incidence-stall-zero-speed="34"
+	  incidence-stall-half-sonic-speed="33"
 	  lift-factor-stall="0.18"
 	  stall-change-over="5.5"
 	  drag-factor-stall="8"
 	  rotor-correction-factor="0.8"
 >
-		>
+
+		
 		<control-input axis="/controls/flight/rudder" control="COLLECTIVE" invert="true"
 					   src0="-1.0" src1="1.0"
 					   dst0="-1.0" dst1="1.0"/>
 		<control-input axis="/controls/engines/engine[1]/throttle" control="COLLECTIVE"
 					   src0="0.0" src1="1.0"
-					   dst0=".00000000000000000065" dst1=".00000000000000000065"/>
+					   dst0="0.0" dst1="0.5"/>
 	</rotor>
 
 
@@ -171,17 +216,18 @@
                chord="0.550"
                sweep="0"
                incidence="0">
-	       <stall aoa="-27" width="0" peak="1.5"/>
+	       <stall aoa="27" width="0" peak="1.5"/>
 	</hstab>
 	
 
 	<vstab x="-4.066" y="0" z="0.251" 
 	taper=".7" 
 	length="1.84" 
+	effectiveness="2" 
 	chord="1.40" 
 	sweep="37" 
 	incidence="-7">
-		<stall aoa="28" width="4" peak="1.5"/>
+		<stall aoa="16" width="4" peak="1.5"/>
 	</vstab>
 <!-- ballast -->
 	

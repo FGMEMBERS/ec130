@@ -20,7 +20,7 @@
 <PropertyList>
 
 
-	<path>ec130.ac</path>
+	<path>ec130b4_rembrandt.ac</path>
 	<offsets>
 		<z-m>0</z-m>
 		<y-m>0</y-m>
@@ -49,7 +49,7 @@
 	
 <!--shader-->
 <effect>
-		<inherits-from>Aircraft/ec130/Models/Effects/ec130reflect-uber</inherits-from>
+		<inherits-from>Aircraft/ec130/Models/Effects/EC130_bumpspecreflect</inherits-from>
 		<object-name>fuselage</object-name>
 		<object-name>frontdoorr</object-name>
 		<object-name>frontdoorl</object-name>
@@ -72,6 +72,80 @@
 		<object-name>fuel</object-name>
 		
 </effect>
+<!--  REMBRANDT support for transparent objects -->
+<effect>
+  <inherits-from>Effects/model-transparent</inherits-from>
+ <object-name>navlight_left</object-name>
+   <object-name>navlight_right</object-name>
+   <object-name>navlight_back</object-name>
+     <object-name>navlight_front</object-name>
+     <object-name>landing_light</object-name>
+     <object-name>Plane.005X</object-name>
+</effect>
+
+
+
+<!--light effect-->
+
+  <animation>
+    <type>light</type>
+    <light-type>spot</light-type>
+    <name>Landinglight</name>
+    <object-name>LightVolume</object-name>
+    <position>
+      <x>-3.419</x>
+      <y>-0.498</y>
+      <z>-1.306</z>
+    </position>
+    <direction>
+      <x>-1.0</x>
+      <y> 0.0</y>
+      <z> -0.35</z>
+    </direction>
+    <ambient>
+      <r>0.00</r>
+      <g>0.00</g>
+      <b>0.00</b>
+      <a>1.0</a>
+    </ambient>
+    <diffuse>
+      <r>1.0</r>
+      <g>1.0</g>
+      <b>1.0</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>1.0</r>
+      <g>1.0</g>
+      <b>1.0</b>
+      <a>1.0</a>
+    </specular>
+    <attenuation>
+      <c>1.0</c>
+	<l>0.225</l>
+	<q>0.000100</q>
+    </attenuation>
+    <exponent>2</exponent>
+    <near-m>0.001</near-m>
+    <far-m>225</far-m>
+    <cutoff>70</cutoff>
+  </animation>
+
+ 
+  
+  
+  <animation>
+   <type>select</type>
+  <object-name>LightVolume</object-name>   
+  <nopreview/>
+   <condition>
+   <greater-than>
+     <property>sim/multiplay/generic/int[1]</property>
+     <value>24</value>
+     </greater-than>
+   </condition>
+ </animation>
+
 
 <!--pilot-->
 
@@ -254,7 +328,7 @@
 
 <model>
 		<name>Warnpanel</name>
-		<path>Aircraft/ec130/Models/Instruments/CWS/CWS.xml</path>
+		<path>Aircraft/ec130/Models/Instruments/CWS/CWS_rembrandt.xml</path>
 
 		<offsets>
 			<x-m>-4.567</x-m>
@@ -513,12 +587,195 @@
 	
 <!--lights-->
 <animation>
+    <type>light</type>
+    <light-type>spot</light-type>
+    <name>NavLightBack</name>
+    <object-name>NavLightBackVolume</object-name>
+    <position>
+      <x>5.402</x>
+      <y>0.053</y>
+      <z>1.820</z>
+    </position>
+    <direction>
+      <x> 1.0</x>
+      <y> 0.0</y>
+      <z> 0.0</z>
+    </direction>
+    <ambient>
+     <r>0.99</r>
+      <g>0.99</g>
+      <b>0.96</b>
+      <a>1.0</a>
+    </ambient>
+    <diffuse>
+      <r>0.99</r>
+      <g>0.99</g>
+      <b>0.96</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>0.99</r>
+      <g>0.99</g>
+      <b>0.96</b>
+      <a>1.0</a>
+    </specular>
+    <attenuation>
+      <c>1.0</c>
+      <l>0.0</l>
+      <q>0.75</q>
+    </attenuation>
+    <exponent>0.3</exponent>
+    <near-m>0.01</near-m>
+    <far-m>36</far-m>
+    <cutoff>150</cutoff>
+  </animation>
+  
+  <animation>
+    <type>light</type>
+    <light-type>spot</light-type>
+    <name>NavLightLeft</name>
+    <object-name>NavLightVolume_left</object-name>
+    <position>
+      <x>2.901</x>
+      <y>-1.376</y>
+      <z>-0.222</z>
+    </position>
+    <direction>
+      <x> 0.0</x>
+      <y>-1.0</y>
+      <z> 0.0</z>
+    </direction>
+    <ambient>
+     <r>0.99</r>
+      <g>0.0</g>
+      <b>0.0</b>
+      <a>1.0</a>
+    </ambient>
+    <diffuse>
+      <r>0.99</r>
+      <g>0.0</g>
+      <b>0.0</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>0.99</r>
+      <g>0.0</g>
+      <b>0.0</b>
+      <a>1.0</a>
+    </specular>
+    <attenuation>
+      <c>1.0</c>
+      <l>0.0</l>
+      <q>0.75</q>
+    </attenuation>
+    <exponent>0.3</exponent>
+    <near-m>0.01</near-m>
+    <far-m>36</far-m>
+    <cutoff>150</cutoff>
+  </animation>
+  
+  <animation>
+    <type>light</type>
+    <light-type>spot</light-type>
+    <name>NavLightLeft</name>
+    <object-name>NavLightVolume_right</object-name>
+    <position>
+      <x>2.901</x>
+      <y>1.376</y>
+      <z>-0.222</z>
+    </position>
+    <direction>
+      <x> 0.0</x>
+      <y>1.0</y>
+      <z> 0.0</z>
+    </direction>
+    <ambient>
+     <r>0.0</r>
+      <g>0.99</g>
+      <b>0.0</b>
+      <a>1.0</a>
+    </ambient>
+    <diffuse>
+      <r>0.9</r>
+      <g>0.99</g>
+      <b>0.0</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>0.0</r>
+      <g>0.99</g>
+      <b>0.0</b>
+      <a>1.0</a>
+    </specular>
+    <attenuation>
+      <c>1.0</c>
+      <l>0.0</l>
+      <q>0.75</q>
+    </attenuation>
+    <exponent>0.3</exponent>
+    <near-m>0.01</near-m>
+    <far-m>36</far-m>
+    <cutoff>150</cutoff>
+  </animation>
+  
+  <animation>
+    <type>light</type>
+	<light-type>spot</light-type>
+	<name>NavLightFront</name>
+	<object-name>LightVolume2</object-name>
+	<position>
+		<x>-3.6</x>
+		<y>0.392</y>
+		<z>-1.309</z>
+	</position>
+	<direction>
+		<x>-1</x>
+		<y>0</y>
+		<z>-0.7</z>
+	</direction>
+	<ambient>
+		<r>0.0</r>
+		<g>0.0</g>
+		<b>0.0</b>
+		<a>1.0</a>
+	</ambient>
+	<diffuse>
+		<r>0.97</r>
+		<g>0.97</g>
+		<b>0.87</b>
+		<a>1.0</a>
+	</diffuse>
+	<specular>
+		<r>0.97</r>
+		<g>0.97</g>
+		<b>0.87</b>
+		<a>1.0</a>
+	</specular>
+	<attenuation>
+		<c>1.0</c>
+		<l>0.00002</l>
+		<q>0.14</q>
+	</attenuation>
+	<exponent>3</exponent>
+	<cutoff>40</cutoff>
+	<near-m>3.5</near-m>
+	<far-m>200</far-m>
+  </animation>
+
+
+
+<animation>
    <type>select</type>
    <object-name>navlight_left</object-name>
    <object-name>navlight_right</object-name>
    <object-name>navlight_back</object-name>
      <object-name>navlight_front</object-name>
      <object-name>navlight_front2</object-name>
+     <object-name>NavLightBackVolume</object-name>
+      <object-name>NavLightVolume_right</object-name>
+      <object-name>NavLightVolume_left</object-name>
+      <object-name>LightVolume2</object-name>
+      <nopreview/>
       <condition>
    <greater-than>
      <property>sim/multiplay/generic/int[2]</property>
@@ -584,8 +841,48 @@
 	
  <!--beacon-->
  <animation>
+    <type>light</type>
+    <light-type>point</light-type>
+    <name>Beacon</name>
+    <object-name>BeaconVolume</object-name>
+    <position>
+      <x>4.677</x>
+      <y>-0.006</y>
+      <z>1.885</z>
+    </position>
+       <ambient>
+     <r>0.99</r>
+      <g>0.0</g>
+      <b>0.0</b>
+      <a>1.0</a>
+    </ambient>
+    <diffuse>
+      <r>0.99</r>
+      <g>0.0</g>
+      <b>0.0</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>0.99</r>
+      <g>0.0</g>
+      <b>0.0</b>
+      <a>1.0</a>
+    </specular>
+    <attenuation>
+      <c>1.0</c>
+      <l>0.7</l>
+      <q>2</q>
+    </attenuation>
+     <near-m>0.01</near-m>
+    <far-m>5</far-m>
+     </animation>
+ 
+ 
+ <animation>
    <type>select</type>
    <object-name>Plane.005X</object-name>
+   <object-name>BeaconVolume</object-name>
+   <nopreview/>
     <condition>
    <greater-than>
      <property>sim/multiplay/generic/int[0]</property>
@@ -597,6 +894,7 @@
  <animation>
    <type>select</type>
    <object-name>Plane.005X</object-name>
+   <object-name>BeaconVolume</object-name>
    <condition>
      <property>/sim/model/ec130/lighting/beacon-top/state</property>
    </condition>

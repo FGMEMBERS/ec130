@@ -42,7 +42,7 @@ var bp_pwr = getprop("/systems/electrical/outputs/boost-pump");
 
 if (n1 <60){
 if  ((boostpump >0) and (bp_pwr >22)){
-interpolate ("controls/fuel/tank/fuellines_filled",1, 10);
+interpolate ("controls/fuel/tank/fuellines_filled",1, 5);
 }else{
 interpolate ("controls/fuel/tank/fuellines_filled",0, 3);
 }

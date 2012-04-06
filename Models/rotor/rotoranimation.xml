@@ -86,6 +86,44 @@
 		<object-name>flexbeam</object-name>
 </animation>
 
+<effect>
+  <inherits-from>Effects/model-transparent</inherits-from>
+         <object-name>blade1</object-name>
+		<object-name>blade1a</object-name>
+		<object-name>blade1b</object-name>
+		<object-name>blade1c</object-name>
+		<object-name>blade1d</object-name>
+		<object-name>blade2</object-name>
+		<object-name>blade2a</object-name>
+		<object-name>blade2b</object-name>
+		<object-name>blade2c</object-name>
+		<object-name>blade2d</object-name>
+		<object-name>blade3</object-name>
+		<object-name>blade3a</object-name>
+		<object-name>blade3b</object-name>
+		<object-name>blade3c</object-name>
+		<object-name>blade3d</object-name>
+		<object-name>bladearm1</object-name>
+		<object-name>bladearm2</object-name>
+		<object-name>bladearm3</object-name>
+		<object-name>flexbeam</object-name>
+		<object-name>blurred1</object-name>
+		<object-name>blurred1a</object-name>
+		<object-name>blurred1b</object-name>
+		<object-name>blurred1c</object-name>
+		<object-name>blurred1d</object-name>
+		<object-name>blurred2</object-name>
+		<object-name>blurred2a</object-name>
+		<object-name>blurred2b</object-name>
+		<object-name>blurred2c</object-name>
+		<object-name>blurred2d</object-name>
+		<object-name>blurred3</object-name>
+		<object-name>blurred3a</object-name>
+		<object-name>blurred3b</object-name>
+		<object-name>blurred3c</object-name>
+		<object-name>blurred3d</object-name>
+</effect>
+
 	
 
 
@@ -225,7 +263,6 @@
 	<animation>
 		<type>material</type>
 		<object-name>mainrotors</object-name>
-		<global type="bool">true</global>
 		<transparency>
 			<alpha-prop>rotors/main/rpm</alpha-prop>
 			<factor>-0.0050</factor>

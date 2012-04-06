@@ -32,11 +32,12 @@
 		<message>
 		A/Col-Light: On
 		Press Fuel P button.
-		It needs about 30 sec. On the real thing you don't see any effect. 
+		It needs about 30 sec. 
+		On the real thing you don't see any effect. 
 		On this model the FUEL-P sign on the warning panel may dissapear.
 		</message>
 		<error>
-			<message>You have to wait at least 30sec for the fuelpump to fill up the lines!</message>
+			<message>You have to wait minimum 30sec for the fuelpump to fill up the lines!</message>
 			<condition>
 				<less-than>
 					<property>/controls/fuel/tank/fuellines_filled</property>

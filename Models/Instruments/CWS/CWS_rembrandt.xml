@@ -243,6 +243,38 @@
 	         </condition>
 	      
     </animation>
+    
+    <!--  REMBRANDT support for transparent objects -->
+<effect>
+  <inherits-from>Effects/model-transparent</inherits-from>
+ <object-name>fuel</object-name>
+		<object-name>fuelp</object-name>
+		<object-name>fuelf</object-name>
+		<object-name>servo</object-name>
+		<object-name>hydr</object-name>
+		<object-name>emergxmit</object-name>
+		<object-name>GEN</object-name>
+		<object-name>batt</object-name>
+		<object-name>inv</object-name>
+		<object-name>pitot</object-name>
+		<object-name>horn</object-name>
+		<object-name>-</object-name>
+		<object-name>mgbtemp</object-name>
+		<object-name>door</object-name>
+		<object-name>gov</object-name>
+		<object-name>engchip</object-name>
+		<object-name>mgbchip</object-name>
+		<object-name>tgbchip</object-name>
+		<object-name>engp</object-name>
+		<object-name>mgbp</object-name>
+		<object-name>gov.001</object-name>
+		<object-name>engfire</object-name>
+		<object-name>batttemp</object-name>
+		<object-name>twtgrip</object-name>
+</effect>
+    
+
+
 
 </PropertyList>
 
