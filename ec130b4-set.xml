@@ -42,7 +42,7 @@ EC 130 simulation config.
 		</startup>-->
 
 		<sound>
-			<path>Aircraft/ec135/Sounds/sound.xml</path>
+			<path>Aircraft/ec130/Sounds/sound.xml</path>
 		</sound>
  
 <airport>

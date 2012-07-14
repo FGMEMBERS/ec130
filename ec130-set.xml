@@ -1,0 +1,494 @@
+<?xml version="1.0"?>
+<!--
+************************************************************************
+EC 130 simulation config.
+
+************************************************************************
+
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+
+<PropertyList>
+	<sim>
+		<description>Eurocopter EC130</description>
+		<author>Heiko Schulz, Melchior Franz (Nasal)</author>
+		<status>beta</status>
+		<license>GPL v2</license>
+		<aircraft-version>1</aircraft-version>
+
+		<flight-model>yasim</flight-model>
+		<aero>ec130</aero>
+		 <fuel-fraction type="double">0.2</fuel-fraction>
+
+		<!--<startup>
+			<splash-texture>Aircraft/ec130/splash.rgb</splash-texture>
+		</startup>-->
+
+		<sound>
+			<path>Aircraft/ec135/Sounds/sound.xml</path>
+		</sound>
+ 
+<airport>
+        <runways>
+            <start-offset-m>-0.95</start-offset-m>
+        </runways>
+</airport>
+		<model>
+			<path archive="y">Aircraft/ec130/Models/ec130.xml</path>
+			<variant type="int">0</variant>
+			<livery>
+                              <file type="string">FlightGear</file>
+                              </livery>
+	   		<ec130>
+				<state type="int">0</state>
+				<rotor-step-deg type="float">-1.0</rotor-step-deg>
+				<emerg_floats>false</emerg_floats>
+				<basket_left>false</basket_left>
+				<basket_right>false</basket_right>
+				<mirror>false</mirror>
+				<FLIR>false</FLIR>
+				<searchlight>false</searchlight>
+				<wirecutter>false</wirecutter>
+				<show-gsdi>false</show-gsdi>
+			</ec130>
+		</model>
+  <rendering>
+    <refl_correction type="float">-0.1</refl_correction>
+    </rendering>
+<systems>
+ <path>Aircraft/ec130/Systems/systems.xml</path>
+ <autopilot>
+ <path>Aircraft/ec130/filter.xml</path>
+ </autopilot>
+            <electrical>
+                <path></path>
+            </electrical>
+</systems>
+<instrumentation>
+<path>Aircraft/ec130/Systems/instruments.xml</path>
+</instrumentation>
+
+		
+
+
+		<!--view-->
+		<chase-distance-m type="double" archive="y">-20.0</chase-distance-m>
+
+  
+
+  <view n="0">
+  <internal type="bool">true</internal>
+    <config>
+      <x-offset-m archive="y">  -0.67 </x-offset-m> <!--right-->
+      <y-offset-m archive="y">  0.03</y-offset-m> <!--up-->
+      <z-offset-m archive="y"> -3.93 </z-offset-m> <!--back-->
+      <pitch-offset-deg>-15</pitch-offset-deg>
+      <default-field-of-view-deg>55.0</default-field-of-view-deg>
+      <dynamic-view type="bool">true</dynamic-view>
+    </config>
+  </view>
+  
+  
+  
+  <view n="101">
+    <name>Passanger Seat View</name>
+  <internal type="bool">true</internal>
+    <type>lookfrom</type>
+    <config>
+   <from-model type="bool">true</from-model>
+			<from-model-idx type="int">0</from-model-idx>
+      <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+      <x-offset-m archive="y"> 0.00 </x-offset-m> 
+      <y-offset-m archive="y">  0.40 </y-offset-m> 
+      <z-offset-m archive="y"> -3.81 </z-offset-m> 
+      <pitch-offset-deg>-15</pitch-offset-deg>
+       <heading-offset-deg>65</heading-offset-deg>
+      <default-field-of-view-deg>55</default-field-of-view-deg>
+      <dynamic-view type="bool">true</dynamic-view>
+    </config>
+  </view>
+  
+  <view n="102">
+    <name>Passanger Seat View back</name>
+ <internal type="bool">true</internal>
+    <type>lookfrom</type>
+    <config>
+     <from-model type="bool">true</from-model>
+<from-model-idx type="int">0</from-model-idx>
+      <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+      <x-offset-m archive="y"> 0.29 </x-offset-m> <!--right-->
+      <y-offset-m archive="y">  0.4 </y-offset-m> <!--up-->
+      <z-offset-m archive="y"> -2.75 </z-offset-m> <!--back-->
+      <pitch-offset-deg>-15</pitch-offset-deg>
+      <heading-offset-deg>45</heading-offset-deg>
+      <default-field-of-view-deg>55</default-field-of-view-deg>
+      <dynamic-view type="bool">true</dynamic-view>
+    </config>
+  </view>
+
+  <view n="103">
+    <name>Tail Camera View</name>
+    <type>lookfrom</type>
+    <internal archive="y">true</internal>
+    <config>
+      <from-model type="bool">true</from-model>
+      <from-model-idx type="int">0</from-model-idx>
+      <ground-level-nearplane-m type="double">0.01f</ground-level-nearplane-m>
+      <default-field-of-view-deg type="double">30</default-field-of-view-deg>
+      <pitch-offset-deg>-5</pitch-offset-deg>
+      <x-offset-m archive="y"> 0.000 </x-offset-m> <!--Right-->
+      <y-offset-m archive="y"> 2.000 </y-offset-m> <!--Up-->
+      <z-offset-m archive="y"> 9.227 </z-offset-m> <!--Back-->
+    </config>
+  </view>
+
+
+
+		<weight n="0">
+      <name>Pilot</name>
+      <weight-lb>180</weight-lb>
+      <max-lb>300</max-lb>
+    </weight>
+
+    <weight n="1">
+      <name>Co-Pilot</name>
+      <weight-lb>0</weight-lb>
+      <max-lb>300</max-lb>
+    </weight>
+
+    <weight n="2">
+      <name>Right Front Passenger</name>
+      <weight-lb>0</weight-lb>
+      <max-lb>300</max-lb>
+    </weight>
+
+    <weight n="3">
+      <name>Right Rear Passenger</name>
+      <weight-lb>0</weight-lb>
+      <max-lb>300</max-lb>
+    </weight>
+
+    <weight n="4">
+      <name>Middle Passenger</name>
+      <weight-lb>0</weight-lb>
+      <max-lb>300</max-lb>
+    </weight>
+    
+     <weight n="5">
+      <name>Middle Passenger</name>
+      <weight-lb>0</weight-lb>
+      <max-lb>300</max-lb>
+    </weight>
+
+    <weight n="6">
+      <name>Left Rear Passenger</name>
+      <weight-lb>0</weight-lb>
+      <max-lb>300</max-lb>
+    </weight>
+
+    <weight n="7">
+      <name>Load</name>
+      <weight-lb>0</weight-lb>
+      <max-lb>800</max-lb>
+    </weight>
+    
+    <multiplay>
+        <generic>
+           <int n="0" alias="/systems/electrical/outputs/beacon"/>
+	   
+	<int n="1" alias="/systems/electrical/outputs/landing-light"/>
+			
+	<int n="2" alias="/systems/electrical/outputs/nav-lights"/>
+		     
+	<float n="0" alias="/gear/gear[6]/position-norm"/>
+                      
+            <string  alias="/sim/multiplay/callsign"/>
+        </generic>
+    </multiplay>
+    
+    <flight-recorder include="Systems/flight-recorder.xml"/>
+
+		<help>
+			<title>EC 130 - help</title>
+			<line></line>
+			
+			<line>Help</line>
+			
+			<line>For startup read the flightmanual under Aircraft/ec130/flightmanual.text</line>
+			
+		</help>
+
+
+	<tutorials include="Tutorials/ec130_tutorials.xml"/>
+
+		
+		<menubar>
+			<default>
+				<menu n="10">
+					<label>EC130</label>
+					<enabled type="bool">true</enabled>
+					
+				<item>
+						<label>Show/hide GSDI</label>
+						<binding>
+							<command>property-toggle</command>
+							<property>/sim/model/show-gsdi</property>
+						</binding>
+				</item>
+				<item>
+				<label>Supply External Power</label>
+			<binding>
+				<command>property-toggle</command>
+				<property>/controls/electric/external-power</property>
+			</binding>
+				</item>
+			          <item>
+                                       <label>Select Livery</label>
+                                      <binding>
+                                     <command>nasal</command>
+                                     <script>aircraft.livery.dialog.toggle()</script>
+                                      </binding>
+                                        </item>
+				<item>
+					 <label>Repack Emerg Floats (only on ground)</label>
+					 <binding>
+					 <command>property-assign</command>
+					 <property>/controls/gear/floats-inflat</property>
+					 <value>false</value>
+					 <condition>
+						<property>gear/gear[0]/wow</property>
+					</condition>
+					 </binding>
+				</item>
+				</menu>
+			</default>
+		</menubar>
+		
+		
+		
+</sim>
+
+
+
+<limits>
+<vne>155</vne>
+<MTOW>5350</MTOW>
+</limits>
+
+<consumables>
+		<fuel>
+			<tank>
+				<name>Main</name>
+				<selected type="bool" write="n">1</selected>
+				<density-ppg type="double" write="n">6.682</density-ppg>
+			</tank>
+
+			
+		</fuel>
+	</consumables>
+
+	<controls>
+	<!--cold and dark as we all like it!-->
+	<gear>
+	<floats-inflat type ="bool">false</floats-inflat>
+	<floats-armed type ="bool">false</floats-armed>
+	<floats-deflate type = "bool">false</floats-deflate>
+         </gear>
+	<rotor>
+	                    <brake type ="double">1</brake>
+			<reltarget type="double">0</reltarget>
+			<maxreltorque type="double">0</maxreltorque>
+		</rotor>
+	
+		<engines>
+			<engine n="0">
+				<magnetos>1</magnetos>
+				<propeller-pitch alias="/controls/engines/power-trim"/>
+				<mixture alias="/controls/engines/power-balance"/>
+				<startselector type="bool">0</startselector>
+				<switchguard type="bool">0</switchguard>
+			</engine>
+			<engine n="1">
+				<magnetos>1</magnetos>
+				<propeller-pitch alias="/controls/engines/power-trim"/>
+				<mixture alias="/controls/engines/power-balance"/>
+				<throttle alias="/controls/engines/engine[0]/throttle"/>
+			</engine>
+			<power-trim type="double">0</power-trim>
+			<power-balance type="double">0</power-balance>
+	</engines>
+
+
+		<lighting>
+			<beacon type="bool">false</beacon>
+			<nav-lights type="bool">false</nav-lights>
+		</lighting>
+		
+	</controls>
+
+
+	<instrumentation>
+      	  <kcs55 include="Systems/kcs55.xml"/>
+        		<gsdi>
+			<serviceable type="bool">true</serviceable>
+		</gsdi>
+	<attitude-indicator>
+	<serviceable type="bool">false</serviceable>
+	</attitude-indicator>
+	</instrumentation>
+
+	<input>
+		<keyboard>
+
+			<!-- Livery Box -->
+			<!--<key n="79">
+				<name>O</name>
+				<desc>start timer</desc>
+				<binding>
+				<command>nasal</command>
+				<script>ec130.begin()</script>
+			</binding>
+			</key>-->
+  
+
+			<key n="78">
+				<name>N</name>
+				<desc>Toggle rotor brake</desc>
+				<binding>
+					<command>nasal</command>
+					<script>
+						var p = "/controls/rotor/brake";
+						setprop(p, !getprop(p));
+					</script>
+				</binding>
+			</key>
+
+			<key n="110">
+				<name>n</name>
+				<desc>Apply rotor brake</desc>
+				<binding>
+					<command>nasal</command>
+					<script>interpolate("/controls/rotor/brake", 1.0, 2)</script>
+				</binding>
+				<mod-up>
+					<binding>
+						<command>nasal</command>
+						<script>interpolate("/controls/rotor/brake", 0.0, 2)</script>
+					</binding>
+				</mod-up>
+			</key>
+			
+                               <key n="102">
+				<name>f</name>
+				<desc>Force Trim Release</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ec130.ftr_start()</script>
+				</binding>
+				<mod-up>
+					<binding>
+						<command>nasal</command>
+						<script>ec130.ftr_stop()</script>
+					</binding>
+				</mod-up>
+			</key>
+			
+			<key n="101">
+				<name>e</name>
+				<desc>Emerg_Floats</desc>
+				<binding>
+					<command>property-assign</command>
+					 <property>/controls/gear/floats-inflat</property>
+					<value>true</value>
+					<condition>
+						<property>/controls/gear/floats-armed</property>
+					</condition>
+				</binding>
+			</key>
+			
+			<key n="108">
+				<name>l</name>
+				<desc>Landing Light</desc>
+				<binding>
+					<command>property-toggle</command>
+					 <property>controls/lighting/landing-lights</property>
+				</binding>
+			</key>
+
+			<!--<key n="123">
+				<name>{</name>
+				<desc>Shutdown Engines</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ec130.shutdown()</script>
+					<condition>
+						<property>/sim/signals/fdm-initialized</property>
+					</condition>
+				</binding>
+</key>
+
+			<key n="125">
+				<name>}</name>
+				<desc>Start Engines</desc>
+				<binding>
+					<command>nasal</command>
+					<script>ec130.startup()</script>
+					<condition>
+						<property>/sim/signals/fdm-initialized</property>
+					</condition>
+				</binding>
+</key>-->
+
+			
+
+		</keyboard>
+	</input>
+
+
+	<nasal>
+		<ec130>
+		           <file>Aircraft/ec130/Nasal/test.nas</file>
+			 <file>Aircraft/ec130/Nasal/mousehandlery.nas</file>	
+			<file>Aircraft/ec130/Nasal/mousehandlerx.nas</file>
+		           <file>Aircraft/ec130/Nasal/savestate.nas</file>
+			<file>Aircraft/ec130/Nasal/externalweights.nas</file>
+			<file>Aircraft/ec130/Nasal/ec130.nas</file>
+			<file>Aircraft/ec130/Nasal/woolthread.nas</file>
+			<file>Aircraft/ec130/Nasal/limits.nas</file>
+			<file>Aircraft/ec130/Nasal/flightcontrols.nas</file>
+			<file>Aircraft/ec130/Nasal/Electrical.nas</file>
+			<file>Aircraft/ec130/Nasal/fadec.nas</file>
+			<file>Aircraft/ec130/Systems/kcs55.nas</file>
+			<file>Aircraft/ec130/Nasal/systems.nas</file>
+			<file>Aircraft/ec130/Nasal/rotorloads.nas</file>
+			<file>Aircraft/ec130/Models/Instruments/VEMD/timer.nas</file>
+			<file>Aircraft/ec130/Models/Instruments/VEMD/VEMD.nas</file>
+			<file>Aircraft/ec130/Models/Instruments/VEMD/roc.nas</file>
+			 <file>Aircraft/ec130/Models/Instruments/CWS/CWS.nas</file>
+			   <script><![CDATA[
+              KCS55.new();
+            ]]></script>
+		</ec130>
+	</nasal>
+
+
+	<rotors>
+		<main>
+			<rpm type="double">0</rpm>
+		</main>
+	</rotors>
+
+</PropertyList>

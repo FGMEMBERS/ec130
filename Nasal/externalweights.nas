@@ -13,8 +13,8 @@ basket_left = props.globals.getNode("/sim/model/ec130/external/basket_left/weigh
 
 
 if (getprop("/sim/model/ec130/emerg_floats")=="true"){
-float_deflated_right.setValue(100);
-float_deflated_left.setValue(100);
+float_deflated_right.setValue(67.285);
+float_deflated_left.setValue(67.285);
 }else{
 float_deflated_right.setValue(0);
 float_deflated_left.setValue(0);
@@ -38,13 +38,13 @@ float_inflated_left.setValue(0);
 }
 
 if (getprop("/sim/model/ec130/basket_right")=="true"){
-basket_right.setValue(20);
+basket_right.setValue(65);
 }else{
 basket_right.setValue(0);
 }
 
 if (getprop("/sim/model/ec130/basket_left")=="true"){
-basket_left.setValue(20);
+basket_left.setValue(65);
 }else{
 basket_left.setValue(0);
 }

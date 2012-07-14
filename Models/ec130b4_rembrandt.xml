@@ -94,21 +94,15 @@
     <object-name>LightVolume</object-name>
     <position>
       <x>-3.419</x>
-      <y>-0.498</y>
-      <z>-1.306</z>
+      <y>-0.492</y>
+      <z>-1.314</z>
     </position>
     <direction>
       <x>-1.0</x>
       <y> 0.0</y>
-      <z> -0.35</z>
+      <z> -0.5</z>
     </direction>
-    <ambient>
-      <r>0.00</r>
-      <g>0.00</g>
-      <b>0.00</b>
-      <a>1.0</a>
-    </ambient>
-    <diffuse>
+      <diffuse>
       <r>1.0</r>
       <g>1.0</g>
       <b>1.0</b>
@@ -120,15 +114,15 @@
       <b>1.0</b>
       <a>1.0</a>
     </specular>
-    <attenuation>
-      <c>1.0</c>
-	<l>0.225</l>
-	<q>0.000100</q>
-    </attenuation>
-    <exponent>2</exponent>
-    <near-m>0.001</near-m>
-    <far-m>225</far-m>
-    <cutoff>70</cutoff>
+<attenuation>
+		<c>1.0</c>
+		<l>0.002</l>
+		<q>0.00005</q>
+</attenuation>
+    <exponent>40</exponent>
+    <near-m>0.05</near-m>
+    <far-m>250</far-m>
+    <cutoff>40</cutoff>
   </animation>
 
  
@@ -624,7 +618,7 @@
       <l>0.0</l>
       <q>0.75</q>
     </attenuation>
-    <exponent>0.3</exponent>
+    <exponent>3</exponent>
     <near-m>0.01</near-m>
     <far-m>36</far-m>
     <cutoff>150</cutoff>
@@ -668,16 +662,16 @@
       <l>0.0</l>
       <q>0.75</q>
     </attenuation>
-    <exponent>0.3</exponent>
+    <exponent>3</exponent>
     <near-m>0.01</near-m>
-    <far-m>36</far-m>
+    <far-m>18</far-m>
     <cutoff>150</cutoff>
   </animation>
   
   <animation>
     <type>light</type>
     <light-type>spot</light-type>
-    <name>NavLightLeft</name>
+    <name>NavLightRight</name>
     <object-name>NavLightVolume_right</object-name>
     <position>
       <x>2.901</x>
@@ -712,9 +706,9 @@
       <l>0.0</l>
       <q>0.75</q>
     </attenuation>
-    <exponent>0.3</exponent>
+    <exponent>3</exponent>
     <near-m>0.01</near-m>
-    <far-m>36</far-m>
+    <far-m>18</far-m>
     <cutoff>150</cutoff>
   </animation>
   
@@ -725,8 +719,8 @@
 	<object-name>LightVolume2</object-name>
 	<position>
 		<x>-3.6</x>
-		<y>0.392</y>
-		<z>-1.309</z>
+		<y>0.394</y>
+		<z>-1.314</z>
 	</position>
 	<direction>
 		<x>-1</x>
@@ -734,9 +728,9 @@
 		<z>-0.7</z>
 	</direction>
 	<ambient>
-		<r>0.0</r>
-		<g>0.0</g>
-		<b>0.0</b>
+		<r>0.01</r>
+		<g>0.01</g>
+		<b>0.01</b>
 		<a>1.0</a>
 	</ambient>
 	<diffuse>
@@ -751,15 +745,15 @@
 		<b>0.87</b>
 		<a>1.0</a>
 	</specular>
-	<attenuation>
+<attenuation>
 		<c>1.0</c>
-		<l>0.00002</l>
-		<q>0.14</q>
-	</attenuation>
-	<exponent>3</exponent>
-	<cutoff>40</cutoff>
-	<near-m>3.5</near-m>
-	<far-m>200</far-m>
+		<l>0.002</l>
+		<q>0.00005</q>
+</attenuation>
+    <exponent>40</exponent>
+    <near-m>0.5</near-m>
+    <far-m>80</far-m>
+    <cutoff>70</cutoff>
   </animation>
 
 

@@ -12,7 +12,7 @@ oilpres_norm = props.globals.getNode("/engines/engine/oil-pressure-norm", 1);
 oilpres_bar = props.globals.getNode("/engines/engine/oil-pressure-bar", 1);
 
 var rpm = props.globals.getNode("/engines/engine/rpm").getValue() or 0;
-var oilpres_psi = props.globals.getNode("/engines/engine/oil-pressure-psi").getValue() or 0;
+#var oilpres_psi = props.globals.getNode("/engines/engine/oil-pressure-psi").getValue() or 0;
 
 
 

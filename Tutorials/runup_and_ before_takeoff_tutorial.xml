@@ -258,7 +258,7 @@
 		<message>
 				    
 		POS LT: On 
-		FLOAT ARM: On (If equipped with emergency floats!!) 
+		
 		
 		
 		</message>
@@ -268,6 +268,39 @@
 			</condition>
 		</exit>
 	</step>
+	
+<step>
+		<view>
+			<heading-offset-deg>322.2</heading-offset-deg>
+			<pitch-offset-deg>-57.2</pitch-offset-deg>
+			<roll-offset-deg>0.0</roll-offset-deg>
+			<x-offset-m>-0.7</x-offset-m>
+			<y-offset-m>0.0</y-offset-m>
+			<z-offset-m>-3.9</z-offset-m>
+			<field-of-view>32.7</field-of-view>
+		</view>
+
+		<marker>
+			<x-m>-4.2834</x-m>
+			<y-m>-0.3017</y-m>
+			<z-m>-0.6776</z-m>
+			<scale>1.8</scale>
+		</marker>
+
+		<message>
+				    
+		only If equipped with emergency floats: 
+		FLOAT ARM: On 
+		
+		
+		</message>
+		<exit>
+			<condition>
+			
+			</condition>
+		</exit>
+	</step>
+	
 	
 
 	

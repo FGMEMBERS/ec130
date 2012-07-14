@@ -71,7 +71,8 @@
 		<control-setting axis="/controls/engines/engine[0]/throttle" value="0.5"/>
 	</cruise>
 
-
+<!--increased ground-effect-factor to 0.2: The AS350 has a low factor, due its round shape. Air from the rotor flows easily around and prevent a good air cushion. 
+The EC130 isn't that round, and has a much wder bottom, so I expect a much better air cushion-->
 
 	<rotor name="main" 
        x="1.9" y="0.0" z="1.325" 
@@ -86,16 +87,16 @@
        chord="0.30" 
        rpm="386" 
        relbladecenter="0.6" 
-       dynamic="0.65"
+       dynamic="1.0"
        rellenflaphinge="0.05" 
-       delta3="0" delta="0.19" 
+       delta3="0" delta="0.25" 
        pitch-a="10" pitch-b="15" 
        flapmin="-13" flapmax="13" 
        flap0="-7.5" flap0factor="0" phi0="45"
        notorque="0" dragfactor="0.30" 
        translift-ve="20" 
        translift-maxfactor="1.35" 
-       ground-effect-constant="0.1" 
+       ground-effect-constant="0.2" 
        taper="1"
        number-of-segments="10" 
        number-of-parts="10" 
@@ -130,7 +131,7 @@
 					   dst0="1.0" dst1="-1.0"/>
 	</rotor>
 
-<!--flapmin/max should be in theory = zero, but then it doesn't produce any thrust. S0 +/-1.5, lift coefficient 3.85, drag 0.00385.Bug me-->
+<!--flapmin/max guessed from a real fenestron with 1-3degrees. S0 +/-1.5, lift coefficient 3.85, drag 0.00385.Bug me-->
 	<rotor name="tail"  x="-4.4" y="-0.125" z="0.109" 
 	nx="0.00" ny="1" nz="-0.00" fx="1" fy="0" fz="0" ccw="0"
 	  maxcollective="-16.8" mincollective="34.2"
@@ -138,11 +139,11 @@
 	  dynamic="1.4" rpm="3568" rellenflaphinge="0.35" delta3="0" translift="0" delta="0.5" twist="-7.0" 
 	  pitch-a="10"
 	  pitch-b="15"
-	  flapmin="-1.5"
-          flapmax="1.5"
+	  flapmin="-2"
+          flapmax="2"
           flap0="0"
-	  airfoil-lift-coefficient="3.85"
-	  airfoil-drag-coefficient0="0.00385"
+	  airfoil-lift-coefficient="4.55"
+	  airfoil-drag-coefficient0="0.005675"
 	  airfoil-drag-coefficient1="0.15"
 	  notorque="0"
 	  taper="1"
