@@ -90,7 +90,7 @@ var updatePilotG = func {
 
 updatePilotG();
 
-var checkGandVNE = func {
+var checkG_VNE_MTOW_RPM = func {
   if (getprop("/sim/freeze/replay-state"))
     return;
 
@@ -118,28 +118,85 @@ var checkGandVNE = func {
   if ((airspeed != nil) and (vne != nil) and (airspeed > vne))
   {
     msg = "Airspeed exceeds Vne!";
+    if (airspeed > (vne+20)) {
+      msg = "EXTREME OVERSPEED !!!";
+      setprop("sim/sound/warn2600",1);
+    } else {
+      setprop("sim/sound/warn2600",0);
+    }
+    if (airspeed > (vne+45)) setprop("sim/crashed",1);
+  } else {
+    setprop("sim/sound/warn2600",0);
   }
   
-  #Now Check TOW
+  #Now Check MTOW
   var TOW =getprop("yasim/gross-weight-lbs");
   var MTOW = getprop("limits/MTOW");
   if (TOW > MTOW)
   {
-  msg = "Gross weight exceeds MTOW of 5350 lbs!";
+    msg = "Gross weight exceeds MTOW of 5350 lbs!";
   }
 
+  #Check Rotor rpm - warning sounds activated when Button "Horn" on SCU is engaged
+	Cont310 = props.globals.getNode("/sim/sound/Cont310", 1);
+	Int310 = props.globals.getNode("/sim/sound/Intermittent310", 1);
+	var min_rpm = props.globals.getNode("limits/rpm-min").getValue() or 0;
+	var max_rpm =  props.globals.getNode("limits/rpm-max").getValue() or 0;
+	var rpm =  props.globals.getNode("/rotors/main/rpm").getValue() or 0;
+	var horn =   props.globals.getNode("/systems/electrical/outputs/horn").getValue() or 0;
+  
+  if ((rpm > max_rpm) and (horn > 24))
+  {
+	msg = "Rotor rpm exceeds max of 410!";
+	Int310.setValue(1);
+  }else{
+		Int310.setValue(0);
+	}
+	
+  if ((rpm < min_rpm) and (horn > 24))
+    {
+	msg = "Rotor rpm less than 360!";
+	Cont310.setValue(1);
+    }else{
+	Cont310.setValue(0);
+	}
+  
+  
+  #Check take-off limits
+    var trq =getprop("/sim/model/ec130/torque-pct");
+    var tot =getprop("/engines/engine/tot-degc");
+    var ng =getprop("/engines/engine/n1-pct");
+    
+  var max_trq = getprop("limits/trq-max");
+  var max_tot = getprop("limits/tot-max");
+  var max_ng = getprop("limits/ng-max");
+  
+  if ((trq > max_trq) and (horn > 24))
+  {
+		msg = "Engine Torque exceeds max of 100%!";
+		setprop("sim/sound/Cont285",1);
+  }elsif ((tot > max_tot) and (horn > 24)) {
+		msg = "Engine T4 exceeds 915 deg!";
+		setprop("sim/sound/Cont285",1);
+  }elsif ((ng > max_ng) and (horn > 24)) {
+		msg = "Engine NG exceeds 101.1%!";
+		setprop("sim/sound/Cont285",1);
+  }else{
+  setprop("sim/sound/Cont285",0);
+  }
+  
   if (msg != "")
   {
     # If we have a message, display it, but don't bother checking for
     # any other errors for 10 seconds. Otherwise we're likely to get
     # repeated messages.
     screen.log.write(msg);
-    settimer(checkGandVNE, 10);
+    settimer(checkG_VNE_MTOW_RPM, 5);
   }
   else
   {
-    settimer(checkGandVNE, 1);
+    settimer(checkG_VNE_MTOW_RPM, 1);
   }
 }
 
-checkGandVNE();
+checkG_VNE_MTOW_RPM();

@@ -61,7 +61,7 @@
 		Press Fuel P button.
 		
 		It needs about 30 sec. 
-		On the real thing you don't see any effec, on this model the FUEL-P sign on the warning panel may dissapear.
+		On the real thing you don't see any effect, on this model the FUEL-P sign on the warning panel may dissapear.
 		</message>
 		<error>
 			<message>You have to wait minimum 30sec for the fuelpump to fill up the lines!</message>
@@ -186,7 +186,7 @@
 		<message>
 		set Fuel P off
 		
-		Not needed anymore- the engines sucks now the fuel.
+		Not needed anymore- the engines suck the fuel now.
 		</message>
 		<exit>
 			<condition>

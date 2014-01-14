@@ -135,9 +135,9 @@
   <interpolation>
    <entry><ind>  0</ind><dep>   0</dep></entry>
    <entry><ind>  16</ind><dep>0.053</dep></entry>
-   <entry><ind> 262</ind><dep>0.125</dep></entry>
-   <entry><ind>  524</ind><dep>0.25</dep></entry>
-   <entry><ind>  1048</ind><dep>0.5</dep></entry>
+   <entry><ind> 235.25</ind><dep>0.125</dep></entry>
+   <entry><ind>  470.5</ind><dep>0.25</dep></entry>
+   <entry><ind>  941</ind><dep>0.5</dep></entry>
        </interpolation>
   <axis>
    <x>0</x>

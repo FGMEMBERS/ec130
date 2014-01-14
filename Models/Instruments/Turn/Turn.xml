@@ -33,7 +33,7 @@
  <animation>
   <type>rotate</type>
   <object-name>Ball</object-name>
-   <property>/instrumentation/slip-skid-ball/indicated-slip-skid</property>
+   <property>/orientation/side-slip-deg</property>
   <factor>21</factor>
   <min-deg>-19</min-deg>
   <max-deg>19</max-deg>

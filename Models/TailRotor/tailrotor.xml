@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+  <path>tailrotor.ac</path>
+
+  <!-- Blades -->
+  <model>
+    <name>Blade1</name>
+    <path>Aircraft/ec130/Models/TailRotor/blade.xml</path>
+    <offsets>
+      <x-m> 0    </x-m>
+      <y-m> 0    </y-m>
+      <z-m> 0.05 </z-m>
+      <roll-deg>    0 </roll-deg>
+      <pitch-deg>   0 </pitch-deg>
+      <heading-deg> 0 </heading-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Blade2</name>
+    <path>Aircraft/ec130/Models/TailRotor/blade.xml</path>
+    <offsets>
+      <x-m> 0    </x-m>
+      <y-m> 0    </y-m>
+      <z-m> 0.05 </z-m>
+      <roll-deg>      0.000 </roll-deg>
+      <pitch-deg>     0.000 </pitch-deg>
+      <heading-deg>  30.000 </heading-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Blade3</name>
+    <path>Aircraft/ec130/Models/TailRotor/blade.xml</path>
+    <offsets>
+      <x-m> 0    </x-m>
+      <y-m> 0    </y-m>
+      <z-m> 0.05 </z-m>
+      <roll-deg>      0.000 </roll-deg>
+      <pitch-deg>     0.000 </pitch-deg>
+      <heading-deg>  60.000 </heading-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Blade4</name>
+    <path>Aircraft/ec130/Models/TailRotor/blade.xml</path>
+    <offsets>
+      <x-m> 0    </x-m>
+      <y-m> 0    </y-m>
+      <z-m> 0.05 </z-m>
+      <roll-deg>      0.000 </roll-deg>
+      <pitch-deg>     0.000 </pitch-deg>
+      <heading-deg>  90.000 </heading-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Blade5</name>
+    <path>Aircraft/ec130/Models/TailRotor/blade.xml</path>
+    <offsets>
+      <x-m> 0    </x-m>
+      <y-m> 0    </y-m>
+      <z-m> 0.05 </z-m>
+      <roll-deg>      0.000 </roll-deg>
+      <pitch-deg>     0.000 </pitch-deg>
+      <heading-deg> 135.000 </heading-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Blade6</name>
+    <path>Aircraft/ec130/Models/TailRotor/blade.xml</path>
+    <offsets>
+      <x-m> 0    </x-m>
+      <y-m> 0    </y-m>
+      <z-m> 0.05 </z-m>
+      <roll-deg>      0.000 </roll-deg>
+      <pitch-deg>     0.000 </pitch-deg>
+      <heading-deg> 180.000 </heading-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Blade7</name>
+    <path>Aircraft/ec130/Models/TailRotor/blade.xml</path>
+    <offsets>
+      <x-m> 0    </x-m>
+      <y-m> 0    </y-m>
+      <z-m> 0.05 </z-m>
+      <roll-deg>      0.000 </roll-deg>
+      <pitch-deg>     0.000 </pitch-deg>
+      <heading-deg> 210.000 </heading-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Blade8</name>
+    <path>Aircraft/ec130/Models/TailRotor/blade.xml</path>
+    <offsets>
+      <x-m> 0    </x-m>
+      <y-m> 0    </y-m>
+      <z-m> 0.05 </z-m>
+      <roll-deg>      0.000 </roll-deg>
+      <pitch-deg>     0.000 </pitch-deg>
+      <heading-deg> 240.000 </heading-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Blade9</name>
+    <path>Aircraft/ec130/Models/TailRotor/blade.xml</path>
+    <offsets>
+      <x-m> 0    </x-m>
+      <y-m> 0    </y-m>
+      <z-m> 0.05 </z-m>
+      <roll-deg>      0.000 </roll-deg>
+      <pitch-deg>     0.000 </pitch-deg>
+      <heading-deg> 270.000 </heading-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>Blade10</name>
+    <path>Aircraft/ec130/Models/TailRotor/blade.xml</path>
+    <offsets>
+      <x-m> 0    </x-m>
+      <y-m> 0    </y-m>
+      <z-m> 0.05 </z-m>
+      <roll-deg>      0.000 </roll-deg>
+      <pitch-deg>     0.000 </pitch-deg>
+      <heading-deg> 315.000 </heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <name>rotorfull</name>
+    <object-name>Blade1</object-name>
+    <object-name>Blade2</object-name>
+    <object-name>Blade3</object-name>
+    <object-name>Blade4</object-name>
+    <object-name>Blade5</object-name>
+    <object-name>Blade6</object-name>
+    <object-name>Blade7</object-name>
+    <object-name>Blade8</object-name>
+    <object-name>Blade9</object-name>
+    <object-name>Blade10</object-name>
+  </animation>
+
+  <!-- rotation -->
+  <animation>
+    <type>rotate</type>
+    <object-name>rotorfull</object-name>
+    <property>rotors/tail/blade[0]/position-deg</property>
+    <factor>-1</factor>
+    <center>
+       <x-m> 0 </x-m>
+       <y-m> 0 </y-m>
+       <z-m> 0 </z-m>
+    </center>
+    <axis>
+      <x>  0 </x>
+      <y>  0 </y>
+      <z>  1 </z>
+    </axis>
+  </animation>
+
+  <!-- tail rotor animation-->
+  <!--<animation>
+    <type>material</type>
+    <object-name>rotorfull</object-name>
+    <transparency>
+      <alpha-prop>rotors/tail/rpm</alpha-prop>
+      <factor>-0.005</factor>
+      <offset>1</offset>
+      <max>1</max>
+    </transparency>
+  </animation>-->
+
+  <animation>
+    <type>select</type>
+    <object-name>rotorfull</object-name>
+    <condition>
+      <less-than>
+        <property>rotors/tail/rpm</property>
+        <value>270</value>
+      </less-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>rotor_disc_T</object-name>
+    <transparency>
+      <alpha-prop>rotors/tail/rpm</alpha-prop>
+      <factor>0.0015</factor>
+      <offset>-0.0</offset>
+      <max>0.55</max>
+    </transparency>
+    <threshold>0.001</threshold>
+  </animation>
+
+  <animation>
+    <type>noshadow</type>
+    <object-name>rotor_disc_T</object-name>
+  </animation>
+  
+<effect>
+  <inherits-from>Effects/model-transparent</inherits-from>
+    <object-name>rotor_disc_T</object-name>
+  </effect>
+
+  <animation>
+    <type>select</type>
+    <object-name>rotor_disc_T</object-name>
+    <condition>
+      <greater-than>
+        <property>rotors/tail/rpm</property>
+        <value>150</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+</PropertyList>
+

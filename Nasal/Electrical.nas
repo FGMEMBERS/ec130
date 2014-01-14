@@ -177,7 +177,7 @@ init_switches = func() {
     append(output_list,"dome-light");
     append(watt_list,10);
 
-    append(switch_list,"controls/lighting/beacon");
+    append(switch_list,"controls/lighting/beacon-state/state");
     append(output_list,"beacon");
     append(watt_list,0.5);
 
@@ -204,6 +204,10 @@ init_switches = func() {
     append(switch_list,"controls/electric/servo");
     append(output_list,"servo");
     append(watt_list,0.5);
+    
+    append(switch_list,"controls/electric/horn");
+    append(output_list,"horn");
+    append(watt_list,0.5);
      
      
     append(switch_list,"controls/electric/attitude");
@@ -212,7 +216,7 @@ init_switches = func() {
     
     append(switch_list,"controls/electric/avionics-switch");
     append(output_list,"avionics-switch");
-    append(watt_list,0.2);
+    append(watt_list,10);
     
     append(switch_list,"controls/electric/avionics-switch");
     append(output_list,"adf");

@@ -202,6 +202,28 @@ settimer(flight, 0.2);
 
 flight();
 
+##automatic variable main rotor speed system to reduce external noise = rotor-noise-signature reduction feature##
+var avrs = func {
+
+
+var n2function = props.globals.getNode("/controls/engines/power-trim", 1);
+var trimvalue = props.globals.getNode("/controls/engines/power-trim").getValue() or 0;
+#var catabtn = props.globals.getNode("/controls/rotor/cata").getValue() or 0;
+var asp = props.globals.getNode("/instrumentation/airspeed-indicator/indicated-speed-kt").getValue() or 0;
+
+
+
+if (asp > 50) {
+interpolate( n2function, -0.33, 6 );
+}else{
+interpolate( n2function, 0, 6 );
+}
+
+settimer(avrs, 0);
+}
+
+avrs();
+
 
 
 

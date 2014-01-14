@@ -18,14 +18,15 @@
 <PropertyList>
 
   <path>mgpu.ac</path>
-
-<!--model of a small mobile Ground Power Unit After the AXA 28VDC 50HZ-->
+<!--
+  <nopreview/>
+-->
+  <!--model of a small mobile Ground Power Unit After the AXA 28VDC 50HZ-->
   
-
-    <animation>
+  <animation>
     <type>select</type>
     <object-name>MGPU</object-name>
-        <object-name>cables</object-name>
+    <object-name>cables</object-name>
     <condition>
       <greater-than>
         <property>/controls/electric/external-power</property>
@@ -34,6 +35,4 @@
     </condition>
   </animation>
 
-
 </PropertyList>
-

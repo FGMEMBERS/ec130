@@ -38,8 +38,49 @@
 				</mod-up>
         </action>
     </animation>-->
-    
-<animation>
+  
+
+  <animation>
+        <type>knob</type>
+       <object-name>rotorbrakelever</object-name>
+  <property>controls/rotor/brake</property>
+        <factor>-30.0</factor>
+        <drag-direction>horizontal</drag-direction>
+<center>
+      <x-m>0 </x-m>
+      <y-m>  -0.031 </y-m>
+      <z-m> -0.035 </z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+        <action>
+            <button>0</button>
+            <repeatable>true</repeatable>
+            <interval-sec>0.1</interval-sec>
+            <binding>
+            <command>property-adjust</command>
+            <property>controls/rotor/brake</property>
+            <factor>0.15</factor>
+            <min>0</min>
+            <max>1</max>
+            <wrap>0</wrap>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <label>Rotor Brake: %1.0f</label>
+                <mapping>percent</mapping>
+                <tooltip-id>Rotor Brake</tooltip-id>
+  <property>controls/rotor/brake</property>
+            </binding>
+        </hovered>
+    </animation>
+
+<!--<animation>
       <type>pick</type>
        <object-name>rotorbrakelever</object-name>
       <visible>true</visible>
@@ -57,7 +98,7 @@
           </binding>
          </mod-up>
       </action>
-    </animation>
+    </animation>-->
     
     
 <animation>
@@ -78,7 +119,7 @@
     </axis>
   </animation>
   
-  <animation>
+  <!--<animation>
     <type>rotate</type>
     <object-name>rotorbrakelever</object-name>
    
@@ -94,7 +135,7 @@
       <y> 1 </y>
       <z> 0 </z>
     </axis>
-  </animation>
+  </animation>-->
  
 </PropertyList>
 

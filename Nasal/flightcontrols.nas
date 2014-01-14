@@ -99,17 +99,16 @@ init();
 ##############
 var emerg_floats = func {
 
-EF= getprop("/sim/model/ec130/emerg_floats");
+  EF= getprop("/sim/model/ec130/emerg_floats");
 
-if (EF == "false"){
-setprop("/controls/gear/floats-inflat", "false");
+  if (EF == "false"){
+    setprop("/controls/gear/floats-inflat", "false");
+  }
+
+  settimer(emerg_floats, 0.1);
+
 }
 
-
-
-
-settimer(emerg_floats, 0.1);
-}
 emerg_floats();
 
 

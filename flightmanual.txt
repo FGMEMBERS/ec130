@@ -1,13 +1,13 @@
 ##FlightManual EC 130 B4##
-02/19/2012
+02/19/2012, updated 11/17/2013 mhab
 
 1. Information:
 This Model of an Eurocopter EC130 B4 is made for FlightGear and stands under the terms of GPLv2.
 
-This model is standing under heavily work progress so please accept that there are a lot of thing which might not working as you want. 
+This model is a work in progress so please accept that there may be things which are working as you want.
 For updates use the GIT-version and read the GIT-logs and some threads in the officiasl FlightGear Forum!
 
-Im still looking for datas about the airfoils, and perfomance datas! Help by a real pilot appreciated!
+Im still looking for data about the airfoils, and perfomance data! Help by a real pilot appreciated!
 The current fdm is just a guess and might be not that realistic.
 
 Note:  EUROCOPTER and its logo are trade marks of the Eurocopter group.
@@ -18,11 +18,15 @@ Main Author, author 3D-Model:
 Heiko Schulz
 Heiko.H.Schulz@gmx.net
 
+Michael Habarta (model details)
+mhabarta@freenet.de
+
 Author dynamic flight model:
 Heiko Schulz 
 
 Author Nasal:
 Heiko Schulz
+Michael Habarta
 
 Melchior Franz
 mfranz@aon.at
@@ -32,17 +36,19 @@ mfranz@aon.at
 - 3d-cockpit
 - accurate simulation of the systems including FADEC and FLI according to real Flight Manual, including Flight Report page.
 - accurate Flight Dynamic
-- no Autostart
+- Autostart after 15 flights
 - fuel state saved on exit
 - Force Trim Release
--emergency floats
+- emergency floats
+- Searchlight
+- baskets
+- cargo hook
+  ...
 
 3. To-do:
 - fixing the FLI to a more realistic behaviour
 - adding the rotorspeed management to FADEC
 - VEMD: switching the pages, fixing of some bugs
-- some minor optimization of the 3d-model
-- better views
 - flight manual as pdf
 - failures
 
@@ -50,9 +56,10 @@ mfranz@aon.at
 FlightManual
 -------------
 
-2.2 Generell
+2.2 General
 This helicopter is approved to operate:
 - by day and night in VFR
+
 2.3 Forbidden
 -acrobatic maneuvers
 -in flight engine power reduction with the twist grip
@@ -76,9 +83,9 @@ So you need first electrical power:
 
 Engine Starting
 
-1.)Fuel P on Now the pump can fill up the lines to the engine with fuel. It needs about 30 sec. On the real thing you don't see any effect. On this model the FUEL-P sign on the warning panel may dissapear.
-2. A/Col-Light: On
-3.)Start Selector: On 
+1.) Fuel P on Now the pump can fill up the lines to the engine with fuel. It needs about 30 sec. On the real thing you don't see any effect. On this model the FUEL-P sign on the warning panel may dissapear.
+2.) A/Col-Light: On
+3.) Start Selector: On
 The starter is released and will bring up NG to about 17-18%. Fuel is injected then automatically, NG increases, T4 increases, rotor is turning, engine oil pressure increases.
 Also some warnings on the warning panel will dissapear.
 At NG = 60% the Enginestartpage dissapears and the FLI-pages comes up.
@@ -86,7 +93,7 @@ At NG = 60% the Enginestartpage dissapears and the FLI-pages comes up.
 When Ng> 67% engine is now in Idle. 
 
 
-3.)set Fuel P offNot needed anymore- the engines sucks now the fuel.
+4.) set Fuel P offNot needed anymore- the engines sucks now the fuel.
 
 Run Up
 
@@ -122,9 +129,7 @@ When FlightGear is exit as usual flightnumber and fuel level state is saved and 
 No warranties!
 
 
-
-
-5. Force Trim Release
+5.) Force Trim Release
 
 Due to hydraulic boost of the controls the pilot woulden't feel any force feedback on the controls. That's why there is a spring which produce artificial force feel. This force can be set to zero by pressing the FTR-button at each stick position by some clutches and electric motors. The clutches holds the cyclic-controls, and the spring is moved to a force free position.
 As FlightGear dosen't support Force Feedback, and anyway there is no good hardware for that, we cannot simulate this approach. We could use the already implemented AutoTrim but this isn't really suitable to helicopters and seems even wrong to me. See also data/nasal/aircraft.nas ->autotrim
@@ -139,25 +144,30 @@ that is how to use it:
 	(3) move stick/yoke to neutral position (center)
 	(4) release FTR button (f-key)
 
-6.Emergency Floats:
 
-If selected the floats has to be armed with the button on the SCU.
-In the case of ermergency press "e"-key. The Floates will be inflated immediately.
+6.) Emergency Floats:
+
+If selected the floats have to be armed with the button on the SCU.
+In the case of ermergency press "Alt-f"-key. The Floates will be inflated immediately.
 
 The emergency floats can only repacked on ground!
 
-7.Landing Lights:
+
+7.) Landing Lights:
 
 Press "l"-key (l like "L"etter)
 
-8. Additional informations:
-Like many french helicopters the hydraulics are to weak for acrobatic and heavy maneuvers.
+
+8.) Additional information:
+
+Like many french helicopters the hydraulics are too weak for acrobatic and heavy maneuvers.
 Maneuvers with high g-loads (high rotor loads) will lead to jackstall or also known as hydraulic transparency.
 Forces from the rotor are feed back to the cyclic controls, and can lock them. So in some certain flightstates there will be no control, 
 which is very dangerous. 
-The Gazelle and the Squirrel are "famous" for this behaviour and have been involved in some fatal accidents.
 
-This is simulated simplified due to limitations of FlightGear: at certain flightstates the inputs of the cyclic controls are reduced to zero depending on a simplified rotorload vs hydraulic force. When this happens reduce rotorload by taking down the collective.
+The Gazelle and the Ecureuil/Squirrel are "famous" for this behaviour and have been involved in some fatal accidents.
+
+This is simulated in a simplified manner due to limitations of FlightGear: at certain flightstates the inputs of the cyclic controls are reduced to zero depending on a simplified rotorload vs hydraulic force. When this happens reduce rotorload by taking down the collective.
 Better: keep away from acrobatic maneuvers!
 
 

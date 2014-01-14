@@ -1,0 +1,1817 @@
+<?xml version="1.0"?>
+
+<!-- Eurocopter EC 130 Helicopter by Heiko Schulz, animation set 
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
+           (C) 2013 Michael Habarta, mhabarta@freenet.de
+                    rotorhead animation and some bugfixes
+                    dynamic wakes
+
+                    Wakes based on wake of Alouette II and BO-105
+                    see copyright for those models
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+
+<PropertyList>
+
+<path>rotor.ac</path>
+  <offsets>
+    <z-m>0.0</z-m>
+    <y-m>0</y-m>
+    <x-m>0</x-m>
+
+    <pitch-deg>0</pitch-deg>
+
+  </offsets>
+
+   <params>
+    <flap>
+      <factor>0.18</factor>
+    </flap>
+    <flapA>
+      <factor>0.18</factor>
+    </flapA>
+    <flapB>
+      <factor>0.19</factor>
+    </flapB>
+    <flapC>
+      <factor>0.18</factor>
+    </flapC>
+    <flapD>
+      <factor>0.18</factor>
+    </flapD>
+
+    <flap2>
+      <factor>0.16</factor>
+    </flap2>
+    <flap2A>
+      <factor>0.16</factor>
+    </flap2A>
+    <flap2B>
+      <factor>0.16</factor>
+    </flap2B>
+    <flap2C>
+      <factor>0.16</factor>
+    </flap2C>
+    <flap2D>
+      <factor>0.16</factor>
+    </flap2D>
+  </params>
+
+  <animation>
+    <name>mainrotor</name>
+    <object-name>blade1</object-name>
+    <object-name>blade1a</object-name>
+    <object-name>blade1b</object-name>
+    <object-name>blade1c</object-name>
+    <object-name>blade1d</object-name>
+    <object-name>blade2</object-name>
+    <object-name>blade2a</object-name>
+    <object-name>blade2b</object-name>
+    <object-name>blade2c</object-name>
+    <object-name>blade2d</object-name>
+    <object-name>blade3</object-name>
+    <object-name>blade3a</object-name>
+    <object-name>blade3b</object-name>
+    <object-name>blade3c</object-name>
+    <object-name>blade3d</object-name>
+    <object-name>bladearm1</object-name>
+    <object-name>bladearm2</object-name>
+    <object-name>bladearm3</object-name>
+    <object-name>flexbeam</object-name>
+    <object-name>damper1</object-name>
+    <object-name>damper2</object-name>
+    <object-name>damper3</object-name>
+  </animation>
+
+  <effect>
+  <inherits-from>Effects/model-transparent</inherits-from>
+    <object-name>blurred1</object-name>
+    <object-name>blurred1a</object-name>
+    <object-name>blurred1b</object-name>
+    <object-name>blurred1c</object-name>
+    <object-name>blurred1d</object-name>
+    <object-name>blurred2</object-name>
+    <object-name>blurred2a</object-name>
+    <object-name>blurred2b</object-name>
+    <object-name>blurred2c</object-name>
+    <object-name>blurred2d</object-name>
+    <object-name>blurred3</object-name>
+    <object-name>blurred3a</object-name>
+    <object-name>blurred3b</object-name>
+    <object-name>blurred3c</object-name>
+    <object-name>blurred3d</object-name>
+  </effect>
+
+
+  <!--main rotor (always visible parts) -->
+  <animation>
+    <type>spin</type>
+    <object-name>mast</object-name>
+    <object-name>bladeholders</object-name>
+    <object-name>bladearm1</object-name>
+    <object-name>bladearm2</object-name>
+    <object-name>bladearm3</object-name>
+    <object-name>flexbeam</object-name>
+    <object-name>damper1</object-name>
+    <object-name>damper2</object-name>
+    <object-name>damper3</object-name>
+    <object-name>bladecontrol_r</object-name>
+    <object-name>bladecontrol_y</object-name>
+    <object-name>bladecontrol_g</object-name>
+    <object-name>plate1</object-name>
+    <object-name>swashlink_arm1</object-name>
+    <object-name>swashlink_arm2</object-name>
+    <object-name>swashlink_mastfix</object-name>
+    <object-name>blade1</object-name>
+    <object-name>blade1a</object-name>
+    <object-name>blade1b</object-name>
+    <object-name>blade1c</object-name>
+    <object-name>blade1d</object-name>
+    <object-name>blade2</object-name>
+    <object-name>blade2a</object-name>
+    <object-name>blade2b</object-name>
+    <object-name>blade2c</object-name>
+    <object-name>blade2d</object-name>
+    <object-name>blade3</object-name>
+    <object-name>blade3a</object-name>
+    <object-name>blade3b</object-name>
+    <object-name>blade3c</object-name>
+    <object-name>blade3d</object-name>
+    <property>rotors/main/rpm</property>
+    <factor>1</factor>
+    <center>
+      <x-m>0.005002</x-m>
+      <y-m>-0.000831</y-m>
+      <z-m>-0.001126</z-m>
+    </center>
+    <axis>
+      <x>-0.00275</x>
+      <y>0.000831</y>
+      <z>-0.856149</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>blurred1</object-name>
+    <object-name>blurred1a</object-name>
+    <object-name>blurred1b</object-name>
+    <object-name>blurred1c</object-name>
+    <object-name>blurred1d</object-name>
+    <object-name>blurred2</object-name>
+    <object-name>blurred2a</object-name>
+    <object-name>blurred2b</object-name>
+    <object-name>blurred2c</object-name>
+    <object-name>blurred2d</object-name>
+    <object-name>blurred3</object-name>
+    <object-name>blurred3a</object-name>
+    <object-name>blurred3b</object-name>
+    <object-name>blurred3c</object-name>
+    <object-name>blurred3d</object-name>
+    <property>rotors/main/rpm</property>
+    <factor>1</factor>
+    <center>
+      <x-m>0.005002</x-m>
+      <y-m>-0.000831</y-m>
+      <z-m>-0.001126</z-m>
+    </center>
+    <axis>
+      <x>-0.00275</x>
+      <y>0.000831</y>
+      <z>-0.856149</z>
+    </axis>
+  </animation>
+
+  <!-- main rotor disc -->
+  <animation>
+    <type>material</type>
+    <object-name>blurred1</object-name>
+    <object-name>blurred1a</object-name>
+    <object-name>blurred1b</object-name>
+    <object-name>blurred1c</object-name>
+    <object-name>blurred1d</object-name>
+    <object-name>blurred2</object-name>
+    <object-name>blurred2a</object-name>
+    <object-name>blurred2b</object-name>
+    <object-name>blurred2c</object-name>
+    <object-name>blurred2d</object-name>
+    <object-name>blurred3</object-name>
+    <object-name>blurred3a</object-name>
+    <object-name>blurred3b</object-name>
+    <object-name>blurred3c</object-name>
+    <object-name>blurred3d</object-name>
+    <transparency>
+      <alpha-prop>rotors/main/rpm</alpha-prop>
+      <factor>0.004</factor>
+      <offset>-0.25</offset>
+      <max>1.0</max>
+    </transparency>
+    <threshold>0.001</threshold>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>mainrotor</object-name>
+    <condition>
+      <less-than>
+        <property>rotors/main/rpm</property>
+        <value>175</value>
+      </less-than>
+    </condition>
+  </animation>
+
+  <!-- main rotor blades 
+  <animation>
+    <type>material</type>
+    <object-name>mainrotor</object-name>
+    <transparency>
+      <alpha-prop>rotors/main/rpm</alpha-prop>
+      <factor>-0.0050</factor>
+      <offset>1</offset>
+      <max>1</max>
+    </transparency>
+  </animation>-->
+
+  <!--blade1-->
+  <!-- incidence animation and flap-animation-->
+  <animation>
+    <type>rotate</type>
+    <object-name>blade1</object-name>
+    <object-name>blade1a</object-name>
+    <object-name>blade1b</object-name>
+    <object-name>blade1c</object-name>
+    <object-name>blade1d</object-name>
+    <object-name>bladearm1</object-name>
+    <object-name>damper1</object-name>
+    <property>rotors/main/blade[0]/incidence-deg</property>
+    <factor>-1.0</factor>
+    <center>
+      <x-m>0.00139</x-m>
+      <y-m>-3.8e-05</y-m>
+      <z-m>0.022077</z-m>
+    </center>
+    <axis>
+      <x>-5.357018</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blade1</object-name>
+    <object-name>blade1a</object-name>
+    <object-name>blade1b</object-name>
+    <object-name>blade1c</object-name>
+    <object-name>blade1d</object-name>
+    <property>rotors/main/blade[0]/flap-deg</property>
+    <factor alias="../../params/flap/factor"/>
+    <center>
+      <x-m>-0.651099</x-m>
+      <y-m> 0.000000</y-m>
+      <z-m>-0.006254</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>-0.193631</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blurred1</object-name>
+    <object-name>blurred1a</object-name>
+    <object-name>blurred1b</object-name>
+    <object-name>blurred1c</object-name>
+    <object-name>blurred1d</object-name>
+    <property>rotors/main/blade[0]/flap-deg</property>
+    <factor alias="../../params/flap2/factor"/>
+    <center>
+      <x-m>-0.651099</x-m>
+      <y-m>-0</y-m>
+      <z-m>-0.006254</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>-0.193631</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blade1a</object-name>
+    <object-name>blade1b</object-name>
+    <object-name>blade1c</object-name>
+    <object-name>blade1d</object-name>
+    <property>rotors/main/blade[0]/flap-deg</property>
+    <factor alias="../../params/flapA/factor"/>
+    <center>
+      <x-m>-1.236534</x-m>
+      <y-m>-0.056229</y-m>
+      <z-m>-0.003217</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>0.303741</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blurred1a</object-name>
+    <object-name>blurred1b</object-name>
+    <object-name>blurred1c</object-name>
+    <object-name>blurred1d</object-name>
+    <property>rotors/main/blade[0]/flap-deg</property>
+    <factor alias="../../params/flap2A/factor"/>
+    <center>
+      <x-m>-1.236534</x-m>
+      <y-m>-0.056229</y-m>
+      <z-m>-0.003217</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>0.303741</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blade1b</object-name>
+    <object-name>blade1c</object-name>
+    <object-name>blade1d</object-name>
+    <property>rotors/main/blade[0]/flap-deg</property>
+    <factor alias="../../params/flapB/factor"/>
+    <center>
+      <x-m>-2.264701</x-m>
+      <y-m>-0.056993</y-m>
+      <z-m>-0.003222</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>0.302211</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blurred1b</object-name>
+    <object-name>blurred1c</object-name>
+    <object-name>blurred1d</object-name>
+    <property>rotors/main/blade[0]/flap-deg</property>
+    <factor alias="../../params/flap2B/factor"/>
+    <center>
+      <x-m>-2.264701</x-m>
+      <y-m>-0.056993</y-m>
+      <z-m>-0.003222</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>0.302211</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blade1c</object-name>
+    <object-name>blade1d</object-name>
+    <property>rotors/main/blade[0]/flap-deg</property>
+    <factor alias="../../params/flapC/factor"/>
+    <center>
+      <x-m>-3.292868</x-m>
+      <y-m>-0.058325</y-m>
+      <z-m>-0.003228</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>0.299544</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blurred1c</object-name>
+    <object-name>blurred1d</object-name>
+    <property>rotors/main/blade[0]/flap-deg</property>
+    <factor alias="../../params/flap2C/factor"/>
+    <center>
+      <x-m>-3.292868</x-m>
+      <y-m>-0.058325</y-m>
+      <z-m>-0.003228</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>0.299544</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blade1d</object-name>
+    <property>rotors/main/blade[0]/flap-deg</property>
+    <factor alias="../../params/flapD/factor"/>
+    <center>
+      <x-m>-4.321034</x-m>
+      <y-m>-0.059658</y-m>
+      <z-m>-0.003233</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>0.296877</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blurred1d</object-name>
+    <property>rotors/main/blade[0]/flap-deg</property>
+    <factor alias="../../params/flap2D/factor"/>
+    <center>
+      <x-m>-4.321034</x-m>
+      <y-m>-0.059658</y-m>
+      <z-m>-0.003233</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>0.296877</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <!--blade2-->
+  <!-- incidence animation and flap-animation -->
+  <!-- Fix mhab: exchange property assignment for blade2 and blade3
+       because Yasim counts them anti-clockwise -->
+  <animation>
+    <type>rotate</type>
+    <object-name>blade2</object-name>
+    <object-name>blade2a</object-name>
+    <object-name>blade2b</object-name>
+    <object-name>blade2c</object-name>
+    <object-name>blade2d</object-name>
+    <object-name>bladearm2</object-name>
+    <object-name>damper2</object-name>
+    <property>rotors/main/blade[2]/incidence-deg</property>
+    <factor>-1.0</factor>
+    <center>
+      <x-m>0.00139</x-m>
+      <y-m>0.0000</y-m>
+      <z-m>-0.022077</z-m>
+    </center>
+    <axis>
+      <x>2.67851</x>
+      <y>4.639314</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blade2</object-name>
+    <object-name>blade2a</object-name>
+    <object-name>blade2b</object-name>
+    <object-name>blade2c</object-name>
+    <object-name>blade2d</object-name>
+    <property>rotors/main/blade[2]/flap-deg</property>
+    <factor alias="../../params/flap/factor"/>
+    <center>
+      <x-m>0.327635</x-m>
+      <y-m>0.565035</y-m>
+      <z-m>-0.006254</z-m>
+    </center>
+    <axis>
+      <x>0.167689</x>
+      <y>-0.096816</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blurred2</object-name>
+    <object-name>blurred2a</object-name>
+    <object-name>blurred2b</object-name>
+    <object-name>blurred2c</object-name>
+    <object-name>blurred2d</object-name>
+    <property>rotors/main/blade[2]/flap-deg</property>
+    <factor alias="../../params/flap2/factor"/>
+    <center>
+      <x-m>0.327635</x-m>
+      <y-m>0.565035</y-m>
+      <z-m>-0.006254</z-m>
+    </center>
+    <axis>
+      <x>0.167689</x>
+      <y>-0.096816</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blade2a</object-name>
+    <object-name>blade2b</object-name>
+    <object-name>blade2c</object-name>
+    <object-name>blade2d</object-name>
+    <property>rotors/main/blade[2]/flap-deg</property>
+    <factor alias="../../params/flapA/factor"/>
+    <center>
+      <x-m>0.571689</x-m>
+      <y-m>1.100132</y-m>
+      <z-m>-0.003217</z-m>
+    </center>
+    <axis>
+      <x>0.263048</x>
+      <y>-0.151871</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blurred2a</object-name>
+    <object-name>blurred2b</object-name>
+    <object-name>blurred2c</object-name>
+    <object-name>blurred2d</object-name>
+    <property>rotors/main/blade[2]/flap-deg</property>
+    <factor alias="../../params/flap2A/factor"/>
+    <center>
+      <x-m>0.571689</x-m>
+      <y-m>1.100132</y-m>
+      <z-m>-0.003217</z-m>
+    </center>
+    <axis>
+      <x>0.263048</x>
+      <y>-0.151871</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blade2b</object-name>
+    <object-name>blade2c</object-name>
+    <object-name>blade2d</object-name>
+    <property>rotors/main/blade[2]/flap-deg</property>
+    <factor alias="../../params/flapB/factor"/>
+    <center>
+      <x-m>1.085111</x-m>
+      <y-m>1.990933</y-m>
+      <z-m>-0.003222</z-m>
+    </center>
+    <axis>
+      <x>0.261722</x>
+      <y>-0.151106</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blurred2b</object-name>
+    <object-name>blurred2c</object-name>
+    <object-name>blurred2d</object-name>
+    <property>rotors/main/blade[2]/flap-deg</property>
+    <factor alias="../../params/flap2B/factor"/>
+    <center>
+      <x-m>1.085111</x-m>
+      <y-m>1.990933</y-m>
+      <z-m>-0.003222</z-m>
+    </center>
+    <axis>
+      <x>0.261722</x>
+      <y>-0.151106</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blade2c</object-name>
+    <object-name>blade2d</object-name>
+    <property>rotors/main/blade[2]/flap-deg</property>
+    <factor alias="../../params/flapC/factor"/>
+    <center>
+      <x-m>1.598039</x-m>
+      <y-m>2.882017</y-m>
+      <z-m>-0.003228</z-m>
+    </center>
+    <axis>
+      <x>0.259413</x>
+      <y>-0.149772</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blurred2c</object-name>
+    <object-name>blurred2d</object-name>
+    <property>rotors/main/blade[2]/flap-deg</property>
+    <factor alias="../../params/flap2C/factor"/>
+    <center>
+      <x-m>1.598039</x-m>
+      <y-m>2.882017</y-m>
+      <z-m>-0.003228</z-m>
+    </center>
+    <axis>
+      <x>0.259413</x>
+      <y>-0.149772</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blade2d</object-name>
+    <property>rotors/main/blade[2]/flap-deg</property>
+    <factor alias="../../params/flapD/factor"/>
+    <center>
+      <x-m>2.110968</x-m>
+      <y-m>3.773102</y-m>
+      <z-m>-0.003233</z-m>
+    </center>
+    <axis>
+      <x>0.257103</x>
+      <y>-0.148439</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blurred2d</object-name>
+    <property>rotors/main/blade[2]/flap-deg</property>
+    <factor alias="../../params/flap2D/factor"/>
+    <center>
+      <x-m>2.110968</x-m>
+      <y-m>3.773102</y-m>
+      <z-m>-0.003233</z-m>
+    </center>
+    <axis>
+      <x>0.257103</x>
+      <y>-0.148439</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <!--blade3-->
+  <!-- incidence animation and flap-animation-->
+  <!-- Fix mhab: exchange property assignment for blade2 and blade3
+       because Yasim counts them anti-clockwise -->
+  <animation>
+    <type>rotate</type>
+    <object-name>blade3</object-name>
+    <object-name>blade3a</object-name>
+    <object-name>blade3b</object-name>
+    <object-name>blade3c</object-name>
+    <object-name>blade3d</object-name>
+    <object-name>bladearm3</object-name>
+    <object-name>damper3</object-name>
+    <property>rotors/main/blade[1]/incidence-deg</property>
+    <factor>-1.0</factor>
+    <center>
+      <x-m>0.00139</x-m>
+      <y-m>-3.8e-05</y-m>
+      <z-m>-0.022077</z-m>
+    </center>
+    <axis>
+      <x>2.678509</x>
+      <y>-4.639315</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blade3</object-name>
+    <object-name>blade3a</object-name>
+    <object-name>blade3b</object-name>
+    <object-name>blade3c</object-name>
+    <object-name>blade3d</object-name>
+    <property>rotors/main/blade[1]/flap-deg</property>
+    <factor alias="../../params/flap/factor"/>
+    <center>
+      <x-m>0.24379</x-m>
+      <y-m>-0.613518</y-m>
+      <z-m>-0.006254</z-m>
+    </center>
+    <axis>
+      <x>0.167689</x>
+      <y>0.096815</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blurred3</object-name>
+    <object-name>blurred3a</object-name>
+    <object-name>blurred3b</object-name>
+    <object-name>blurred3c</object-name>
+    <object-name>blurred3d</object-name>
+    <property>rotors/main/blade[1]/flap-deg</property>
+    <factor alias="../../params/flap2/factor"/>
+    <center>
+      <x-m>0.24379</x-m>
+      <y-m>-0.613518</y-m>
+      <z-m>-0.006254</z-m>
+    </center>
+    <axis>
+      <x>0.167689</x>
+      <y>0.096815</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blade3a</object-name>
+    <object-name>blade3b</object-name>
+    <object-name>blade3c</object-name>
+    <object-name>blade3d</object-name>
+    <property>rotors/main/blade[1]/flap-deg</property>
+    <factor alias="../../params/flapA/factor"/>
+    <center>
+      <x-m>0.669016</x-m>
+      <y-m>-1.044016</y-m>
+      <z-m>-0.003217</z-m>
+    </center>
+    <axis>
+      <x>-0.263048</x>
+      <y>-0.15187</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blurred3a</object-name>
+    <object-name>blurred3b</object-name>
+    <object-name>blurred3c</object-name>
+    <object-name>blurred3d</object-name>
+    <property>rotors/main/blade[1]/flap-deg</property>
+    <factor alias="../../params/flap2A/factor"/>
+    <center>
+      <x-m>0.669016</x-m>
+      <y-m>-1.044016</y-m>
+      <z-m>-0.003217</z-m>
+    </center>
+    <axis>
+      <x>-0.263048</x>
+      <y>-0.15187</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blade3b</object-name>
+    <object-name>blade3c</object-name>
+    <object-name>blade3d</object-name>
+    <property>rotors/main/blade[1]/flap-deg</property>
+    <factor alias="../../params/flapB/factor"/>
+    <center>
+      <x-m>1.183761</x-m>
+      <y-m>-1.934052</y-m>
+      <z-m>-0.003222</z-m>
+    </center>
+    <axis>
+      <x>-0.261723</x>
+      <y>-0.151105</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blurred3b</object-name>
+    <object-name>blurred3c</object-name>
+    <object-name>blurred3d</object-name>
+    <property>rotors/main/blade[1]/flap-deg</property>
+    <factor alias="../../params/flap2B/factor"/>
+    <center>
+      <x-m>1.183761</x-m>
+      <y-m>-1.934052</y-m>
+      <z-m>-0.003222</z-m>
+    </center>
+    <axis>
+      <x>-0.261723</x>
+      <y>-0.151105</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blade3c</object-name>
+    <object-name>blade3d</object-name>
+    <property>rotors/main/blade[1]/flap-deg</property>
+    <factor alias="../../params/flapC/factor"/>
+    <center>
+      <x-m>1.698998</x-m>
+      <y-m>-2.823804</y-m>
+      <z-m>-0.003228</z-m>
+    </center>
+    <axis>
+      <x>-0.259413</x>
+      <y>-0.149772</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+  <!-- fix HAB type rotate was missing -->
+    <type>rotate</type>
+    <object-name>blurred3c</object-name>
+    <object-name>blurred3d</object-name>
+    <property>rotors/main/blade[1]/flap-deg</property>
+    <factor alias="../../params/flap2C/factor"/>
+    <center>
+      <x-m>1.698998</x-m>
+      <y-m>-2.823804</y-m>
+      <z-m>-0.003228</z-m>
+    </center>
+    <axis>
+      <x>-0.259413</x>
+      <y>-0.149772</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blade3d</object-name>
+    <property>rotors/main/blade[1]/flap-deg</property>
+    <factor alias="../../params/flapD/factor"/>
+    <center>
+      <x-m>2.214236</x-m>
+      <y-m>-3.713556</y-m>
+      <z-m>-0.003233</z-m>
+    </center>
+    <axis>
+      <x>-0.257103</x>
+      <y>-0.148439</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>blurred3d</object-name>
+    <property>rotors/main/blade[1]/flap-deg</property>
+    <factor alias="../../params/flap2D/factor"/>
+    <center>
+      <x-m>2.214236</x-m>
+      <y-m>-3.713556</y-m>
+      <z-m>-0.003233</z-m>
+    </center>
+    <axis>
+      <x>-0.257103</x>
+      <y>-0.148439</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <!-- rotor disc -->
+  <animation>
+    <name>rotordisc</name>
+    <object-name>blurred1</object-name>
+    <object-name>blurred1a</object-name>
+    <object-name>blurred1b</object-name>
+    <object-name>blurred1c</object-name>
+    <object-name>blurred1d</object-name>
+    <object-name>blurred2</object-name>
+    <object-name>blurred2a</object-name>
+    <object-name>blurred2b</object-name>
+    <object-name>blurred2c</object-name>
+    <object-name>blurred2d</object-name>
+    <object-name>blurred3</object-name>
+    <object-name>blurred3a</object-name>
+    <object-name>blurred3b</object-name>
+    <object-name>blurred3c</object-name>
+    <object-name>blurred3d</object-name>
+  </animation>
+
+  <animation>
+  <!-- fix HAB type rotate was missing -->
+    <type>rotate</type>
+    <object-name>rotordisc</object-name>
+    <property>rotors/main/roll-deg</property>
+    <factor>1</factor>
+    <center>
+      <x-m>0.005002</x-m>
+      <y-m>-0.000831</y-m>
+      <z-m>-0.001126</z-m>
+    </center>
+    <axis>
+      <x>1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+  <!-- fix HAB type rotate was missing -->
+    <type>rotate</type>
+    <object-name>rotordisc</object-name>
+    <property>rotors/main/yaw-deg</property>
+    <factor>1</factor>
+    <center>
+      <x-m>0.005002</x-m>
+      <y-m>-0.000831</y-m>
+      <z-m>-0.001126</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <!-- swash controls, blade controls -->
+  <animation>
+    <type>translate</type>
+    <object-name>plate1</object-name>
+    <object-name>plate2</object-name>
+    <object-name>swashcontrol_b</object-name>
+    <object-name>swashcontrol_l</object-name>
+    <object-name>swashcontrol_r</object-name>
+    <object-name>bladecontrol_r</object-name>
+    <object-name>bladecontrol_y</object-name>
+    <object-name>bladecontrol_g</object-name>
+    <object-name>swashlink_arm1</object-name>
+    <object-name>swashlinklow_arm1</object-name>
+    <property>/controls/engines/engine/throttle</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep> 0.00 </dep></entry>
+      <entry><ind>  0.0 </ind><dep> 0.07 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <!-- rubber sealing -->
+  <!-- rubber5 -->
+  <animation>
+    <type>translate</type>
+    <object-name>rubber5</object-name>
+    <property>/controls/engines/engine/throttle</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep> 0.00 </dep></entry>
+      <entry><ind>  0.0 </ind><dep> 0.07 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>rubber5</object-name>
+    <property>/controls/flight/aileron</property>
+    <factor>-5</factor>
+    <axis>
+      <x1-m> -0.154 </x1-m>
+      <y1-m> -0.150 </y1-m>
+      <z1-m> -0.390 </z1-m>
+      <x2-m>  0.000 </x2-m>
+      <y2-m>  0.000 </y2-m>
+      <z2-m> -0.390 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>rubber5</object-name>
+    <property>/controls/flight/elevator</property>
+    <factor>6</factor>
+    <axis>
+      <x1-m> -0.145 </x1-m>
+      <y1-m>  0.132 </y1-m>
+      <z1-m> -0.390 </z1-m>
+      <x2-m>  0.000 </x2-m>
+      <y2-m>  0.000 </y2-m>
+      <z2-m> -0.390 </z2-m>
+    </axis>
+  </animation>
+
+  <!-- rubber4 -->
+  <animation>
+    <type>translate</type>
+    <object-name>rubber4</object-name>
+    <property>/controls/engines/engine/throttle</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep> 0.000 </dep></entry>
+      <entry><ind>  0.0 </ind><dep> 0.055 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>rubber4</object-name>
+    <property>/controls/flight/aileron</property>
+    <factor>-3</factor>
+    <axis>
+      <x1-m> -0.154 </x1-m>
+      <y1-m> -0.150 </y1-m>
+      <z1-m> -0.360 </z1-m>
+      <x2-m>  0.000 </x2-m>
+      <y2-m>  0.000 </y2-m>
+      <z2-m> -0.360 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>rubber4</object-name>
+    <property>/controls/flight/elevator</property>
+    <factor>3</factor>
+    <axis>
+      <x1-m> -0.145 </x1-m>
+      <y1-m>  0.132 </y1-m>
+      <z1-m> -0.360 </z1-m>
+      <x2-m>  0.000 </x2-m>
+      <y2-m>  0.000 </y2-m>
+      <z2-m> -0.360 </z2-m>
+    </axis>
+  </animation>
+
+  <!-- rubber3 -->
+  <animation>
+    <type>translate</type>
+    <object-name>rubber3</object-name>
+    <property>/controls/engines/engine/throttle</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep> 0.000 </dep></entry>
+      <entry><ind>  0.0 </ind><dep> 0.040 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>rubber3</object-name>
+    <property>/controls/flight/aileron</property>
+    <factor>-1.7</factor>
+    <axis>
+      <x1-m> -0.154 </x1-m>
+      <y1-m> -0.150 </y1-m>
+      <z1-m> -0.330 </z1-m>
+      <x2-m>  0.000 </x2-m>
+      <y2-m>  0.000 </y2-m>
+      <z2-m> -0.330 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>rubber3</object-name>
+    <property>/controls/flight/elevator</property>
+    <factor>1.8</factor>
+    <axis>
+      <x1-m> -0.145 </x1-m>
+      <y1-m>  0.132 </y1-m>
+      <z1-m> -0.330 </z1-m>
+      <x2-m>  0.000 </x2-m>
+      <y2-m>  0.000 </y2-m>
+      <z2-m> -0.330 </z2-m>
+    </axis>
+  </animation>
+
+  <!-- rubber2 -->
+  <animation>
+    <type>translate</type>
+    <object-name>rubber2</object-name>
+    <property>/controls/engines/engine/throttle</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep> 0.000 </dep></entry>
+      <entry><ind>  0.0 </ind><dep> 0.016 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>rubber2</object-name>
+    <property>/controls/flight/aileron</property>
+    <factor>-0.9</factor>
+    <axis>
+      <x1-m> -0.154 </x1-m>
+      <y1-m> -0.150 </y1-m>
+      <z1-m> -0.310 </z1-m>
+      <x2-m>  0.000 </x2-m>
+      <y2-m>  0.000 </y2-m>
+      <z2-m> -0.300 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>rubber2</object-name>
+    <property>/controls/flight/elevator</property>
+    <factor>1</factor>
+      <x1-m> -0.145 </x1-m>
+      <y1-m>  0.132 </y1-m>
+      <z1-m> -0.300 </z1-m>
+      <x2-m>  0.000 </x2-m>
+      <y2-m>  0.000 </y2-m>
+      <z2-m> -0.300 </z2-m>
+  </animation>
+
+  <!-- swash plates -->
+  <animation>
+    <type>rotate</type>
+    <object-name>plate1</object-name>
+    <object-name>plate2</object-name>
+    <property>/controls/flight/aileron</property>
+    <factor>-6</factor>
+    <axis>
+      <x1-m> -0.154 </x1-m>
+      <y1-m> -0.150 </y1-m>
+      <z1-m> -0.470 </z1-m>
+      <x2-m>  0.000 </x2-m>
+      <y2-m>  0.000 </y2-m>
+      <z2-m> -0.470 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>plate1</object-name>
+    <object-name>plate2</object-name>
+    <property>/controls/flight/elevator</property>
+    <factor>6</factor>
+    <axis>
+      <x1-m> -0.145 </x1-m>
+      <y1-m>  0.132 </y1-m>
+      <z1-m> -0.470 </z1-m>
+      <x2-m>  0.000 </x2-m>
+      <y2-m>  0.000 </y2-m>
+      <z2-m> -0.470 </z2-m>
+    </axis>
+  </animation>
+
+  <!-- swash controls -->
+  <!-- swash control back -->
+  <animation>
+    <type>translate</type>
+    <object-name>swashcontrol_b</object-name>
+    <property>/controls/flight/aileron</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep>  0.020 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000 </dep></entry>
+      <entry><ind> -1.0 </ind><dep> -0.020 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <!-- swash control left -->
+  <animation>
+    <type>translate</type>
+    <object-name>swashcontrol_l</object-name>
+    <property>/controls/flight/elevator</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep> -0.020 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000 </dep></entry>
+      <entry><ind> -1.0 </ind><dep>  0.020 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <!-- swash control right -->
+  <animation>
+    <type>translate</type>
+    <object-name>swashcontrol_r</object-name>
+    <property>/controls/flight/aileron</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep> -0.020 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000 </dep></entry>
+      <entry><ind> -1.0 </ind><dep>  0.020 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <!-- swashlink high upper arm -->
+  <animation>
+    <type>rotate</type>
+    <object-name>swashlink_arm2</object-name>
+    <property>/controls/engines/engine/throttle</property>
+		<factor>33</factor>
+    <offset-deg>-33</offset-deg>
+    <axis>
+      <x1-m> -0.093 </x1-m>
+      <y1-m>  0.022 </y1-m>
+      <z1-m> -0.236 </z1-m>
+      <x2-m> -0.054 </x2-m>
+      <y2-m> -0.084 </y2-m>
+      <z2-m> -0.236 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>swashlink_arm2</object-name>
+    <property>/controls/flight/aileron</property>
+		<factor>3</factor>
+    <offset-deg>-1</offset-deg>
+    <axis>
+      <x1-m> -0.093 </x1-m>
+      <y1-m>  0.022 </y1-m>
+      <z1-m> -0.236 </z1-m>
+      <x2-m> -0.054 </x2-m>
+      <y2-m> -0.084 </y2-m>
+      <z2-m> -0.236 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>swashlink_arm2</object-name>
+    <property>/controls/flight/elevator</property>
+		<factor>8</factor>
+    <offset-deg>1</offset-deg>
+    <axis>
+      <x1-m> -0.093 </x1-m>
+      <y1-m>  0.022 </y1-m>
+      <z1-m> -0.236 </z1-m>
+      <x2-m> -0.054 </x2-m>
+      <y2-m> -0.084 </y2-m>
+      <z2-m> -0.236 </z2-m>
+    </axis>
+  </animation>
+
+  <!-- swashlink high lower arm -->
+  <animation>
+    <type>rotate</type>
+    <object-name>swashlink_arm1</object-name>
+    <property>/controls/engines/engine/throttle</property>
+		<factor>17</factor>
+    <interpolation>
+      <entry><ind>  0.0 </ind><dep> -18 </dep></entry>
+      <entry><ind>  0.5 </ind><dep> -11 </dep></entry>
+      <entry><ind>  1.0 </ind><dep>   0 </dep></entry>
+    </interpolation>
+    <axis>
+      <x1-m> -0.132 </x1-m>
+      <y1-m> -0.081 </y1-m>
+      <z1-m> -0.430 </z1-m>
+      <x2-m> -0.149 </x2-m>
+      <y2-m> -0.030 </y2-m>
+      <z2-m> -0.430 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>swashlink_arm1</object-name>
+    <property>/controls/flight/aileron</property>
+		<factor>2</factor>
+    <offset-deg>-2</offset-deg>
+    <axis>
+      <x1-m> -0.132 </x1-m>
+      <y1-m> -0.081 </y1-m>
+      <z1-m> -0.430 </z1-m>
+      <x2-m> -0.149 </x2-m>
+      <y2-m> -0.030 </y2-m>
+      <z2-m> -0.430 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>swashlink_arm1</object-name>
+    <property>/controls/flight/elevator</property>
+		<factor>8</factor>
+    <offset-deg>4</offset-deg>
+    <axis>
+      <x1-m> -0.132 </x1-m>
+      <y1-m> -0.081 </y1-m>
+      <z1-m> -0.430 </z1-m>
+      <x2-m> -0.149 </x2-m>
+      <y2-m> -0.030 </y2-m>
+      <z2-m> -0.430 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>swashlink_arm1</object-name>
+    <property>/controls/flight/aileron</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep>  0.002 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000</dep></entry>
+      <entry><ind> -1.0 </ind><dep> -0.002 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>swashlink_arm1</object-name>
+    <property>/controls/flight/aileron</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep> -0.007 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000</dep></entry>
+      <entry><ind> -1.0 </ind><dep>  0.007 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>swashlink_arm1</object-name>
+    <property>/controls/flight/elevator</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep> -0.005 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000</dep></entry>
+      <entry><ind> -1.0 </ind><dep>  0.005 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 1 </x>
+      <y> 0 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>swashlink_arm1</object-name>
+    <property>/controls/flight/elevator</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep> -0.002 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000</dep></entry>
+      <entry><ind> -1.0 </ind><dep>  0.002 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>swashlink_arm1</object-name>
+    <property>/controls/flight/elevator</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep> -0.015 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000</dep></entry>
+      <entry><ind> -1.0 </ind><dep>  0.015 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <!-- swashlink low upper arm -->
+  <animation>
+    <type>rotate</type>
+    <object-name>swashlinklow_arm1</object-name>
+    <property>/controls/engines/engine/throttle</property>
+		<factor>18</factor>
+    <offset-deg>-18</offset-deg>
+    <axis>
+      <x1-m>  0.113 </x1-m>
+      <y1-m>  0.066 </y1-m>
+      <z1-m> -0.467 </z1-m>
+      <x2-m>  0.134 </x2-m>
+      <y2-m>  0.006 </y2-m>
+      <z2-m> -0.467 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>swashlinklow_arm1</object-name>
+    <property>/controls/flight/aileron</property>
+		<factor>-2</factor>
+    <offset-deg>2</offset-deg>
+    <axis>
+      <x1-m>  0.113 </x1-m>
+      <y1-m>  0.066 </y1-m>
+      <z1-m> -0.467 </z1-m>
+      <x2-m>  0.134 </x2-m>
+      <y2-m>  0.006 </y2-m>
+      <z2-m> -0.467 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>swashlinklow_arm1</object-name>
+    <property>/controls/flight/elevator</property>
+		<factor>-2</factor>
+    <offset-deg>0</offset-deg>
+    <axis>
+      <x1-m>  0.113 </x1-m>
+      <y1-m>  0.066 </y1-m>
+      <z1-m> -0.467 </z1-m>
+      <x2-m>  0.134 </x2-m>
+      <y2-m>  0.006 </y2-m>
+      <z2-m> -0.467 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>swashlinklow_arm1</object-name>
+    <property>/controls/flight/aileron</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep>  0.007 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000</dep></entry>
+      <entry><ind> -1.0 </ind><dep> -0.007 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>swashlinklow_arm1</object-name>
+    <property>/controls/flight/elevator</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep>  0.010 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000</dep></entry>
+      <entry><ind> -1.0 </ind><dep> -0.010 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+<!--
+  <animation>
+    <type>translate</type>
+    <object-name>swashlinklow_arm1</object-name>
+    <property>/controls/flight/elevator</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep> -0.010 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000</dep></entry>
+      <entry><ind> -1.0 </ind><dep>  0.010 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 1 </x>
+      <y> 0 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+-->
+  <!-- swashlink low lower arm -->
+  <animation>
+    <type>rotate</type>
+    <object-name>swashlinklow_arm2</object-name>
+    <property>/controls/engines/engine/throttle</property>
+		<factor>30</factor>
+    <offset-deg>-33</offset-deg>
+    <axis>
+      <x1-m>  0.099 </x1-m>
+      <y1-m> -0.035 </y1-m>
+      <z1-m> -0.576 </z1-m>
+      <x2-m>  0.069 </x2-m>
+      <y2-m>  0.069 </y2-m>
+      <z2-m> -0.576 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>swashlinklow_arm2</object-name>
+    <property>/controls/flight/aileron</property>
+		<factor>-3</factor>
+    <offset-deg>1</offset-deg>
+    <axis>
+      <x1-m>  0.099 </x1-m>
+      <y1-m> -0.035 </y1-m>
+      <z1-m> -0.576 </z1-m>
+      <x2-m>  0.069 </x2-m>
+      <y2-m>  0.069 </y2-m>
+      <z2-m> -0.576 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>swashlinklow_arm2</object-name>
+    <property>/controls/flight/elevator</property>
+		<factor>-3</factor>
+    <offset-deg>1</offset-deg>
+    <axis>
+      <x1-m>  0.099 </x1-m>
+      <y1-m> -0.035 </y1-m>
+      <z1-m> -0.576 </z1-m>
+      <x2-m>  0.069 </x2-m>
+      <y2-m>  0.069 </y2-m>
+      <z2-m> -0.576 </z2-m>
+    </axis>
+  </animation>
+
+  <!-- bladecontrol red -->
+  <animation>
+    <type>rotate</type>
+    <object-name>bladecontrol_r</object-name>
+    <property>/controls/engines/engine/throttle</property>
+		<factor>3</factor>
+    <offset-deg>-3</offset-deg>
+    <center>
+      <x-m>-0.180</x-m>
+      <y-m> 0.163</y-m>
+      <z-m>-0.425</z-m>
+    </center>
+    <axis>
+      <x>1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>bladecontrol_r</object-name>
+    <property>/controls/flight/aileron</property>
+		<factor>1</factor>
+    <offset-deg>-1</offset-deg>
+    <center>
+      <x-m>-0.230</x-m>
+      <y-m> 0.204</y-m>
+      <z-m>-0.242</z-m>
+    </center>
+    <axis>
+      <x>1</x>
+      <y>0.6</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>bladecontrol_r</object-name>
+    <property>/controls/flight/aileron</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep> -0.020 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000 </dep></entry>
+      <entry><ind> -1.0 </ind><dep>  0.025 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>bladecontrol_r</object-name>
+    <property>/controls/flight/elevator</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep>  0.002 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000 </dep></entry>
+      <entry><ind> -1.0 </ind><dep> -0.002 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <!-- bladecontrol yellow -->
+  <animation>
+    <type>rotate</type>
+    <object-name>bladecontrol_y</object-name>
+    <property>/controls/engines/engine/throttle</property>
+		<factor>1.5</factor>
+    <offset-deg>-1</offset-deg>
+    <center>
+      <x-m>-0.050</x-m>
+      <y-m>-0.236</y-m>
+      <z-m>-0.425</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y> 1</y>
+      <z> 0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>bladecontrol_y</object-name>
+    <property>/controls/flight/aileron</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep>  0.010 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000 </dep></entry>
+      <entry><ind> -1.0 </ind><dep> -0.010 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>bladecontrol_y</object-name>
+    <property>/controls/flight/elevator</property>
+		<factor>1</factor>
+    <offset-deg>-1</offset-deg>
+    <center>
+      <x-m>-0.057</x-m>
+      <y-m>-0.303</y-m>
+      <z-m>-0.246</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y> 1</y>
+      <z> 0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>bladecontrol_y</object-name>
+    <property>/controls/flight/elevator</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep> -0.025 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000 </dep></entry>
+      <entry><ind> -1.0 </ind><dep>  0.020 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <!-- bladecontrol green -->
+  <animation>
+    <type>rotate</type>
+    <object-name>bladecontrol_g</object-name>
+    <property>/controls/engines/engine/throttle</property>
+		<factor>-1.5</factor>
+    <offset-deg>1</offset-deg>
+    <center>
+      <x-m> 0.230</x-m>
+      <y-m> 0.074</y-m>
+      <z-m>-0.425</z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>bladecontrol_g</object-name>
+    <property>/controls/flight/aileron</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep>  0.010 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000 </dep></entry>
+      <entry><ind> -1.0 </ind><dep> -0.010 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>bladecontrol_g</object-name>
+    <property>/controls/flight/elevator</property>
+		<factor>1.5</factor>
+    <offset-deg>-1</offset-deg>
+    <center>
+      <x-m> 0.288</x-m>
+      <y-m> 0.095</y-m>
+      <z-m>-0.247</z-m>
+    </center>
+    <axis>
+      <x> 0</x>
+      <y> 1</y>
+      <z> 0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>bladecontrol_g</object-name>
+    <property>/controls/flight/elevator</property>
+		<factor>1</factor>
+    <interpolation>
+      <entry><ind>  1.0 </ind><dep>  0.022 </dep></entry>
+      <entry><ind>  0.0 </ind><dep>  0.000 </dep></entry>
+      <entry><ind> -1.0 </ind><dep> -0.022 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <!-- main rotor pick animation -->
+  <animation>
+    <type>pick</type>
+    <object-name>mainrotor</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>ec130.cycle_wakes()</script>
+      </binding>
+    </action>
+  </animation>
+
+</PropertyList>
