@@ -106,7 +106,7 @@ baboon922@hotmail.com
     <starter>
       <name>starter0_start</name>
       <mode>once</mode>
-      <path>Aircraft/ec135/Sounds/starter_start.wav</path>
+      <path>Aircraft/ec130/Sounds/starter_start.wav</path>
       <condition>
         <property>controls/engines/engine[0]/starter</property>
       </condition>
@@ -125,7 +125,7 @@ baboon922@hotmail.com
     <starter>
       <name>starter0_loop</name>
       <mode>looped</mode>
-      <path>Aircraft/ec135/Sounds/starter_loop.wav</path>
+      <path>Aircraft/ec130/Sounds/starter_loop.wav</path>
       <condition>
         <property>controls/engines/engine[0]/starter</property>
       </condition>
@@ -145,7 +145,7 @@ baboon922@hotmail.com
     <starter>
       <name>starter0_stop</name>
       <mode>once</mode>
-      <path>Aircraft/ec135/Sounds/starter_stop.wav</path>
+      <path>Aircraft/ec130/Sounds/starter_stop.wav</path>
       <condition>
         <not>
           <property>controls/engines/engine[0]/starter</property>
@@ -166,7 +166,7 @@ baboon922@hotmail.com
     <starter>
       <name>starter1_start</name>
       <mode>once</mode>
-      <path>Aircraft/ec135/Sounds/starter_start.wav</path>
+      <path>Aircraft/ec130/Sounds/starter_start.wav</path>
       <condition>
         <property>controls/engines/engine[1]/starter</property>
       </condition>
@@ -185,7 +185,7 @@ baboon922@hotmail.com
     <starter>
       <name>starter1_loop</name>
       <mode>looped</mode>
-      <path>Aircraft/ec135/Sounds/starter_loop.wav</path>
+      <path>Aircraft/ec130/Sounds/starter_loop.wav</path>
       <condition>
         <property>controls/engines/engine[1]/starter</property>
       </condition>
@@ -205,7 +205,7 @@ baboon922@hotmail.com
     <starter>
       <name>starter1_stop</name>
       <mode>once</mode>
-      <path>Aircraft/ec135/Sounds/starter_stop.wav</path>
+      <path>Aircraft/ec130/Sounds/starter_stop.wav</path>
       <condition>
         <not>
           <property>controls/engines/engine[1]/starter</property>
@@ -226,7 +226,7 @@ baboon922@hotmail.com
     <engine>
       <name>turbine0-start</name>
       <mode>once</mode>
-      <path>Aircraft/ec135/Sounds/strt_ec135_out2.wav</path>
+      <path>Aircraft/ec130/Sounds/strt_ec135_out2.wav</path>
       <condition>
       <greater-than>
         <property>engines/engine[0]/n1-pct</property>
@@ -247,7 +247,7 @@ baboon922@hotmail.com
     <engine>
       <name>turbine0-loop</name>
       <mode>looped</mode>
-      <path>Aircraft/ec135/Sounds/idle_ec135_out.wav</path>
+      <path>Aircraft/ec130/Sounds/idle_ec135_out.wav</path>
       <condition>
         <property>engines/engine[0]/running</property>
       </condition>
@@ -286,7 +286,7 @@ baboon922@hotmail.com
     <engine>
       <name>turbine1-start</name>
       <mode>once</mode>
-      <path>Aircraft/ec135/Sounds/strt_ec135_out2.wav</path>
+      <path>Aircraft/ec130/Sounds/strt_ec135_out2.wav</path>
       <condition>
       <greater-than>
         <property>engines/engine[1]/n1-pct</property>
@@ -307,7 +307,7 @@ baboon922@hotmail.com
     <engine>
       <name>turbine1-loop</name>
       <mode>looped</mode>
-      <path>Aircraft/ec135/Sounds/idle_ec135_out.wav</path>
+      <path>Aircraft/ec130/Sounds/idle_ec135_out.wav</path>
       <condition>
         <property>engines/engine[1]/running</property>
       </condition>
@@ -347,7 +347,7 @@ baboon922@hotmail.com
     <rotor>
       <name>rotor-outside</name>
       <mode>looped</mode>
-      <path>Aircraft/ec135/Sounds/flight_ec135_out.wav</path>
+      <path>Aircraft/ec130/Sounds/flight_ec135_out.wav</path>
       <condition>
         <and>
           <not>
@@ -380,7 +380,6 @@ baboon922@hotmail.com
     <rotor>
       <name>rotor-inside</name>
       <mode>looped</mode>
-      <path>Sounds/rotor.wav</path>
       <path>Aircraft/ec130/Sounds/ec_rotor_in.wav</path>
       <condition>
         <and>
@@ -427,8 +426,7 @@ baboon922@hotmail.com
     <rotor>
       <name>rotor-inside-door-open</name>
       <mode>looped</mode>
-      <path>Sounds/rotor.wav</path>
-      <path>Aircraft/ec135/Sounds/flight_ec135_out.wav</path>
+      <path>Aircraft/ec130/Sounds/flight_ec135_out.wav</path>
       <condition>
         <and>
           <property>sim/current-view/internal</property>
@@ -468,8 +466,7 @@ baboon922@hotmail.com
     <rotor>
       <name>rotor-inside-window-open</name>
       <mode>looped</mode>
-      <path>Sounds/rotor.wav</path>
-      <path>Aircraft/ec135/Sounds/flight_ec135_out.wav</path>
+      <path>Aircraft/ec130/Sounds/flight_ec135_out.wav</path>
       <condition>
         <and>
           <property>sim/current-view/internal</property>
@@ -504,7 +501,7 @@ baboon922@hotmail.com
     <rotor>
       <name>stall</name>
       <mode>looped</mode>
-      <path>Aircraft/ec135/Sounds/R-1535Slow.wav</path>
+      <path>Aircraft/ec130/Sounds/R-1535Slow.wav</path>
       <condition>
         <and>
           <greater-than>
@@ -538,7 +535,7 @@ baboon922@hotmail.com
     <rotor>
       <name>blade-vortex-interaction</name>
       <mode>looped</mode>
-      <path>Aircraft/ec135/Sounds/R-1535Slow.wav</path>
+      <path>Aircraft/ec130/Sounds/R-1535Slow.wav</path>
       <condition>
         <greater-than>
           <property>sim/sound/vibration</property>
@@ -660,7 +657,7 @@ baboon922@hotmail.com
             <type>avionics</type>
       <name>2600 Hz</name>
       <mode>looped</mode>
-      <path>Aircraft/ec135/Sounds/warn2600.wav</path>
+      <path>Aircraft/ec130/Sounds/warn2600.wav</path>
       <condition>
         <property>sim/sound/warn2600</property>
         <not>
@@ -904,7 +901,7 @@ baboon922@hotmail.com
     <contact>
       <name>water contact</name>
       <mode>once</mode>
-      <path>Aircraft/R44/Sounds/BaBoOn-R44-Splash.wav</path>
+      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Splash.wav</path>
       <condition>
         <not>
           <property>gear/gear[0]/ground-is-solid</property>
@@ -986,7 +983,7 @@ baboon922@hotmail.com
     <door>
       <name>open left frontdoor</name>
       <mode>once</mode>
-      <path>Aircraft/R44/Sounds/BaBoOn-R44-Door_open.wav</path>
+      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
           <property>instrumentation/doors/frontl/position-norm</property>
@@ -1008,7 +1005,7 @@ baboon922@hotmail.com
     <door>
       <name>close left frontdoor</name>
       <mode>once</mode>
-      <path>Aircraft/R44/Sounds/BaBoOn-R44-Door_close.wav</path>
+      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_close.wav</path>
       <condition>
         <equals>
           <property>instrumentation/doors/frontl/position-norm</property>
@@ -1030,7 +1027,7 @@ baboon922@hotmail.com
     <door>
       <name>open right frontdoor</name>
       <mode>once</mode>
-      <path>Aircraft/R44/Sounds/BaBoOn-R44-Door_open.wav</path>
+      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
           <property>instrumentation/doors/frontr/position-norm</property>
@@ -1052,7 +1049,7 @@ baboon922@hotmail.com
     <door>
       <name>close right frontdoor</name>
       <mode>once</mode>
-      <path>Aircraft/R44/Sounds/BaBoOn-R44-Door_close.wav</path>
+      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_close.wav</path>
       <condition>
         <equals>
           <property>instrumentation/doors/frontr/position-norm</property>
@@ -1074,7 +1071,7 @@ baboon922@hotmail.com
     <door>
       <name>open left backdoor</name>
       <mode>once</mode>
-      <path>Aircraft/R44/Sounds/BaBoOn-R44-Door_open.wav</path>
+      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
           <property>instrumentation/doors/passengerl/position-norm</property>
@@ -1151,7 +1148,7 @@ baboon922@hotmail.com
     <door>
       <name>close left backdoor</name>
       <mode>once</mode>
-      <path>Aircraft/R44/Sounds/BaBoOn-R44-Door_close.wav</path>
+      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_close.wav</path>
       <condition>
         <equals>
           <property>instrumentation/doors/passengerl/position-norm</property>
@@ -1173,7 +1170,7 @@ baboon922@hotmail.com
     <door>
       <name>open right backdoor</name>
       <mode>once</mode>
-      <path>Aircraft/R44/Sounds/BaBoOn-R44-Door_open.wav</path>
+      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
           <property>instrumentation/doors/passengerr/position-norm</property>
@@ -1195,7 +1192,7 @@ baboon922@hotmail.com
     <door>
       <name>close right backdoor</name>
       <mode>once</mode>
-      <path>Aircraft/R44/Sounds/BaBoOn-R44-Door_close.wav</path>
+      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_close.wav</path>
       <condition>
         <equals>
           <property>instrumentation/doors/passengerr/position-norm</property>
@@ -1217,7 +1214,7 @@ baboon922@hotmail.com
     <door>
       <name>open left luggagedoor</name>
       <mode>once</mode>
-      <path>Aircraft/R44/Sounds/BaBoOn-R44-Door_open.wav</path>
+      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
           <property>instrumentation/doors/luggagel/position-norm</property>
@@ -1261,7 +1258,7 @@ baboon922@hotmail.com
     <door>
       <name>open right luggagedoor</name>
       <mode>once</mode>
-      <path>Aircraft/R44/Sounds/BaBoOn-R44-Door_open.wav</path>
+      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
           <property>instrumentation/doors/luggager/position-norm</property>
@@ -1305,7 +1302,7 @@ baboon922@hotmail.com
     <door>
       <name>open back luggagedoor</name>
       <mode>once</mode>
-      <path>Aircraft/R44/Sounds/BaBoOn-R44-Door_open.wav</path>
+      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
           <property>instrumentation/doors/door/position-norm</property>

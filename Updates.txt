@@ -45,7 +45,7 @@ Highlights:
 
 Details:
 -------
- - sounds used from EC135, configuration adapted
+ - sounds copied from EC135, configuration adapted
  - some sounds from R44
  - Yasim: tailgear protects fenestron
  - Fenestron fuselage a bit less wide
