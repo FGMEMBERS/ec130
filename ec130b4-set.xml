@@ -1,0 +1,1734 @@
+<?xml version="1.0"?>
+<!--
+************************************************************************
+EC 130 simulation config.
+
+************************************************************************
+
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
+           (C) 2013 Michael Habarta, mhabarta@freenet.de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+
+<PropertyList>
+  <sim>
+    <description>Eurocopter EC130 B4</description>
+    <author>Heiko Schulz, Melchior Franz (Nasal), Michael Habarta (Model-Details, Animations, Liveries)</author>
+    <status>production</status>
+    <rating>
+      <FDM type="int">4</FDM>
+      <systems type="int">4</systems>
+      <cockpit type="int">4</cockpit>
+      <model type="int">5</model>
+    </rating>
+    <license>GPL v2</license>
+    <version>20140114</version>
+
+    <flight-model>yasim</flight-model>
+    <aero>ec130b4</aero>
+    <fuel-fraction type="double">0.6</fuel-fraction>
+
+    <startup>
+      <splash-texture>Aircraft/ec130/splash_EC130_B4.jpg</splash-texture>
+    </startup>
+
+    <sound>
+      <path>Aircraft/ec130/Sounds/sound.xml</path>
+      <enabled>false</enabled>
+    </sound>
+ 
+    <airport>
+      <runways>
+        <start-offset-m>-0.95</start-offset-m>
+      </runways>
+    </airport>
+
+    <model>
+      <path archive="y">Aircraft/ec130/Models/ec130b4.xml</path>
+      <variant type="int">0</variant>
+      <livery>
+        <file type="string">FlightGear</file>
+      </livery>
+      <ec130>
+      <torque-pct>0</torque-pct>
+        <!-- global options for all models/liveries -->
+        <state type="int">0</state>
+        <rotor-step-deg type="float">-1.0</rotor-step-deg>
+        <searchlight-state-default type="float">3.0</searchlight-state-default>
+        <searchlight-heading-default type="float">0.0</searchlight-heading-default>
+        <searchlight-elevation-default type="float">2.0</searchlight-elevation-default>
+
+        <!-- 0: clear, 1: visible, 2: shaded -->
+        <cockpit-windscreen-option type="float">1</cockpit-windscreen-option>
+        <shadow type="bool">true</shadow>
+
+        <!-- model/livery specific options -->
+        <antenna_right type="bool">true</antenna_right>
+        <copilot_controls type="bool">true</copilot_controls>
+
+        <!-- 4: rescue configuration, 5/6: number of seats  -->
+        <interior_passengers type="float">5</interior_passengers>
+
+        <show_gsdi type="bool">false</show_gsdi>
+        <wirecutter type="bool">false</wirecutter>
+        <mirror type="bool">false</mirror>
+        <FLIR type="bool">false</FLIR>
+        <emerg_floats type="bool">false</emerg_floats>
+        <basket_left type="bool">false</basket_left>
+        <basket_right type="bool">false</basket_right>
+        <searchlight type="bool">false</searchlight>
+        <searchlight_filter type="bool">false</searchlight_filter>
+        <snowshoes type="bool">false</snowshoes>
+        <DME type="bool">false</DME>
+        <hoist type="bool">false</hoist>
+      </ec130>
+    </model>
+    <rendering>
+      <refl_correction type="float">-0.1</refl_correction>
+    </rendering>
+
+    <systems>
+      <path>Aircraft/ec130/Systems/systems.xml</path>
+      <autopilot>
+        <path>Aircraft/ec130/filter.xml</path>
+      </autopilot>
+      <electrical>
+        <path></path>
+      </electrical>
+    </systems>
+    <instrumentation>
+      <path>Aircraft/ec130/Systems/instruments.xml</path>
+    </instrumentation>
+
+    <!--view-->
+    <chase-distance-m type="double" archive="y">-20.0</chase-distance-m>
+
+    <view n="0">
+      <internal type="bool">true</internal>
+      <config>
+        <x-offset-m archive="y"> -0.67 </x-offset-m> <!--right-->
+        <y-offset-m archive="y">  0.03 </y-offset-m> <!--up   -->
+        <z-offset-m archive="y"> -3.93 </z-offset-m> <!--back -->
+        <pitch-offset-deg>-15</pitch-offset-deg>
+        <default-field-of-view-deg>85</default-field-of-view-deg>
+        <dynamic-view type="bool">true</dynamic-view>
+      </config>
+    </view>
+
+    <view n="101">
+      <name>Co-Pilot View</name>
+      <internal type="bool">true</internal>
+      <type>lookfrom</type>
+      <config>
+        <from-model type="bool">true</from-model>
+        <from-model-idx type="int">0</from-model-idx>
+        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+        <x-offset-m archive="y"> -0.04 </x-offset-m> <!--right-->
+        <y-offset-m archive="y">  0.03 </y-offset-m> <!--up   -->
+        <z-offset-m archive="y"> -3.93 </z-offset-m> <!--back -->
+        <pitch-offset-deg>-15</pitch-offset-deg>
+         <heading-offset-deg>0</heading-offset-deg>
+        <default-field-of-view-deg>75</default-field-of-view-deg>
+        <dynamic-view type="bool">true</dynamic-view>
+      </config>
+      <enabled type="bool">true</enabled>
+    </view>
+
+    <view n="102">
+      <name>Front-Left Seat View</name>
+      <internal type="bool">true</internal>
+      <type>lookfrom</type>
+      <config>
+        <from-model type="bool">true</from-model>
+        <from-model-idx type="int">0</from-model-idx>
+        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+        <x-offset-m archive="y">  0.35 </x-offset-m> <!--right-->
+        <y-offset-m archive="y">  0.03 </y-offset-m> <!--up   -->
+        <z-offset-m archive="y"> -3.93 </z-offset-m> <!--back -->
+        <pitch-offset-deg>-15</pitch-offset-deg>
+         <heading-offset-deg>0</heading-offset-deg>
+        <default-field-of-view-deg>75</default-field-of-view-deg>
+        <dynamic-view type="bool">true</dynamic-view>
+      </config>
+      <enabled type="bool">true</enabled>
+    </view>
+
+    <view n="103">
+      <name>Front-Right Seat View</name>
+      <internal type="bool">true</internal>
+      <type>lookfrom</type>
+      <config>
+        <from-model type="bool">true</from-model>
+        <from-model-idx type="int">0</from-model-idx>
+        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+        <x-offset-m archive="y">  0.73 </x-offset-m> <!--right-->
+        <y-offset-m archive="y">  0.03 </y-offset-m> <!--up   -->
+        <z-offset-m archive="y"> -3.93 </z-offset-m> <!--back -->
+        <pitch-offset-deg>-15</pitch-offset-deg>
+         <heading-offset-deg>0</heading-offset-deg>
+        <default-field-of-view-deg>75</default-field-of-view-deg>
+        <dynamic-view type="bool">true</dynamic-view>
+      </config>
+      <enabled type="bool">true</enabled>
+    </view>
+
+    <view n="104">
+      <name>Rear-Left Seat View</name>
+      <internal type="bool">true</internal>
+      <type>lookfrom</type>
+      <config>
+       <from-model type="bool">true</from-model>
+       <from-model-idx type="int">0</from-model-idx>
+        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+        <x-offset-m archive="y"> -0.70 </x-offset-m> <!--right-->
+        <y-offset-m archive="y">  0.15 </y-offset-m> <!--up   -->
+        <z-offset-m archive="y"> -2.75 </z-offset-m> <!--back -->
+        <pitch-offset-deg>-15</pitch-offset-deg>
+        <heading-offset-deg>0</heading-offset-deg>
+        <default-field-of-view-deg>75</default-field-of-view-deg>
+        <dynamic-view type="bool">true</dynamic-view>
+      </config>
+      <enabled type="bool">true</enabled>
+    </view>
+
+    <view n="105">
+      <name>Rear-Mid-Left Seat View</name>
+      <internal type="bool">true</internal>
+      <type>lookfrom</type>
+      <config>
+       <from-model type="bool">true</from-model>
+       <from-model-idx type="int">0</from-model-idx>
+        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+        <x-offset-m archive="y"> -0.23 </x-offset-m> <!--right-->
+        <y-offset-m archive="y">  0.15 </y-offset-m> <!--up   -->
+        <z-offset-m archive="y"> -2.75 </z-offset-m> <!--back -->
+        <pitch-offset-deg>-15</pitch-offset-deg>
+        <heading-offset-deg>0</heading-offset-deg>
+        <default-field-of-view-deg>75</default-field-of-view-deg>
+        <dynamic-view type="bool">true</dynamic-view>
+      </config>
+      <enabled type="bool">true</enabled>
+    </view>
+
+    <view n="106">
+      <name>Rear-Mid-Right Seat View</name>
+      <internal type="bool">true</internal>
+      <type>lookfrom</type>
+      <config>
+       <from-model type="bool">true</from-model>
+       <from-model-idx type="int">0</from-model-idx>
+        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+        <x-offset-m archive="y">  0.25 </x-offset-m> <!--right-->
+        <y-offset-m archive="y">  0.15 </y-offset-m> <!--up   -->
+        <z-offset-m archive="y"> -2.75 </z-offset-m> <!--back -->
+        <pitch-offset-deg>-15</pitch-offset-deg>
+        <heading-offset-deg>0</heading-offset-deg>
+        <default-field-of-view-deg>75</default-field-of-view-deg>
+        <dynamic-view type="bool">true</dynamic-view>
+      </config>
+      <enabled type="bool">true</enabled>
+    </view>
+
+    <view n="107">
+      <name>Rear-Right Seat View</name>
+      <internal type="bool">true</internal>
+      <type>lookfrom</type>
+      <config>
+       <from-model type="bool">true</from-model>
+       <from-model-idx type="int">0</from-model-idx>
+        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+        <x-offset-m archive="y">  0.70 </x-offset-m> <!--right-->
+        <y-offset-m archive="y">  0.15 </y-offset-m> <!--up   -->
+        <z-offset-m archive="y"> -2.75 </z-offset-m> <!--back -->
+        <pitch-offset-deg>-15</pitch-offset-deg>
+        <heading-offset-deg>0</heading-offset-deg>
+        <default-field-of-view-deg>75</default-field-of-view-deg>
+        <dynamic-view type="bool">true</dynamic-view>
+      </config>
+      <enabled type="bool">true</enabled>
+    </view>
+
+    <view n="108">
+      <name>Tail Camera View</name>
+      <type>lookfrom</type>
+      <internal archive="y">false</internal>
+      <config>
+        <from-model type="bool">true</from-model>
+        <from-model-idx type="int">0</from-model-idx>
+        <ground-level-nearplane-m type="double">0.01f</ground-level-nearplane-m>
+        <default-field-of-view-deg type="double">50</default-field-of-view-deg>
+        <pitch-offset-deg>0</pitch-offset-deg>
+        <x-offset-m archive="y"> 0.000 </x-offset-m> <!--Right-->
+        <y-offset-m archive="y">-1.150 </y-offset-m> <!--Up   -->
+        <z-offset-m archive="y"> 3.000 </z-offset-m> <!--Back -->
+      </config>
+      <enabled type="bool">true</enabled>
+    </view>
+
+    <view n="109">
+      <name>Rotor Camera View</name>
+      <type>lookfrom</type>
+      <internal archive="y">false</internal>
+      <config>
+        <from-model type="bool">true</from-model>
+        <from-model-idx type="int">0</from-model-idx>
+        <ground-level-nearplane-m type="double">0.01f</ground-level-nearplane-m>
+        <default-field-of-view-deg type="double">50</default-field-of-view-deg>
+        <pitch-offset-deg>0</pitch-offset-deg>
+        <x-offset-m archive="y"> 0.000 </x-offset-m> <!--Right-->
+        <y-offset-m archive="y"> 1.200 </y-offset-m> <!--Up   -->
+        <z-offset-m archive="y"> 3.000 </z-offset-m> <!--Back -->
+      </config>
+      <enabled type="bool">true</enabled>
+    </view>
+
+    <weight n="0">
+       <name>Pilot</name>
+       <weight-lb>180</weight-lb>
+       <min-lb>30</min-lb>
+       <max-lb>330</max-lb>
+    </weight>
+
+    <weight n="1">
+       <name>Co-Pilot</name>
+       <weight-lb>30</weight-lb>
+       <min-lb>30</min-lb>
+       <max-lb>330</max-lb>
+    </weight>
+
+    <weight n="2">
+       <name>Front-Left</name>
+       <weight-lb>0</weight-lb>
+       <min-lb>0</min-lb>
+       <max-lb>330</max-lb>
+    </weight>
+
+    <weight n="3">
+       <name>Front-Right</name>
+       <weight-lb>180</weight-lb>
+       <min-lb>30</min-lb>
+       <max-lb>330</max-lb>
+    </weight>
+
+    <weight n="4">
+       <name>Rear-Left</name>
+       <weight-lb>30</weight-lb>
+       <min-lb>30</min-lb>
+       <max-lb>330</max-lb>
+    </weight>
+
+    <weight n="5">
+       <name>Rear-Mid-Left</name>
+       <weight-lb>190</weight-lb>
+       <min-lb>30</min-lb>
+       <max-lb>330</max-lb>
+    </weight>
+
+    <weight n="6">
+       <name>Rear-Mid-Right</name>
+       <weight-lb>0</weight-lb>
+       <max-lb>300</max-lb>
+    </weight>
+
+    <weight n="7">
+       <name>Rear-Right</name>
+       <weight-lb>190</weight-lb>
+       <min-lb>30</min-lb>
+       <max-lb>330</max-lb>
+    </weight>
+
+    <weight n="8">
+       <name>Luggage Left</name>
+       <weight-lb>0</weight-lb>
+       <max-lb>300</max-lb>
+    </weight>
+
+    <weight n="9">
+       <name>Luggage Right</name>
+       <weight-lb>0</weight-lb>
+       <max-lb>300</max-lb>
+    </weight>
+
+    <weight n="10">
+       <name>Luggage Back</name>
+       <weight-lb>60</weight-lb>
+       <max-lb>200</max-lb>
+    </weight>
+
+    <weight n="11">
+       <name>Basket Left</name>
+       <weight-lb>0</weight-lb>
+       <max-lb>200</max-lb>
+    </weight>
+
+    <weight n="12">
+       <name>Basket Right</name>
+       <weight-lb>0</weight-lb>
+       <max-lb>200</max-lb>
+    </weight>
+
+    <weight n="13">
+       <name>Equipment</name>
+       <weight-lb>0</weight-lb>
+       <max-lb>800</max-lb>
+    </weight>
+
+    <hitches>
+      <!-- make sure some properties do exist, when the list for multiplayer transfer is defined-->
+      <!-- they need to be in the same value, as they are initilized in the FDM, to get the same values after reset should fix this somehow-->
+      <aerotow>
+        <tow>
+          <length type="float">30</length>
+          <elastic-constant type="float">10000</elastic-constant>
+          <weight-per-m-kg-m type="float">0.035</weight-per-m-kg-m>
+          <dist type="float">1</dist>
+          <connected-to-property-node type="bool"></connected-to-property-node>
+          <brake-force type="float">100000</brake-force>
+          <connected-to-ai-or-mp-callsign type ="string">*</connected-to-ai-or-mp-callsign>
+          <end-force-x type ="float">0</end-force-x>
+          <end-force-y type ="float">0</end-force-y>
+          <end-force-z type ="float">0</end-force-z>
+        </tow>
+        <speed-in-tow-direction type="float">0</speed-in-tow-direction>
+        <open type="bool">true</open>
+        <x-m> -1.830 </x-m>
+        <y-m>  0.000 </y-m>
+        <z-m> -1.510 </z-m>
+        <local-pos-x type="float">-1.86</local-pos-x>
+        <local-pos-y type="float">0</local-pos-y>
+        <local-pos-z type="float">-1.54</local-pos-z>
+        <is-slave type="bool">false</is-slave>
+      </aerotow>
+    </hitches>
+
+    <multiplay>
+       <generic>
+          <int n="0" alias="/systems/electrical/outputs/beacon"/>
+
+          <int n="1" alias="/systems/electrical/outputs/landing-light"/>
+
+          <int n="2" alias="/systems/electrical/outputs/nav-lights"/>
+
+          <!-- floats -->
+          <float n="0" alias="/gear/gear[6]/position-norm"/>
+
+          <string  alias="/sim/multiplay/callsign"/>
+       </generic>
+    </multiplay>
+
+    <flight-recorder include="Systems/flight-recorder.xml"/>
+
+    <help>
+      <title>EC130-B4 Ecostar - Help</title>
+
+      <key>
+        <name>-----</name>
+        <desc>---- startup ----</desc>
+      </key>
+
+      <key>
+        <name>Alt-p</name>
+        <desc>toggle external Power</desc>
+      </key>
+
+      <key>
+        <name>AltGr-p</name>
+        <desc>toggle Fuel Pump</desc>
+      </key>
+
+      <key>
+        <name>Ctrl-e</name>
+        <desc>Autostart</desc>
+      </key>
+
+      <key>
+        <name>E</name>
+        <desc>Autoshutdown</desc>
+      </key>
+
+      <key>
+        <name>Alt-t</name>
+        <desc>Twist Grip +</desc>
+      </key>
+
+      <key>
+        <name>AltGr-t</name>
+        <desc>Twist Grip -</desc>
+      </key>
+
+      <key>
+        <name>Alt-h</name>
+        <desc>toggle Horn</desc>
+      </key>
+
+      <key>
+        <name>-----</name>
+        <desc>---- flight ----</desc>
+      </key>
+
+      <!-- doesn't work for RC radio -->
+      <key>
+        <name>f</name>
+        <desc>Force Trim Release</desc>
+      </key>
+
+      <key>
+        <name>t</name>
+        <desc>direct trim Aileron/Elevator</desc>
+      </key>
+
+      <key>
+        <name>T</name>
+        <desc>direct trim Rudder</desc>
+      </key>
+
+      <key>
+        <name>r</name>
+        <desc>apply Rotor Brake</desc>
+      </key>
+
+      <key>
+        <name>R</name>
+        <desc>toggle Rotor Brake</desc>
+      </key>
+
+      <key>
+        <name>Alt-c</name>
+        <desc>toggle Cutoff Lever</desc>
+      </key>
+
+      <key>
+        <name>-----</name>
+        <desc>---- doors ----</desc>
+      </key>
+
+      <key>
+        <name>d</name>
+        <desc>toggle Pilot Door</desc>
+      </key>
+
+      <key>
+        <name>AltGr-d</name>
+        <desc>toggle Pilot Window</desc>
+      </key>
+
+      <key>
+        <name>D</name>
+        <desc>toggle Passenger Doors</desc>
+      </key>
+
+      <key>
+        <name>Ctrl-d</name>
+        <desc>toggle all Doors</desc>
+      </key>
+
+      <key>
+        <name>Alt-d</name>
+        <desc>toggle Luggage Doors</desc>
+      </key>
+
+      <key>
+        <name>Alt-b</name>
+        <desc>toggle Basket Covers</desc>
+      </key>
+
+      <key>
+        <name>1</name>
+        <desc>toggle Pilot Door</desc>
+      </key>
+
+      <key>
+        <name>2</name>
+        <desc>toggle Front Door right</desc>
+      </key>
+
+      <key>
+        <name>3</name>
+        <desc>toggle Back Door left</desc>
+      </key>
+
+      <key>
+        <name>4</name>
+        <desc>toggle Back Door right</desc>
+      </key>
+
+      <key>
+        <name>-----</name>
+        <desc>---- light ----</desc>
+      </key>
+
+      <key>
+        <name>l</name>
+        <desc>toggle Landing Light (L-Key)</desc>
+      </key>
+
+      <key>
+        <name>L</name>
+        <desc>toggle Search Light</desc>
+      </key>
+
+      <key>
+        <name>s</name>
+        <desc>cycle Search Light focus/distance</desc>
+      </key>
+
+      <key>
+        <name>S</name>
+        <desc>pause Search Light</desc>
+      </key>
+
+      <key>
+        <name>Alt-s</name>
+        <desc>toggle Search Light Filter</desc>
+      </key>
+
+      <key>
+        <name>j/J</name>
+        <desc>rotate Search Light right/left</desc>
+      </key>
+
+      <key>
+        <name>k/K</name>
+        <desc>rotate Search Light down/up</desc>
+      </key>
+
+      <key>
+        <name>Ctrl-k</name>
+        <desc>reset Search Light</desc>
+      </key>
+
+      <key>
+        <name>-----</name>
+        <desc>---- equipment ----</desc>
+      </key>
+
+      <key>
+        <name>F</name>
+        <desc>toggle Emergency Floats armed</desc>
+      </key>
+
+      <key>
+        <name>Alt-f</name>
+        <desc>inflate/repack Emergency Floats</desc>
+      </key>
+
+      <key>
+        <name>o/O</name>
+        <desc>close/open Hook</desc>
+      </key>
+
+  <!--
+      <key>
+				  ame>Ctrl-o</name>
+				  esc>Find Object to tow</desc>
+			  <ey>
+  -->
+      <key>
+        <name>-----</name>
+        <desc>---- simulation ----</desc>
+      </key>
+
+      <key>
+        <name>AltGr-o</name>
+        <desc>Configuration Dialog</desc>
+      </key>
+
+      <key>
+        <name>Alt-o</name>
+        <desc>Simulation Options</desc>
+      </key>
+
+      <key>
+        <name>Alt-k</name>
+        <desc>cycle Rotor Wake Visibility</desc>
+      </key>
+  <!--
+      <key>
+        <name>Alt-g</name>
+        <desc>toggle GSDI (Ground Speed/Drift Indicator)</desc>
+      </key>
+  -->
+      <text>
+   Characteristics:
+   Cruise speed:        100-137 kts (best 120 kts)
+   Never exceed (Vne): 155 kts (Pwr on), 125 kts (Pwr off)
+
+   Main Rotor Limits:
+   Normal Range:   375 - 405 rpm
+   Warning Range:  360 - 410 rpm
+   Caution Range:  320 - 430 rpm
+
+   Rotor brake:      0-170 rpm
+
+   TRQ as required (best at 82%)
+
+   Temperature Min.: -40 deg C (-40 deg F)
+   Temperature Max.: +50 deg C (122 deg F)
+
+   Empty Weight: 3015 lbs
+   MTOW:         5350 lbs
+
+   Service ceiling:
+       3968 lbs:  23000ft (7010m)
+       5350 lbs:  15655ft (4770m) = MTOW
+
+   Max Hover IGE (MTOW):  10165ft (3100m)
+   Max Hover OGE (MTOW):  8325ft (2535m)
+
+   Additional Help:
+   For startup see "Help/Tutorials", and follow "Help/Aircraft Checklists",
+   and see Flightmanual at "Aircraft/ec130/flightmanual.txt"
+
+   Special Handling of Twist Grip:
+   Power control between 63% = "idle" and 100% = "flight" can be done either
+    a) by dragging MMB up/down (middle mouse button pressed)
+    b) by clicking Twist Grip on Collective, upper half for + , lower half for -
+    c) by keyboard shortcut Alt-t for + and AltGr-t for -
+
+   Autostart/Autoshutdown:
+   Is enabled after 15 flights, so to encourage learning of realistic heli-handling.
+
+   Misc:
+   Various Click-Animations are implemented. Check with Ctrl-c,
+   and try Searchlight, ...
+      </text>
+    </help>
+
+ <help-text-config>
+  <contents>
+   Introduction:
+   ============
+   The Configuration Dialog for the EC130-B4 is a highly integrated dialog and combines
+   several standard FlightGear dialogs into one. Numerous interactions between the
+   settings are implemented in order to allow a very consistent setup of different
+   helicopter variants.
+
+   It is possible to:
+
+    - select a livery
+    - choose the seating configuration
+    - choose EC130 specific views
+    - set fuel amount
+    - set weights of passengers and luggage
+    - choose exterior equipment
+
+   When first opened, the settings reflect the values predefined for the current
+   helicopter variant in the livery XML file.
+
+
+   Consistency Rules:
+   ===============
+   There are several principles defined for the helicopter configuration, which
+   are ensured by dependencies between different settings.
+
+    - Each internal view corresponds to a specific seat.
+    - A view can only be active if the corresponding seat-weight is set to some
+      value &gt; 30 lbs, i.e. the weight of an empty seat.
+    - If a view is activated, the corresponding seat-weight is set to 30+150lbs,
+      i.e. the default passenger is a person with 150lbs weight.
+    - If a view is deactivated the corresponding seat-weight is set to minimum.
+    - If - on the other hand - a seat-related weight is set to minimum (30lbs)
+      in the weight settings, then the corresponding view is deactivated.
+    - Either pilot or co-pilot must be present (min weight 120lbs)
+    - Seats which are optional (i.e. not there in 5 pass. or Rescue (EMS) variant)
+      have a min. weight of 0, all other seats have a min weight of 30 lbs.
+
+    Remark: The stretcher in the EMS configuration (Emergency Medical Service) is handled
+    as 2 seats (for simplicity), but only one related view is assigned (rear-mid-right)
+
+
+   Interior:
+   ======
+   The EC130 cabin can be setup in three different variants which result in different
+   numbers of available seats and internal views.
+
+
+   Weights:
+   =======
+   There are three kinds of weights.
+
+    - Seat related weights
+    - Luggage related weights
+    - Equipment (no slider)
+
+   Seat related weights are closely tied to the corresponding view (see above).
+
+   The Equipment weight is automatically derived and summed up from the chosen
+   exterior equipment (see below).
+
+
+   Equipment:
+   =========
+   There are two kinds of equipment:
+
+    - combinable equipment
+    - mutually exclusive equipment
+
+   The mutually exclusive equipment cannot be used together for technical or
+   mechanical reasons (e.g. floats cannot be used together with baskets).
+
+   If exclusive equipment is selected, it deactivates any conflicting other equipment.
+
+   Have fun in setting up your desired helicopter variant, and have safe flights.
+
+
+
+   Some Remarks on View-Handling:
+   -----------------------------
+   The idea of having a tight relation between seat-weights and views intends to
+   provide a realistic setup. This however implies quite a number of different views,
+   which add up to the various predefined views in FlightGear.
+
+   With standard FlightGear setup (FG 2.12) and its limited view-control functionality,
+   which only allows to scroll forward or backward between ALL active views, this may
+   seem unrealistic and hard to handle .
+
+   View handling gets much easier, if the view control is configured to allow more
+   flexibility.
+
+   In the installation, where the EC130-B4 was developed and refined, the view control
+   is configured in a way, so that all predefined FG views are deactivated and accessed
+   directly through various Fx function keys. The built-in FG view-scroll functionality
+   is then used only for the EC130-B4 specific views.
+
+   Limitation: For now (FG 2.12) the improved view handling can only be done through
+   changing the keyboard assignments on a deeper level (keyboard.xml) and not through
+   some customization dialog. Hope is, that this will be improved in future FG versions.
+
+   Alternative with Minimum Number of Active Views:
+   -----------------------------------------------
+   If you prefer to have a limited number of views active you may disable most/all views.
+   In order to have enough weight assigned to the helicopter you may increase the
+   weight of active pilots/passengers (realistic weight distribution) or just increase
+   the luggage weight, which is less realistic for weight distribution.
+
+
+   (mhab)
+
+  </contents>
+ </help-text-config>
+
+    <checklists include="ec130-checklists.xml"/>
+
+    <tutorials include="Tutorials/ec130_tutorials.xml"/>
+
+    <menubar>
+      <default>
+        <menu n="10">
+        <label>EC130-B4</label>
+        <enabled type="bool">true</enabled>
+
+        <!-- 0 -->
+        <item>
+          <label>Configuration (Livery,Payload,...)</label>
+          <key>AltGr-o</key>
+            <binding>
+            <command>nasal</command>
+            <script>
+              if ( getprop("gear/gear[0]/wow") ) {
+                ec130.config_dialog.toggle();
+              } else {
+                gui.popupTip("Only possible on ground",1);
+              }
+            </script>
+            </binding>
+        </item>
+
+        <!-- 1 -->
+        <item>
+          <label>Simulation Options</label>
+          <key>Alt-o</key>
+          <binding>
+            <command>nasal</command>
+            <script>ec130.options_dialog.toggle();</script>
+          </binding>
+        </item>
+
+        <!-- 2 -->
+        <item>
+          <label>Toggle External Power</label>
+          <key>Alt-p</key>
+            <binding>
+              <command>nasal</command>
+              <script>ec130.toggle_powersupply()</script>
+            </binding>
+        </item>
+
+        <!-- 3 -->
+        <item>
+          <label>Autostart</label>
+          <key>Ctrl-e</key>
+            <binding>
+              <command>nasal</command>
+              <script>ec130.autostart()</script>
+            </binding>
+        </item>
+
+        <!-- 4 -->
+        <item>
+          <label>Autoshutdown</label>
+          <key>E</key>
+            <binding>
+              <command>nasal</command>
+              <script>ec130.autoshutdown()</script>
+            </binding>
+        </item>
+
+        <!-- 5 -->
+        <item>
+          <label>Inflate/Repack Emerg. Floats</label>
+          <key>Alt-f</key>
+             <binding>
+              <command>nasal</command>
+              <script>
+                if ( getprop("/sim/model/ec130/emerg_floats") ) {
+                  if ( getprop("/controls/gear/floats-inflat") ) {
+                    if ( getprop("gear/gear[0]/wow") or getprop("gear/gear[1]/wow") or getprop("gear/gear[2]/wow") or getprop("gear/gear[3]/wow") ) {
+                      setprop("/controls/gear/floats-inflat",0);
+                      setprop("/controls/gear/floats-armed",0);
+                    } else {
+                      gui.popupTip("Repack only possible on ground",1);
+                    }
+                  } else {
+                    if ( getprop("/controls/gear/floats-armed") ) {
+                      setprop("/controls/gear/floats-inflat",1);
+                    } else {
+                      gui.popupTip("Floats are not armed",1);
+                    }
+                  }
+                }
+              </script>
+            </binding>
+        </item>
+
+        </menu>
+      </default>
+    </menubar>
+
+  </sim>
+
+  <limits>
+    <vne>155</vne>
+    <MTOW>5350</MTOW>
+    <rpm-min>360</rpm-min>
+    <rpm-max>410</rpm-max>
+    <trq-max>100</trq-max>
+    <tot-max>915</tot-max>
+    <ng-max>101.1</ng-max>
+  </limits>
+
+  <consumables>
+    <fuel>
+      <tank>
+        <name>Main</name>
+        <selected type="bool" write="n">1</selected>
+        <density-ppg type="double" write="n">6.682</density-ppg>
+      </tank>
+    </fuel>
+  </consumables>
+
+  <controls>
+  <!--cold and dark as we all like it!-->
+  <gear>
+    <floats-inflat type ="bool">false</floats-inflat>
+    <floats-armed type ="bool">false</floats-armed>
+    <floats-deflate type = "bool">false</floats-deflate>
+  </gear>
+  <rotor>
+     <brake type ="double">1</brake>
+     <reltarget type="double">0</reltarget>
+     <maxreltorque type="double">0</maxreltorque>
+  </rotor>
+
+  <engines>
+    <engine n="0">
+      <magnetos>1</magnetos>
+      <propeller-pitch alias="/controls/engines/power-trim"/>
+      <mixture alias="/controls/engines/power-balance"/>
+      <startselector type="bool">0</startselector>
+      <switchguard type="bool">0</switchguard>
+    </engine>
+    <engine n="1">
+      <magnetos>1</magnetos>
+      <propeller-pitch alias="/controls/engines/power-trim"/>
+      <mixture alias="/controls/engines/power-balance"/>
+      <throttle alias="/controls/engines/engine[0]/throttle"/>
+    </engine>
+    <power-trim type="double">0</power-trim>
+    <power-balance type="double">0</power-balance>
+  </engines>
+
+
+  <lighting>
+    <beacon type="bool">false</beacon>
+    <nav-lights type="bool">false</nav-lights>
+  </lighting>
+
+  </controls>
+  
+  <engines>
+  <engine n="0">
+    <tot-degc>0</tot-degc>
+    <n1-pct>0</n1-pct>
+  </engine>
+  </engines>
+  
+  
+
+  <instrumentation>
+    <kcs55 include="Systems/kcs55.xml"/>
+      <gsdi>
+        <serviceable type="bool">true</serviceable>
+      </gsdi>
+    <attitude-indicator>
+      <serviceable type="bool">false</serviceable>
+    </attitude-indicator>
+  </instrumentation>
+
+  <input>
+    <keyboard>
+
+      <!-- Livery Box -->
+      <!--<key n="79">
+        <name>O</name>
+        <desc>start timer</desc>
+        <binding>
+        <command>nasal</command>
+        <script>ec130.begin()</script>
+      </binding>
+      </key>-->
+      
+<key n="97">
+    <name>a</name>
+	<desc>Set collective to zero</desc>
+		<binding>
+			<command>nasal</command>
+			<script>interpolate("/controls/engines/engine/throttle", 1.0, 1.25)</script>
+		</binding>
+	</key>
+  
+
+      <key n="5">
+        <name>Ctrl-e</name>
+        <desc>Autostart</desc>
+        <binding>
+          <condition>
+            <property>/sim/signals/fdm-initialized</property>
+          </condition>
+          <command>nasal</command>
+          <script>ec130.autostart()</script>
+         </binding>
+      </key>
+
+      <key n="69">
+        <name>E</name>
+        <desc>Autoshutdown</desc>
+        <binding>
+          <command>nasal</command>
+          <script>ec130.autoshutdown()</script>
+         </binding>
+      </key>
+
+      <key n="114">
+        <name>r</name>
+         <desc>Apply rotor brake</desc>
+         <repeatable type="bool">false</repeatable>
+         <binding>
+           <command>nasal</command>
+           <script>
+             if ( !getprop("/controls/rotor/brake") ) {
+               setprop("/controls/rotor/brake-engaged",0);
+               interpolate("/controls/rotor/brake", 1.0, 1);
+               gui.popupTip("Rotorbrake active ...", 20);
+             } else {
+               setprop("/controls/rotor/brake-engaged",1);
+               gui.popupTip("Rotorbrake is engaged ...", 2);
+             }
+           </script>
+         </binding>
+         <mod-up>
+         <binding>
+           <command>nasal</command>
+           <script>
+             if ( !getprop("/controls/rotor/brake-engaged") ) {
+               interpolate("/controls/rotor/brake", 0.0, 1);
+               gui.popupTip("Rotorbrake released");
+             } 
+           </script>
+         </binding>
+         </mod-up>
+      </key>
+
+      <key n="82">
+        <name>R</name>
+        <desc>Toggle rotor brake</desc>
+        <repeatable type="bool">false</repeatable>
+        <binding>
+          <command>nasal</command>
+          <script>
+            var p = getprop("/controls/rotor/brake");
+            interpolate("/controls/rotor/brake",!p,1);
+            gui.popupTip("Rotorbrake " ~ (p ? "released !" : "engaged !"));
+          </script>
+        </binding>
+        <mod-up>
+        <binding>
+          <command>null</command>
+        </binding>
+        </mod-up>
+      </key>
+
+      <key n="99">
+       <mod-alt>
+        <name>Alt-c</name>
+        <desc>toggle Cutoff lever</desc>
+        <binding>
+          <command>property-toggle</command>
+          <property>controls/engines/engine/cutoff</property>
+        </binding>
+       </mod-alt>
+      </key>
+
+      <key n="70">
+        <name>F</name>
+        <desc>toggle Emergency Floats armed</desc>
+        <binding>
+          <command>nasal</command>
+          <script>
+            var f = getprop("/controls/gear/floats-armed");
+            if ( getprop("/sim/model/ec130/emerg_floats") ) {
+              setprop("/controls/gear/floats-armed",!f);
+              gui.popupTip("Floats " ~ (f ? "disabled !" : "armed !"));
+            } else {
+              gui.popupTip("NO Floats available !!!",1);
+            }
+          </script>
+        </binding>
+      </key>
+
+      <key n="102">
+       <mod-alt>
+        <name>Alt-f</name>
+        <desc>inflate/repack Emergency Floats</desc>
+        <binding>
+          <command>nasal</command>
+          <script>ec130.toggle_floats();</script>
+        </binding>
+       </mod-alt>
+      </key>
+
+      <key n="100">
+        <name>d</name>
+        <desc>toggle Pilot door</desc>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.frontlexport();
+          </script>
+        </binding>
+        <mod-alt>
+         <name>Alt-d</name>
+         <desc>toggle luggage doors</desc>
+         <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.luggagelexport();
+            doors.doorsystem.luggagerexport();
+            doors.doorsystem.doorexport();
+          </script>
+         </binding>
+         <mod-ctrl>
+         <name>AltGr-d</name>
+         <desc>toggle pilot window</desc>
+         <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.pilotwexport();
+          </script>
+         </binding>
+        </mod-ctrl>
+       </mod-alt>
+      </key>
+
+      <key n="98">
+        <name>b</name>
+        <mod-alt>
+         <name>Alt-b</name>
+         <desc>toggle basket covers</desc>
+         <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.basketlexport();
+            doors.doorsystem.basketrexport();
+          </script>
+         </binding>
+       </mod-alt>
+      </key>
+
+      <key n="68">
+        <name>D</name>
+        <desc>toggle Passenger doors</desc>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.frontrexport();
+            doors.doorsystem.passengerlexport();
+            doors.doorsystem.passengerrexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="4">
+        <name>Ctrl-d</name>
+        <desc>toggle all doors</desc>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.frontlexport();
+            doors.doorsystem.frontrexport();
+            doors.doorsystem.passengerlexport();
+            doors.doorsystem.passengerrexport();
+            doors.doorsystem.luggagerexport();
+            doors.doorsystem.doorexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="49">
+        <name>1</name>
+        <desc>toggle front door left (pilot)</desc>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.frontlexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="50">
+        <name>2</name>
+        <desc>toggle front door right</desc>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.frontrexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="51">
+        <name>3</name>
+        <desc>toggle back door left</desc>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.passengerlexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="52">
+        <name>4</name>
+        <desc>toggle back door right</desc>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.passengerrexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="108">
+        <name>l</name>
+        <desc>toggle Landing Light</desc>
+        <binding>
+          <command>property-toggle</command>
+          <property>controls/lighting/landing-lights</property>
+        </binding>
+      </key>
+
+      <!-- cycle Searchlight focus/distance -->
+      <!-- cycles up/down as with original SX-16 Nightsun control device -->
+      <key n="115">
+       <name>s</name>
+       <desc>cycle Search Light distance</desc>
+       <repeatable type="bool">false</repeatable>
+        <binding>
+          <condition>
+            <property>sim/model/ec130/searchlight-active</property>
+          </condition>
+          <command>nasal</command>
+          <script>ec130.slight_cycle()</script>
+        </binding>
+        <mod-alt>
+         <name>Alt-s</name>
+         <desc>toggle Search Light Filter</desc>
+         <binding>
+           <condition>
+             <property>sim/model/ec130/searchlight</property>
+           </condition>
+           <command>nasal</command>
+           <script>
+             doors.doorsystem.slightfilterexport();
+           </script>
+         </binding>
+        </mod-alt>
+      </key>
+
+      <key n="83">
+        <name>S</name>
+        <desc>pause Search Light</desc>
+         <binding>
+          <condition>
+            <property>sim/model/ec130/searchlight-active</property>
+          </condition>
+          <command>property-toggle</command>
+          <property>sim/model/ec130/searchlight-paused</property>
+         </binding>
+      </key>
+
+      <key n="76">
+        <name>L</name>
+        <desc>toggle Search Light</desc>
+        <binding>
+          <condition>
+            <property>sim/model/ec130/searchlight</property>
+            <property>/controls/electric/engine/generator</property>
+          </condition>
+          <command>nasal</command>
+          <script>ec130.slight_toggle_power()</script>
+        </binding>
+      </key>
+
+      <key n="103">
+       <mod-alt>
+        <name>Alt-g</name>
+        <desc>Show/hide GSDI</desc>
+        <binding>
+         <command>property-toggle</command>
+          <property>/sim/model/ec130/hide-gsdi</property>
+        </binding>
+        <binding>
+          <command>property-toggle</command>
+          <property>/sim/model/ec130/show_gsdi</property>
+        </binding>
+       </mod-alt>
+      </key>
+
+      <key n="104">
+       <mod-alt>
+        <name>Alt-h</name>
+        <desc>toggle Horn</desc>
+        <binding>
+         <command>property-toggle</command>
+          <property>/controls/electric/horn</property>
+        </binding>
+       </mod-alt>
+      </key>
+
+      <key n="112">
+        <name>Alt-p</name>
+        <desc>Supply External Power</desc>
+        <mod-alt>
+        <binding>
+          <command>nasal</command>
+          <script>ec130.toggle_powersupply()</script>
+        </binding>
+        <mod-ctrl>
+          <name>AltGr-p</name>
+          <desc>toggle Fuel Pump</desc>
+          <binding>
+            <command>property-toggle</command>
+            <property>/controls/fuel/tank/boost-pump</property>
+          </binding>
+        </mod-ctrl>
+        </mod-alt>
+      </key>
+
+      <key n="111">
+        <name>o</name>
+        <desc>Lock hook</desc>
+        <binding>
+          <command>nasal</command>
+          <script>
+            if ( getprop("instrumentation/doors/hook/position-norm") ) {
+              doors.doorsystem.hookexport();
+              settimer( func {
+                setprop("/sim/hitches/aerotow/open",0);
+              }, 2);
+            }
+          </script>
+        </binding>
+       <mod-alt>
+        <name>Alt-o</name>
+        <desc>Simulation Options</desc>
+        <binding>
+          <command>nasal</command>
+          <script>ec130.options_dialog.toggle();</script>
+        </binding>
+        <mod-ctrl>
+         <name>AltGr-o</name>
+         <desc>Configuration Options</desc>
+         <binding>
+          <command>nasal</command>
+          <script>
+            if ( getprop("gear/gear[0]/wow") ) {
+              ec130.config_dialog.toggle();
+            } else {
+              gui.popupTip("Only possible on ground",1);
+            }
+          </script>
+        </binding>
+        </mod-ctrl>
+       </mod-alt>
+      </key>
+
+      <key n="79">
+        <name>O</name>
+        <desc>Open hook</desc>
+        <binding>
+          <command>nasal</command>
+          <script>
+            if ( !getprop("instrumentation/doors/hook/position-norm") ) {
+              setprop("/sim/hitches/aerotow/open",1);
+              doors.doorsystem.hookexport();
+            }
+          </script>
+        </binding>
+      </key>
+
+      <key n="15">
+        <name>Ctrl-o</name>
+        <desc>Find load for aerotow</desc>
+        <binding>
+          <command>property-assign</command>
+          <property>/controls/aerotow/find-aircraft</property>
+          <value type="bool">true</value>
+        </binding>
+        <mod-up>
+          <binding>
+            <command>property-assign</command>
+            <property>/controls/aerotow/find-aircraft</property>
+            <value type="bool">false</value>
+          </binding>
+        </mod-up>
+      </key>
+
+      <key n="106">
+       <name>j</name>
+       <desc>move Search Light right</desc>
+       <repeatable type="bool">true</repeatable>
+        <binding>
+          <command>nasal</command>
+          <script>
+          <!-- disable pushback script -->
+          </script>
+        </binding>
+        <binding>
+          <condition>
+            <property>sim/model/ec130/searchlight</property>
+          </condition>
+          <command>property-adjust</command>
+          <property>/sim/model/ec130/searchlight-heading-deg</property>
+          <step type="double">-1.0</step>
+          <min>-90</min>
+          <max>30</max>
+          <wrap>false</wrap>
+        </binding>
+      </key>
+
+      <key n="74">
+       <name>J</name>
+       <desc>move Search Light left</desc>
+       <repeatable type="bool">true</repeatable>
+        <binding>
+          <condition>
+            <property>sim/model/ec130/searchlight</property>
+          </condition>
+          <command>property-adjust</command>
+          <property>/sim/model/ec130/searchlight-heading-deg</property>
+          <step type="double">1.0</step>
+          <min>-90</min>
+          <max>30</max>
+          <wrap>false</wrap>
+        </binding>
+      </key>
+
+      <key n="107">
+       <name>k</name>
+       <desc>move Search Light down</desc>
+       <repeatable type="bool">true</repeatable>
+        <binding>
+          <command>nasal</command>
+          <script>
+          <!-- disable pushback script -->
+          </script>
+        </binding>
+        <binding>
+          <condition>
+            <property>sim/model/ec130/searchlight</property>
+          </condition>
+          <command>property-adjust</command>
+          <property>/sim/model/ec130/searchlight-elevation-deg</property>
+          <step type="double">-1.0</step>
+          <min>-50</min>
+          <max>3</max>
+          <wrap>false</wrap>
+        </binding>
+       <mod-alt>
+        <name>Alt-k</name>
+        <desc>cycle wake visible</desc>
+        <binding>
+         <command>nasal</command>
+         <script>ec130.cycle_wakes()</script>
+        </binding>
+       </mod-alt>
+      </key>
+
+      <key n="75">
+       <name>K</name>
+       <desc>move Search Light up</desc>
+       <repeatable type="bool">true</repeatable>
+        <binding>
+          <command>nasal</command>
+          <script>
+          <!-- disable pushback script -->
+          </script>
+        </binding>
+        <binding>
+          <condition>
+            <property>sim/model/ec130/searchlight</property>
+          </condition>
+          <command>property-adjust</command>
+          <property>/sim/model/ec130/searchlight-elevation-deg</property>
+          <step type="double">1.0</step>
+          <min>-50</min>
+          <max>3</max>
+          <wrap>false</wrap>
+        </binding>
+      </key>
+
+      <key n="11">
+       <name>Ctrl-k</name>
+       <desc>reset searchlight</desc>
+        <binding>
+          <command>nasal</command>
+          <script>
+          <!-- disable pushback script -->
+          </script>
+        </binding>
+        <binding>
+          <command>nasal</command>
+          <script>ec130.slight_reset()</script>
+        </binding>
+      </key>
+
+      <key n="116">
+        <name>t</name>
+        <desc>Direct Trim Elev./Aileron</desc>
+        <repeatable type="bool">true</repeatable>
+        <binding>
+        <command>nasal</command>
+        <script>
+          <!-- set trim -->
+          setprop("/controls/flight/elevator-trim", getprop("/controls/flight/elevator")+getprop("/controls/flight/elevator-trim"));
+          setprop("/controls/flight/aileron-trim", getprop("/controls/flight/aileron")+getprop("/controls/flight/aileron-trim"));
+          <!-- center stick -->
+          setprop("/controls/flight/aileron", 0);
+          setprop("/controls/flight/elevator", 0);
+        </script>
+        </binding>
+        <mod-alt>
+          <name>Alt-t</name>
+          <desc>Twist Grip +</desc>
+          <binding>
+          <command>nasal</command>
+          <script>
+            var p = getprop("/controls/engines/engine/power");
+            if ( p &lt; 0.97 ) {
+              if ( p &gt; 0.60 ) {
+                setprop("/controls/engines/engine/power", p+0.03);
+              } else {
+                setprop("/controls/engines/engine/power", 0.63);
+              }
+            } else {
+              setprop("/controls/engines/engine/power", 1.0);
+            }
+            gui.popupTip(sprintf("Twist Grip %d%%", getprop("/controls/engines/engine/power")*100));
+
+            if ( getprop("/controls/electric/external-power") ) {
+              settimer( func{ gui.popupTip("Disconnect external power supply !!!",3); },3);
+            }
+          </script>
+          </binding>
+          <mod-ctrl>
+            <name>AltGr-t</name>
+            <desc>Twist Grip -</desc>
+            <binding>
+            <command>nasal</command>
+            <script>
+              var p = getprop("/controls/engines/engine/power");
+              if ( p &gt; 0.66 ) {
+                setprop("/controls/engines/engine/power", p-0.03);
+              } else {
+                setprop("/controls/engines/engine/power", 0.63);
+              }
+              gui.popupTip(sprintf("Twist Grip %d%%", getprop("/controls/engines/engine/power")*100));
+            </script>
+            </binding>
+          </mod-ctrl>
+        </mod-alt>
+      </key>
+
+      <key n="84">
+        <name>T</name>
+        <desc>Direct Trim Rudder</desc>
+        <binding>
+        <command>nasal</command>
+        <script>
+          <!-- set trim -->
+          setprop("/controls/flight/rudder-trim", getprop("/controls/flight/rudder")+getprop("/controls/flight/rudder-trim"));
+          <!-- center stick -->
+          setprop("/controls/flight/rudder", 0);
+        </script>
+       </binding>
+      </key>
+
+      <!-- doesn't work for RC radio -->
+      <key n="102">
+        <name>f</name>
+        <desc>Force Trim Release</desc>
+        <binding>
+          <command>nasal</command>
+          <script>ec130.ftr_start()</script>
+        </binding>
+        <mod-up>
+          <binding>
+            <command>nasal</command>
+            <script>ec130.ftr_stop()</script>
+          </binding>
+        </mod-up>
+      </key>
+
+      <key n="125">
+        <name>}</name>
+        <desc>Start Engines</desc>
+        <binding>
+          <command>nasal</command>
+          <script>ec130.autostart()</script>
+          <condition>
+            <property>/sim/signals/fdm-initialized</property>
+          </condition>
+        </binding>
+      </key>
+
+      <key n="123">
+        <name>{</name>
+        <desc>Shutdown Engines</desc>
+        <binding>
+          <command>nasal</command>
+          <script>ec130.autoshutdown()</script>
+          <condition>
+            <property>/sim/signals/fdm-initialized</property>
+          </condition>
+        </binding>
+      </key>
+
+    </keyboard>
+  </input>
+
+  <nasal>
+    <doors>
+      <file>Aircraft/ec130/Nasal/doors.nas</file>
+    </doors>
+    <ec130>
+      <file>Aircraft/ec130/Nasal/lightmap.nas</file>
+       <file>Aircraft/ec130/Nasal/dialog.nas</file>
+       <file>Aircraft/ec130/Nasal/mousehandlery.nas</file>
+       <file>Aircraft/ec130/Nasal/mousehandlerx.nas</file>
+       <file>Aircraft/ec130/Nasal/savestate.nas</file>
+       <file>Aircraft/ec130/Nasal/weights.nas</file>
+       <file>Aircraft/ec130/Nasal/ec130.nas</file>
+       <file>Aircraft/ec130/Nasal/woolthread.nas</file>
+       <file>Aircraft/ec130/Nasal/limits.nas</file>
+       <file>Aircraft/ec130/Nasal/flightcontrols.nas</file>
+       <file>Aircraft/ec130/Nasal/Electrical.nas</file>
+       <file>Aircraft/ec130/Nasal/fadec.nas</file>
+       <file>Aircraft/ec130/Nasal/light.nas</file>
+       <file>Aircraft/ec130/Nasal/rotor.nas</file>
+       <file>Aircraft/ec130/Systems/kcs55.nas</file>
+       <file>Aircraft/ec130/Nasal/systems.nas</file>
+       <file>Aircraft/ec130/Nasal/rotorloads.nas</file>
+       <file>Aircraft/ec130/Models/Instruments/VEMD/timer.nas</file>
+       <file>Aircraft/ec130/Models/Instruments/VEMD/VEMD.nas</file>
+       <file>Aircraft/ec130/Models/Instruments/VEMD/roc.nas</file>
+       <file>Aircraft/ec130/Models/Instruments/CWS/CWS.nas</file>
+       <file>Aircraft/ec130/Nasal/seats.nas</file>
+       <script><![CDATA[
+              KCS55.new();
+            ]]>
+         <!-- disable standard fuel-payload menu, use aircraft specific -->
+         gui.menuEnable("fuel-and-payload",0);
+
+         <!-- initialize number of flights -->
+         if ( getprop("/sim/model/ec130/flightnumber") == nil ) {
+           setprop("/sim/model/ec130/flightnumber", 0);
+         }
+
+         <!-- minimum number of flights for autostart/autoshutdown -->
+         setprop("/sim/model/ec130/minflights",15);
+
+         <!-- disable autostart menu, if less than minimum flights -->
+         if ( getprop("/sim/model/ec130/flightnumber") &lt; getprop("/sim/model/ec130/minflights") ) {
+           setprop("/sim/menubar/default/menu[10]/item[4]/enabled",0);
+         }
+
+         <!-- disable autoshutdown menu, if less than minimum flights -->
+         if ( getprop("/sim/model/ec130/flightnumber") &lt; getprop("/sim/model/ec130/minflights") ) {
+           setprop("/sim/menubar/default/menu[10]/item[5]/enabled",0);
+         }
+
+         <!-- set searchlight props -->
+         setprop("/sim/model/ec130/searchlight-state",getprop("/sim/model/ec130/searchlight-state-default"));
+         setprop("/sim/model/ec130/searchlight-heading-deg",getprop("/sim/model/ec130/searchlight-heading-default"));
+         setprop("/sim/model/ec130/searchlight-elevation-deg",getprop("/sim/model/ec130/searchlight-elevation-default"));
+
+         <!-- initialize equipment weight -->
+         ec130.external_weights();
+
+         <!-- initialize seats and views -->
+         ec130.set_seats();
+
+         <!-- workaround for unclarified problem with uninitialized and wrong types of properties after startup -->
+         setprop("/controls/electric/directbat-switch",0);
+         setprop("/controls/lighting/instruments-lights2",0);
+         setprop("/controls/electric/horn",0);
+
+         <!-- disable shadow if rembrandt enabled -->
+         if ( getprop("/sim/rendering/rembrandt/enabled")) {
+           setprop("sim/model/ec130/shadow",0);
+         }
+       </script>
+    </ec130>
+  </nasal>
+
+  <rotors>
+    <main>
+      <rpm type="double">0</rpm>
+      <wakevisible type="double">2</wakevisible>
+    </main>
+  </rotors>
+
+</PropertyList>

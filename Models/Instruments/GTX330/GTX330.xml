@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+<!--texture by Torsten Dreyer-->
+	<name>GTX330</name>
+	<path>GTX330.ac</path>
+	
+	<!--<animation>
+        <type>material</type>
+		<object-name>Cube</object-name>
+		<object-name>face3</object-name>
+            <emission>
+       <red>   0.886 </red>
+      <green> 0.984 </green>
+      <blue>  0.741 </blue>
+            <factor-prop>systems/electrical/outputs/instrument-lights</factor-prop>
+        </emission>
+    </animation>-->
+    
+</PropertyList>

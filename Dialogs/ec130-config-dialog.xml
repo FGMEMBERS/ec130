@@ -1,0 +1,1888 @@
+<?xml version="1.0"?>
+
+<!-- Eurocopter EC 130 Helicopter by Heiko Schulz, Michael Habarta
+
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
+           (C) 2013 Michael Habarta, mhabarta@freenet.de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+
+<PropertyList>
+
+  <name>Livery_Payload</name>
+
+  <layout>vbox</layout>
+  <resizable>false</resizable>
+  <modal>false</modal>
+  <draggable>true</draggable>
+  <default-padding>3</default-padding>
+
+  <nasal>
+    <open>
+      <!-- init interior options -->
+      var init = func {
+        var p = getprop("/sim/model/ec130/interior_passengers");
+
+        setprop("/sim/model/ec130/interior_passengers_flag_0",0);
+        setprop("/sim/model/ec130/interior_passengers_flag_1",0);
+        setprop("/sim/model/ec130/interior_passengers_flag_2",0);
+
+        if ( p == 5 ) { setprop("/sim/model/ec130/interior_passengers_flag_0",1); }
+
+        if ( p == 6 ) { setprop("/sim/model/ec130/interior_passengers_flag_1",1); }
+
+        if ( p == 4 ) { setprop("/sim/model/ec130/interior_passengers_flag_2",1); }
+
+        <!-- set seat weights and views -->
+        ec130.set_seats();
+
+        <!-- reset basket weights -->
+        if ( !getprop("/sim/model/ec130/basket_left") ) {
+          setprop("/sim/weight[11]/weight-lb",0);
+        }
+        if ( !getprop("/sim/model/ec130/basket_right") ) {
+          setprop("/sim/weight[12]/weight-lb",0);
+        }
+
+        <!-- calculate sum of external equipment -->
+        ec130.external_weights();
+      }
+
+      init();
+
+      <!-- load available liveries -->
+<!--
+      var livery_dir="C:/Flightgear_Aircraft/adapted/ec130/Liveries";
+      var livery_files = directory( livery_dir );
+      print( "livery-list:",livery_files);
+-->
+    </open>
+    <close># just kept for educational purposes :-)</close>
+  </nasal>
+
+
+  <!-- Title with Esc knob for closing -->
+  <group>
+
+    <layout>hbox</layout>
+    <empty><stretch>1</stretch></empty>
+
+    <text>
+      <label>EC130-B4 Configuration    (AltGr-o)</label>
+    </text>
+
+    <empty><stretch>true</stretch></empty>
+
+    <button>
+      <legend></legend>
+      <key>Esc</key>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <binding>
+        <command>nasal</command>
+        <script>ec130.config_dialog.toggle()</script>
+      </binding>
+    </button>
+  </group>
+
+  <hrule/>
+
+  <!-- top level group start -->
+  <group>
+    <layout>hbox</layout>
+    <default-padding>0</default-padding>
+    <halign>left</halign>
+
+    <!-- 1st column start -->
+    <group>
+      <layout>vbox</layout>
+      <default-padding>5</default-padding>
+      <halign>left</halign>
+
+      <group>
+
+        <layout>table</layout>
+        <default-padding>5</default-padding>
+        <halign>left</halign>
+
+        <!-- only to get a gap to left border -->
+        <text>
+          <row>0</row>
+          <col>0</col>
+          <label> </label>
+          <halign>left</halign>
+        </text>
+
+        <text>
+          <row>0</row>
+          <col>1</col>
+          <label>Livery:</label>
+          <halign>left</halign>
+        </text>
+
+        <!-- name of currently selected livery -->
+        <text>
+          <row>1</row>
+          <col>1</col>
+          <property>/sim/model/livery/name</property>
+          <halign>left</halign>
+          <live>true</live>
+        </text>
+
+        <list>
+          <row>2</row>
+          <col>1</col>
+          <name>livery-combo</name>
+          <property>/sim/model/livery/name</property>
+          <editable>false</editable>
+          <pref-height>110</pref-height>
+          <pref-width>280</pref-width>
+          <halign>fill</halign>
+
+<!-- How to Add new liveries:
+
+     Until this becomes dynamic please use the following workaround:
+
+       - add one <value>....</value> line for each new livery
+
+       Remark: text in <value></value> must be identical with the
+               contents of <name></name> TAG in corresponding livery-XML file
+-->
+
+          <value>FlightGear</value>
+          <value>White</value>
+          <value>D-HTLL</value>
+          <value>HB-ZIN (Heli-Alps)</value>
+          <value>D-HSTS (Heli Gourmet)</value>
+          <value>N155GC (Grand Canyon)</value>
+          <value>N11QC (Blue Hawaiian)</value>
+          <value>N130NE (MedFlight)</value>
+          <value>VH-OSA (MAC rescue)</value>
+          <value>F-GOLH (private)</value>
+          <value>ZS-HOY (Starlite)</value>
+          <binding>
+            <command>dialog-apply</command>
+            <object-name>livery-combo</object-name>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>
+              aircraft.livery.select(getprop("/sim/model/livery/name"));
+              init();
+            </script>
+          </binding>
+
+        </list>
+
+<!--
+	      <list>
+          <row>2</row>
+          <col>1</col>
+          <halign>fill</halign>
+          <valign>fill</valign>
+          <stretch>true</stretch>
+          <pref-height>250</pref-height>
+          <pref-widht>250</pref-width>
+          <property>$result</property>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+          <value>$value</value>
+        </list>
+-->
+
+        <!-- empty line before next -->
+        <text>
+          <row>3</row>
+          <col>0</col>
+          <label> </label>
+          <halign>left</halign>
+        </text>
+
+      </group>
+
+      <hrule/>
+
+      <group>
+
+        <layout>table</layout>
+        <default-padding>5</default-padding>
+        <halign>left</halign>
+
+        <!-- only to get a gap to left border -->
+        <text>
+          <row>0</row>
+          <col>0</col>
+          <label> </label>
+          <halign>left</halign>
+        </text>
+
+        <text>
+          <row>0</row>
+          <col>1</col>
+          <label>Interior</label>
+          <halign>left</halign>
+        </text>
+
+        <text>
+          <row>1</row>
+          <col>1</col>
+          <label>======</label>
+          <halign>left</halign>
+        </text>
+
+        <radio>
+          <row>2</row>
+          <col>1</col>
+          <halign>left</halign>
+          <label> 5 Passengers (standard)</label>
+          <property>/sim/model/ec130/interior_passengers_flag_0</property>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>
+              setprop("/sim/model/ec130/interior_passengers",5);
+              <!--setprop("/sim/model/ec130/interior_passengers_flag_0",0); -->
+              setprop("/sim/model/ec130/interior_passengers_flag_1",0);
+              setprop("/sim/model/ec130/interior_passengers_flag_2",0);
+              ec130.set_seats();
+            </script>
+          </binding>
+        </radio>
+
+        <radio>
+          <row>3</row>
+          <col>1</col>
+          <halign>left</halign>
+          <label> 6 Passengers (medium density)</label>
+          <property>/sim/model/ec130/interior_passengers_flag_1</property>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>
+              setprop("/sim/model/ec130/interior_passengers",6);
+              setprop("/sim/model/ec130/interior_passengers_flag_0",0);
+              <!--setprop("/sim/model/ec130/interior_passengers_flag_1",0); -->
+              setprop("/sim/model/ec130/interior_passengers_flag_2",0);
+              ec130.set_seats();
+            </script>
+          </binding>
+        </radio>
+
+        <radio>
+          <row>4</row>
+          <col>1</col>
+          <halign>left</halign>
+          <label> Rescue Missions (EMS)</label>
+          <property>/sim/model/ec130/interior_passengers_flag_2</property>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>
+              setprop("/sim/model/ec130/interior_passengers",4);
+              setprop("/sim/model/ec130/interior_passengers_flag_0",0);
+              setprop("/sim/model/ec130/interior_passengers_flag_1",0);
+              <!--setprop("/sim/model/ec130/interior_passengers_flag_2",0); -->
+              ec130.set_seats();
+            </script>
+          </binding>
+        </radio>
+
+        <text>
+          <row>5</row>
+          <col>1</col>
+          <label>   -----------------------</label>
+          <halign>left</halign>
+        </text>
+
+        <checkbox>
+          <row>6</row>
+          <col>1</col>
+          <halign>left</halign>
+          <label> Co-Pilot Controls</label>
+          <property>/sim/model/ec130/copilot_controls</property>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </checkbox>
+
+        <!-- empty line before next -->
+        <text>
+          <row>7</row>
+          <col>0</col>
+          <label> </label>
+          <halign>left</halign>
+        </text>
+
+      </group>
+
+      <hrule/>
+
+      <group>
+        <layout>table</layout>
+        <default-padding>5</default-padding>
+        <halign>left</halign>
+
+        <!-- only to get a gap to left border -->
+        <text>
+          <row>0</row>
+          <col>0</col>
+          <label> </label>
+          <halign>left</halign>
+        </text>
+
+        <text>
+          <row>0</row>
+          <col>1</col>
+          <label>EC130 Views</label>
+          <halign>left</halign>
+        </text>
+
+        <text>
+          <row>1</row>
+          <col>1</col>
+          <label>===========</label>
+          <halign>left</halign>
+        </text>
+
+        <!-- EC130 specific views -->
+        <!-- 102 -->
+        <checkbox>
+          <row>2</row>
+          <col>1</col>
+          <halign>left</halign>
+          <label> Co-Pilot</label>
+          <property>/sim/view[101]/enabled</property>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>
+              if ( getprop("/sim/view[101]/enabled") ) {
+                setprop("/sim/weight[1]/weight-lb",180);
+              } else {
+                setprop("/sim/weight[1]/weight-lb",0);
+              }
+              ec130.set_seats();
+            </script>
+          </binding>
+        </checkbox>
+
+        <!-- 103 -->
+        <checkbox>
+          <row>3</row>
+          <col>1</col>
+          <halign>left</halign>
+          <label> Front-Left Seat (6 Pass. only)</label>
+          <property>/sim/view[102]/enabled</property>
+          <live>true</live>
+          <enable>
+            <equals>
+              <property>/sim/model/ec130/interior_passengers</property>
+              <value>6</value>
+            </equals>
+          </enable>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>
+              if ( getprop("/sim/view[102]/enabled") ) {
+                setprop("/sim/weight[2]/weight-lb",180);
+              } else {
+                setprop("/sim/weight[2]/weight-lb",0);
+              }
+              ec130.set_seats();
+            </script>
+          </binding>
+        </checkbox>
+
+        <!-- 104 -->
+        <checkbox>
+          <row>4</row>
+          <col>1</col>
+          <halign>left</halign>
+          <label> Front-Right Seat (not in EMS)</label>
+          <property>/sim/view[103]/enabled</property>
+          <live>true</live>
+          <enable>
+            <not-equals>
+              <property>/sim/model/ec130/interior_passengers</property>
+              <value>4</value>
+            </not-equals>
+          </enable>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>
+              if ( getprop("/sim/view[103]/enabled") ) {
+                setprop("/sim/weight[3]/weight-lb",180);
+              } else {
+                setprop("/sim/weight[3]/weight-lb",0);
+              }
+              ec130.set_seats();
+            </script>
+          </binding>
+        </checkbox>
+
+        <!-- 105 -->
+        <checkbox>
+          <row>5</row>
+          <col>1</col>
+          <halign>left</halign>
+          <label> Rear-Left Seat</label>
+          <property>/sim/view[104]/enabled</property>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>
+              if ( getprop("/sim/view[104]/enabled") ) {
+                setprop("/sim/weight[4]/weight-lb",180);
+              } else {
+                setprop("/sim/weight[4]/weight-lb",0);
+              }
+              ec130.set_seats();
+            </script>
+          </binding>
+        </checkbox>
+
+        <!-- 106 -->
+        <checkbox>
+          <row>6</row>
+          <col>1</col>
+          <halign>left</halign>
+          <label> Rear-Mid-Left Seat</label>
+          <property>/sim/view[105]/enabled</property>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>
+              if ( getprop("/sim/view[105]/enabled") ) {
+                setprop("/sim/weight[5]/weight-lb",180);
+              } else {
+                setprop("/sim/weight[5]/weight-lb",0);
+              }
+              ec130.set_seats();
+            </script>
+          </binding>
+        </checkbox>
+
+        <!-- 107 -->
+        <checkbox>
+          <row>7</row>
+          <col>1</col>
+          <halign>left</halign>
+          <label> Rear-Mid-Right Seat</label>
+          <property>/sim/view[106]/enabled</property>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>
+              if ( getprop("/sim/view[106]/enabled") ) {
+                setprop("/sim/weight[6]/weight-lb",180);
+              } else {
+                setprop("/sim/weight[6]/weight-lb",0);
+              }
+              ec130.set_seats();
+            </script>
+          </binding>
+        </checkbox>
+
+        <!-- 108 -->
+        <checkbox>
+          <row>8</row>
+          <col>1</col>
+          <halign>left</halign>
+          <label> Rear-Right Seat (not in EMS)</label>
+          <property>/sim/view[107]/enabled</property>
+          <live>true</live>
+          <enable>
+            <not-equals>
+              <property>/sim/model/ec130/interior_passengers</property>
+              <value>4</value>
+            </not-equals>
+          </enable>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+          <binding>
+            <command>nasal</command>
+            <script>
+              if ( getprop("/sim/view[107]/enabled") ) {
+                setprop("/sim/weight[7]/weight-lb",180);
+              } else {
+                setprop("/sim/weight[7]/weight-lb",0);
+              }
+              ec130.set_seats();
+            </script>
+          </binding>
+        </checkbox>
+
+        <!-- 109 -->
+        <checkbox>
+          <row>9</row>
+          <col>1</col>
+          <halign>left</halign>
+          <label> Tail Camera</label>
+          <property>/sim/view[108]/enabled</property>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </checkbox>
+
+        <!-- 110 -->
+        <checkbox>
+          <row>10</row>
+          <col>1</col>
+          <halign>left</halign>
+          <label> Rotor Camera</label>
+          <property>/sim/view[109]/enabled</property>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </checkbox>
+
+      </group>
+
+      <group>
+      <stretch>true</stretch>
+      </group>
+
+    </group>
+    <!-- 1st column end -->
+
+    <vrule/>
+
+    <!-- 2nd column start -->
+    <group>
+      <layout>vbox</layout>
+      <default-padding>5</default-padding>
+      <halign>left</halign>
+
+      <group>
+
+        <layout>table</layout>
+        <default-padding>5</default-padding>
+        <halign>left</halign>
+
+        <!-- only to get a gap to left border -->
+        <text>
+          <row>0</row>
+          <col>0</col>
+          <label> </label>
+          <halign>left</halign>
+        </text>
+
+        <text>
+          <row>0</row>
+          <col>1</col>
+          <label>Fuel </label>
+          <halign>left</halign>
+        </text>
+
+        <text>
+          <row>1</row>
+          <col>1</col>
+          <label>==== </label>
+          <halign>left</halign>
+        </text>
+
+        <text>
+          <row>2</row>
+          <col>1</col>
+          <label> Tank </label>
+          <halign>center</halign>
+        </text>
+
+        <text>
+          <row>2</row>
+          <col>2</col>
+          <label>Pounds</label>
+          <halign>right</halign>
+        </text>
+
+        <text>
+          <row>2</row>
+          <col>3</col>
+          <label>Gallons</label>
+          <halign>right</halign>
+        </text>
+
+        <text>
+          <row>2</row>
+          <col>4</col>
+          <label>Fraction</label>
+          <halign>right</halign>
+        </text>
+
+        <text>
+          <row>2</row>
+          <col>5</col>
+          <label> </label>
+          <halign>right</halign>
+        </text>
+
+        <!-- only to get a gap to left border -->
+        <text>
+          <row>3</row>
+          <col>0</col>
+          <label> </label>
+          <halign>left</halign>
+        </text>
+
+        <slider>
+          <row>3</row>
+          <col>1</col>
+          <property>/consumables/fuel/tank/level-lbs</property>
+          <min>0</min>
+          <max>941</max>
+          <live>true</live>
+          <binding>
+            <command>dialog-apply</command>
+          </binding>
+        </slider>
+
+        <text>
+          <row>3</row>
+          <col>2</col>
+          <property>/consumables/fuel/tank/level-lbs</property>
+          <label>xxxxxx</label>
+          <format>%5.0f</format>
+          <halign>right</halign>
+          <live>true</live>
+        </text>
+
+        <text>
+          <row>3</row>
+          <col>3</col>
+          <property>/consumables/fuel/tank/level-gal_us</property>
+          <label>xxxxxx</label>
+          <format>%5.0f</format>
+          <halign>right</halign>
+          <live>true</live>
+        </text>
+
+        <text>
+          <row>3</row>
+          <col>4</col>
+          <property>/consumables/fuel/tank/level-norm</property>
+          <label>xxxxxx</label>
+          <format>%.2f</format>
+          <halign>right</halign>
+          <live>true</live>
+        </text>
+
+        <!-- empty line before next -->
+        <text>
+          <row>8</row>
+          <col>0</col>
+          <label> </label>
+          <halign>left</halign>
+        </text>
+
+      </group>
+
+      <hrule/>
+
+      <group>
+      <layout>vbox</layout>
+
+        <group>
+        <layout>table</layout>
+        <default-padding>5</default-padding>
+        <halign>left</halign>
+
+          <!-- only to get a gap to left border -->
+          <text>
+            <row>0</row>
+            <col>0</col>
+            <label> </label>
+            <halign>left</halign>
+          </text>
+
+          <text>
+            <row>0</row>
+            <col>1</col>
+            <label>Weights (empty seat: 30 lbs)</label>
+            <halign>left</halign>
+          </text>
+
+          <text>
+            <row>1</row>
+            <col>1</col>
+            <label>======</label>
+            <halign>left</halign>
+          </text>
+
+        </group>
+
+        <group>
+          <!-- weights -->
+          <layout>table</layout>
+          <default-padding>5</default-padding>
+          <halign>left</halign>
+
+          <!-- only to get a gap to left border -->
+          <text>
+            <row>0</row>
+            <col>0</col>
+            <label> </label>
+            <halign>left</halign>
+          </text>
+
+          <!-- headline -->
+          <text>
+            <row>0</row>
+            <col>1</col>
+            <label>Location</label>
+            <halign>left</halign>
+          </text>
+
+          <text>
+            <row>0</row>
+            <col>2</col>
+            <label> </label>
+            <halign>left</halign>
+          </text>
+
+          <text>
+            <row>0</row>
+            <col>3</col>
+            <label> Pounds  </label>
+            <halign>right</halign>
+          </text>
+
+          <!-- contents -->
+          <!-- row 1 Pilot -->
+          <text>
+            <row>1</row>
+            <col>1</col>
+            <property>/sim/weight[0]/name</property>
+            <label>xxxxxxxxxxxxxxxxx</label>
+            <halign>left</halign>
+          </text>
+
+          <slider>
+            <row>1</row>
+            <col>2</col>
+            <property>/sim/weight[0]/weight-lb</property>
+            <min>0</min>
+            <max>330</max>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                gui.weightChangeHandler();
+                ec130.set_seats();
+              </script>
+            </binding>
+          </slider>
+
+          <text>
+            <row>1</row>
+            <col>3</col>
+            <property>/sim/weight[0]/weight-lb</property>
+            <label>xxxxxxxx</label>
+            <format> %7.0f</format>
+            <halign>right</halign>
+            <live>true</live>
+          </text>
+
+          <!-- row 2 Co-Pilot -->
+          <text>
+            <row>2</row>
+            <col>1</col>
+            <property>/sim/weight[1]/name</property>
+            <label>xxxxxxxxxxxxx</label>
+            <halign>left</halign>
+          </text>
+
+          <slider>
+            <row>2</row>
+            <col>2</col>
+            <property>/sim/weight[1]/weight-lb</property>
+            <min>0</min>
+            <max>330</max>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                gui.weightChangeHandler();
+                ec130.set_seats();
+              </script>
+            </binding>
+          </slider>
+
+          <text>
+            <row>2</row>
+            <col>3</col>
+            <property>/sim/weight[1]/weight-lb</property>
+            <label>xxxxxxxx</label>
+            <format> %7.0f</format>
+            <halign>right</halign>
+            <live>true</live>
+          </text>
+
+          <!-- row 3 Front Left -->
+          <text>
+            <row>3</row>
+            <col>1</col>
+            <property>/sim/weight[2]/name</property>
+            <label>xxxxxxxxxxxxx</label>
+            <halign>left</halign>
+            <enable>
+              <equals>
+                <property>/sim/model/ec130/interior_passengers</property>
+                <value>6</value>
+              </equals>
+            </enable>
+          </text>
+
+          <slider>
+            <row>3</row>
+            <col>2</col>
+            <property>/sim/weight[2]/weight-lb</property>
+            <min>0</min>
+            <max>330</max>
+            <live>true</live>
+            <enable>
+              <equals>
+                <property>/sim/model/ec130/interior_passengers</property>
+                <value>6</value>
+              </equals>
+            </enable>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                gui.weightChangeHandler();
+                ec130.set_seats();
+              </script>
+            </binding>
+          </slider>
+
+          <text>
+            <row>3</row>
+            <col>3</col>
+            <property>/sim/weight[2]/weight-lb</property>
+            <label>xxxxxxxx</label>
+            <format> %7.0f</format>
+            <halign>right</halign>
+            <live>true</live>
+            <enable>
+              <equals>
+                <property>/sim/model/ec130/interior_passengers</property>
+                <value>6</value>
+              </equals>
+            </enable>
+          </text>
+
+          <!-- row 4 Front Right -->
+          <text>
+            <row>4</row>
+            <col>1</col>
+            <property>/sim/weight[3]/name</property>
+            <label>xxxxxxxxxxxxx</label>
+            <halign>left</halign>
+            <enable>
+              <not-equals>
+                <property>/sim/model/ec130/interior_passengers</property>
+                <value>4</value>
+              </not-equals>
+            </enable>
+          </text>
+
+          <slider>
+            <row>4</row>
+            <col>2</col>
+            <property>/sim/weight[3]/weight-lb</property>
+            <min>0</min>
+            <max>330</max>
+            <live>true</live>
+            <enable>
+              <not-equals>
+                <property>/sim/model/ec130/interior_passengers</property>
+                <value>4</value>
+              </not-equals>
+            </enable>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                gui.weightChangeHandler();
+                ec130.set_seats();
+              </script>
+            </binding>
+          </slider>
+
+          <text>
+            <row>4</row>
+            <col>3</col>
+            <property>/sim/weight[3]/weight-lb</property>
+            <label>xxxxxxxx</label>
+            <format> %7.0f</format>
+            <halign>right</halign>
+            <live>true</live>
+            <enable>
+              <not-equals>
+                <property>/sim/model/ec130/interior_passengers</property>
+                <value>4</value>
+              </not-equals>
+            </enable>
+          </text>
+
+          <!-- row 5  Rear Left -->
+          <text>
+            <row>5</row>
+            <col>1</col>
+            <property>/sim/weight[4]/name</property>
+            <label>xxxxxxxxxxxxx</label>
+            <halign>left</halign>
+          </text>
+
+          <slider>
+            <row>5</row>
+            <col>2</col>
+            <property>/sim/weight[4]/weight-lb</property>
+            <min>0</min>
+            <max>330</max>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                gui.weightChangeHandler();
+                ec130.set_seats();
+              </script>
+            </binding>
+          </slider>
+
+          <text>
+            <row>5</row>
+            <col>3</col>
+            <property>/sim/weight[4]/weight-lb</property>
+            <label>xxxxxxxx</label>
+            <format> %7.0f</format>
+            <halign>right</halign>
+            <live>true</live>
+          </text>
+
+          <!-- row 6 Rear Mid Left -->
+          <text>
+            <row>6</row>
+            <col>1</col>
+            <property>/sim/weight[5]/name</property>
+            <label>xxxxxxxxxxxxx</label>
+            <halign>left</halign>
+          </text>
+
+          <slider>
+            <row>6</row>
+            <col>2</col>
+            <property>/sim/weight[5]/weight-lb</property>
+            <min>0</min>
+            <max>330</max>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                gui.weightChangeHandler();
+                ec130.set_seats();
+              </script>
+            </binding>
+          </slider>
+
+          <text>
+            <row>6</row>
+            <col>3</col>
+            <property>/sim/weight[5]/weight-lb</property>
+            <label>xxxxxxxx</label>
+            <format> %7.0f</format>
+            <halign>right</halign>
+            <live>true</live>
+          </text>
+
+          <!-- row 7 Rear Mid Right -->
+          <text>
+            <row>7</row>
+            <col>1</col>
+            <property>/sim/weight[6]/name</property>
+            <label>xxxxxxxxxxxxx</label>
+            <halign>left</halign>
+          </text>
+
+          <slider>
+            <row>7</row>
+            <col>2</col>
+            <property>/sim/weight[6]/weight-lb</property>
+            <min>0</min>
+            <max>330</max>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                gui.weightChangeHandler();
+                ec130.set_seats();
+              </script>
+            </binding>
+          </slider>
+
+          <text>
+            <row>7</row>
+            <col>3</col>
+            <property>/sim/weight[6]/weight-lb</property>
+            <label>xxxxxxxx</label>
+            <format> %7.0f</format>
+            <halign>right</halign>
+            <live>true</live>
+          </text>
+
+          <!-- row 8 Rear Right -->
+          <text>
+            <row>8</row>
+            <col>1</col>
+            <property>/sim/weight[7]/name</property>
+            <label>xxxxxxxxxxxxx</label>
+            <halign>left</halign>
+            <enable>
+              <not-equals>
+                <property>/sim/model/ec130/interior_passengers</property>
+                <value>4</value>
+              </not-equals>
+            </enable>
+          </text>
+
+          <slider>
+            <row>8</row>
+            <col>2</col>
+            <property>/sim/weight[7]/weight-lb</property>
+            <min>0</min>
+            <max>330</max>
+            <live>true</live>
+            <enable>
+              <not-equals>
+                <property>/sim/model/ec130/interior_passengers</property>
+                <value>4</value>
+              </not-equals>
+            </enable>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                gui.weightChangeHandler();
+                ec130.set_seats();
+              </script>
+            </binding>
+          </slider>
+
+          <text>
+            <row>8</row>
+            <col>3</col>
+            <property>/sim/weight[7]/weight-lb</property>
+            <label>xxxxxxxx</label>
+            <format> %7.0f</format>
+            <halign>right</halign>
+            <live>true</live>
+            <enable>
+              <not-equals>
+                <property>/sim/model/ec130/interior_passengers</property>
+                <value>4</value>
+              </not-equals>
+            </enable>
+          </text>
+
+          <!-- row 9 Luggage Left-->
+          <text>
+            <row>9</row>
+            <col>1</col>
+            <property>/sim/weight[8]/name</property>
+            <label>xxxxxxxxxxxxx</label>
+            <halign>left</halign>
+          </text>
+
+          <slider>
+            <row>9</row>
+            <col>2</col>
+            <property>/sim/weight[8]/weight-lb</property>
+            <min>0</min>
+            <max>300</max>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>gui.weightChangeHandler();</script>
+            </binding>
+          </slider>
+
+          <text>
+            <row>9</row>
+            <col>3</col>
+            <property>/sim/weight[8]/weight-lb</property>
+            <label>xxxxxxxx</label>
+            <format> %7.0f</format>
+            <halign>right</halign>
+            <live>true</live>
+          </text>
+
+          <!-- row 10 Luggage Right -->
+          <text>
+            <row>10</row>
+            <col>1</col>
+            <property>/sim/weight[9]/name</property>
+            <label>xxxxxxxxxxxxx</label>
+            <halign>left</halign>
+          </text>
+
+          <slider>
+            <row>10</row>
+            <col>2</col>
+            <property>/sim/weight[9]/weight-lb</property>
+            <min>0</min>
+            <max>300</max>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>gui.weightChangeHandler();</script>
+            </binding>
+          </slider>
+
+          <text>
+            <row>10</row>
+            <col>3</col>
+            <property>/sim/weight[9]/weight-lb</property>
+            <label>xxxxxxxx</label>
+            <format> %7.0f</format>
+            <halign>right</halign>
+            <live>true</live>
+          </text>
+
+          <!-- row 11 Luggage Back -->
+          <text>
+            <row>11</row>
+            <col>1</col>
+            <property>/sim/weight[10]/name</property>
+            <label>xxxxxxxxxxxxx</label>
+            <halign>left</halign>
+          </text>
+
+          <slider>
+            <row>11</row>
+            <col>2</col>
+            <property>/sim/weight[10]/weight-lb</property>
+            <min>0</min>
+            <max>300</max>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>gui.weightChangeHandler();</script>
+            </binding>
+          </slider>
+
+          <text>
+            <row>11</row>
+            <col>3</col>
+            <property>/sim/weight[10]/weight-lb</property>
+            <label>xxxxxxxx</label>
+            <format> %7.0f</format>
+            <halign>right</halign>
+            <live>true</live>
+          </text>
+
+          <!-- row 12 Basket Left -->
+          <text>
+            <row>12</row>
+            <col>1</col>
+            <property>/sim/weight[11]/name</property>
+            <label>xxxxxxxxxxxxx</label>
+            <halign>left</halign>
+            <enable>
+              <property>/sim/model/ec130/basket_left</property>
+            </enable>
+          </text>
+
+          <slider>
+            <row>12</row>
+            <col>2</col>
+            <property>/sim/weight[11]/weight-lb</property>
+            <min>0</min>
+            <max>300</max>
+            <live>true</live>
+            <enable>
+              <property>/sim/model/ec130/basket_left</property>
+            </enable>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>gui.weightChangeHandler();</script>
+            </binding>
+          </slider>
+
+          <text>
+            <row>12</row>
+            <col>3</col>
+            <property>/sim/weight[11]/weight-lb</property>
+            <label>xxxxxxxx</label>
+            <format> %7.0f</format>
+            <halign>right</halign>
+            <live>true</live>
+            <enable>
+              <property>/sim/model/ec130/basket_left</property>
+            </enable>
+          </text>
+
+          <!-- row 13 Basket Right -->
+          <text>
+            <row>13</row>
+            <col>1</col>
+            <property>/sim/weight[12]/name</property>
+            <label>xxxxxxxxxxxxx</label>
+            <halign>left</halign>
+            <enable>
+              <property>/sim/model/ec130/basket_right</property>
+            </enable>
+          </text>
+
+          <slider>
+            <row>13</row>
+            <col>2</col>
+            <property>/sim/weight[12]/weight-lb</property>
+            <min>0</min>
+            <max>300</max>
+            <live>true</live>
+            <enable>
+              <property>/sim/model/ec130/basket_right</property>
+            </enable>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>gui.weightChangeHandler();</script>
+            </binding>
+          </slider>
+
+          <text>
+            <row>13</row>
+            <col>3</col>
+            <property>/sim/weight[12]/weight-lb</property>
+            <label>xxxxxxxx</label>
+            <format> %7.0f</format>
+            <halign>right</halign>
+            <live>true</live>
+            <enable>
+              <property>/sim/model/ec130/basket_right</property>
+            </enable>
+          </text>
+
+          <!-- row 14 Equipment -->
+          <text>
+            <row>14</row>
+            <col>1</col>
+            <property>/sim/weight[13]/name</property>
+            <label>xxxxxxxxxxxxx</label>
+            <halign>left</halign>
+            <enable>
+              <equals>
+                <property>/sim/model/ec130/interior_passengers</property>
+                <value>99</value>
+              </equals>
+            </enable>
+          </text>
+
+          <slider>
+            <row>14</row>
+            <col>2</col>
+            <property>/sim/weight[13]/weight-lb</property>
+            <min>0</min>
+            <max>300</max>
+            <live>true</live>
+            <!-- disable always -->
+            <enable>
+              <equals>
+                <property>/sim/model/ec130/interior_passengers</property>
+                <value>99</value>
+              </equals>
+            </enable>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>gui.weightChangeHandler();</script>
+            </binding>
+          </slider>
+
+          <text>
+            <row>14</row>
+            <col>3</col>
+            <property>/sim/weight[13]/weight-lb</property>
+            <label>xxxxxxxx</label>
+            <format> %7.0f</format>
+            <halign>right</halign>
+            <live>true</live>
+            <enable>
+              <equals>
+                <property>/sim/model/ec130/interior_passengers</property>
+                <value>99</value>
+              </equals>
+            </enable>
+          </text>
+
+          <!-- row 15 -->
+          <text>
+            <row>15</row>
+            <col>1</col>
+            <label> </label>
+            <halign>left</halign>
+          </text>
+
+          <text>
+            <row>15</row>
+            <col>2</col>
+            <label> </label>
+            <halign>left</halign>
+          </text>
+
+          <text>
+            <row>15</row>
+            <col>3</col>
+            <label>    --------</label>
+            <halign>left</halign>
+          </text>
+
+          <!-- row 16 -->
+          <text>
+            <row>16</row>
+            <col>1</col>
+            <label>Gross Weight:</label>
+            <halign>left</halign>
+          </text>
+
+          <text>
+            <row>16</row>
+            <col>2</col>
+            <label></label>
+            <halign>left</halign>
+          </text>
+
+          <text>
+            <row>16</row>
+            <col>3</col>
+            <property>/yasim/gross-weight-lbs</property>
+            <label>xxxxxx</label>
+            <format>   %7.0f</format>
+            <halign>left</halign>
+            <live>true</live>
+          </text>
+
+          <text>
+            <row>17</row>
+            <col>3</col>
+            <label>(max.5350)</label>
+            <halign>left</halign>
+          </text>
+
+        </group>
+
+      </group>
+
+      <group>
+      <stretch>true</stretch>
+      </group>
+
+    </group>
+    <!-- 2nd column end -->
+
+    <vrule/>
+
+    <!-- 3rd column start -->
+    <group>
+      <layout>vbox</layout>
+      <default-padding>5</default-padding>
+      <halign>left</halign>
+
+      <group>
+
+        <layout>table</layout>
+        <default-padding>5</default-padding>
+        <halign>left</halign>
+
+         <!-- only to get a gap to left border -->
+         <text>
+           <row>0</row>
+           <col>0</col>
+           <label> </label>
+           <halign>left</halign>
+         </text>
+
+         <text>
+           <row>0</row>
+           <col>1</col>
+           <label>Equipment (combinable)</label>
+           <halign>left</halign>
+         </text>
+
+         <text>
+           <row>1</row>
+           <col>1</col>
+           <label>===================</label>
+           <halign>left</halign>
+         </text>
+
+         <checkbox>
+           <row>2</row>
+           <col>1</col>
+           <halign>left</halign>
+           <label> Wire-Cutter</label>
+           <property>/sim/model/ec130/wirecutter</property>
+           <live>true</live>
+           <binding>
+             <command>dialog-apply</command>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>ec130.external_weights()</script>
+           </binding>
+         </checkbox>
+
+         <checkbox>
+           <row>3</row>
+           <col>1</col>
+           <halign>left</halign>
+           <label> Mirror</label>
+           <property>/sim/model/ec130/mirror</property>
+           <live>true</live>
+           <binding>
+             <command>dialog-apply</command>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>ec130.external_weights()</script>
+           </binding>
+         </checkbox>
+
+         <checkbox>
+           <row>4</row>
+           <col>1</col>
+           <halign>left</halign>
+           <label> FLIR</label>
+           <property>/sim/model/ec130/FLIR</property>
+           <live>true</live>
+           <binding>
+             <command>dialog-apply</command>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>ec130.external_weights()</script>
+           </binding>
+         </checkbox>
+
+         <checkbox>
+           <row>5</row>
+           <col>1</col>
+           <halign>left</halign>
+           <label> DME Antenna</label>
+           <property>/sim/model/ec130/DME</property>
+           <live>true</live>
+           <binding>
+             <command>dialog-apply</command>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>ec130.external_weights()</script>
+           </binding>
+         </checkbox>
+
+         <checkbox>
+           <row>6</row>
+           <col>1</col>
+           <halign>left</halign>
+           <label> GSDI (Alt-g)</label>
+           <property>/sim/model/ec130/show_gsdi</property>
+           <live>true</live>
+           <binding>
+             <command>dialog-apply</command>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>
+               var g = getprop("/sim/model/ec130/show_gsdi");
+               setprop("/sim/model/ec130/hide-gsdi",!g);
+             </script>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>ec130.external_weights()</script>
+           </binding>
+         </checkbox>
+
+         <checkbox>
+           <row>7</row>
+           <col>1</col>
+           <halign>left</halign>
+           <label> Cargo Hook</label>
+           <property>/sim/model/ec130/hoist</property>
+           <live>true</live>
+           <binding>
+             <command>dialog-apply</command>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>ec130.external_weights()</script>
+           </binding>
+         </checkbox>
+
+         <text>
+           <row>8</row>
+           <col>1</col>
+           <label>   -----------------------</label>
+           <halign>left</halign>
+         </text>
+
+         <checkbox>
+           <row>9</row>
+           <col>1</col>
+           <halign>left</halign>
+           <label> Roof Antenna on right Side</label>
+           <property>/sim/model/ec130/antenna_right</property>
+           <live>true</live>
+           <binding>
+             <command>dialog-apply</command>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>ec130.external_weights()</script>
+           </binding>
+         </checkbox>
+
+        <!-- empty line before next -->
+        <text>
+          <row>10</row>
+          <col>0</col>
+          <label> </label>
+          <halign>left</halign>
+        </text>
+
+      </group>
+
+      <hrule/>
+
+      <group>
+
+        <layout>table</layout>
+        <default-padding>5</default-padding>
+        <halign>left</halign>
+
+         <!-- only to get a gap to left border -->
+         <text>
+           <row>0</row>
+           <col>0</col>
+           <label> </label>
+           <halign>left</halign>
+         </text>
+
+         <text>
+           <row>0</row>
+           <col>1</col>
+           <label>Equipment (mutually exclusive)</label>
+           <halign>right</halign>
+         </text>
+
+         <text>
+           <row>1</row>
+           <col>1</col>
+           <label>=========================</label>
+           <halign>right</halign>
+         </text>
+
+         <checkbox>
+           <row>2</row>
+           <col>1</col>
+           <halign>left</halign>
+           <label> Basket (left)</label>
+           <property>/sim/model/ec130/basket_left</property>
+           <live>true</live>
+           <binding>
+             <command>dialog-apply</command>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>
+               if ( getprop("/sim/model/ec130/basket_left") ) {
+                 setprop("/sim/model/ec130/emerg_floats",0);
+               } else {
+                  setprop("/sim/weight[11]/weight-lb",0);
+               }
+             </script>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>ec130.external_weights()</script>
+           </binding>
+         </checkbox>
+
+         <checkbox>
+           <row>3</row>
+           <col>1</col>
+           <halign>left</halign>
+           <label> Basket (right)</label>
+           <property>/sim/model/ec130/basket_right</property>
+           <live>true</live>
+           <binding>
+             <command>dialog-apply</command>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>
+               if ( getprop("/sim/model/ec130/basket_right") ) {
+                 setprop("/sim/model/ec130/emerg_floats",0);
+                 setprop("/sim/model/ec130/searchlight",0);
+                 setprop("/sim/model/ec130/searchlight_filter",0);
+               } else {
+                  setprop("/sim/weight[12]/weight-lb",0);
+               }
+             </script>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>ec130.external_weights()</script>
+           </binding>
+         </checkbox>
+
+         <checkbox>
+           <row>4</row>
+           <col>1</col>
+           <halign>left</halign>
+           <label> Snowshoes</label>
+           <property>/sim/model/ec130/snowshoes</property>
+           <live>true</live>
+           <binding>
+             <command>dialog-apply</command>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>
+               if ( getprop("/sim/model/ec130/snowshoes") ) {
+                 setprop("/sim/model/ec130/emerg_floats",0);
+               }
+             </script>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>ec130.external_weights()</script>
+           </binding>
+         </checkbox>
+
+         <checkbox>
+           <row>5</row>
+           <col>1</col>
+           <halign>left</halign>
+           <label> Search Light</label>
+           <property>/sim/model/ec130/searchlight</property>
+           <live>true</live>
+           <binding>
+             <command>dialog-apply</command>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>
+               if ( getprop("/sim/model/ec130/searchlight") ) {
+                 setprop("/sim/model/ec130/emerg_floats",0);
+                 setprop("/sim/model/ec130/basket_right",0);
+               } else {
+                 setprop("/sim/model/ec130/searchlight_filter",0);
+               }
+             </script>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>ec130.external_weights()</script>
+           </binding>
+         </checkbox>
+
+         <checkbox>
+           <row>6</row>
+           <col>1</col>
+           <halign>left</halign>
+           <label> Search Light Filter</label>
+           <property>/sim/model/ec130/searchlight_filter</property>
+           <live>true</live>
+           <binding>
+             <command>dialog-apply</command>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>
+               if ( getprop("/sim/model/ec130/searchlight_filter") ) {
+                 setprop("/sim/model/ec130/searchlight",1);
+                 setprop("/sim/model/ec130/emerg_floats",0);
+                 setprop("/sim/model/ec130/basket_right",0);
+               }
+             </script>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>ec130.external_weights()</script>
+           </binding>
+         </checkbox>
+
+         <checkbox>
+           <row>7</row>
+           <col>1</col>
+           <halign>left</halign>
+           <label> Floats</label>
+           <property>/sim/model/ec130/emerg_floats</property>
+           <live>true</live>
+           <binding>
+             <command>dialog-apply</command>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>
+               if ( getprop("/sim/model/ec130/emerg_floats") ) {
+                 setprop("/sim/model/ec130/basket_left",0);
+                 setprop("/sim/model/ec130/basket_right",0);
+                 setprop("/sim/model/ec130/snowshoes",0);
+                 setprop("/sim/model/ec130/searchlight",0);
+                 setprop("/sim/model/ec130/searchlight_filter",0);
+               }
+             </script>
+           </binding>
+           <binding>
+             <command>nasal</command>
+             <script>ec130.external_weights()</script>
+           </binding>
+         </checkbox>
+
+        <!-- empty line before next -->
+        <text>
+          <row>8</row>
+          <col>0</col>
+          <label> </label>
+          <halign>left</halign>
+        </text>
+
+      </group>
+
+      <hrule/>
+
+      <group>
+      <stretch>true</stretch>
+
+      </group>
+
+    </group>
+    <!-- 3rd column end -->
+
+  </group>
+  <!-- top level group end -->
+
+  <hrule/>
+
+  <group>
+    <layout>hbox</layout>
+    <default-padding>3</default-padding>
+
+    <!-- only to shift "Close" to the middle -->
+    <text>
+      <label>         </label>
+      <halign>left</halign>
+    </text>
+
+    <button>
+      <legend>Close</legend>
+      <equal>true</equal>
+      <key>Esc</key>
+      <default>true</default>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.config_dialog.toggle();
+        </script>
+      </binding>
+      <halign>center</halign>
+    </button>
+
+    <button>
+      <legend> Help </legend>
+      <equal>true</equal>
+      <key>?</key>
+      <binding>
+        <command>nasal</command>
+        <script>ec130.help_config_dialog.toggle()</script>
+      </binding>
+      <halign>right</halign>
+    </button>
+
+  </group>
+
+</PropertyList>
+

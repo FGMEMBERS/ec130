@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!-- by mhab -->
+
+<PropertyList>
+  <sim>
+    <model>
+      <livery>
+        <name type="string">N130NE (MedFlight)</name>
+        <index type="int">9</index>
+        <texture>Liveries/N130NE.png</texture>
+      </livery>
+      <ec130>
+        <antenna_right type="bool">true</antenna_right>
+        <copilot_controls type="bool">false</copilot_controls>
+        <!-- 4: rescue configuration, 5/6: number of seats  -->
+        <interior_passengers type="float">4</interior_passengers>
+        <show_gsdi type="bool">true</show_gsdi>
+        <wirecutter type="bool">true</wirecutter>
+        <mirror type="bool">false</mirror>
+        <FLIR type="bool">false</FLIR>
+        <emerg_floats type="bool">false</emerg_floats>
+        <basket_left type="bool">false</basket_left>
+        <basket_right type="bool">false</basket_right>
+        <searchlight type="bool">true</searchlight>
+        <searchlight_filter type="bool">true</searchlight_filter>
+        <snowshoes type="bool">false</snowshoes>
+        <DME type="bool">true</DME>
+        <hoist type="bool">false</hoist>
+      </ec130>
+    </model>
+    <rendering>
+      <refl_correction type="string">-0.1275</refl_correction>
+    </rendering>
+  </sim>
+</PropertyList>

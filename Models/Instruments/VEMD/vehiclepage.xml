@@ -1,0 +1,371 @@
+<PropertyList>
+	<path>vehiclepage.ac</path>
+<!--enginepage-->
+
+<animation>
+	 <type>select</type>
+	<object-name>oilpressneedle</object-name>
+	<object-name>oiltempneedle</object-name>
+	<object-name>face</object-name>
+	 <condition>
+	 
+		<greater-than>
+				 <property>instrumentation/VEMD/Phase/tested</property>
+				 <value>0</value>
+		</greater-than>
+		<not>
+		 <property>instrumentation/VEMD/Phase/shutdown</property>
+				 <value>1</value>
+		</not>
+	</condition>
+ </animation>
+ 
+ 
+
+
+<animation>
+  <type>rotate</type>
+  <object-name>oilpressneedle</object-name>
+  <property>/engines/engine/oil-pressure-bar</property>
+  <interpolation>
+   <entry><ind>  0</ind><dep>   0</dep></entry>
+   <entry><ind>  1</ind><dep>16.83</dep></entry>
+   <entry><ind>  1.1</ind><dep>19.94</dep></entry>
+   <entry><ind>  2</ind><dep>34.42</dep></entry>
+   <entry><ind>  3</ind><dep>53.1</dep></entry>
+   <entry><ind>  4</ind><dep>70.31</dep></entry>
+   <entry><ind>  5</ind><dep>86.81</dep></entry>
+   <entry><ind>  6</ind><dep>103.12</dep></entry>
+   <entry><ind>  7</ind><dep>121.12</dep></entry>
+   <entry><ind>  8</ind><dep>138.7</dep></entry>
+   <entry><ind>  9</ind><dep>157.16</dep></entry>
+    <entry><ind>  9.8</ind><dep>170.47</dep></entry>
+   <entry><ind>  10</ind><dep>175.57</dep></entry>
+  
+    </interpolation>
+   		<center>
+			<x-m>0.00</x-m>
+			<y-m>0.079</y-m>
+			<z-m>-0.021</z-m>
+		</center>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+</animation>
+
+<animation>
+  <type>rotate</type>
+  <object-name>oiltempneedle</object-name>
+  <property>/engines/engine/oil-temperature-degc-filter</property>
+  <interpolation>
+   <entry><ind>  -10</ind><dep>   0</dep></entry>
+   <entry><ind>  0</ind><dep>   13.4</dep></entry>
+   <entry><ind>  10</ind><dep>26.55</dep></entry>
+   <entry><ind>  20</ind><dep>40</dep></entry>
+   <entry><ind>  30</ind><dep>52</dep></entry>
+   <entry><ind>  40</ind><dep>64.89</dep></entry>
+   <entry><ind>  50</ind><dep>77.68</dep></entry>
+   <entry><ind>  60</ind><dep>89.56</dep></entry>
+   <entry><ind>  70</ind><dep>102.4</dep></entry>
+   <entry><ind>  80</ind><dep>114.13</dep></entry>
+    <entry><ind>  90</ind><dep>126.6</dep></entry>
+     <entry><ind>  100</ind><dep>139.25</dep></entry>
+      <entry><ind>  110</ind><dep>152</dep></entry>
+       <entry><ind>  115</ind><dep>157.97</dep></entry>
+    </interpolation>
+    <center>
+			<x-m>0.00</x-m>
+			<y-m>0.021</y-m>
+			<z-m>-0.021</z-m>
+		</center>
+  <axis>
+   <x>-1</x>
+   <y>0</y>
+   <z>0</z>
+  </axis>
+</animation>
+
+<model>
+ <path>Aircraft/ec130/Models/Instruments/VEMD/vehiclepage-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>0.023</y-m>
+   <z-m>-0.028</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">/engines/engine/oil-temperature-degc-filter</property>
+    <factor type="double">1</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%3.0f</format>
+     <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ 
+ <model>
+ <path>Aircraft/ec130/Models/Instruments/VEMD/vehiclepage-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>0.081</y-m>
+   <z-m>-0.028</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">/engines/engine/oil-pressure-bar-filter</property>
+    <factor type="double">1</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%3.0f</format>
+     <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ 
+  <model>
+ <path>Aircraft/ec130/Models/Instruments/VEMD/vehiclepage-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>0.032</y-m>
+   <z-m>-0.051</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">/systems/electrical/volts</property>
+    <factor type="double">1</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%3.1f</format>
+     <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ 
+ <model>
+ <path>Aircraft/ec130/Models/Instruments/VEMD/vehiclepage-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>0.070</y-m>
+   <z-m>-0.051</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">/systems/electrical/amps</property>
+    <factor type="double">1</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%3.1f</format>
+     <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ <!--
+ 
+ <animation>
+	 <type>select</type>
+		<object-name>OTgelb</object-name>
+	<condition>
+	<and>
+		<greater-than>
+			<property>instrumentation/VEMD/Phase/flight</property>
+			<value>0</value>
+		</greater-than>
+		<greater-than>
+				 <property>/engines/engine/oil-temperature-degc</property>
+				 <value>-10</value>
+		</greater-than>
+		<less-than>
+		 <property>/engines/engine/oil-temperature-degc</property>
+				 <value>0</value>
+		</less-than>
+	</and>
+	</condition>
+ </animation>
+ 
+  <animation>
+   <type>timed</type>
+<object-name>OTrot</object-name>
+  <object-name>OTrotoff</object-name>
+  <use-personality type="bool">true</use-personality>
+  <branch-duration-sec>
+   <random>
+    <min>0.5</min>
+    <max>0.5</max>
+   </random>
+  </branch-duration-sec>
+  <branch-duration-sec>
+   <random>
+    <min>0.5</min>
+    <max>0.5</max>
+   </random>
+  </branch-duration-sec>
+</animation>
+ 
+ <animation>
+	 <type>select</type>
+		<object-name>OTrot</object-name>
+	<condition>
+	<and>
+		<greater-than>
+			<property>instrumentation/VEMD/Phase/flight</property>
+			<value>0</value>
+		</greater-than>
+		<greater-than>
+				 <property>/engines/engine/oil-temperature-degc-filter</property>
+				 <value>115</value>
+		</greater-than>		
+	</and>
+	</condition>
+ </animation>
+ 
+
+
+ 
+ <animation>
+	 <type>select</type>
+		<object-name>OPgelb</object-name>
+	<condition>
+	<and>
+		<greater-than>
+			<property>instrumentation/VEMD/Phase/flight</property>
+			<value>0</value>
+		</greater-than>
+		<greater-than>
+				 <property>/engines/engine/oil-pressure-bar-filter</property>
+				 <value>1.1</value>
+		</greater-than>
+		<less-than>
+		                     <property>/engines/engine/oil-pressure-bar-filter</property>
+				 <value>2</value>
+		</less-than>
+		<or>
+		<greater-than>
+				 <property>/engines/engine/oil-pressure-bar-filter</property>
+				 <value>6</value>
+		</greater-than>
+		<less-than>
+		                     <property>/engines/engine/oil-pressure-bar-filter</property>
+				 <value>9.8</value>
+		</less-than>
+		</or>
+	</and>
+	</condition>
+ </animation>-->
+ 
+<animation>
+	 <type>select</type>
+		<object-name>OProt</object-name>
+	<condition>
+		<and>
+		<greater-than>
+			<property>instrumentation/VEMD/Phase/tested</property>
+			<value>0</value>
+		</greater-than>
+		<less-than>
+				 <property>/engines/engine/oil-pressure-bar-filter</property>
+				 <value>1.1</value>
+		</less-than>
+<greater-than>
+ <property>/engines/engine/oil-pressure-bar-filter</property>
+		<value>10</value>
+</greater-than>
+	</and>
+	</condition>
+ </animation>
+ 
+  <animation>
+   <type>timed</type>
+<object-name>OProt</object-name>
+  <object-name>OProtoff</object-name>
+  <use-personality type="bool">true</use-personality>
+  <branch-duration-sec>
+   <random>
+    <min>0.5</min>
+    <max>0.5</max>
+   </random>
+  </branch-duration-sec>
+  <branch-duration-sec>
+   <random>
+    <min>0.5</min>
+    <max>0.5</max>
+   </random>
+  </branch-duration-sec>
+</animation>
+
+ <!--
+<animation>
+	 <type>select</type>
+		<object-name>NGgelb</object-name>
+	<condition>
+	<and>
+		<greater-than>
+			<property>instrumentation/VEMD/Phase/flight</property>
+			<value>0</value>
+		</greater-than>
+		<greater-than>
+				 <property>/engines/engine/n1-pct</property>
+				 <value>67</value>
+		</greater-than>
+		<less-than>
+		 <property>/engines/engine/tot-degc</property>
+				 <value>101.1</value>
+		</less-than>
+	</and>
+	</condition>
+ </animation>
+ 
+ <animation>
+  <type>timed</type>
+<object-name>NGrot</object-name>
+<object-name>NGrotoff</object-name>
+  <use-personality type="bool">true</use-personality>
+  <branch-duration-sec>
+   <random>
+    <min>0.5</min>
+    <max>0.5</max>
+   </random>
+  </branch-duration-sec>
+  <branch-duration-sec>
+   <random>
+    <min>0.5</min>
+    <max>0.5</max>
+   </random>
+  </branch-duration-sec>
+</animation>
+
+<animation>
+  <type>select</type>
+	<object-name>NGrot</object-name>
+		<object-name>NGrotoff</object-name>
+  <condition>
+		<and>
+		<greater-than>
+			<property>instrumentation/VEMD/Phase/flight</property>
+			<value>0</value>
+		</greater-than>
+		<greater-than>
+				 <property>/engines/engine/n1-pct</property>
+				 <value>101.1</value>
+		</greater-than>		
+	</and>
+	</condition>
+  </animation>-->
+ 
+ 
+	
+</PropertyList>

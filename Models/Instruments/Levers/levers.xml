@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>levers.ac</path>
+<animation>
+        <type>pick</type>
+        <object-name>cutofflever</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>property-cycle</command>
+            <property>controls/engines/engine/cutoff</property>
+	    <value>true</value>
+	    <value>false</value>
+	       </binding>
+        </action>
+    </animation>
+    
+
+    
+<!--<animation>
+        <type>pick</type>
+        <object-name>rotorbrakelever</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+           <binding>
+					<command>nasal</command>
+					<script>interpolate("/controls/rotor/brake", 1.0, 2)</script>
+				</binding>
+				<mod-up>
+					<binding>
+						<command>nasal</command>
+						<script>interpolate("/controls/rotor/brake", 0.0, 2)</script>
+					</binding>
+				</mod-up>
+        </action>
+    </animation>-->
+  
+
+  <animation>
+        <type>knob</type>
+       <object-name>rotorbrakelever</object-name>
+  <property>controls/rotor/brake</property>
+        <factor>-30.0</factor>
+        <drag-direction>horizontal</drag-direction>
+<center>
+      <x-m>0 </x-m>
+      <y-m>  -0.031 </y-m>
+      <z-m> -0.035 </z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+        <action>
+            <button>0</button>
+            <repeatable>true</repeatable>
+            <interval-sec>0.1</interval-sec>
+            <binding>
+            <command>property-adjust</command>
+            <property>controls/rotor/brake</property>
+            <factor>0.15</factor>
+            <min>0</min>
+            <max>1</max>
+            <wrap>0</wrap>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <label>Rotor Brake: %1.0f</label>
+                <mapping>percent</mapping>
+                <tooltip-id>Rotor Brake</tooltip-id>
+  <property>controls/rotor/brake</property>
+            </binding>
+        </hovered>
+    </animation>
+
+<!--<animation>
+      <type>pick</type>
+       <object-name>rotorbrakelever</object-name>
+      <visible>true</visible>
+      <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+          <command>nasal</command>
+          <script>ec130.mouseHandlerY.set( "/controls/rotor/brake", -0.01 );</script>
+         </binding>
+         <mod-up>
+          <binding>
+           <command>nasal</command>
+           <script>ec130.mouseHandlerY.set()</script>
+          </binding>
+         </mod-up>
+      </action>
+    </animation>-->
+    
+    
+<animation>
+    <type>rotate</type>
+    <object-name>cutofflever</object-name>
+   
+    <property>controls/engines/engine/cutoff</property>
+      <factor>-30</factor>
+    <center>
+      <x-m>0 </x-m>
+      <y-m>  -0.031 </y-m>
+      <z-m> -0.035 </z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+  
+  <!--<animation>
+    <type>rotate</type>
+    <object-name>rotorbrakelever</object-name>
+   
+  <property>/controls/rotor/brake</property>
+    <factor>-30</factor>
+    <center>
+      <x-m>0 </x-m>
+      <y-m>  -0.031 </y-m>
+      <z-m> -0.035 </z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>-->
+ 
+</PropertyList>
+
+
