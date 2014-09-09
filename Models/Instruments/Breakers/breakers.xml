@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>breakers2.ac</path>
+ 
+ <model>
+		<name>levers</name>
+		<path>Aircraft/ec130/Models/Instruments/kcs55/ka51b.xml</path>
+
+		<offsets>
+			<x-m>0</x-m>
+			<y-m>-0.062</y-m>
+			<z-m>0.003</z-m>
+		<pitch-deg>-90</pitch-deg>
+
+		</offsets>
+</model>
+
+ 
+</PropertyList>
+
+

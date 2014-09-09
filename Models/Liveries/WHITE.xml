@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <sim>
+    <model>
+      <livery>
+        <name type="string">White</name>
+        <index type="int">2</index>
+        <texture>Liveries/WHITE.png</texture>
+      </livery>
+      <ec130>
+        <antenna_right type="bool">true</antenna_right>
+        <copilot_controls type="bool">true</copilot_controls>
+        <!-- 4: rescue configuration, 5/6: number of seats  -->
+        <interior_passengers type="float">5</interior_passengers>
+        <show_gsdi type="bool">true</show_gsdi>
+        <wirecutter type="bool">true</wirecutter>
+        <mirror type="bool">true</mirror>
+        <FLIR type="bool">true</FLIR>
+        <emerg_floats type="bool">false</emerg_floats>
+        <basket_left type="bool">false</basket_left>
+        <basket_right type="bool">false</basket_right>
+        <searchlight type="bool">true</searchlight>
+        <searchlight_filter type="bool">false</searchlight_filter>
+        <snowshoes type="bool">true</snowshoes>
+        <DME type="bool">true</DME>
+        <hoist type="bool">true</hoist>
+      </ec130>
+    </model>
+    <rendering>
+      <refl_correction type="string">-0.1275</refl_correction>
+    </rendering>
+  </sim>
+</PropertyList>

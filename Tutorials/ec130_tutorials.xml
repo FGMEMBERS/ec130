@@ -1,0 +1,5 @@
+<PropertyList>
+  <tutorial include="prestart_check_tutorial.xml"/>
+  <tutorial include="engine_starting_tutorial.xml"/>
+  <tutorial include="runup_and_before_takeoff_tutorial.xml"/>
+ </PropertyList>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!-- by mhab -->
+
+<PropertyList>
+  <sim>
+    <model>
+      <livery>
+        <name type="string">N11QC (Blue Hawaiian)</name>
+        <index type="int">7</index>
+        <texture>Liveries/N11QC.png</texture>
+      </livery>
+      <ec130>
+        <antenna_right type="bool">true</antenna_right>
+        <copilot_controls type="bool">false</copilot_controls>
+        <!-- 4: rescue configuration, 5/6: number of seats  -->
+        <interior_passengers type="float">6</interior_passengers>
+        <show_gsdi type="bool">false</show_gsdi>
+        <wirecutter type="bool">false</wirecutter>
+        <mirror type="bool">false</mirror>
+        <FLIR type="bool">false</FLIR>
+        <emerg_floats type="bool">true</emerg_floats>
+        <basket_left type="bool">false</basket_left>
+        <basket_right type="bool">false</basket_right>
+        <searchlight type="bool">false</searchlight>
+        <searchlight_filter type="bool">false</searchlight_filter>
+        <snowshoes type="bool">false</snowshoes>
+        <DME type="bool">false</DME>
+        <hoist type="bool">false</hoist>
+      </ec130>
+    </model>
+    <rendering>
+      <refl_correction type="string">-0.1275</refl_correction>
+    </rendering>
+  </sim>
+</PropertyList>

@@ -1,0 +1,271 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+  <!--  Central warning System -->
+  <path>panel.ac</path>
+
+  <animation>
+    <type>select</type>
+    <object-name>fuel</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/fuel</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>fuelp</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/fuelp</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>fuelf</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/fuelf</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>servo</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/servo</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>hydr</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/hydr</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>emergxmit</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/emergxmit</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>GEN</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/gen</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>batt</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/batt</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>inv</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/inv</property>
+    </condition>
+  </animation>
+  
+  <animation>
+    <type>select</type>
+    <object-name>pitot</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/pitot</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>horn</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/horn</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>-</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/noideayet</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>mgbtemp</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/mgbtemp</property>
+    </condition>
+  </animation>
+    
+
+  <animation>
+    <type>select</type>
+    <object-name>door</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/door</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>gov</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/gov</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>engchip</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/engchip</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>mgbchip</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/mgbchip</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>tgbchip</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/tgbchip</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>engp</object-name>
+    <condition>
+      <property>instrumentation/annunciators/cautions/engp</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>mgbp</object-name>
+    <condition>
+      <property>instrumentation/annunciators/cautions/mgbp</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>gov.001</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/redgov</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>engfire</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/engfire</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>batttemp</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/battemp</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <type>select</type>
+    <object-name>twtgrip</object-name>
+    <condition>
+      <property>instrumentation/annunciators/cautions/twtgrip</property>
+    </condition>
+  </animation>
+    
+  <animation>
+    <name>CWS</name>
+    <object-name>fuel</object-name>
+    <object-name>fuelp</object-name>
+    <object-name>fuelf</object-name>
+    <object-name>servo</object-name>
+    <object-name>hydr</object-name>
+    <object-name>emergxmit</object-name>
+    <object-name>GEN</object-name>
+    <object-name>batt</object-name>
+    <object-name>inv</object-name>
+    <object-name>pitot</object-name>
+    <object-name>horn</object-name>
+    <object-name>-</object-name>
+    <object-name>mgbtemp</object-name>
+    <object-name>door</object-name>
+    <object-name>gov</object-name>
+    <object-name>engchip</object-name>
+    <object-name>mgbchip</object-name>
+    <object-name>tgbchip</object-name>
+    <object-name>engp</object-name>
+    <object-name>mgbp</object-name>
+    <object-name>gov.001</object-name>
+    <object-name>engfire</object-name>
+    <object-name>batttemp</object-name>
+    <object-name>twtgrip</object-name>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>CWS</object-name>
+    <condition>
+      <greater-than>
+        <property>/systems/electrical/volts</property>
+        <value>6</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <!--  REMBRANDT support for transparent objects -->
+  <effect>
+    <inherits-from>Effects/model-transparent</inherits-from>
+    <object-name>fuel</object-name>
+    <object-name>fuelp</object-name>
+    <object-name>fuelf</object-name>
+    <object-name>servo</object-name>
+    <object-name>hydr</object-name>
+    <object-name>emergxmit</object-name>
+    <object-name>GEN</object-name>
+    <object-name>batt</object-name>
+    <object-name>inv</object-name>
+    <object-name>pitot</object-name>
+    <object-name>horn</object-name>
+    <object-name>-</object-name>
+    <object-name>mgbtemp</object-name>
+    <object-name>door</object-name>
+    <object-name>gov</object-name>
+    <object-name>engchip</object-name>
+    <object-name>mgbchip</object-name>
+    <object-name>tgbchip</object-name>
+    <object-name>engp</object-name>
+    <object-name>mgbp</object-name>
+    <object-name>gov.001</object-name>
+    <object-name>engfire</object-name>
+    <object-name>batttemp</object-name>
+    <object-name>twtgrip</object-name>
+    <condition>
+      <property>sim/rendering/rembrandt/enabled</property>
+    </condition>
+  </effect>
+
+</PropertyList>

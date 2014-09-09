@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+ <path>enginepanel.ac</path>
+ 
+ <animation>
+    <type>material</type>
+    <object-name>Plane</object-name>
+       <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+    </emission>
+  </animation>
+ 
+ <animation>
+        <type>pick</type>
+        <object-name>switchguard</object-name>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+            <command>property-toggle</command>
+             <property>controls/engines/engine/switchguard</property>
+            </binding>
+        </action>
+    </animation>
+ 
+    
+<animation>
+        <type>pick</type>
+        <object-name>startselector</object-name>
+        <action>
+            <repeatable>false</repeatable>
+	    <button>0</button>
+               <binding>
+	        <condition>
+            <property>controls/engines/engine/switchguard</property>
+	</condition>
+            <command>property-toggle</command>
+            <property>controls/engines/engine/startselector</property>
+        </binding>
+        <binding>
+            <command>property-toggle</command>
+            <property>sim/model/sound/click</property>
+        </binding>
+     </action>
+    </animation>
+    
+    <animation>
+        <type>rotate</type>
+        <object-name>switchguard</object-name>
+        <property>controls/engines/engine/switchguard</property>
+        <factor>-100</factor>
+        <center>
+            <x-m>0.014</x-m>
+            <y-m>0.053</y-m>
+            <z-m>0.002</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>0</y>
+            <z>1</z>
+        </axis>
+    </animation>
+    
+    <animation>
+        <type>rotate</type>
+        <object-name>startselector</object-name>
+        <property>controls/engines/engine/startselector</property>
+        <factor>40</factor>
+        <center>
+            <x-m>0.009</x-m>
+            <y-m>0.059</y-m>
+            <z-m>0.001</z-m>
+        </center>
+        <axis>
+            <x>0</x>
+            <y>-1</y>
+            <z>0</z>
+        </axis>
+    </animation>
+    
+
+</PropertyList>
+
+

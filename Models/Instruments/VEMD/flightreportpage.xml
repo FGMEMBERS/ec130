@@ -1,0 +1,85 @@
+<PropertyList>
+	<path>flightreportpage.ac</path>
+<!--enginepage-->
+
+<animation>
+	 <type>select</type>
+	<object-name>face</object-name>
+	 <condition>
+		<greater-than>
+			<property>instrumentation/VEMD/Phase/shutdown</property>
+			<value>0</value>
+		</greater-than>
+	</condition>
+ </animation>
+ 
+
+ 
+ <model>
+ <path>Aircraft/ec130/Models/Instruments/VEMD/flightreportpage-text.xml</path>
+  <offsets>
+   <x-m> 0.001</x-m>
+   <y-m>0.054</y-m>
+   <z-m>-0.014</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">/sim/model/ec130/flightnumber</property>
+    <factor type="double">1</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%3.1f</format>
+     <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ 
+ <model>
+<path>Aircraft/ec130/Models/Instruments/VEMD/flightreportpage-text.xml</path>
+  <offsets>
+    <x-m> 0.001</x-m>
+   <y-m>0.042</y-m>
+   <z-m>-0.023</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">/sim/model/ec130/flight-duration/mn</property>
+    <factor type="double">1</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.1f</format>
+     <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+ 
+ <model>
+<path>Aircraft/ec130/Models/Instruments/VEMD/flightreportpage-text.xml</path>
+  <offsets>
+    <x-m> 0.001</x-m>
+   <y-m>0.033</y-m>
+   <z-m>-0.023</z-m>
+  </offsets>
+  <overlay>
+   <params>
+    <property type="string">/sim/model/ec130/flight-duration/hr</property>
+    <factor type="double">1</factor>
+    <offset type="double">0.0</offset>
+    <format type="string">%2.1f</format>
+     <color>
+     <red   type="double">1.0</red>
+     <green type="double">1.0</green>
+     <blue  type="double">1.0</blue>
+    </color>
+   </params>
+  </overlay>
+ </model>
+
+
+</PropertyList>

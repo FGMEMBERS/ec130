@@ -1,0 +1,21 @@
+<PropertyList>
+	<path>initphasepage.ac</path>
+<!--initial test page-->
+
+<animation>
+	 <type>select</type>
+	<object-name>face</object-name>
+	 <condition>
+	 <and>
+		<greater-than>
+				 <property>/systems/electrical/volts</property>
+				 <value>22</value>
+		</greater-than>
+		<less-than>
+				 <property>instrumentation/VEMD/Phase/tested</property>
+				 <value>1</value>
+		</less-than>
+		</and>
+	</condition>
+ </animation>
+</PropertyList>
