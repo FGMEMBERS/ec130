@@ -1,0 +1,9 @@
+Helicopter EC130-B4
+-------------------
+
+Operator: Flightgear
+
+This livery can be used for testing purposes.
+
+
+last update: 2014-03-15

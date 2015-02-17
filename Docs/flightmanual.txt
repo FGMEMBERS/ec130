@@ -1,0 +1,201 @@
+##FlightManual EC 130 B4##
+02/19/2012, updated 11/17/2013, 01/31/2015 mhab
+
+1.) Information
+===============
+This Model of an Eurocopter EC130 B4 is made for FlightGear and stands under the terms of GPLv2.
+
+This model is a work in progress so please accept that there may be things which are working as you want.
+For updates use the GIT-version and read the GIT-logs and some threads in the officiasl FlightGear Forum!
+
+Im still looking for data about the airfoils, and perfomance data! Help by a real pilot appreciated!
+The current fdm is just a guess and might be not that realistic.
+
+Note:  EUROCOPTER and it's logo are trade marks of the Eurocopter group, as of 2014 Airbus Helicopters.
+======================================================================================================================
+Credits:
+Main Author, author 3D-Model:
+
+Heiko Schulz
+Heiko.H.Schulz@gmx.net
+
+Michael Habarta (model details)
+mhabarta@freenet.de
+
+Author dynamic flight model:
+Heiko Schulz 
+
+Author Nasal:
+Heiko Schulz
+Michael Habarta
+
+Melchior Franz
+mfranz@aon.at
+
+2.) Features 
+============
+(some still in work)
+
+ - accurate 3d-model
+ - 3d-cockpit
+ - accurate simulation of the systems including FADEC and FLI according to real Flight Manual,
+   including Flight Report page.
+ - accurate Flight Dynamic
+ - Autostart after 15 flights
+ - fuel state saved on exit
+ - Force Trim Release
+ - Emergency floats
+ - Searchlight
+ - Baskets
+ - Cargo Hook
+   ...
+
+3.) To-Do
+=========
+- fixing the FLI to a more realistic behaviour
+- adding the rotorspeed management to FADEC
+- VEMD: switching the pages, fixing of some bugs
+- flight manual as pdf
+- failures
+
+================
+4.) FlightManual
+================
+
+4.1.) General:
+-------------
+This helicopter is approved to operate:
+ - by day and night in VFR
+
+4.2.) Forbidden:
+---------------
+ - acrobatic maneuvers
+ - in flight engine power reduction with the twist grip
+
+4.3.) Preflight Check:
+---------------------
+ - check fuel state
+
+4.4.) Normal procedures:
+-----------------------
+
+4.4.1.) Engine Prestart Check:
+
+ - Rotorbrake: Fully Forward The lever with the yellow stripes is the rotor brake lever.
+ - Cutoff lever: Fully Forward, the lever with the red stripes is the Cutoff lever -
+    it controlls the cutoff valve - so if this valve is not closed engine can get fuel.
+
+The fuel tank sits below the engine - due to gravitity the fuellines are empty.
+So you need electrical power first:
+
+ - BAT EPU on and GEN on
+ - VEMD after a testing phase you should see the Enginestartpage -
+   3 arcs with Torque, Ng (aka N2) and T4.
+ - W/LT test depress and release
+
+
+4.4.2.) Engine Starting:
+
+ - Fuel P: On. Now the pump can fill up the lines to the engine with fuel.
+   It needs about 30 sec. On the real thing you don't see any effect.
+   On this model the FUEL-P sign on the warning panel may disappear.
+ - A/Col-Light: On
+ - Start Selector: FLT
+ - secure Start Selector
+
+The starter is initiated and will bring up NG to about 17-18%.
+Fuel is injected automatically then, NG increases, T4 increases,
+rotor is turning, engine oil pressure increases.
+Also some warnings on the warning panel will disappear.
+At NG = 60% the Enginestartpage dissapears and the FLI-pages come up.
+When Ng> 67% engine is now in Idle. 
+
+ - set Fuel P off. Not needed anymore - the engines suck the fuel now.
+ - Run Up, wait until rotor-RPM ~265
+ - Twist grip set to Flight (100%) Drag the mouse up with MMB pressed.
+    (not in Controll-mode or View-mode!) That's like Melchiors Bo105.
+
+
+4.4.3.) Before Takeoff:
+
+ - Landing Light: as required ("l"-key ( like "L"etter))
+ - NavLights: as required
+ - When rotor-RPM >340 activate HORN
+ - Check alarm tone which ends when rotor-RPM >360
+ - All warnings and cautions should be off now , rotor-RPM increases to >370.
+ - When rotor-RPM >370 you can lift off.
+
+Please note it is a french system!
+
+4.4.4.) Takeoff Check and Procedure:
+
+ - increase collective pitch until you  hover at 5 ft -
+   check all engine values and warning lights off
+ - increase airspeed until 40 kts at 10 ft, then increasing to 50kts at 20ft,
+   then increase to 70 kts and climb to cruise level.
+
+4.4.5.) Cruise:
+
+ - airspeed about 100-137 with TRQ as required (best at 82%)
+
+4.4.6.) Shutdown:
+
+ - Twistgrip to Idle detent: drag the mouse down with MMB pressed
+ - Start Selector: OFF
+ - GEN off
+ - when Rotor- RPM <170 apply rotor brake
+ - Switch off all other systems if not needed.
+
+When rotor-RPM <70 Flightreportpage appears and shows flight duration time and the current numbers of flights done.
+
+When FlightGear is exited as usual flightnumber and fuel level state is saved and will be load up again next time.
+
+No warranties!
+
+5.) Force Trim Release
+======================
+
+Due to hydraulic boost of the controls the pilot woulden't feel any force feedback on the controls. That's why there is a spring which produce artificial force feel. This force can be set to zero by pressing the FTR-button at each stick position by some clutches and electric motors. The clutches holds the cyclic-controls, and the spring is moved to a force free position.
+As FlightGear dosen't support Force Feedback, and anyway there is no good hardware for that, we cannot simulate this approach. We could use the already implemented AutoTrim but this isn't really suitable to helicopters and seems even wrong to me. See also data/nasal/aircraft.nas ->autotrim
+We use another approach: While pressing the FTR-button ("t-key"), the inputs from Joystick/Mouse are interrupted and keep the Cyclic position in the sim to its current state. Now the Joystick/Mouse can be moved into a new position (like centered or any other position liked). When the button is released, inputs flow again.
+Some helis, the Ec130 as an option on demand, has a 4-way trim switch. This will move the controlls in small steps in the wished direction, so the heli is correctly trimmed it can be flown just with this little inputs. 
+
+The EC130 here will only make use by FTR. Sorry, no money left for extra gadgets! ;-)#
+that is how to use it:
+	(1) move the stick such that the heli is in an orientation that
+	    you want to trim for (forward flight, hover, ...)
+	(2) press FTR button (f-key)and keep it pressed
+	(3) move stick/yoke to neutral position (center)
+	(4) release FTR button (f-key)
+
+
+6.) Emergency Floats
+====================
+
+If selected the floats have to be armed with the button on the SCU.
+In the case of ermergency press "Alt-f"-key. The Floates will be inflated immediately.
+
+The emergency floats can only be repacked on ground!
+
+
+7.) Landing Lights
+==================
+
+Press "l"-key (l like "L"etter)
+
+
+8.) Additional Information
+==========================
+
+Like many french helicopters the hydraulics are too weak for acrobatic and heavy maneuvers.
+Maneuvers with high g-loads (high rotor loads) will lead to jackstall or also known as hydraulic transparency.
+Forces from the rotor are feed back to the cyclic controls, and can lock them.
+So in some certain flightstates there will be no control, which is very dangerous.
+
+The Gazelle and the Ecureuil/Squirrel are "famous" for this behaviour and have been involved in some fatal accidents.
+
+This is simulated in a simplified manner due to limitations of FlightGear: at certain flightstates
+the inputs of the cyclic controls are reduced to zero, depending on a simplified rotorload vs hydraulic force.
+When this happens reduce rotorload by taking down the collective.
+Better: keep away from acrobatic maneuvers!
+

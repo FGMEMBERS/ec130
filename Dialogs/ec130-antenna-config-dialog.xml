@@ -1,0 +1,589 @@
+<?xml version="1.0"?>
+
+<!-- Eurocopter EC 130 Helicopter by Heiko Schulz, Michael Habarta
+
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
+           (C) 2014 Michael Habarta, mhabarta@freenet.de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+
+<PropertyList>
+
+  <name>Antenna_Config</name>
+
+  <layout>vbox</layout>
+	<resizable>false</resizable>
+  <modal>false</modal>
+  <draggable>true</draggable>
+	<default-padding>3</default-padding>
+
+  <nasal>
+    <open>
+      <!-- flag for open dialog -->
+      setprop("/sim/model/ec130/antenna_dialog_active",1);
+
+      <!-- init roof antenna option -->
+      var p = getprop("/sim/model/ec130/antenna_left");
+
+      setprop("/sim/model/ec130/antenna_left_flag_0",0);
+      setprop("/sim/model/ec130/antenna_left_flag_1",0);
+      setprop("/sim/model/ec130/antenna_left_flag_2",0);
+
+      if ( p == 1 ) { setprop("/sim/model/ec130/antenna_left_flag_0",1); }
+      if ( p == 0 ) { setprop("/sim/model/ec130/antenna_left_flag_1",1); }
+      if ( p == 2 ) { setprop("/sim/model/ec130/antenna_left_flag_2",1); }
+
+      <!-- init tail square antenna option -->
+      var p = getprop("/sim/model/ec130/antenna_square_tail");
+
+      setprop("/sim/model/ec130/antenna_square_tail_flag_0",0);
+      setprop("/sim/model/ec130/antenna_square_tail_flag_1",0);
+
+      if ( p == 1 ) { setprop("/sim/model/ec130/antenna_square_tail_flag_0",1); }
+      if ( p == 2 ) { setprop("/sim/model/ec130/antenna_square_tail_flag_1",1); }
+
+    </open>
+    <close># just kept for educational purposes :-)</close>
+  </nasal>
+
+
+  <!-- Title with Esc knob for closing -->
+	<group>
+
+    <layout>hbox</layout>
+	  <empty><stretch>1</stretch></empty>
+
+		<text>
+			<label>EC130 Antenna Setup   (Alt-a)</label>
+		</text>
+
+		<empty><stretch>true</stretch></empty>
+
+		<button>
+			<legend></legend>
+			<key>Esc</key>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<binding>
+        <command>nasal</command>
+        <script>
+          if ( getprop("/sim/model/ec130/config_dialog_active") ) {
+            ec130.config_dialog.toggle();
+          }
+          ec130.antenna_config_dialog.toggle();
+          setprop("/sim/model/ec130/antenna_dialog_active",0);
+        </script>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+  <!-- BEGIN box with 2 columns left/right -->
+  <group>
+
+    <layout>hbox</layout>
+    <default-padding>5</default-padding>
+    <halign>left</halign>
+
+    <!-- BEGIN left column -->
+    <group>
+
+      <layout>vbox</layout>
+      <default-padding>0</default-padding>
+      <halign>left</halign>
+
+      <group>
+
+        <layout>table</layout>
+        <default-padding>5</default-padding>
+        <halign>left</halign>
+
+          <text>
+            <row>0</row>
+            <col>0</col>
+            <label>  Roof:</label>
+            <halign>left</halign>
+          </text>
+
+          <text>
+            <row>1</row>
+            <col>0</col>
+            <label>     Radio Antenna:</label>
+            <halign>left</halign>
+          </text>
+
+      </group>
+
+      <group>
+
+        <layout>table</layout>
+        <default-padding>5</default-padding>
+        <halign>left</halign>
+
+          <!-- only to get a gap between left border and checkbox -->
+          <text>
+            <row>0</row>
+            <col>0</col>
+            <label>   </label>
+            <halign>left</halign>
+          </text>
+
+          <radio>
+            <row>0</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label> left</label>
+            <property>sim/model/ec130/antenna_left_flag_0</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+    <!--
+                setprop("sim/model/ec130/antenna_left_flag_0",0);
+    -->
+                setprop("sim/model/ec130/antenna_left_flag_1",0);
+                setprop("sim/model/ec130/antenna_left_flag_2",0);
+                setprop("sim/model/ec130/antenna_left",1);
+              </script>
+            </binding>
+          </radio>
+
+          <radio>
+            <row>0</row>
+            <col>2</col>
+            <halign>left</halign>
+            <label> right</label>
+            <property>sim/model/ec130/antenna_left_flag_1</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                setprop("sim/model/ec130/antenna_left_flag_0",0);
+    <!--
+                setprop("sim/model/ec130/antenna_left_flag_1",0);
+    -->
+                setprop("sim/model/ec130/antenna_left_flag_2",0);
+                setprop("sim/model/ec130/antenna_left",0);
+              </script>
+            </binding>
+          </radio>
+
+          <radio>
+            <row>0</row>
+            <col>3</col>
+            <halign>left</halign>
+            <label> both</label>
+            <property>sim/model/ec130/antenna_left_flag_2</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                setprop("sim/model/ec130/antenna_left_flag_0",0);
+                setprop("sim/model/ec130/antenna_left_flag_1",0);
+    <!--
+                setprop("sim/model/ec130/antenna_left_flag_2",0);
+    -->
+                setprop("sim/model/ec130/antenna_left",2);
+              </script>
+            </binding>
+          </radio>
+
+      </group>
+
+      <group>
+
+        <layout>table</layout>
+        <default-padding>5</default-padding>
+        <halign>left</halign>
+
+          <!-- only to get a empty line before next -->
+          <text>
+            <row>1</row>
+            <col>0</col>
+            <label>         --------------</label>
+            <halign>left</halign>
+          </text>
+
+      </group>
+
+      <group>
+
+        <layout>table</layout>
+        <default-padding>5</default-padding>
+        <halign>left</halign>
+
+          <!-- only to get a gap between left border and checkbox -->
+          <text>
+            <row>0</row>
+            <col>0</col>
+            <label>   </label>
+            <halign>left</halign>
+          </text>
+
+          <checkbox>
+            <row>0</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label> VOR/GLS Antenna</label>
+            <property>/sim/model/ec130/vor_2_roof</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+          </checkbox>
+
+          <checkbox>
+            <row>1</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label> ADF Antenna</label>
+            <property>/sim/model/ec130/adf_roof</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+          </checkbox>
+
+          <!-- only to get a gap before next -->
+          <text>
+            <row>2</row>
+            <col>0</col>
+            <label>   </label>
+            <halign>left</halign>
+          </text>
+
+      </group>
+
+      <hrule/>
+
+      <group>
+
+        <layout>table</layout>
+        <default-padding>5</default-padding>
+        <halign>left</halign>
+
+          <text>
+            <row>0</row>
+            <col>0</col>
+            <label>  </label>
+            <halign>left</halign>
+          </text>
+
+          <text>
+            <row>1</row>
+            <col>0</col>
+            <label>  Floor:</label>
+            <halign>left</halign>
+          </text>
+
+      </group>
+
+      <group>
+
+        <layout>table</layout>
+        <default-padding>5</default-padding>
+        <halign>left</halign>
+
+          <!-- only to get a gap between left border and checkbox -->
+          <text>
+            <row>0</row>
+            <col>0</col>
+            <label>   </label>
+            <halign>left</halign>
+          </text>
+
+          <checkbox>
+            <row>0</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label> GPS/ADF Antenna</label>
+            <property>/sim/model/ec130/adf_bottom</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+          </checkbox>
+
+          <!-- only to get a gap before next -->
+          <text>
+            <row>1</row>
+            <col>0</col>
+            <label>   </label>
+            <halign>left</halign>
+          </text>
+
+      </group>
+
+    <!-- END left column -->
+    </group>
+
+    <vrule/>
+
+    <!-- BEGIN right column -->
+    <group>
+      <layout>vbox</layout>
+      <default-padding>0</default-padding>
+      <halign>left</halign>
+
+      <group>
+        <layout>table</layout>
+        <default-padding>5</default-padding>
+        <halign>left</halign>
+
+        <text>
+          <row>0</row>
+          <col>0</col>
+          <label>  Tail Antennas:</label>
+          <halign>left</halign>
+        </text>
+
+      </group>
+
+      <group>
+
+        <layout>table</layout>
+        <default-padding>5</default-padding>
+        <halign>left</halign>
+
+          <!-- only to get a gap between left border and checkbox -->
+          <text>
+            <row>0</row>
+            <col>0</col>
+            <label>   </label>
+            <halign>left</halign>
+          </text>
+
+          <checkbox>
+            <row>0</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label> Radio front</label>
+            <property>/sim/model/ec130/antenna_tail_front</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+          </checkbox>
+
+          <checkbox>
+            <row>1</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label> V/UHF front</label>
+            <property>/sim/model/ec130/VUHF_front</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                setprop("sim/model/ec130/VUHF",0);
+                if ( getprop("sim/model/ec130/antenna_square_tail") == 1 ) {
+                  setprop("sim/model/ec130/antenna_square_tail",0);
+                  setprop("sim/model/ec130/antenna_square_tail_flag_0",0);
+                }
+              </script>
+            </binding>
+          </checkbox>
+
+          <checkbox>
+            <row>2</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label> V/UHF rear</label>
+            <property>/sim/model/ec130/VUHF</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                setprop("sim/model/ec130/VUHF_front",0);
+                setprop("sim/model/ec130/DME_small",0);
+              </script>
+            </binding>
+          </checkbox>
+
+          <checkbox>
+            <row>3</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label> DME</label>
+            <property>/sim/model/ec130/DME</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                setprop("sim/model/ec130/DME_small",0);
+                if ( getprop("sim/model/ec130/antenna_square_tail") == 2 ) {
+                  setprop("sim/model/ec130/VUHF",0);
+                  setprop("sim/model/ec130/antenna_square_tail",0);
+                  setprop("sim/model/ec130/antenna_square_tail_flag_1",0);
+                }
+              </script>
+            </binding>
+          </checkbox>
+
+          <checkbox>
+            <row>4</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label> DME small</label>
+            <property>/sim/model/ec130/DME_small</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                setprop("sim/model/ec130/DME",0);
+                setprop("sim/model/ec130/VUHF",0);
+              </script>
+            </binding>
+          </checkbox>
+
+          <checkbox>
+            <row>5</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label> Square Flat front     </label>
+            <property>/sim/model/ec130/antenna_square_tail_flag_0</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                if ( getprop("sim/model/ec130/antenna_square_tail_flag_0") ) {
+                  setprop("sim/model/ec130/antenna_square_tail_flag_1",0);
+                  setprop("sim/model/ec130/antenna_square_tail",1);
+                  setprop("sim/model/ec130/VUHF_front",0);
+                } else {
+                  if ( !getprop("sim/model/ec130/antenna_square_tail_flag_1") ) {
+                    setprop("sim/model/ec130/antenna_square_tail",0);
+                  }
+                }
+              </script>
+            </binding>
+          </checkbox>
+
+          <checkbox>
+            <row>6</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label> Square Flat rear</label>
+            <property>/sim/model/ec130/antenna_square_tail_flag_1</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                if ( getprop("sim/model/ec130/antenna_square_tail_flag_1") ) {
+                  setprop("sim/model/ec130/antenna_square_tail_flag_0",0);
+                  setprop("sim/model/ec130/antenna_square_tail",2);
+                  setprop("sim/model/ec130/DME",0);
+                  setprop("sim/model/ec130/antenna_flat_tail",0);
+                } else {
+                  if ( !getprop("sim/model/ec130/antenna_square_tail_flag_0") ) {
+                    setprop("sim/model/ec130/antenna_square_tail",0);
+                  }
+                }
+              </script>
+            </binding>
+          </checkbox>
+
+          <checkbox>
+            <row>7</row>
+            <col>1</col>
+            <halign>left</halign>
+            <label> ADF</label>
+            <property>/sim/model/ec130/antenna_flat_tail</property>
+            <live>true</live>
+            <binding>
+              <command>dialog-apply</command>
+            </binding>
+            <binding>
+              <command>nasal</command>
+              <script>
+                if ( getprop("sim/model/ec130/antenna_square_tail") == 2 ) {
+                  setprop("sim/model/ec130/antenna_square_tail",0);
+                  setprop("sim/model/ec130/antenna_square_tail_flag_1",0);
+                }
+              </script>
+            </binding>
+          </checkbox>
+
+          <!-- only to get a gap before next -->
+          <text>
+            <row>8</row>
+            <col>0</col>
+            <label>   </label>
+            <halign>left</halign>
+          </text>
+
+    </group>
+
+    <!-- END right column -->
+    </group>
+
+  <!-- END box with 2 columns left/right -->
+  </group>
+
+	<hrule/>
+
+  <group>
+    <layout>hbox</layout>
+		<default-padding>3</default-padding>
+
+    <button>
+      <legend>Close</legend>
+      <equal>true</equal>
+      <key>Esc</key>
+      <default>true</default>
+      <binding>
+        <command>nasal</command>
+        <script>
+          if ( getprop("/sim/model/ec130/config_dialog_active") ) {
+            ec130.config_dialog.toggle();
+          }
+          ec130.antenna_config_dialog.toggle();
+          setprop("/sim/model/ec130/antenna_dialog_active",0);
+        </script>
+      </binding>
+    </button>
+
+  </group>
+
+</PropertyList>
+
