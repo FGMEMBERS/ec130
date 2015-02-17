@@ -1812,6 +1812,103 @@
         <script>ec130.cycle_wakes()</script>
       </binding>
     </action>
+<!-- seems to cause errors in combination with other hover tooltips
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>rotor</tooltip-id>
+        <label>Wake %s</label>
+        <property>/rotors/main/wakevisible</property>
+        <mapping>nasal</mapping>
+        <script>
+          var modes = ['invisible', 'low', 'medium', 'high'];
+          return modes[arg[0]];
+        </script>
+      </binding>
+    </hovered>
+-->
+  </animation>
+
+  <!-- shadow -->
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>shadow_rotor</object-name>
+    <condition>
+      <property>sim/model/ec130/shadow</property>
+      <not>
+        <property>/sim/rendering/shadows-ac</property>
+      </not>
+      <less-than>
+        <property>/sim/time/sun-angle-rad</property>
+        <value>1.40</value>
+      </less-than>
+      <less-than>
+        <property>rotors/main/rpm</property>
+        <value>270</value>
+      </less-than>
+    </condition>
+  </animation>
+
+  <!-- shadow rotor -->
+  <animation>
+    <type>rotate</type>
+    <object-name>shadow_rotor</object-name>
+    <property>rotors/main/blade[0]/position-deg</property>
+    <offset-deg>180</offset-deg>
+    <center>
+      <x>0</x>
+      <y>0</y>
+      <z>0</z>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>0</y>
+      <z>-1</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>shadow_rotor</object-name>
+    <property>orientation/pitch-deg</property>
+    <axis>
+      <x>0</x>
+      <y>-1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>shadow_rotor</object-name>
+    <property>orientation/roll-deg</property>
+    <axis>
+      <x>1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>shadow_rotor</object-name>
+    <property>position/gear-agl-m</property>
+    <axis>
+      <x>0</x>
+      <y>0</y>
+      <z>-1</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>shadow_rotor</object-name>
+    <transparency>
+      <alpha-prop>rotors/main/rpm</alpha-prop>
+      <factor>-0.0045</factor>
+      <offset>1</offset>
+    </transparency>
   </animation>
 
 </PropertyList>

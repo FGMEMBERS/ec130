@@ -2,12 +2,12 @@
 
 <PropertyList>
 
- <path>enginepanel.ac</path>
+  <path>enginepanel.ac</path>
  
- <animation>
+  <animation>
     <type>material</type>
     <object-name>Plane</object-name>
-       <emission>
+    <emission>
       <red>   0.8 </red>
       <green> 0.8 </green>
       <blue>  1.0 </blue>
@@ -15,75 +15,114 @@
     </emission>
   </animation>
  
- <animation>
-        <type>pick</type>
-        <object-name>switchguard</object-name>
-        <action>
-            <button>0</button>
-            <repeatable>false</repeatable>
-            <binding>
-            <command>property-toggle</command>
-             <property>controls/engines/engine/switchguard</property>
-            </binding>
-        </action>
-    </animation>
- 
-    
-<animation>
-        <type>pick</type>
-        <object-name>startselector</object-name>
-        <action>
-            <repeatable>false</repeatable>
-	    <button>0</button>
-               <binding>
-	        <condition>
-            <property>controls/engines/engine/switchguard</property>
-	</condition>
-            <command>property-toggle</command>
-            <property>controls/engines/engine/startselector</property>
-        </binding>
-        <binding>
-            <command>property-toggle</command>
-            <property>sim/model/sound/click</property>
-        </binding>
-     </action>
-    </animation>
-    
-    <animation>
-        <type>rotate</type>
-        <object-name>switchguard</object-name>
+  <animation>
+    <type>pick</type>
+    <object-name>switchguard</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <condition>
+          <property>controls/engines/engine/startselector</property>
+        </condition>
+        <command>property-toggle</command>
         <property>controls/engines/engine/switchguard</property>
-        <factor>-100</factor>
-        <center>
-            <x-m>0.014</x-m>
-            <y-m>0.053</y-m>
-            <z-m>0.002</z-m>
-        </center>
-        <axis>
-            <x>0</x>
-            <y>0</y>
-            <z>1</z>
-        </axis>
-    </animation>
-    
-    <animation>
-        <type>rotate</type>
-        <object-name>startselector</object-name>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>switchguard</tooltip-id>
+        <label>%s</label>
+        <property>/controls/engines/engine/switchguard</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['guard', 'unlock'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+ 
+  <animation>
+    <type>pick</type>
+    <object-name>startselector</object-name>
+    <action>
+      <repeatable>false</repeatable>
+      <button>0</button>
+      <binding>
+        <condition>
+          <not>
+            <property>controls/engines/engine/switchguard</property>
+          </not>
+        </condition>
+        <command>property-toggle</command>
         <property>controls/engines/engine/startselector</property>
-        <factor>40</factor>
-        <center>
-            <x-m>0.009</x-m>
-            <y-m>0.059</y-m>
-            <z-m>0.001</z-m>
-        </center>
-        <axis>
-            <x>0</x>
-            <y>-1</y>
-            <z>0</z>
-        </axis>
-    </animation>
+      </binding>
+      <binding>
+        <condition>
+          <not>
+            <property>controls/engines/engine/switchguard</property>
+          </not>
+        </condition>
+        <command>property-toggle</command>
+        <property>sim/model/sound/click</property>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>startselector</tooltip-id>
+        <label>%s</label>
+        <property>/controls/engines/engine/startselector</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['start Engine', 'switch OFF Engine'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
+  </animation>
     
-
+  <animation>
+    <type>rotate</type>
+    <object-name>switchguard</object-name>
+    <condition>
+      <property>controls/engines/engine/startselector</property>
+    </condition>
+    <property>controls/engines/engine/switchguard</property>
+    <factor>105</factor>
+    <offset-deg>-105</offset-deg>
+    <center>
+      <x-m>0.014</x-m>
+      <y-m>0.041</y-m>
+      <z-m>0.032</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>0</y>
+      <z>1</z>
+    </axis>
+  </animation>
+    
+  <animation>
+    <type>rotate</type>
+    <object-name>startselector</object-name>
+    <property>controls/engines/engine/startselector</property>
+    <factor>40</factor>
+    <offset-deg>-10</offset-deg>
+    <center>
+      <x-m>0.009</x-m>
+      <y-m>0.059</y-m>
+      <z-m>0.001</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>-1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+    
 </PropertyList>
 
 

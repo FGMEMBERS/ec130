@@ -3,10 +3,11 @@
 <PropertyList>
 
  <path>scu2.ac</path>
- 
+
   <animation>
     <type>material</type>
     <object-name>text</object-name>
+    <object-name>floatarm_text</object-name>
     <emission>
       <red>   0.8 </red>
       <green> 0.8 </green>
@@ -14,7 +15,7 @@
       <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
     </emission>
   </animation>
- 
+
   <animation>
     <type>pick</type>
     <object-name>batepu</object-name>
@@ -27,7 +28,7 @@
       </binding>
     </action>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>batepu_led</object-name>
@@ -38,7 +39,7 @@
       </greater-than>
     </condition>
   </animation>
-  
+
   <animation>
     <type>pick</type>
     <object-name>directbat</object-name>
@@ -51,7 +52,7 @@
       </binding>
     </action>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>directbat_led</object-name>
@@ -63,7 +64,7 @@
       </greater-than>
     </condition>
   </animation>
-  
+
   <animation>
     <type>pick</type>
     <object-name>gene</object-name>
@@ -76,7 +77,7 @@
       </binding>
     </action>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>gene_led</object-name>
@@ -87,7 +88,7 @@
       </greater-than>
     </condition>
   </animation>
-  
+
   <animation>
     <type>pick</type>
     <object-name>horn</object-name>
@@ -100,7 +101,7 @@
       </binding>
     </action>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>horn_led</object-name>
@@ -111,7 +112,7 @@
       </greater-than>
     </condition>
   </animation>
-  
+
   <animation>
     <type>pick</type>
     <object-name>domelt</object-name>
@@ -124,42 +125,42 @@
       </binding>
     </action>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>domelt_led</object-name>
     <condition>
       <greater-than>
-         <property>controls/lighting/dome-light</property>
+        <property>controls/lighting/dome-light</property>
         <value>0</value>
       </greater-than>
     </condition>
   </animation>
-  
+
   <animation>
     <type>pick</type>
     <object-name>avionic</object-name>
     <action>
-       <button>0</button>
-       <repeatable>false</repeatable>
-       <binding>
-         <command>property-toggle</command>
-         <property>controls/electric/avionics-switch</property>
-       </binding>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/electric/avionics-switch</property>
+      </binding>
     </action>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>avionic_led</object-name>
     <condition>
       <greater-than>
-       <property>controls/electric/avionics-switch</property>
+        <property>controls/electric/avionics-switch</property>
         <value>0</value>
       </greater-than>
     </condition>
   </animation>
-  
+
   <animation>
     <type>pick</type>
     <object-name>generst</object-name>
@@ -168,13 +169,13 @@
       <repeatable>false</repeatable>
       <binding>
         <command>property-assign</command>
-        <property>controls/electric/engine[0]generator</property>
+        <property>controls/electric/engine[0]/generator</property>
         <value type="double">-1</value>
       </binding>
 	    <mod-up>
        <binding>
          <command>property-assign</command>
-         <property>controls/electric/engine[0]generator</property>
+         <property>controls/electric/engine[0]/generator</property>
          <value type="double">0</value>
        </binding>
       </mod-up>
@@ -191,21 +192,25 @@
         <command>property-toggle</command>
         <property>controls/lighting/beacon</property>
       </binding>
+      <!-- mhab strobe is tied to beacon (for simplicity) -->
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/lighting/strobe</property>
+      </binding>
     </action>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>acollt_led</object-name>
-     
-      <condition>
+    <condition>
       <greater-than>
-         <property>controls/lighting/beacon</property>
+        <property>controls/lighting/beacon</property>
         <value>0</value>
       </greater-than>
     </condition>
   </animation>
-  
+
   <animation>
     <type>pick</type>
     <object-name>poslt</object-name>
@@ -218,19 +223,18 @@
       </binding>
     </action>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>poslt_led</object-name>
-     
       <condition>
       <greater-than>
-         <property>controls/lighting/nav-lights</property>
+        <property>controls/lighting/nav-lights</property>
         <value>0</value>
       </greater-than>
     </condition>
   </animation>
-  
+
   <animation>
     <type>pick</type>
     <object-name>fuelp</object-name>
@@ -239,11 +243,11 @@
       <repeatable>false</repeatable>
       <binding>
         <command>property-toggle</command>
-          <property>controls/fuel/tank/boost-pump</property>
-        </binding>
+        <property>controls/fuel/tank/boost-pump</property>
+      </binding>
     </action>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>fuelp_led</object-name>
@@ -255,7 +259,7 @@
       </greater-than>
     </condition>
   </animation>
-  
+
   <animation>
     <type>pick</type>
     <object-name>instl1</object-name>
@@ -268,11 +272,10 @@
       </binding>
     </action>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>instl1_led</object-name>
-    
       <condition>
       <greater-than>
         <property>controls/lighting/instrument-lights</property>
@@ -280,7 +283,7 @@
       </greater-than>
     </condition>
   </animation>
-  
+
   <animation>
     <type>pick</type>
     <object-name>instl2</object-name>
@@ -289,22 +292,22 @@
       <repeatable>false</repeatable>
       <binding>
         <command>property-toggle</command>
-          <property>controls/lighting/instruments-lights2</property>
-        </binding>
+        <property>controls/lighting/instrument-lights2</property>
+      </binding>
     </action>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>instl2_led</object-name>
     <condition>
       <greater-than>
-      <property>controls/lighting/instruments-lights2</property>
+      <property>controls/lighting/instrument-lights2</property>
         <value>0</value>
       </greater-than>
     </condition>
   </animation>
-  
+
   <animation>
     <type>pick</type>
     <object-name>pitot12</object-name>
@@ -317,7 +320,7 @@
       </binding>
     </action>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>pitot_led</object-name>
@@ -328,7 +331,7 @@
       </greater-than>
     </condition>
   </animation>
-  
+
   <animation>
     <type>pick</type>
     <object-name>horizon</object-name>
@@ -341,7 +344,7 @@
       </binding>
     </action>
   </animation>
-    
+
   <animation>
     <type>select</type>
       <object-name>horizon_led</object-name>
@@ -352,7 +355,7 @@
       </greater-than>
     </condition>
   </animation>
-  
+
   <animation>
     <type>pick</type>
     <object-name>gyro</object-name>
@@ -365,7 +368,7 @@
       </binding>
     </action>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>gyro_led</object-name>
@@ -376,7 +379,7 @@
       </greater-than>
     </condition>
   </animation>
-  
+
   <animation>
     <type>pick</type>
     <object-name>crank</object-name>
@@ -391,37 +394,37 @@
   </animation>
     
   <animation>
-        <type>pick</type>
-        <object-name>firettest</object-name>
-        <action>
-            <button>0</button>
-            <repeatable>false</repeatable>
-            <binding>
-            <command>property-toggle</command>
-             <property>controls/electric/firetest</property>
-            </binding>
-        </action>
+    <type>pick</type>
+      <object-name>firettest</object-name>
+      <action>
+        <button>0</button>
+        <repeatable>false</repeatable>
+        <binding>
+          <command>property-toggle</command>
+          <property>controls/electric/firetest</property>
+        </binding>
+      </action>
   </animation>
-    
+
   <animation>
-        <type>pick</type>
-        <object-name>wlttest</object-name>
-        <action>
-            <button>0</button>
-            <repeatable>false</repeatable>
-            <binding>
-            <command>property-toggle</command>
-          <property>controls/electric/warningtest</property>
-            </binding>
-	    <mod-up>
-	     <binding>
-            <command>property-toggle</command>
-          <property>controls/electric/warningtest</property>
-            </binding>
-	    </mod-up>
+    <type>pick</type>
+    <object-name>wlttest</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/electric/warningtest</property>
+      </binding>
+      <mod-up>
+       <binding>
+        <command>property-toggle</command>
+        <property>controls/electric/warningtest</property>
+       </binding>
+      </mod-up>
     </action>
   </animation>
-    
+
   <animation>
     <type>pick</type>
     <object-name>servotest</object-name>
@@ -449,11 +452,12 @@
   </animation>
   
   <animation>
-   <type>select</type>
-   <object-name>floatarm_led</object-name>
-     <condition>
+    <type>select</type>
+    <object-name>floatarm_led</object-name>
+    <condition>
+      <property>sim/model/ec130/emerg_floats</property>
       <property>controls/gear/floats-armed</property>
-     </condition>
+    </condition>
   </animation>
 
   <animation>
@@ -464,5 +468,5 @@
       <property>sim/model/ec130/emerg_floats</property>
     </condition>
   </animation>
-    
+
 </PropertyList>

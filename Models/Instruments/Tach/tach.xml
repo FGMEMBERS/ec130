@@ -1,20 +1,33 @@
 <?xml version="1.0"?>
 
 <PropertyList>
-	<path>tach.ac</path>
-	
-<animation>
+  <path>tach.ac</path>
+
+  <animation>
     <type>material</type>
     <object-name>face.002</object-name>
-       <emission>
+    <emission>
       <red>   0.8 </red>
       <green> 0.8 </green>
       <blue>  1.0 </blue>
-       <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
     </emission>
   </animation>
 
-<animation>
+  <animation>
+    <type>select</type>
+    <object-name>digit1</object-name>
+    <object-name>digit2</object-name>
+    <object-name>digit3</object-name>
+    <condition>
+      <greater-than>
+        <property>/systems/electrical/volts</property>
+        <value>6</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
     <type>textranslate</type>
     <object-name>digit3</object-name>
     <property>/rotors/main/rpm</property>
@@ -30,9 +43,9 @@
 
   <animation>
     <type>textranslate</type>
-     <object-name>digit2</object-name>
-   <property>/rotors/main/rpm</property>
-       <step>10</step>
+    <object-name>digit2</object-name>
+    <property>/rotors/main/rpm</property>
+    <step>10</step>
     <factor>0.01</factor>
     <bias>0.0001</bias>
     <axis>
@@ -44,9 +57,9 @@
 
   <animation>
     <type>textranslate</type>
-     <object-name>digit1</object-name>
-   <property>/rotors/main/rpm</property>
-      <step>100</step>
+    <object-name>digit1</object-name>
+    <property>/rotors/main/rpm</property>
+    <step>100</step>
     <factor>0.001</factor>
     <bias>0.0001</bias>
     <axis>
@@ -57,24 +70,25 @@
   </animation>
   
   <animation>
-  <type>textranslate</type>
-  <object-name>NR</object-name>
-  <property>/rotors/main/rpm</property>
-  <interpolation>
-   <entry><ind>  0</ind><dep>   0</dep></entry>
-   <entry><ind>  170</ind><dep>0.0281</dep></entry>
-   <entry><ind>  300</ind><dep>0.1312</dep></entry>
-   <entry><ind>  320</ind><dep>0.1531</dep></entry>
-   <entry><ind>  350</ind><dep>0.1875</dep></entry>
-    <entry><ind>  375</ind><dep>0.2562</dep></entry>
-     <entry><ind>  405</ind><dep>0.3406</dep></entry>
-      <entry><ind>  430</ind><dep>0.4094</dep></entry>
-   </interpolation>
-  <axis>
-   <x>0</x>
-   <y>1</y>
-   <z>0</z>
-  </axis>
-</animation>	
+    <type>textranslate</type>
+    <object-name>NR</object-name>
+    <property>/rotors/main/rpm</property>
+    <interpolation>
+      <entry><ind>  0</ind><dep>0     </dep></entry>
+      <entry><ind>170</ind><dep>0.0281</dep></entry>
+      <entry><ind>300</ind><dep>0.1312</dep></entry>
+      <entry><ind>320</ind><dep>0.1531</dep></entry>
+      <entry><ind>350</ind><dep>0.1875</dep></entry>
+      <entry><ind>375</ind><dep>0.2562</dep></entry>
+      <entry><ind>405</ind><dep>0.3406</dep></entry>
+      <entry><ind>430</ind><dep>0.4094</dep></entry>
+    </interpolation>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
 </PropertyList>
 

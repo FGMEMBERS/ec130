@@ -50,7 +50,6 @@
       var luggager = self.getNode("instrumentation/doors/luggager/position-norm", 1);
       var door = self.getNode("instrumentation/doors/door/position-norm", 1);
       var pilotw = self.getNode("instrumentation/doors/pilotw/position-norm", 1);
-      var slightcover = self.getNode("instrumentation/doors/slightcover/position-norm", 1);
       var basketl = self.getNode("instrumentation/doors/basketl/position-norm", 1);
       var basketr = self.getNode("instrumentation/doors/basketr/position-norm", 1);
       var hook = self.getNode("instrumentation/doors/hook/position-norm", 1);
@@ -82,11 +81,18 @@
     <object-name>luggagel</object-name>
     <object-name>luggager</object-name>
     <object-name>luggager_slight</object-name>
-    <object-name>door</object-name>
+    <object-name>doorb</object-name>
     <object-name>exhaust</object-name>
     <object-name>wirecutter</object-name>
   </effect>
 
+  <effect>
+    <inherits-from>Aircraft/ec130/Models/Effects/ec130reflect-uber-luggage</inherits-from>
+    <object-name>luggagelw</object-name>
+    <object-name>fuselage_luggagelw</object-name>
+    <object-name>luggagerw</object-name>
+    <object-name>fuselage_luggagerw</object-name>
+  </effect>
 
   <effect>
     <inherits-from>Aircraft/ec130/Models/Effects/ec130reflectglas-uber</inherits-from>
@@ -135,9 +141,27 @@
       <x-m> 0.0 </x-m>
       <y-m> 0.0 </y-m>
       <z-m> 0.0 </z-m>
-      <pitch-deg>1.5</pitch-deg>
+      <pitch-deg>0.55</pitch-deg>
     </offsets>
   </model>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>MGPU</object-name>
+    <object-name>cables</object-name>
+    <property>sim/model/ec130/snowshoes</property>
+    <factor>0.8</factor>
+    <center>
+      <x-m> -1.103</x-m>
+      <y-m>  0.589</y-m>
+      <z-m> -0.560</z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
 
   <!-- woolthread -->
   <model>
@@ -151,14 +175,13 @@
     </offsets>
   </model>
 
-
   <!-- mag compas-->
   <model>
     <name>Magnet Compass</name>
     <path>Aircraft/ec130/Models/Instruments/MagCompass/magcompass.xml</path>
     <offsets>
       <x-m>-4.291</x-m>
-      <y-m>-0.262</y-m>
+      <y-m>-0.260</y-m>
       <z-m>0.183</z-m>
       <pitch-deg>0.0</pitch-deg>
     </offsets>
@@ -477,11 +500,10 @@
     </offsets>
   </model>
 
-
-  <!-- searchlight -->
+  <!-- searchlight SX16 -->
   <model>
-    <name>searchlight</name>
-    <path>Aircraft/ec130/Models/Light/searchlight.xml</path>
+    <name>searchlight_SX16</name>
+    <path>Aircraft/ec130/Models/SearchLight/searchlight_SX16.xml</path>
     <offsets>
       <x-m> -2.390 </x-m>
       <y-m>  1.471 </y-m>
@@ -489,6 +511,57 @@
       <pitch-deg>0</pitch-deg>
     </offsets>
   </model>
+
+  <!-- searchlight A800 -->
+  <model>
+    <name>searchlight_A800</name>
+    <path>Aircraft/ec130/Models/SearchLight/searchlight_A800.xml</path>
+    <offsets>
+      <x-m> -4.940 </x-m>
+      <y-m> -1.200 </y-m>
+      <z-m> -1.220 </z-m>
+      <pitch-deg>0</pitch-deg>
+    </offsets>
+  </model>
+
+  <!-- align mount with arm -->
+  <animation>
+    <type>rotate</type>
+    <object-name>slight_mount</object-name>
+    <offset-deg>40</offset-deg>
+    <center>
+      <x-m> 0 </x-m>
+      <y-m> 0 </y-m>
+      <z-m> 0 </z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>0</y>
+      <z>1</z>
+    </axis>
+  </animation>
+
+  <!--gear light select animation-->
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>gear_light_left</object-name>
+    <object-name>gear_light_right</object-name>
+    <object-name>landing_light_gear_left</object-name>
+    <object-name>landing_light_gear_right</object-name>
+    <condition>
+      <property>sim/model/ec130/gear_light</property>
+    </condition>
+  </animation>
+
+  <!--searchlight A800 select animation-->
+  <animation>
+    <type>select</type>
+    <object-name>searchlight_A800</object-name>
+    <condition>
+      <property>sim/model/ec130/searchlight_a800</property>
+    </condition>
+  </animation>
 
   <!--model select animation-->
   <animation>
@@ -553,6 +626,7 @@
   </animation>
 
   <animation>
+    <nopreview/>
     <type>select</type>
     <object-name>basket_right</object-name>
     <object-name>basket_mesh_right</object-name>
@@ -566,6 +640,7 @@
   </animation>
 
   <animation>
+    <nopreview/>
     <type>select</type>
     <object-name>snowshoes</object-name>
     <condition>
@@ -599,12 +674,26 @@
     </condition>
   </animation>
 
+  <!-- A800 mount -->
+  <animation>
+    <type>select</type>
+    <object-name>slight_front_arm</object-name>
+    <object-name>slight_wire1</object-name>
+    <object-name>slight_wire2</object-name>
+    <condition>
+      <property>sim/model/ec130/searchlight_a800</property>
+    </condition>
+  </animation>
+
   <!-- cutout parts of luggage door -->
   <animation>
     <type>select</type>
     <object-name>luggager_slight</object-name>
     <object-name>luggager_in_slight</object-name>
     <condition>
+      <not>
+        <property>/sim/model/ec130/luggage_wide</property>
+      </not>
       <not>
         <property>sim/model/ec130/searchlight</property>
       </not>
@@ -616,6 +705,9 @@
     <type>select</type>
     <object-name>slight_darkening_box</object-name>
     <condition>
+      <not>
+        <property>/sim/model/ec130/luggage_wide</property>
+      </not>
       <not>
         <property>instrumentation/doors/luggager/position-norm</property>
       </not>
@@ -634,29 +726,47 @@
   <animation>
     <type>material</type>
     <object-name>fuselage</object-name>
+    <object-name>gear_strobe_light_base</object-name>
     <object-name>seats</object-name>
     <object-name>seat_pass_front_l</object-name>
     <object-name>seat_pass_front_r</object-name>
     <object-name>seat_pass_rear_mr</object-name>
     <object-name>seat_pass_rear_r</object-name>
+    <object-name>luggagel</object-name>
     <object-name>luggager</object-name>
     <object-name>luggager_slight</object-name>
-    <object-name>luggagel</object-name>
-    <object-name>frontdoorr</object-name>
+    <object-name>luggagelw</object-name>
+    <object-name>fuselage_luggagelw</object-name>
+    <object-name>luggagerw</object-name>
+    <object-name>fuselage_luggagerw</object-name>
     <object-name>frontdoorl</object-name>
+    <object-name>frontdoorr</object-name>
     <object-name>backdoorr</object-name>
     <object-name>backdoorl</object-name>
-    <object-name>door</object-name>
+    <object-name>doorb</object-name>
     <object-name>exhaust</object-name>
     <object-name>wirecutter</object-name>
     <object-name>stator</object-name>
     <object-name>tailrotor</object-name>
     <object-name>dme_base</object-name>
+    <object-name>dme_small_base</object-name>
+    <object-name>vuhf_base</object-name>
     <object-name>hoist_frame</object-name>
     <object-name>hoist_pyramid</object-name>
     <property-base>sim/model/livery/</property-base>
     <texture-prop>texture</texture-prop>
     <texture>default.png</texture>
+  </animation>
+
+  <!--gear strobe light-->
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>gear_strobe_light</object-name>
+    <object-name>gear_strobe_light_base</object-name>
+    <condition>
+      <property>sim/model/ec130/gear_strobe</property>
+    </condition>
   </animation>
 
   <!--lights-->
@@ -700,6 +810,8 @@
     <type>select</type>
     <object-name>landing_light</object-name>
     <object-name>landing_light2</object-name>
+    <object-name>landing_light_gear_left</object-name>
+    <object-name>landing_light_gear_right</object-name>
     <condition>
       <greater-than>
        <property>sim/multiplay/generic/int[1]</property>
@@ -729,24 +841,90 @@
     <max>1</max>
   </animation>
 
+  <animation>
+    <type>flash</type>
+    <object-name>landing_light_gear_left</object-name>
+    <center>
+      <x-m>-1.260</x-m>
+      <y-m>-0.220</y-m>
+      <z-m>-1.155</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    <power>5</power>
+    <factor>1</factor>
+    <offset>0</offset>
+    <two-sides type="bool">false</two-sides>
+    <min>0.01</min>
+    <max>1</max>
+  </animation>
+
+  <animation>
+    <type>flash</type>
+    <object-name>landing_light_gear_right</object-name>
+    <center>
+      <x-m>-1.260</x-m>
+      <y-m> 0.220</y-m>
+      <z-m>-1.155</z-m>
+    </center>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    <power>5</power>
+    <factor>1</factor>
+    <offset>0</offset>
+    <two-sides type="bool">false</two-sides>
+    <min>0.01</min>
+    <max>1</max>
+  </animation>
+
   <!--  REMBRANDT support for transparent objects -->
   <effect>
     <inherits-from>Effects/model-transparent</inherits-from>
+    <object-name>basket_mesh_left</object-name>
+    <object-name>basket_mesh_left_cover</object-name>
+    <object-name>basket_mesh_right</object-name>
+    <object-name>basket_mesh_right_cover</object-name>
     <object-name>landing_light</object-name>
+    <object-name>landing_light_gear_left</object-name>
+    <object-name>landing_light_gear_right</object-name>
     <object-name>navlight_left</object-name>
     <object-name>navlight_right</object-name>
     <object-name>navlight_back</object-name>
     <object-name>navlight_front</object-name>
     <object-name>Plane.005X</object-name>
+    <object-name>Plane.005Xb</object-name>
+    <object-name>basket_mesh_left</object-name>
     <condition>
       <property>sim/rendering/rembrandt/enabled</property>
     </condition>
   </effect>
 
+  <!-- landing light volume -->
   <animation>
     <type>select</type>
-    <object-name>LightVolume</object-name>
+    <object-name>LandLightVolume</object-name>
     <condition>
+      <property>/sim/rendering/rembrandt/enabled</property>
+      <greater-than>
+        <property>sim/multiplay/generic/int[1]</property>
+        <value>24</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <!-- gear landing lights volumes -->
+  <animation>
+    <type>select</type>
+    <object-name>LandLightVolume_gear_left</object-name>
+    <object-name>LandLightVolume_gear_right</object-name>
+    <condition>
+      <property>sim/model/ec130/gear_light</property>
       <property>/sim/rendering/rembrandt/enabled</property>
       <greater-than>
         <property>sim/multiplay/generic/int[1]</property>
@@ -757,10 +935,10 @@
 
   <animation>
     <type>select</type>
-    <object-name>NavLightVolume_left</object-name>
-    <object-name>NavLightVolume_right</object-name>
+    <object-name>NavLightLeftVolume</object-name>
+    <object-name>NavLightRightVolume</object-name>
     <object-name>NavLightBackVolume</object-name>
-    <object-name>LightVolume2</object-name>
+    <object-name>NavLightFrontVolume</object-name>
     <condition>
       <property>/sim/rendering/rembrandt/enabled</property>
       <greater-than>
@@ -770,7 +948,9 @@
     </condition>
   </animation>
 
+  <!-- beacon tail -->
   <animation>
+    <nopreview/>
     <type>select</type>
     <object-name>Plane.005X</object-name>
     <condition>
@@ -787,16 +967,50 @@
     </condition>
   </animation>
 
+  <!-- rembrandt volume -->
   <animation>
     <type>select</type>
     <object-name>BeaconVolume</object-name>
     <condition>
       <property>/sim/rendering/rembrandt/enabled</property>
-      <property>/sim/model/ec130/lighting/beacon-top/state</property>
       <greater-than>
         <property>sim/multiplay/generic/int[0]</property>
         <value>24</value>
       </greater-than>
+    </condition>
+  </animation>
+
+  <!-- gear strobe -->
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>Plane.005Xb</object-name>
+    <condition>
+      <property>sim/model/ec130/gear_strobe</property>
+      <or>
+        <property>sim/multiplay/generic/int[3]</property>
+        <greater-than>
+          <property>systems/electrical/outputs/strobe</property>
+          <value>24</value>
+        </greater-than>
+      </or>
+    </condition>
+  </animation>
+
+  <!-- rembrandt volume -->
+  <animation>
+    <type>select</type>
+    <object-name>GearStrobeVolume</object-name>
+    <condition>
+      <property>sim/model/ec130/gear_strobe</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
+      <or>
+        <property>sim/multiplay/generic/int[3]</property>
+        <greater-than>
+          <property>systems/electrical/outputs/strobe</property>
+          <value>24</value>
+        </greater-than>
+      </or>
     </condition>
   </animation>
 
@@ -805,7 +1019,7 @@
     <type>light</type>
     <light-type>spot</light-type>
     <name>NavLightLeft</name>
-    <object-name>NavLightVolume_left</object-name>
+    <object-name>NavLightLeftVolume</object-name>
     <condition>
       <property>/sim/rendering/rembrandt/enabled</property>
     </condition>
@@ -837,6 +1051,22 @@
       <b>0.0</b>
       <a>1.0</a>
     </specular>
+    <dim-factor>
+      <property>sim/time/sun-angle-rad</property>
+      <interpolation>
+        <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
+        <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
+        <entry><ind> 1.04 </ind><dep> 0.35 </dep></entry>
+        <entry><ind> 1.30 </ind><dep> 0.45 </dep></entry>
+        <entry><ind> 1.40 </ind><dep> 0.55 </dep></entry>
+        <entry><ind> 1.48 </ind><dep> 0.75 </dep></entry>
+        <entry><ind> 1.57 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.10 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.62 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 3.14 </ind><dep> 1.00 </dep></entry>
+      </interpolation>
+      <offset>0</offset>
+    </dim-factor>
     <attenuation>
       <c>1.0</c>
       <l>0.0</l>
@@ -852,7 +1082,7 @@
     <type>light</type>
     <light-type>spot</light-type>
     <name>NavLightRight</name>
-    <object-name>NavLightVolume_right</object-name>
+    <object-name>NavLightRightVolume</object-name>
     <condition>
       <property>/sim/rendering/rembrandt/enabled</property>
     </condition>
@@ -884,6 +1114,22 @@
       <b>0.0</b>
       <a>1.0</a>
     </specular>
+    <dim-factor>
+      <property>sim/time/sun-angle-rad</property>
+      <interpolation>
+        <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
+        <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
+        <entry><ind> 1.04 </ind><dep> 0.35 </dep></entry>
+        <entry><ind> 1.30 </ind><dep> 0.45 </dep></entry>
+        <entry><ind> 1.40 </ind><dep> 0.55 </dep></entry>
+        <entry><ind> 1.48 </ind><dep> 0.75 </dep></entry>
+        <entry><ind> 1.57 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.10 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.62 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 3.14 </ind><dep> 1.00 </dep></entry>
+      </interpolation>
+      <offset>0</offset>
+    </dim-factor>
     <attenuation>
       <c>1.0</c>
       <l>0.0</l>
@@ -931,6 +1177,22 @@
       <b>0.96</b>
       <a>1.0</a>
     </specular>
+    <dim-factor>
+      <property>sim/time/sun-angle-rad</property>
+      <interpolation>
+        <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
+        <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
+        <entry><ind> 1.04 </ind><dep> 0.35 </dep></entry>
+        <entry><ind> 1.30 </ind><dep> 0.45 </dep></entry>
+        <entry><ind> 1.40 </ind><dep> 0.55 </dep></entry>
+        <entry><ind> 1.48 </ind><dep> 0.75 </dep></entry>
+        <entry><ind> 1.57 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.10 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.62 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 3.14 </ind><dep> 1.00 </dep></entry>
+      </interpolation>
+      <offset>0</offset>
+    </dim-factor>
     <attenuation>
       <c>1.0</c>
       <l>0.0</l>
@@ -946,7 +1208,7 @@
     <type>light</type>
 	  <light-type>spot</light-type>
 	  <name>NavLightFront</name>
-	  <object-name>LightVolume2</object-name>
+	  <object-name>NavLightFrontVolume</object-name>
     <condition>
       <property>/sim/rendering/rembrandt/enabled</property>
     </condition>
@@ -958,7 +1220,7 @@
 	  <direction>
 		  <x>-1</x>
 		  <y>0</y>
-		  <z>-0.7</z>
+		  <z>-0.2</z>
 	  </direction>
 	  <ambient>
 		  <r>0.01</r>
@@ -978,6 +1240,22 @@
 		  <b>0.87</b>
 		  <a>1.0</a>
 	  </specular>
+    <dim-factor>
+      <property>sim/time/sun-angle-rad</property>
+      <interpolation>
+        <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
+        <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
+        <entry><ind> 1.04 </ind><dep> 0.35 </dep></entry>
+        <entry><ind> 1.30 </ind><dep> 0.45 </dep></entry>
+        <entry><ind> 1.40 </ind><dep> 0.55 </dep></entry>
+        <entry><ind> 1.48 </ind><dep> 0.75 </dep></entry>
+        <entry><ind> 1.57 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.10 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.62 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 3.14 </ind><dep> 1.00 </dep></entry>
+      </interpolation>
+      <offset>0</offset>
+    </dim-factor>
     <attenuation>
 		  <c>1.0</c>
 		  <l>0.002</l>
@@ -985,15 +1263,15 @@
     </attenuation>
     <exponent>40</exponent>
     <near-m>0.5</near-m>
-    <far-m>80</far-m>
-    <cutoff>70</cutoff>
+    <far-m>250</far-m>
+    <cutoff>40</cutoff>
   </animation>
 
   <animation>
     <type>light</type>
     <light-type>spot</light-type>
     <name>Landinglight</name>
-    <object-name>LightVolume</object-name>
+    <object-name>LandLightVolume</object-name>
     <condition>
       <property>/sim/rendering/rembrandt/enabled</property>
     </condition>
@@ -1019,6 +1297,22 @@
       <b>1.0</b>
       <a>1.0</a>
     </specular>
+    <dim-factor>
+      <property>sim/time/sun-angle-rad</property>
+      <interpolation>
+        <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
+        <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
+        <entry><ind> 1.04 </ind><dep> 0.35 </dep></entry>
+        <entry><ind> 1.30 </ind><dep> 0.45 </dep></entry>
+        <entry><ind> 1.40 </ind><dep> 0.55 </dep></entry>
+        <entry><ind> 1.48 </ind><dep> 0.75 </dep></entry>
+        <entry><ind> 1.57 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.10 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.62 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 3.14 </ind><dep> 1.00 </dep></entry>
+      </interpolation>
+      <offset>0</offset>
+    </dim-factor>
     <attenuation>
 		  <c>1.0</c>
 		  <l>0.002</l>
@@ -1030,22 +1324,134 @@
     <cutoff>40</cutoff>
   </animation>
 
-  <!--beacon-->
+  <animation>
+    <type>light</type>
+    <light-type>spot</light-type>
+    <name>Landinglight_gear_left</name>
+    <object-name>LandLightVolume_gear_left</object-name>
+    <condition>
+      <property>/sim/rendering/rembrandt/enabled</property>
+    </condition>
+    <position>
+      <x-m>-1.260</x-m>
+      <y-m>-0.220</y-m>
+      <z-m>-1.155</z-m>
+    </position>
+    <direction>
+      <x>-1.0</x>
+      <y> 0.0</y>
+      <z>-0.5</z>
+    </direction>
+    <diffuse>
+      <r>1.0</r>
+      <g>1.0</g>
+      <b>1.0</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>1.0</r>
+      <g>1.0</g>
+      <b>1.0</b>
+      <a>1.0</a>
+    </specular>
+    <dim-factor>
+      <property>sim/time/sun-angle-rad</property>
+      <interpolation>
+        <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
+        <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
+        <entry><ind> 1.04 </ind><dep> 0.35 </dep></entry>
+        <entry><ind> 1.30 </ind><dep> 0.45 </dep></entry>
+        <entry><ind> 1.40 </ind><dep> 0.55 </dep></entry>
+        <entry><ind> 1.48 </ind><dep> 0.75 </dep></entry>
+        <entry><ind> 1.57 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.10 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.62 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 3.14 </ind><dep> 1.00 </dep></entry>
+      </interpolation>
+      <offset>0</offset>
+    </dim-factor>
+    <attenuation>
+		  <c>1.0</c>
+		  <l>0.002</l>
+		  <q>0.00005</q>
+    </attenuation>
+    <exponent>40</exponent>
+    <near-m>0.05</near-m>
+    <far-m>250</far-m>
+    <cutoff>40</cutoff>
+  </animation>
+
+  <animation>
+    <type>light</type>
+    <light-type>spot</light-type>
+    <name>Landinglight_gear_right</name>
+    <object-name>LandLightVolume_gear_right</object-name>
+    <condition>
+      <property>/sim/rendering/rembrandt/enabled</property>
+    </condition>
+    <position>
+      <x-m>-1.260</x-m>
+      <y-m> 0.220</y-m>
+      <z-m>-1.155</z-m>
+    </position>
+    <direction>
+      <x>-1.0</x>
+      <y> 0.0</y>
+      <z>-0.5</z>
+    </direction>
+    <diffuse>
+      <r>1.0</r>
+      <g>1.0</g>
+      <b>1.0</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>1.0</r>
+      <g>1.0</g>
+      <b>1.0</b>
+      <a>1.0</a>
+    </specular>
+    <dim-factor>
+      <property>sim/time/sun-angle-rad</property>
+      <interpolation>
+        <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
+        <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
+        <entry><ind> 1.04 </ind><dep> 0.35 </dep></entry>
+        <entry><ind> 1.30 </ind><dep> 0.45 </dep></entry>
+        <entry><ind> 1.40 </ind><dep> 0.55 </dep></entry>
+        <entry><ind> 1.48 </ind><dep> 0.75 </dep></entry>
+        <entry><ind> 1.57 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.10 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.62 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 3.14 </ind><dep> 1.00 </dep></entry>
+      </interpolation>
+      <offset>0</offset>
+    </dim-factor>
+    <attenuation>
+		  <c>1.0</c>
+		  <l>0.002</l>
+		  <q>0.00005</q>
+    </attenuation>
+    <exponent>40</exponent>
+    <near-m>0.05</near-m>
+    <far-m>250</far-m>
+    <cutoff>40</cutoff>
+  </animation>
+
+  <!--beacon, gear strobe-->
+  <!-- ??? object names were missing -->
   <animation>
     <type>range</type>
+    <object-name>Plane.005X</object-name>
+    <object-name>Plane.005Xb</object-name>
     <min-m>0</min-m>
     <max-m>25000</max-m>
   </animation>
 
-  <Plane.005Xparams>
-    <light-near>0.4</light-near>
-    <light-med>0.8</light-med>
-    <light-far>10</light-far>
-  </Plane.005Xparams>
-
   <animation>
     <type>alpha-test</type>
     <object-name>Plane.005X</object-name>
+    <object-name>Plane.005Xb</object-name>
     <alpha-factor>0.001</alpha-factor>
     <condition>
       <not>
@@ -1054,6 +1460,7 @@
     </condition>
   </animation>
 
+  <!-- beacon tail -->
   <animation>
     <type>translate</type>
     <object-name>Plane.005X</object-name>
@@ -1065,11 +1472,30 @@
     </axis>
   </animation>
 
+  <!-- gear strobe -->
+  <animation>
+    <type>translate</type>
+    <object-name>Plane.005Xb</object-name>
+    <offset-m>1.6</offset-m>
+    <axis>
+      <x>-4.5</x>
+      <y> 0.0</y>
+      <z>-5.0</z>
+    </axis>
+  </animation>
+
   <animation>
     <type>billboard</type>
     <object-name>Plane.005X</object-name>
+    <object-name>Plane.005Xb</object-name>
     <spherical type="bool">true</spherical>
   </animation>
+
+  <Plane.005Xparams>
+    <light-near>0.4</light-near>
+    <light-med>0.8</light-med>
+    <light-far>10</light-far>
+  </Plane.005Xparams>
 
   <animation>
     <type>dist-scale</type>
@@ -1090,6 +1516,31 @@
     </interpolation>
   </animation>
 
+  <Plane.005Xbparams>
+    <light-near>0.3</light-near>
+    <light-med>0.6</light-med>
+    <light-far>8</light-far>
+  </Plane.005Xbparams>
+
+  <animation>
+    <type>dist-scale</type>
+    <object-name>Plane.005Xb</object-name>
+    <interpolation>
+      <entry>
+        <ind>0</ind>
+        <dep alias="../../../../Plane.005Xbparams/light-near"/>
+      </entry>
+      <entry>
+        <ind>500</ind>
+        <dep alias="../../../../Plane.005Xbparams/light-med"/>
+      </entry>
+      <entry>
+        <ind>16000</ind>
+        <dep alias="../../../../Plane.005Xbparams/light-far"/>
+      </entry>
+    </interpolation>
+  </animation>
+
   <!--beacon rembrandt -->
   <animation>
     <type>light</type>
@@ -1098,7 +1549,6 @@
     <object-name>BeaconVolume</object-name>
     <condition>
       <property>/sim/rendering/rembrandt/enabled</property>
-      <property>/sim/model/ec130/lighting/beacon-top/state</property>
       <greater-than>
         <property>sim/multiplay/generic/int[0]</property>
         <value>24</value>
@@ -1127,23 +1577,121 @@
       <b>0.0</b>
       <a>1.0</a>
     </specular>
+    <dim-factor>
+      <property>sim/time/sun-angle-rad</property>
+      <interpolation>
+        <entry><ind> 0.00 </ind><dep> 0.30 </dep></entry>
+        <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
+        <entry><ind> 1.04 </ind><dep> 0.35 </dep></entry>
+        <entry><ind> 1.30 </ind><dep> 0.45 </dep></entry>
+        <entry><ind> 1.40 </ind><dep> 0.55 </dep></entry>
+        <entry><ind> 1.48 </ind><dep> 0.75 </dep></entry>
+        <entry><ind> 1.57 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.10 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.62 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 3.14 </ind><dep> 1.00 </dep></entry>
+      </interpolation>
+      <offset>0</offset>
+    </dim-factor>
     <attenuation>
       <c>1.0</c>
       <l>0.7</l>
       <q>2</q>
     </attenuation>
     <near-m>0.01</near-m>
-    <far-m>5</far-m>
+    <far-m>15</far-m>
   </animation>
 
-  <!-- roof antenna -->
+  <!--gear strobe rembrandt -->
   <animation>
+    <type>light</type>
+    <light-type>point</light-type>
+    <name>GearStrobe</name>
+    <object-name>GearStrobeVolume</object-name>
+    <condition>
+      <property>sim/model/ec130/gear_strobe</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
+      <or>
+        <property>sim/multiplay/generic/int[3]</property>
+        <greater-than>
+          <property>systems/electrical/outputs/strobe</property>
+          <value>24</value>
+        </greater-than>
+      </or>
+    </condition>
+    <position>
+      <x>-1.04</x>
+      <y>-0.006</y>
+      <z>-1.20</z>
+    </position>
+    <ambient>
+      <r>1.0</r>
+      <g>1.0</g>
+      <b>1.0</b>
+      <a>1.0</a>
+    </ambient>
+    <diffuse>
+      <r>1.0</r>
+      <g>1.0</g>
+      <b>1.0</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>1.0</r>
+      <g>1.0</g>
+      <b>1.0</b>
+      <a>1.0</a>
+    </specular>
+    <dim-factor>
+      <property>sim/time/sun-angle-rad</property>
+      <interpolation>
+        <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
+        <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
+        <entry><ind> 1.04 </ind><dep> 0.35 </dep></entry>
+        <entry><ind> 1.30 </ind><dep> 0.45 </dep></entry>
+        <entry><ind> 1.40 </ind><dep> 0.55 </dep></entry>
+        <entry><ind> 1.48 </ind><dep> 0.75 </dep></entry>
+        <entry><ind> 1.57 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.10 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.62 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 3.14 </ind><dep> 1.00 </dep></entry>
+      </interpolation>
+      <offset>0</offset>
+    </dim-factor>
+    <attenuation>
+      <c>1.0</c>
+      <l>0.7</l>
+      <q>2</q>
+    </attenuation>
+    <near-m>0.01</near-m>
+    <far-m>15</far-m>
+  </animation>
+
+  <!-- roof antenna left -->
+  <animation>
+    <nopreview/>
     <type>select</type>
     <object-name>antenna_roof_frontl</object-name>
+    <object-name>antenna_roof_frontl_base</object-name>
     <condition>
-      <not>
-        <property>sim/model/ec130/antenna_right</property>
-      </not>
+      <equals>
+        <property>sim/model/ec130/antenna_left</property>
+        <value>1</value>
+      </equals>
+    </condition>
+  </animation>
+
+  <!-- roof antenna left tilted -->
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>antenna_roof_frontl_tilt</object-name>
+    <object-name>antenna_roof_frontl_base</object-name>
+    <condition>
+      <equals>
+        <property>sim/model/ec130/antenna_left</property>
+        <value>2</value>
+      </equals>
     </condition>
   </animation>
 
@@ -1151,17 +1699,128 @@
     <type>select</type>
     <object-name>antenna_roof_frontr</object-name>
     <condition>
-      <property>sim/model/ec130/antenna_right</property>
+      <not-equals>
+        <property>sim/model/ec130/antenna_left</property>
+        <value>1</value>
+      </not-equals>
+    </condition>
+  </animation>
+
+  <!-- antenna below tail near front end -->
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>antenna_tail_front</object-name>
+    <condition>
+      <property>sim/model/ec130/antenna_tail_front</property>
     </condition>
   </animation>
 
   <!-- DME antenna -->
   <animation>
+    <nopreview/>
     <type>select</type>
     <object-name>dme</object-name>
     <object-name>dme_base</object-name>
     <condition>
       <property>sim/model/ec130/DME</property>
+    </condition>
+  </animation>
+
+  <!-- DME antenna small -->
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>dme_small</object-name>
+    <object-name>dme_small_base</object-name>
+    <condition>
+      <property>sim/model/ec130/DME_small</property>
+    </condition>
+  </animation>
+
+  <!-- VUHF antenna -->
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>vuhf</object-name>
+    <object-name>vuhf_base</object-name>
+    <condition>
+      <property>sim/model/ec130/VUHF</property>
+    </condition>
+  </animation>
+
+  <!-- VUHF antenna front -->
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>vuhf_front</object-name>
+    <condition>
+      <property>sim/model/ec130/VUHF_front</property>
+    </condition>
+  </animation>
+
+  <!-- VOR antenna on roof -->
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>vor_2_roof</object-name>
+    <condition>
+      <property>sim/model/ec130/vor_2_roof</property>
+    </condition>
+  </animation>
+
+  <!-- ADF antennas -->
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>adf_bottom</object-name>
+    <condition>
+      <property>sim/model/ec130/adf_bottom</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>adf_roof</object-name>
+    <condition>
+      <property>sim/model/ec130/adf_roof</property>
+    </condition>
+  </animation>
+
+  <!-- other tail antennas -->
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>antenna_flat_tail</object-name>
+    <condition>
+      <property>sim/model/ec130/antenna_flat_tail</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>antenna_square_tail1</object-name>
+    <object-name>antenna_square_tail2</object-name>
+    <condition>
+      <equals>
+        <property>sim/model/ec130/antenna_square_tail</property>
+        <value>1</value>
+      </equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>antenna_square_tail3</object-name>
+    <object-name>antenna_square_tail4</object-name>
+    <condition>
+      <equals>
+        <property>sim/model/ec130/antenna_square_tail</property>
+        <value>2</value>
+      </equals>
     </condition>
   </animation>
 
@@ -1268,6 +1927,51 @@
     </condition>
   </animation>
 
+  <!-- normal luggage boxes -->
+  <animation>
+    <type>select</type>
+    <object-name>luggagel</object-name>
+    <object-name>luggagel_in</object-name>
+    <object-name>luggager</object-name>
+    <object-name>luggager_in</object-name>
+    <object-name>luggagel_cylf</object-name>
+    <object-name>luggagel_rodf</object-name>
+    <object-name>luggagel_cylb</object-name>
+    <object-name>luggagel_rodb</object-name>
+    <object-name>luggager_cylf</object-name>
+    <object-name>luggager_rodf</object-name>
+    <object-name>luggager_cylb</object-name>
+    <object-name>luggager_rodb</object-name>
+    <condition>
+      <not>
+        <property>sim/model/ec130/luggage_wide</property>
+      </not>
+    </condition>
+  </animation>
+
+  <!-- wide luggage boxes -->
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>luggagelw</object-name>
+    <object-name>luggagelw_rubber</object-name>
+    <object-name>luggagelw_in</object-name>
+    <object-name>luggagelw_cyl</object-name>
+    <object-name>luggagelw_rod</object-name>
+    <object-name>fuselage_luggagelw</object-name>
+    <object-name>luggageboxlw</object-name>
+    <object-name>luggagerw</object-name>
+    <object-name>luggagerw_rubber</object-name>
+    <object-name>luggagerw_in</object-name>
+    <object-name>luggagerw_cyl</object-name>
+    <object-name>luggagerw_rod</object-name>
+    <object-name>fuselage_luggagerw</object-name>
+    <object-name>luggageboxrw</object-name>
+    <condition>
+      <property>sim/model/ec130/luggage_wide</property>
+    </condition>
+  </animation>
+
   <!-- control animations -->
   <!--stick left-->
   <animation>
@@ -1370,25 +2074,16 @@
       <repeatable>true</repeatable>
       <binding>
         <command>nasal</command>
-        <script>
-          var p = getprop("/controls/engines/engine/power");
-          if ( p &lt; 0.97 ) {
-            if ( p &gt; 0.60 ) {
-              setprop("/controls/engines/engine/power", p+0.03);
-            } else {
-              setprop("/controls/engines/engine/power", 0.63);
-            }
-          } else {
-            setprop("/controls/engines/engine/power", 1.0);
-          }
-          gui.popupTip(sprintf("Twist Grip %d%%", getprop("/controls/engines/engine/power")*100));
-
-          if ( getprop("/controls/electric/external-power") ) {
-            settimer( func{ gui.popupTip("Disconnect external power supply !!!",3); },3);
-          }
-        </script>
+        <script>ec130.adjust_twist_grip(1);</script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>grip_highl</tooltip-id>
+        <label>Twist Grip Power +</label>
+      </binding>
+    </hovered>
   </animation>
 
   <animation>
@@ -1399,17 +2094,16 @@
       <repeatable>true</repeatable>
       <binding>
         <command>nasal</command>
-        <script>
-          var p = getprop("/controls/engines/engine/power");
-          if ( p &gt; 0.66 ) {
-            setprop("/controls/engines/engine/power", p-0.03);
-          } else {
-            setprop("/controls/engines/engine/power", 0.63);
-          }
-          gui.popupTip(sprintf("Twist Grip %d%%", getprop("/controls/engines/engine/power")*100));
-        </script>
+        <script>ec130.adjust_twist_grip(-1);</script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>grip_lowl</tooltip-id>
+        <label>Twist Grip Power -</label>
+      </binding>
+    </hovered>
   </animation>
 
   <!--collective right-->
@@ -1443,25 +2137,16 @@
       <repeatable>true</repeatable>
       <binding>
         <command>nasal</command>
-        <script>
-          var p = getprop("/controls/engines/engine/power");
-          if ( p &lt; 0.97 ) {
-            if ( p &gt; 0.60 ) {
-              setprop("/controls/engines/engine/power", p+0.03);
-            } else {
-              setprop("/controls/engines/engine/power", 0.63);
-            }
-          } else {
-            setprop("/controls/engines/engine/power", 1.0);
-          }
-          gui.popupTip(sprintf("Twist Grip %d%%", getprop("/controls/engines/engine/power")*100));
-
-          if ( getprop("/controls/electric/external-power") ) {
-            settimer( func{ gui.popupTip("Disconnect external power supply before Take-Off !!!",3); },3);
-          }
-        </script>
+        <script>ec130.adjust_twist_grip(1);</script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>grip_highr</tooltip-id>
+        <label>Twist Grip Power +</label>
+      </binding>
+    </hovered>
   </animation>
 
   <animation>
@@ -1472,17 +2157,16 @@
       <repeatable>true</repeatable>
       <binding>
         <command>nasal</command>
-        <script>
-          var p = getprop("/controls/engines/engine/power");
-          if ( p &gt; 0.66 ) {
-            setprop("/controls/engines/engine/power", p-0.03);
-          } else {
-            setprop("/controls/engines/engine/power", 0.63);
-          }
-          gui.popupTip(sprintf("Twist Grip %d%%", getprop("/controls/engines/engine/power")*100));
-        </script>
+        <script>ec130.adjust_twist_grip(-1);</script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>grip_lowr</tooltip-id>
+        <label>Twist Grip Power -</label>
+      </binding>
+    </hovered>
   </animation>
 
   <!--pedal pilot left-->
@@ -1587,6 +2271,19 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>doorfl</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/frontl/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
   <!-- pilot window -->
@@ -1636,6 +2333,19 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>pilotw</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/pilotw/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
   <!-- passenger door front right -->
@@ -1667,6 +2377,19 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>doorfr</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/frontr/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
   <!-- passenger door back left -->
@@ -1714,7 +2437,7 @@
     <factor> 15 </factor>
     <interpolation>
       <entry><ind>0.00</ind><dep>  0</dep></entry>
-      <entry><ind>0.05</ind><dep>- 9</dep></entry>
+      <entry><ind>0.05</ind><dep> -9</dep></entry>
       <entry><ind>0.10</ind><dep>-10</dep></entry>
       <entry><ind>1.00</ind><dep>-18</dep></entry>
     </interpolation>
@@ -1731,6 +2454,7 @@
   </animation>
 
   <animation>
+    <nopreview/>
     <type>rotate</type>
     <object-name>doorbl_hinge</object-name>
     <property>/instrumentation/doors/passengerl/position-norm</property>
@@ -1747,7 +2471,7 @@
       <z-m>  0.000 </z-m>
     </center>
     <axis>
-      <x>0.05</x>
+      <x>0.07</x>
       <y>0</y>
       <z>1</z>
     </axis>
@@ -1766,6 +2490,19 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>doorbl</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/passengerl/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
   <!-- passenger door back right -->
@@ -1797,6 +2534,19 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>doorbr</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/passengerr/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
   <!-- luggage left -->
@@ -1830,6 +2580,65 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>luggagel</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/luggagel/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!-- luggage left wide -->
+  <animation>
+    <type>rotate</type>
+    <object-name>luggagelw</object-name>
+    <object-name>luggagelw_in</object-name>
+    <property>/instrumentation/doors/luggagel/position-norm</property>
+    <factor> 90.0 </factor>
+    <axis>
+      <x1-m> -2.447 </x1-m>
+      <y1-m> -1.026 </y1-m>
+      <z1-m> -0.317 </z1-m>
+      <x2-m> -2.555 </x2-m>
+      <y2-m> -1.030 </y2-m>
+      <z2-m> -0.700 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>luggagelw</object-name>
+    <object-name>luggagelw_in</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          doors.doorsystem.luggagelexport();
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>luggagelw</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/luggagel/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
   <!-- luggage right -->
@@ -1867,14 +2676,73 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>luggager</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/luggager/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!-- luggage right wide -->
+  <animation>
+    <type>rotate</type>
+    <object-name>luggagerw</object-name>
+    <object-name>luggagerw_in</object-name>
+    <property>/instrumentation/doors/luggager/position-norm</property>
+    <factor>-90.0 </factor>
+    <axis>
+      <x1-m> -2.467 </x1-m>
+      <y1-m>  1.026 </y1-m>
+      <z1-m> -0.317 </z1-m>
+      <x2-m> -2.561 </x2-m>
+      <y2-m>  1.030 </y2-m>
+      <z2-m> -0.700 </z2-m>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>luggagerw</object-name>
+    <object-name>luggagerw_in</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          doors.doorsystem.luggagerexport();
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>luggagerw</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/luggager/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
   <!-- luggage back door -->
   <animation>
     <type>rotate</type>
-    <object-name>door</object-name>
+    <object-name>doorb</object-name>
     <object-name>door_in</object-name>
-    <property>/instrumentation/doors/door/position-norm</property>
+    <property>/instrumentation/doors/doorb/position-norm</property>
     <factor> -90.0 </factor>
     <axis>
       <x1-m> -0.99 </x1-m>
@@ -1888,7 +2756,7 @@
 
   <animation>
     <type>pick</type>
-    <object-name>door</object-name>
+    <object-name>doorb</object-name>
     <object-name>door_in</object-name>
     <action>
       <button>0</button>
@@ -1896,14 +2764,27 @@
       <binding>
         <command>nasal</command>
         <script>
-          doors.doorsystem.doorexport();
+          doors.doorsystem.doorbexport();
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>doorb</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/doorb/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
-  <!-- door telescopes -->
-  <!-- pilot door -->
+  <!-- gas struts -->
+  <!-- pilot door strut -->
   <animation>
     <type>rotate</type>
     <object-name>doorfl_cyl</object-name>
@@ -1961,9 +2842,22 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>doorflc</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/frontl/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
-  <!-- front right door -->
+  <!-- front right door strut -->
   <animation>
     <type>rotate</type>
     <object-name>doorfr_cyl</object-name>
@@ -2021,9 +2915,22 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>doorfrc</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/frontr/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
-  <!-- luggage door left front -->
+  <!-- luggage door left strut front -->
   <animation>
     <type>rotate</type>
     <object-name>luggagel_cylf</object-name>
@@ -2077,9 +2984,22 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>luggagelcf</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/luggagel/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
-  <!-- luggage door left back -->
+  <!-- luggage door left strut back -->
   <animation>
     <type>rotate</type>
     <object-name>luggagel_cylb</object-name>
@@ -2131,9 +3051,22 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>luggagelcb</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/luggagel/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
-  <!-- luggage door right front -->
+  <!-- luggage door right strut front -->
   <animation>
     <type>rotate</type>
     <object-name>luggager_cylf</object-name>
@@ -2187,9 +3120,22 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>luggagercf</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/luggager/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
-  <!-- luggage door right back -->
+  <!-- luggage door right strut back -->
   <animation>
     <type>rotate</type>
     <object-name>luggager_cylb</object-name>
@@ -2243,14 +3189,27 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>luggagercb</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/luggager/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
-  <!-- door -->
+  <!-- luggage back door strut -->
   <animation>
     <type>rotate</type>
     <object-name>door_cyl</object-name>
     <object-name>door_rod</object-name>
-    <property>/instrumentation/doors/door/position-norm</property>
+    <property>/instrumentation/doors/doorb/position-norm</property>
     <factor> 10 </factor>
     <center>
       <x-m> -0.633 </x-m>
@@ -2267,7 +3226,7 @@
   <animation>
     <type>translate</type>
     <object-name>door_rod</object-name>
-    <property>/instrumentation/doors/door/position-norm</property>
+    <property>/instrumentation/doors/doorb/position-norm</property>
     <factor>1</factor>
     <offset>0</offset>
     <interpolation>
@@ -2285,18 +3244,191 @@
     <type>pick</type>
     <object-name>door_cyl</object-name>
     <object-name>door_rod</object-name>
-    <property>/instrumentation/doors/door/position-norm</property>
+    <property>/instrumentation/doors/doorb/position-norm</property>
     <action>
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
         <command>nasal</command>
         <script>
-          doors.doorsystem.doorexport();
+          doors.doorsystem.doorbexport();
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>doorc</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/doorb/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
+
+  <!-- luggage left wide strut -->
+  <animation>
+    <type>rotate</type>
+    <object-name>luggagelw_cyl</object-name>
+    <object-name>luggagelw_rod</object-name>
+    <property>/instrumentation/doors/luggagel/position-norm</property>
+    <factor> 13 </factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>0.60</ind><dep> 9.0</dep></entry>
+      <entry><ind>0.85</ind><dep>12.0</dep></entry>
+      <entry><ind>1.00</ind><dep>13.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m> -1.872 </x-m>
+      <y-m> -0.972 </y-m>
+      <z-m> -0.190 </z-m>
+    </center>
+    <axis>
+      <x> 0   </x>
+      <y> 0.1 </y>
+      <z> 1   </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>luggagelw_rod</object-name>
+    <property>/instrumentation/doors/luggagel/position-norm</property>
+    <factor>1</factor>
+    <offset>0</offset>
+    <interpolation>
+      <entry><ind>  0.00 </ind><dep>  0.005 </dep></entry>
+      <entry><ind>  0.25 </ind><dep>  0.010 </dep></entry>
+      <entry><ind>  0.40 </ind><dep>  0.020 </dep></entry>
+      <entry><ind>  0.75 </ind><dep>  0.000 </dep></entry>
+      <entry><ind>  1.00 </ind><dep> -0.040 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 1    </x>
+      <y> 0.07 </y>
+      <z> 0.05 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>luggagelw_cyl</object-name>
+    <object-name>luggagelw_rod</object-name>
+    <property>/instrumentation/doors/luggagel/position-norm</property>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          doors.doorsystem.luggagelexport();
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>luggagelwc</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/luggagel/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!-- luggage right wide strut -->
+  <animation>
+    <type>rotate</type>
+    <object-name>luggagerw_cyl</object-name>
+    <object-name>luggagerw_rod</object-name>
+    <property>/instrumentation/doors/luggager/position-norm</property>
+    <factor> -15 </factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep>  0.0</dep></entry>
+      <entry><ind>0.60</ind><dep>-11.0</dep></entry>
+      <entry><ind>0.85</ind><dep>-14.0</dep></entry>
+      <entry><ind>1.00</ind><dep>-15.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m> -1.872 </x-m>
+      <y-m>  0.972 </y-m>
+      <z-m> -0.190 </z-m>
+    </center>
+    <axis>
+      <x> 0   </x>
+      <y>-0.1 </y>
+      <z> 1   </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>luggagerw_rod</object-name>
+    <property>/instrumentation/doors/luggager/position-norm</property>
+    <factor>1</factor>
+    <offset>0</offset>
+    <interpolation>
+      <entry><ind>  0.00 </ind><dep>  0.005 </dep></entry>
+      <entry><ind>  0.40 </ind><dep>  0.020 </dep></entry>
+      <entry><ind>  0.75 </ind><dep> -0.010 </dep></entry>
+      <entry><ind>  1.00 </ind><dep> -0.060 </dep></entry>
+    </interpolation>
+    <axis>
+      <x>  1    </x>
+      <y> -0.07 </y>
+      <z>  0.05 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>luggagerw_cyl</object-name>
+    <object-name>luggagerw_rod</object-name>
+    <property>/instrumentation/doors/luggager/position-norm</property>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          doors.doorsystem.luggagerexport();
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>luggagerw</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/luggager/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!-- == PARTICLE SYSTEMS , Thanks to Oliver Thurau == -->
+	<model>
+		<name>mainrotors_dirt</name>
+		<path>Aircraft/ec130/Models/Wakes/rotor_particle.xml</path>
+		<offsets>
+      <x-m> -1.900 </x-m>
+      <y-m>  0.000 </y-m>
+      <z-m> -1.600 </z-m>
+		</offsets>
+	</model>
 
   <!-- wakes, from Alouette II adapted mhab -->
   <!-- low wake -->
@@ -2347,27 +3479,9 @@
     </condition>
   </animation>
 
-  <animation>
-    <type>select</type>
-    <object-name>shadow_rotor</object-name>
-    <condition>
-      <property>sim/model/ec130/shadow</property>
-      <not>
-        <property>/sim/rendering/shadows-ac</property>
-      </not>
-      <less-than>
-        <property>/sim/time/sun-angle-rad</property>
-        <value>1.40</value>
-      </less-than>
-      <less-than>
-        <property>rotors/main/rpm</property>
-        <value>270</value>
-      </less-than>
-    </condition>
-  </animation>
-
   <!-- shadow fuselage -->
   <animation>
+    <nopreview/>
     <type>rotate</type>
     <name>fu_pitch</name>
     <object-name>shadow_fuselage</object-name>
@@ -2401,67 +3515,6 @@
       <y>0</y>
       <z>-1</z>
     </axis>
-  </animation>
-
-  <!-- shadow rotor -->
-  <animation>
-    <type>rotate</type>
-    <object-name>shadow_rotor</object-name>
-    <property>rotors/main/blade[0]/position-deg</property>
-    <offset-deg>180</offset-deg>
-    <center>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </center>
-    <axis>
-      <x>0</x>
-      <y>0</y>
-      <z>-1</z>
-    </axis>
-  </animation>
-
-  <animation>
-    <type>rotate</type>
-    <object-name>shadow_rotor</object-name>
-    <property>orientation/pitch-deg</property>
-    <axis>
-      <x>0</x>
-      <y>-1</y>
-      <z>0</z>
-    </axis>
-  </animation>
-
-  <animation>
-    <type>rotate</type>
-    <object-name>shadow_rotor</object-name>
-    <property>orientation/roll-deg</property>
-    <axis>
-      <x>1</x>
-      <y>0</y>
-      <z>0</z>
-    </axis>
-  </animation>
-
-  <animation>
-    <type>translate</type>
-    <object-name>shadow_rotor</object-name>
-    <property>position/gear-agl-m</property>
-    <axis>
-      <x>0</x>
-      <y>0</y>
-      <z>-1</z>
-    </axis>
-  </animation>
-
-  <animation>
-    <type>material</type>
-    <object-name>shadow_rotor</object-name>
-    <transparency>
-      <alpha-prop>rotors/main/rpm</alpha-prop>
-      <factor>-0.0045</factor>
-      <offset>1</offset>
-    </transparency>
   </animation>
 
   <!-- baskets animation -->
@@ -2557,6 +3610,19 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>basketl</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/basketl/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
   <animation>
@@ -2637,6 +3703,19 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>basketr</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/basketr/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
   <!-- hook -->
@@ -2678,6 +3757,19 @@
         </script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>hook</tooltip-id>
+        <label>%s</label>
+        <property>/instrumentation/doors/hook/position-norm</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['open', 'close'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
   </animation>
 
 </PropertyList>

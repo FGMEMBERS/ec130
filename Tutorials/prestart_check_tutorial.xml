@@ -1,140 +1,159 @@
 <PropertyList>
-	<name>Engine Prestart Check</name>
-	<description>This tutorial teaches the EC130 B4 engine Prestart Check procedure</description>
+  <name>Engine Prestart Check</name>
+  <description>This tutorial teaches the EC130 B4 Engine Prestart Check procedure</description>
 
-	<init>
-		<set>
-			<property>/sim/current-view/view-number</property>
-			<value>0</value>
-		</set>
-		
-		
-	</init>
+  <init>
+    <set>
+      <property>/sim/current-view/view-number</property>
+      <value>0</value>
+    </set>
+  </init>
+
+  <step>
+    <view>
+      <heading-offset-deg>299.8</heading-offset-deg>
+      <pitch-offset-deg>4.1</pitch-offset-deg>
+      <roll-offset-deg>0.0</roll-offset-deg>
+      <x-offset-m>-0.7</x-offset-m>
+      <y-offset-m>0.0</y-offset-m>
+      <z-offset-m>-3.9</z-offset-m>
+      <field-of-view>65</field-of-view>
+    </view>
+
+    <marker>
+      <x-m>-4.1175</x-m>
+      <y-m>-0.1851</y-m>
+      <z-m>0.1300</z-m>
+      <scale>6.000</scale>
+    </marker>
+
+    <message>
+
+      Release Rotorbrake (Alt-r), push the Lever forward and lock Rotorbrake again:
+      Move Lever: point and drag with LMB pressed or (Shift-R)
+
+    </message>
+    <exit>
+      <condition>
+      <less-than>
+        <property>/controls/rotor/brake</property>
+        <value>0.1</value>
+      </less-than>
+      <property>/controls/rotor/brake-locked</property>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <view>
+      <heading-offset-deg>292.8</heading-offset-deg>
+      <pitch-offset-deg>15.8</pitch-offset-deg>
+      <roll-offset-deg>0.0</roll-offset-deg>
+      <x-offset-m>-0.7</x-offset-m>
+      <y-offset-m>0.0</y-offset-m>
+      <z-offset-m>-3.9</z-offset-m>
+      <field-of-view>37.1</field-of-view>
+    </view>
+
+    <marker>
+      <x-m>-4.0788</x-m>
+      <y-m>-0.2</y-m>
+      <z-m>0.1970</z-m>
+      <scale>3.500</scale>
+    </marker>
+
+    <message>
+    -
+    Push the Cutoff lever forward (Alt-c)
+    apply Guard (AltGr-c)
+
+    </message>
+    <exit>
+      <condition>
+      <less-than>
+        <property>/controls/engines/engine/cutoff</property>
+        <value>0.1</value>
+      </less-than>
+      <property>/controls/engines/engine/cutoff_guard</property>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <view>
+      <heading-offset-deg>4.5</heading-offset-deg>
+      <pitch-offset-deg>-13.1</pitch-offset-deg>
+      <roll-offset-deg>0.0</roll-offset-deg>
+      <x-offset-m>-0.67</x-offset-m>
+      <y-offset-m>0.03</y-offset-m>
+      <z-offset-m>-3.93</z-offset-m>
+      <field-of-view>40</field-of-view>
+    </view>
+
+    <message>
+      -
+      The fuel tank is below the engine - due to gravitity fuellines are empty.
+      You need electric power "EC130"-Menu "Toggle External Power" (Alt-p)
+
+    </message>
+
+    <exit>
+      <condition>
+        <property>/controls/electric/external-power</property>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <message>
+      -
+      switch on "BAT EPU" and "GENE"
+
+    </message>
+    <view>
+      <heading-offset-deg>323.3</heading-offset-deg>
+      <pitch-offset-deg>-51.6</pitch-offset-deg>
+      <roll-offset-deg>0.0</roll-offset-deg>
+      <x-offset-m>-0.7</x-offset-m>
+      <y-offset-m>0.0</y-offset-m>
+      <z-offset-m>-3.9</z-offset-m>
+      <field-of-view>35.5</field-of-view>
+    </view>
+
+    <marker>
+      <x-m>-4.3555</x-m>
+      <y-m>-0.4008</y-m>
+      <z-m>-0.6626</z-m>
+      <scale>4.0000</scale>
+    </marker>
+
+    <exit>
+      <condition>
+        <property>/controls/electric/battery-switch</property>
+        <property>/controls/electric/engine/generator</property>
+      </condition>
+    </exit>
+  </step>
+
+  <wait>5</wait>
 
 	<step>
-		<view>
-			<heading-offset-deg>299.8</heading-offset-deg>
-			<pitch-offset-deg>4.1</pitch-offset-deg>
-			<roll-offset-deg>0.0</roll-offset-deg>
-			<x-offset-m>-0.7</x-offset-m>
-			<y-offset-m>0.0</y-offset-m>
-			<z-offset-m>-3.9</z-offset-m>
-			<field-of-view>65</field-of-view>
-		</view>
-
-		<marker>
-			<x-m>-4.1175</x-m>
-			<y-m>-0.1851</y-m>
-			<z-m>0.1300</z-m>
-			<scale>3.0000</scale>
-		</marker>
-
-		<message>
-		Push the Rotorbrake lever forward by point and drag with LMB pressed
-		</message>
-		<exit>
-			<condition>
-			<less-than>
-				<property>/controls/rotor/brake</property>
-			<value>0.1</value>
-			</less-than>
-			</condition>
-		</exit>
-	</step>
-	
-	<step>
-		<view>
-			<heading-offset-deg>292.8</heading-offset-deg>
-			<pitch-offset-deg>15.8</pitch-offset-deg>
-			<roll-offset-deg>0.0</roll-offset-deg>
-			<x-offset-m>-0.7</x-offset-m>
-			<y-offset-m>0.0</y-offset-m>
-			<z-offset-m>-3.9</z-offset-m>
-			<field-of-view>37.1</field-of-view>
-		</view>
-
-		<marker>
-			<x-m>-4.0588</x-m>
-			<y-m>-0.2</y-m>
-			<z-m>0.1870</z-m>
-			<scale>3.0000</scale>
-		</marker>
-
-		<message>
-		Push the Cutoff lever forward
-		</message>
-		<exit>
-			<condition>
-			<less-than>
-			<property>/controls/engines/engine/cutoff</property>
-			<value>0.1</value>
-			</less-than>
-			</condition>
-		</exit>
-	</step>
-	
-	<step>
-		<view>
-			<heading-offset-deg>4.5</heading-offset-deg>
-			<pitch-offset-deg>-13.1</pitch-offset-deg>
-			<roll-offset-deg>0.0</roll-offset-deg>
-			<x-offset-m>-0.67</x-offset-m>
-			<y-offset-m>0.03</y-offset-m>
-			<z-offset-m>-3.93</z-offset-m>
-			<field-of-view>40</field-of-view>
-		</view>
-
-		
-
-		<message>
-		The fuel tank sits below the engine- due to gravitity the fuellines are empty.
-                     So you need first electrical power-press F10-key, go to "EC130" and select "Supply External Power":
-		</message>
-		<exit>
-			<condition>
-			
-				<property>/controls/electric/external-power</property>
-			
-			</condition>
-		</exit>
+    <view>
+      <heading-offset-deg>332.00</heading-offset-deg>
+      <pitch-offset-deg>-21.7</pitch-offset-deg>
+      <field-of-view>35.5</field-of-view>
+    </view>
+    <message>
+      -
+      On VEMD you should see the Engine start page, after a testing phase- 3 arcs with Torque, Ng (aka N2) and T4.
+      -
+      Continue with "Engine Starting Tutorial"
+      -
+    </message>
 	</step>
 
-	<step>
-		<message>
-		BAT EPU on and GENE on 
-		</message>
-		<view>
-			<heading-offset-deg>323.3</heading-offset-deg>
-			<pitch-offset-deg>-51.6</pitch-offset-deg>
-			<roll-offset-deg>0.0</roll-offset-deg>
-			<x-offset-m>-0.7</x-offset-m>
-			<y-offset-m>0.0</y-offset-m>
-			<z-offset-m>-3.9</z-offset-m>
-			<field-of-view>35.5</field-of-view>
-		</view>
-		
-		<marker>
-			<x-m>-4.3555</x-m>
-			<y-m>-0.4008</y-m>
-			<z-m>-0.6626</z-m>
-			<scale>4.0000</scale>
-		</marker>
-
-		<exit>
-			<condition>
-			<property>/controls/electric/battery-switch</property>
-			<property>/controls/electric/engine/generator</property>					
-			</condition>
-		</exit>
-	</step>
+  <wait>10</wait>
 
 	<end>
-		<message>On the VEMD after a testing phase you should see the Enginestartpage- 3 halfcircles with Torque, Ng (aka N2) and T4.</message>
-		<view>
-			<heading-offset-deg>332.00</heading-offset-deg>
-			<pitch-offset-deg>-21.7</pitch-offset-deg>
-			<field-of-view>35.5</field-of-view>
-		</view>
-		
 	</end>
 </PropertyList>

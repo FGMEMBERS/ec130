@@ -214,6 +214,7 @@
 
   <animation>
     <type>select</type>
+    <nopreview/>
     <object-name>rotor_disc_T</object-name>
     <condition>
       <greater-than>

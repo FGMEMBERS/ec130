@@ -26,82 +26,83 @@ baboon922@hotmail.com
 -->
 
 <PropertyList>
+
   <fx>
+
+    <avionic>
+      <type>avionics</type>
+      <name>avionic-cooling</name>
+      <mode>looped</mode>
+      <path>Aircraft/ec130/Sounds/avionics-400Hz.wav</path>
+      <position>
+        <x>-1.915</x>
+        <y>-0.358245</y>
+        <z>1.43194</z>
+      </position>
+      <reference-dist>1</reference-dist>
+      <max-dist>2</max-dist>
+      <volume>
+        <property>/systems/electrical/outputs/avionics-switch</property>
+        <max>0.15</max>
+      </volume>
+      <pitch>
+        <property>/systems/electrical/outputs/avionics-switch</property>
+        <factor>0.035</factor>
+        <min>0.001</min>
+        <max>1.0</max>
+        <offset>0.0</offset>
+      </pitch>
+    </avionic>
   
-       <avionic>
-            <type>avionics</type>
-            <name>avionic-cooling</name>
-            <mode>looped</mode>
-            <path>Aircraft/ec130/Sounds/avionics-400Hz.wav</path>
-            <position>
-                <x>-1.915</x>
-                <y>-0.358245</y>
-                <z>1.43194</z>
-            </position>
+    <HSI-gyro>
+      <type>avionics</type>
+      <name>HSIGyro</name>
+      <mode>looped</mode>
+      <path>Sounds/gear.wav</path>
+      <position>
+        <x>-1.915</x>
+        <y>-0.358245</y>
+        <z>1.43194</z>
+      </position>
       <reference-dist>1</reference-dist>
       <max-dist>2</max-dist>
-            <volume>
-              <property>/systems/electrical/outputs/avionics-switch</property>
-              <max>0.15</max>
-            </volume>
-            <pitch>
-                <property>/systems/electrical/outputs/avionics-switch</property>
-                <factor>0.035</factor>
-                <min>0.001</min>
-                <max>1.0</max>
-                <offset>0.0</offset>
-            </pitch>
-        </avionic>  
-  
-        <HSI-gyro>
-            <type>avionics</type>
-            <name>HSIGyro</name>
-            <mode>looped</mode>
-            <path>Sounds/gear.wav</path>
-            <position>
-                <x>-1.915</x>
-                <y>-0.358245</y>
-                <z>1.43194</z>
-            </position>
+      <volume>
+        <property>/instrumentation/kcs55/kg102/spin-norm</property>
+        <max>0.1</max>
+      </volume>
+      <pitch>
+        <property>/instrumentation/kcs55/kg102/spin-norm</property>
+        <factor>0.75</factor>
+        <min>0.001</min>
+        <max>1.0</max>
+        <offset>0.0</offset>
+      </pitch>
+    </HSI-gyro>
+
+    <fuelpump>
+      <type>avionics</type>
+      <name>Fuelpump</name>
+      <mode>looped</mode>
+      <path>Sounds/fuelpump.wav</path>
+      <position>
+        <x>-1.915</x>
+        <y>-0.358245</y>
+        <z>1.43194</z>
+      </position>
       <reference-dist>1</reference-dist>
       <max-dist>2</max-dist>
-            <volume>
-              <property>/instrumentation/kcs55/kg102/spin-norm</property>
-              <max>0.1</max>
-            </volume>
-            <pitch>
-                <property>/instrumentation/kcs55/kg102/spin-norm</property>
-                <factor>0.75</factor>
-                <min>0.001</min>
-                <max>1.0</max>
-                <offset>0.0</offset>
-            </pitch>
-        </HSI-gyro>  
-	
-        <fuelpump>
-            <type>avionics</type>
-            <name>Fuelpump</name>
-            <mode>looped</mode>
-            <path>Sounds/fuelpump.wav</path>
-            <position>
-                <x>-1.915</x>
-                <y>-0.358245</y>
-                <z>1.43194</z>
-            </position>
-      <reference-dist>1</reference-dist>
-      <max-dist>2</max-dist>
-            <volume>
-              <property>/systems/electrical/outputs/boost-pump</property>
-              <max>0.1</max>
-            </volume>
-            <pitch>
-                <property>/systems/electrical/outputs/boost-pump</property>
-                <factor>0.035</factor>
-                <min>0.001</min>
-                <max>1.0</max>
-                <offset>0.0</offset>
-            </pitch>
-        </fuelpump>  
+      <volume>
+        <property>/systems/electrical/outputs/boost-pump</property>
+        <max>0.1</max>
+      </volume>
+      <pitch>
+        <property>/systems/electrical/outputs/boost-pump</property>
+        <factor>0.035</factor>
+        <min>0.001</min>
+        <max>1.0</max>
+        <offset>0.0</offset>
+      </pitch>
+    </fuelpump>
 
     <starter>
       <name>starter0_start</name>
@@ -343,7 +344,6 @@ baboon922@hotmail.com
       <max-dist>200</max-dist>
     </engine>
 
-
     <rotor>
       <name>rotor-outside</name>
       <mode>looped</mode>
@@ -380,6 +380,7 @@ baboon922@hotmail.com
     <rotor>
       <name>rotor-inside</name>
       <mode>looped</mode>
+      <path>Sounds/rotor.wav</path>
       <path>Aircraft/ec130/Sounds/ec_rotor_in.wav</path>
       <condition>
         <and>
@@ -426,6 +427,7 @@ baboon922@hotmail.com
     <rotor>
       <name>rotor-inside-door-open</name>
       <mode>looped</mode>
+      <path>Sounds/rotor.wav</path>
       <path>Aircraft/ec130/Sounds/flight_ec135_out.wav</path>
       <condition>
         <and>
@@ -466,6 +468,7 @@ baboon922@hotmail.com
     <rotor>
       <name>rotor-inside-window-open</name>
       <mode>looped</mode>
+      <path>Sounds/rotor.wav</path>
       <path>Aircraft/ec130/Sounds/flight_ec135_out.wav</path>
       <condition>
         <and>
@@ -581,7 +584,7 @@ baboon922@hotmail.com
     </overspeed>
 
     <warning>
-            <type>avionics</type>
+      <type>avionics</type>
       <name>Cont310</name>
       <mode>looped</mode>
       <path>Aircraft/ec130/Sounds/Cont310.wav</path>
@@ -605,7 +608,7 @@ baboon922@hotmail.com
     </warning>
     
     <warning>
-            <type>avionics</type>
+      <type>avionics</type>
       <name>Intermittent310</name>
       <mode>looped</mode>
       <path>Aircraft/ec130/Sounds/Intermittent310.wav</path>
@@ -629,7 +632,7 @@ baboon922@hotmail.com
     </warning>
     
     <warning>
-            <type>avionics</type>
+      <type>avionics</type>
       <name>Cont285</name>
       <mode>looped</mode>
       <path>Aircraft/ec130/Sounds/Cont285.wav</path>
@@ -652,9 +655,9 @@ baboon922@hotmail.com
       <max-dist>1.0</max-dist>
     </warning>
 
-<!--actually there is no aural warning for overspeed!-->
+    <!--actually there is no aural warning for overspeed!-->
     <warning>
-            <type>avionics</type>
+      <type>avionics</type>
       <name>2600 Hz</name>
       <mode>looped</mode>
       <path>Aircraft/ec130/Sounds/warn2600.wav</path>
@@ -983,7 +986,7 @@ baboon922@hotmail.com
     <door>
       <name>open left frontdoor</name>
       <mode>once</mode>
-      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_open.wav</path>
+      <path>Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
           <property>instrumentation/doors/frontl/position-norm</property>
@@ -1005,7 +1008,7 @@ baboon922@hotmail.com
     <door>
       <name>close left frontdoor</name>
       <mode>once</mode>
-      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_close.wav</path>
+      <path>Sounds/BaBoOn-R44-Door_close.wav</path>
       <condition>
         <equals>
           <property>instrumentation/doors/frontl/position-norm</property>
@@ -1027,7 +1030,7 @@ baboon922@hotmail.com
     <door>
       <name>open right frontdoor</name>
       <mode>once</mode>
-      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_open.wav</path>
+      <path>Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
           <property>instrumentation/doors/frontr/position-norm</property>
@@ -1049,7 +1052,7 @@ baboon922@hotmail.com
     <door>
       <name>close right frontdoor</name>
       <mode>once</mode>
-      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_close.wav</path>
+      <path>Sounds/BaBoOn-R44-Door_close.wav</path>
       <condition>
         <equals>
           <property>instrumentation/doors/frontr/position-norm</property>
@@ -1071,7 +1074,7 @@ baboon922@hotmail.com
     <door>
       <name>open left backdoor</name>
       <mode>once</mode>
-      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_open.wav</path>
+      <path>Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
           <property>instrumentation/doors/passengerl/position-norm</property>
@@ -1148,7 +1151,7 @@ baboon922@hotmail.com
     <door>
       <name>close left backdoor</name>
       <mode>once</mode>
-      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_close.wav</path>
+      <path>Sounds/BaBoOn-R44-Door_close.wav</path>
       <condition>
         <equals>
           <property>instrumentation/doors/passengerl/position-norm</property>
@@ -1170,7 +1173,7 @@ baboon922@hotmail.com
     <door>
       <name>open right backdoor</name>
       <mode>once</mode>
-      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_open.wav</path>
+      <path>Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
           <property>instrumentation/doors/passengerr/position-norm</property>
@@ -1192,7 +1195,7 @@ baboon922@hotmail.com
     <door>
       <name>close right backdoor</name>
       <mode>once</mode>
-      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_close.wav</path>
+      <path>Sounds/BaBoOn-R44-Door_close.wav</path>
       <condition>
         <equals>
           <property>instrumentation/doors/passengerr/position-norm</property>
@@ -1214,7 +1217,7 @@ baboon922@hotmail.com
     <door>
       <name>open left luggagedoor</name>
       <mode>once</mode>
-      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_open.wav</path>
+      <path>Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
           <property>instrumentation/doors/luggagel/position-norm</property>
@@ -1258,7 +1261,7 @@ baboon922@hotmail.com
     <door>
       <name>open right luggagedoor</name>
       <mode>once</mode>
-      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_open.wav</path>
+      <path>Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
           <property>instrumentation/doors/luggager/position-norm</property>
@@ -1302,10 +1305,10 @@ baboon922@hotmail.com
     <door>
       <name>open back luggagedoor</name>
       <mode>once</mode>
-      <path>Aircraft/ec130/Sounds/BaBoOn-R44-Door_open.wav</path>
+      <path>Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
-          <property>instrumentation/doors/door/position-norm</property>
+          <property>instrumentation/doors/doorb/position-norm</property>
           <value>0</value>
         </greater-than>
       </condition>
@@ -1327,7 +1330,7 @@ baboon922@hotmail.com
       <path>Sounds/door_close.wav</path>
       <condition>
         <equals>
-          <property>instrumentation/doors/door/position-norm</property>
+          <property>instrumentation/doors/doorb/position-norm</property>
           <value>0</value>
         </equals>
       </condition>
@@ -1434,6 +1437,46 @@ baboon922@hotmail.com
       <reference-dist>15</reference-dist>
       <max-dist>50</max-dist>
     </door>
+
+    <click>
+      <name>switch on</name>
+      <mode>once</mode>
+      <path>Sounds/click.wav</path>
+      <max-dist>2</max-dist>
+      <reference-dist>1</reference-dist>
+      <condition>
+        <property>sim/model/sound/click</property>
+      </condition>
+      <volume>
+        <property>sim/model/sound/volume</property>
+      </volume>
+      <position>
+        <x-m>0.014</x-m>
+        <y-m>0.053</y-m>
+        <z-m>0.002</z-m>
+      </position>
+    </click>
+
+    <click>
+      <name>switch off</name>
+      <mode>once</mode>
+      <path>Sounds/click.wav</path>
+      <max-dist>2</max-dist>
+      <reference-dist>1</reference-dist>
+      <condition>
+        <not>
+          <property>sim/model/sound/click</property>
+        </not>
+      </condition>
+      <volume>
+        <property>sim/model/sound/volume</property>
+      </volume>
+      <position>
+        <x-m>0.014</x-m>
+        <y-m>0.053</y-m>
+        <z-m>0.002</z-m>
+      </position>
+    </click>
 
   </fx>
 

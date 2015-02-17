@@ -122,6 +122,10 @@
         <property type="string">/controls/lighting/beacon</property>
       </signal>
       <signal>
+        <type>bool</type>
+        <property type="string">/controls/lighting/strobe</property>
+      </signal>
+      <signal>
         <type>string</type>
         <property type="string">/engines/engine/tot-degc</property>
       </signal>

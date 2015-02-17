@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 
 <PropertyList>
@@ -39,3 +40,46 @@
 
 </PropertyList>
 
+=======
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<PropertyList>
+
+  <path>blade.ac</path>
+
+  <animation>
+    <object-name>blade</object-name>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>blade</object-name>
+    <condition>
+      <less-than>
+        <property>rotors/tail/rpm</property>
+	      <value>300</value>
+      </less-than>
+    </condition>
+  </animation>
+
+  <!-- blade effect -->
+  <animation>
+    <type>rotate</type>
+    <object-name>blade</object-name>
+    <property>rotors/tail/blade/incidence-deg</property>
+    <factor>-1</factor>
+    <center>
+       <x-m> 0.000 </x-m>
+       <y-m> 0.000 </y-m>
+       <z-m> 0.000 </z-m>
+    </center>
+    <axis>
+      <x> 1.000 </x>
+      <y> 0.000 </y>
+      <z> 0.000 </z>
+    </axis>
+  </animation>
+
+</PropertyList>
+
+>>>>>>> 799b3fa... EC 130 B4 - Updates by mhab: Enhancements of Instruments and controls like AI, ALT, Lighting, Rotor Brake lever and Cutoff Lever; Enhancements of Model / Equipment with new searchlights, luggage boxes, antennas; new liveries; updates of user interfaces with various dialogs; various bugfixes and more new features. 
