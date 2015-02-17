@@ -1,0 +1,52 @@
+   Helicopter EC130-B4
+   -------------------
+
+   Registration: N11QC
+   C/N: 3358 (2001)
+   Operator: Blue Hawaiian Helicopters
+   Locations: Big Island: Hilo (PHTO), Waikoloa (HI07)
+              Maui:  Kahului (PHOG)
+              Kauai: Lihue (PHLI)
+              Oahu:  Honolulu Intl. (PHNL)
+              Hawaii, USA
+
+   N11QC was the first EC130-B4 in service at Blue Hawaiian Helicopters.
+
+   Blue Hawaiian is one of the world's largest aerial tour operators and is the premier
+   helicopter tour company in the State of Hawaii, offering a diverse portfolio of twelve
+   scheduled tours on five of Hawaii's six tourist islands.  Blue Hawaiian operates a fleet
+   of 24 Eurocopter helicopters of which about 10-14 are EC130.
+   (Source: http://www.airmethods.com, http://www.bluehawaiian.com)
+
+   Company History:
+   Blue Hawaiian was founded in 1985 by David and Patti Chevalier with one used Bell 206.
+   Today, it is the largest helicopter tour operator in Hawai and flies from five bases
+   on the Big Island (Hilo, Waikoloa), Maui (Kahului), Kauai (Lihue), and Oahu (Honolulu).
+
+   David Chevalier worked with Eurocopter to develop the EC130 EcoStar, which is increasingly
+   becoming the mainstay for helicopter tour operators flying in environmentally sensitive areas.
+   Blue Hawaiian was the launch customer for the EC130 in 2001 and is currently transitioning
+   to an updated version, the EC130T2. The company has ordered 10 and taken options on 10 more.
+   (Source: http://www.ainonline.com/aviation-news/)
+
+   Accidents:
+   On a somber note, five people aboard a Blue Hawaiian Helicopter were killed when the craft
+   crashed into a mountain ridge in Puko'o on the east end of Molokai on Nov. 10, 2011.
+   According to a preliminary report filed by the National Transportation Safety Board,
+   "several witnesses reported that the accident occurred between rain squalls and one reported
+   that it occurred during a heavy rain squall." A final report has yet to be filed by the agency.
+   (Source: http://mauinow.com/2013/12/16/)
+
+   WEB-Links:
+   Homepage: http://www.bluehawaiian.com/
+   Facebook: https://www.facebook.com/BlueHawaiianHelicopters
+   Twitter: https://twitter.com/BluHawaiianHeli
+
+
+   Personal Notes of the Livery Editor (mhab):
+   ------------------------------------------
+   The livery was not very hard to do. The reason to do it was because it is frequently used
+   in sightseeing trips and Hawaii is a recommended scenery in FlightGear.
+
+
+   last update: 2014-03-02

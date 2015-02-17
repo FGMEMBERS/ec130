@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!-- Eurocopter EC 130 Helicopter by Heiko Schulz, Michael Habarta
+
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
+           (C) 2014 Michael Habarta, mhabarta@freenet.de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+
+<PropertyList>
+  <name>Model_Info</name>
+
+  <layout>vbox</layout>
+	<resizable>false</resizable>
+  <modal>false</modal>
+  <draggable>true</draggable>
+	<default-padding>3</default-padding>
+
+  <nasal>
+    <open>
+      <!-- flag for open dialog -->
+      setprop("/sim/model/ec130/info_dialog_active",1);
+
+      var path = getprop("/sim/aircraft-dir") ~ "/Models/Liveries/";
+      var info_filename = path ~ getprop("sim/model/livery/file") ~ ".txt";
+      setprop("/sim/model/ec130/model-info", io.readfile(info_filename));
+
+    </open>
+    <close># just kept for educational purposes :-)</close>
+  </nasal>
+
+
+  <!-- Title with Esc knob for closing -->
+	<group>
+
+    <layout>hbox</layout>
+	  <empty><stretch>1</stretch></empty>
+
+		<text>
+			<label>EC130 Operator/Model Info    (Alt-i)</label>
+		</text>
+
+		<empty><stretch>true</stretch></empty>
+
+		<button>
+			<legend></legend>
+			<key>Esc</key>
+			<pref-width>16</pref-width>
+			<pref-height>16</pref-height>
+			<binding>
+        <command>nasal</command>
+        <script>
+          if ( getprop("/sim/model/ec130/config_dialog_active") ) {
+            ec130.config_dialog.toggle();
+          }
+          ec130.model_info_dialog.toggle();
+          setprop("/sim/model/ec130/info_dialog_active",0);
+        </script>
+			</binding>
+		</button>
+	</group>
+
+	<hrule/>
+
+  <group>
+
+    <layout>table</layout>
+    <default-padding>5</default-padding>
+    <halign>center</halign>
+
+      <!-- only to get a gap between left border and checkbox -->
+      <text>
+        <row>0</row>
+        <col>0</col>
+        <label></label>
+        <halign>left</halign>
+      </text>
+
+      <textbox>
+        <row>0</row>
+        <col>1</col>
+        <!-- dimensions -->
+        <stretch>true</stretch>
+        <pref-width>900</pref-width>
+        <pref-height>550</pref-height>
+        <halign>fill</halign>
+        <valign>fill</valign>
+        <property>/sim/model/ec130/model-info</property>
+        <slider>20</slider>
+        <wrap>false</wrap>
+        <top-line>0</top-line>
+        <editable>false</editable>
+      </textbox>
+
+  </group>
+
+	<hrule/>
+
+  <group>
+
+    <layout>hbox</layout>
+		<default-padding>3</default-padding>
+
+    <button>
+      <legend>Close</legend>
+      <equal>true</equal>
+      <key>Esc</key>
+      <default>true</default>
+      <binding>
+        <command>nasal</command>
+        <script>
+          if ( getprop("/sim/model/ec130/config_dialog_active") ) {
+            ec130.config_dialog.toggle();
+          }
+          ec130.model_info_dialog.toggle();
+          setprop("/sim/model/ec130/info_dialog_active",0);
+        </script>
+      </binding>
+    </button>
+
+  </group>
+
+</PropertyList>
