@@ -1,17 +1,16 @@
-####  electrical system taken from the S76C, modified for Ec130 after POH  #### 
+####  electrical system taken from the S76C, modified for EC130 after POH  ####
 ####    Syd Adams    ####
 
 var epu = func{
-var EP  = props.globals.getNode("/controls/electric/external-power").getValue() or 0;
-if (EP >0){
-setprop("/systems/electrical/external_volts", 29);
-}else{
-setprop("/systems/electrical/external_volts", 0);
-}
-settimer(epu, 0.1);
+  var EP  = props.globals.getNode("/controls/electric/external-power").getValue() or 0;
+  if (EP > 0){
+    setprop("/systems/electrical/external_volts", 29);
+  }else{
+    setprop("/systems/electrical/external_volts", 0);
+  }
+  settimer(epu, 0.1);
 }
 epu();
-
 
 
 var ammeter_ave = 0.0;
@@ -26,7 +25,7 @@ var watt_list=[];
 
 
 strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
-aircraft.light.new("controls/lighting/strobe-state", [0.05, 1.30], strobe_switch);
+aircraft.light.new("controls/lighting/strobe-state", [0.05, 0.2, 0.05, 1.30], strobe_switch);
 beacon_switch = props.globals.getNode("controls/lighting/beacon", 1);
 aircraft.light.new("controls/lighting/beacon-state", [0.5, 1.0], beacon_switch);
 
@@ -34,7 +33,7 @@ aircraft.light.new("controls/lighting/beacon-state", [0.5, 1.0], beacon_switch);
 #var battery = Battery.new(switch-prop,volts,amps,amp_hours,charge_percent,charge_amps);
 Battery = {
     new : func(swtch,vlt,amp,hr,chp,cha){
-    m = { parents : [Battery] };
+      m = { parents : [Battery] };
             m.switch = props.globals.getNode(swtch,1);
             m.switch.setBoolValue(0);
             m.ideal_volts = vlt;
@@ -140,6 +139,7 @@ var battery = Battery.new("/controls/electric/battery-switch",28,30,15,1.0,7.0);
 var alternator1 = Alternator.new(0,"controls/electric/engine[0]/generator","/engines/engine[0]/rpm",160.0,28.0,60.0);
 
 #####################################
+
 setlistener("/sim/signals/fdm-initialized", func {
     BattVolts.setDoubleValue(0);
     init_switches();
@@ -171,14 +171,18 @@ init_switches = func() {
     append(switch_list,"controls/lighting/instrument-lights");
     append(output_list,"instrument-lights");
     append(watt_list,10);
-    
-       
+
     append(switch_list,"controls/lighting/dome-light");
     append(output_list,"dome-light");
     append(watt_list,10);
 
     append(switch_list,"controls/lighting/beacon-state/state");
     append(output_list,"beacon");
+    append(watt_list,0.5);
+
+    # mhab 20140501 strobe added
+    append(switch_list,"controls/lighting/strobe-state/state");
+    append(output_list,"strobe");
     append(watt_list,0.5);
 
     append(switch_list,"controls/lighting/nav-lights");
@@ -196,36 +200,35 @@ init_switches = func() {
     append(switch_list,"controls/electric/firetest");
     append(output_list,"firetest");
     append(watt_list,0.5);
-    
+
     append(switch_list,"controls/electric/CWS");
     append(output_list,"CWS");
     append(watt_list,0.5);
-    
-    append(switch_list,"controls/electric/servo");
+
+    append(switch_list,"controls/electric/servotest");
     append(output_list,"servo");
     append(watt_list,0.5);
-    
+
     append(switch_list,"controls/electric/horn");
     append(output_list,"horn");
     append(watt_list,0.5);
-     
-     
+
     append(switch_list,"controls/electric/attitude");
     append(output_list,"attitude");
     append(watt_list,0.5);
-    
+
     append(switch_list,"controls/electric/avionics-switch");
     append(output_list,"avionics-switch");
     append(watt_list,10);
-    
+
     append(switch_list,"controls/electric/avionics-switch");
     append(output_list,"adf");
     append(watt_list,0.2);
-    
+
     append(switch_list,"controls/electric/gyrocompass");
     append(output_list,"gyrocompass");
     append(watt_list,0.5);
-    
+
     append(switch_list,"controls/electric/turn-coordinator");
     append(output_list,"turn-coordinator");
     append(watt_list,0.5);
@@ -269,37 +272,38 @@ init_switches = func() {
     append(switch_list,"controls/electric/avionics-switch");
     append(output_list,"nav[1]");
     append(watt_list,10);
-    
+
     append(switch_list,"controls/electric/direct-battery");
     append(output_list,"transponder");
     append(watt_list,10);
-    
+
     append(switch_list,"controls/electric/direct-battery");
     append(output_list,"NRgauge");
     append(watt_list,10);
-    
+
     append(switch_list,"controls/electric/direct-battery");
     append(output_list,"instrument-lights2");
     append(watt_list,10);
-    
+
     #append(switch_list,"controls/electric/direct-battery");
     #append(output_list,"dome-light");
     #append(watt_list,10);
-    
+
     append(switch_list,"controls/electric/direct-battery");
     append(output_list,"emerg-float");
     append(watt_list,16);
-
-    
-  
 
     for(var i=0; i<size(switch_list); i+=1) {
         var tmp = props.globals.getNode(switch_list[i],1);
         tmp.setBoolValue(0);
     }
-setprop("controls/electric/master-switch",1);
+
+    setprop("controls/electric/master-switch",1);
+
 }
+
 ##################################
+
 update_virtual_bus = func( dt ) {
     var PWR = getprop("systems/electrical/serviceable");
     var battery_volts = battery.get_output_volts();
@@ -310,8 +314,7 @@ update_virtual_bus = func( dt ) {
     
     var batepu_sw = props.globals.getNode("/controls/electric/battery-switch").getValue() or 0; 
     var EP  = props.globals.getNode("/controls/electric/external-power").getValue() or 0;
- 
- 
+
     load = 0.0;
     bus_volts = 0.0;
     power_source = nil;
@@ -319,26 +322,19 @@ update_virtual_bus = func( dt ) {
         bus_volts = battery_volts;
         power_source = "battery";
 
-
     if (alternator1_volts > bus_volts + 0.5) {
         bus_volts = alternator1_volts;
         power_source = "alternator1";
-        }
-
+    }
 
     if (( external_volts > bus_volts) and (batepu_sw >0)){
         bus_volts = external_volts;
-	}
-    if (EP >0){
-    BattVolts.setValue(0);
+    }
+
+    if (EP >0) {
+      BattVolts.setValue(0);
     }
     
-    
- 
-  
-    	
-	
-	
     bus_volts *=PWR;
 
     load += electrical_bus(bus_volts);
@@ -347,23 +343,24 @@ update_virtual_bus = func( dt ) {
 
     if ( power_source == "battery" ) {
         ammeter = -load;
-        } else {
+    } else {
         ammeter = battery.charge_amps;
     }
 
     if ( power_source == "battery" ) {
         battery.apply_load( load, dt );
-        } elsif ( bus_volts > battery_volts ) {
+    } elsif ( bus_volts > battery_volts ) {
         battery.apply_load( -battery.charge_amps, dt );
-        }
+    }
 
     ammeter_ave = 0.8 * ammeter_ave + 0.2 * ammeter;
 
-   Amps.setValue(ammeter_ave);
-   Volts.setValue(bus_volts);
+    Amps.setValue(ammeter_ave);
+    Volts.setValue(bus_volts);
     alternator1.apply_load(load);
 
-return load;
+    return load;
+
 }
 
 ################################
@@ -372,7 +369,6 @@ electrical_bus = func(bv) {
     var bus_volts = bv;
     var load = 0.0;
     var srvc = 0.0;
-
 
     for(var i=0; i<size(switch_list); i+=1) {
         var srvc = getprop(switch_list[i]);
@@ -387,17 +383,11 @@ electrical_bus = func(bv) {
     setprop(outPut~"instrument-lights",DIMMER);
     setprop(outPut~"instrument-lights-norm",DIMMER * 0.0357);
     
-
     return load;
 }
-
 
 update_electrical = func {
     var scnd = getprop("sim/time/delta-sec");
     update_virtual_bus( scnd );
-settimer(update_electrical, 0);
+    settimer(update_electrical, 0);
 }
-
-
-
-

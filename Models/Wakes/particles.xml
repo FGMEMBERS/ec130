@@ -54,6 +54,10 @@
         <property>/sim/time/sun-angle-rad</property>
         <value>1.57</value>
       </less-than>
+      <!-- only over water -->
+      <not>
+        <property>gear/gear/ground-is-solid</property>
+      </not>
     </condition>
 
     <shooter>

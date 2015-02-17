@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 
 <PropertyList>
-  <!--  Central warning System -->
+  <!--  Central Warning System -->
   <path>panel.ac</path>
 
+  <!-- Cautions -->
   <animation>
     <type>select</type>
     <object-name>fuel</object-name>
@@ -108,7 +109,6 @@
     </condition>
   </animation>
     
-
   <animation>
     <type>select</type>
     <object-name>door</object-name>
@@ -116,7 +116,7 @@
       <property>instrumentation/annunciators/warning/door</property>
     </condition>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>gov</object-name>
@@ -124,7 +124,7 @@
       <property>instrumentation/annunciators/warning/gov</property>
     </condition>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>engchip</object-name>
@@ -132,7 +132,7 @@
       <property>instrumentation/annunciators/warning/engchip</property>
     </condition>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>mgbchip</object-name>
@@ -140,7 +140,7 @@
       <property>instrumentation/annunciators/warning/mgbchip</property>
     </condition>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>tgbchip</object-name>
@@ -149,6 +149,7 @@
     </condition>
   </animation>
 
+  <!-- Warnings -->
   <animation>
     <type>select</type>
     <object-name>engp</object-name>
@@ -156,7 +157,7 @@
       <property>instrumentation/annunciators/cautions/engp</property>
     </condition>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>mgbp</object-name>
@@ -164,7 +165,7 @@
       <property>instrumentation/annunciators/cautions/mgbp</property>
     </condition>
   </animation>
-    
+
   <animation>
     <type>select</type>
     <object-name>gov.001</object-name>

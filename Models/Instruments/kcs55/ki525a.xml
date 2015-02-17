@@ -25,7 +25,6 @@
   <params>
     <has-gs>instrumentation/nav[0]/has-gs</has-gs>
     <gs-in-range>instrumentation/nav[0]/gs-in-range</gs-in-range>
-
     <gs-needle-deflection>instrumentation/kcs55/ki525/gs-deflection</gs-needle-deflection>
     <cdi-needle-deflection>instrumentation/kcs55/ki525/cdi-deflection</cdi-needle-deflection>
     <selected-heading>instrumentation/kcs55/ki525/selected-heading-deg</selected-heading>
@@ -33,7 +32,6 @@
     <to-flag>instrumentation/kcs55/ki525/to-flag</to-flag>
     <from-flag>instrumentation/kcs55/ki525/from-flag</from-flag>
     <nav-flag>instrumentation/kcs55/ki525/nav-flag</nav-flag>
-
     <indicated-heading>instrumentation/kcs55/kg102/indicated-heading-deg</indicated-heading>
     <hdg-flag>instrumentation/kcs55/kg102/flag-norm</hdg-flag>
   </params>
@@ -46,13 +44,13 @@
 
   <animation>
     <type>material</type>
-      <object-name>Chassis</object-name>
+    <object-name>Chassis</object-name>
     <object-name>Screw</object-name>
-        <emission>
+    <emission>
       <red>   0.8 </red>
       <green> 0.8 </green>
       <blue>  1.0 </blue>
-  <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
     </emission>
   </animation>
 
@@ -75,14 +73,13 @@
     <object-name>LubberLine</object-name>
     <object-name>OBSSelector</object-name>
     <object-name>HDGSelector</object-name>
-       <emission>
+    <emission>
       <red>   0.8 </red>
       <green> 0.8 </green>
       <blue>  1.0 </blue>
       <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
     </emission>
   </animation>
-
 
   <animation>
     <type>rotate</type>
@@ -275,6 +272,13 @@
         <wrap>1</wrap>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>HDGL</tooltip-id>
+        <label>Heading -</label>
+      </binding>
+    </hovered>
   </animation>
 
   <animation>
@@ -305,6 +309,13 @@
         <wrap>1</wrap>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>HDGR</tooltip-id>
+        <label>Heading +</label>
+      </binding>
+    </hovered>
   </animation>
 
   <animation>
@@ -365,6 +376,13 @@
         <wrap>1</wrap>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>OBSL</tooltip-id>
+        <label>Bearing -</label>
+      </binding>
+    </hovered>
   </animation>
 
   <animation>
@@ -395,6 +413,13 @@
         <wrap>1</wrap>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>OBSR</tooltip-id>
+        <label>Bearing +</label>
+      </binding>
+    </hovered>
   </animation>
 
   <animation>
