@@ -55,7 +55,6 @@ var checkFlaps = func(n) {
   }
 }
 
-
 var checkGear = func(n) {
   if (!n.getValue())
     return;
@@ -160,7 +159,6 @@ var checkG_VNE_MTOW_RPM = func {
     }else{
 	Cont310.setValue(0);
 	}
-  
   
   #Check take-off limits
     var trq =getprop("/sim/model/ec130/torque-pct");

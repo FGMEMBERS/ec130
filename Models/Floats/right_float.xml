@@ -34,6 +34,19 @@
         <script>ec130.toggle_floats();</script>
       </binding>
     </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>right_float</tooltip-id>
+        <label>%s</label>
+        <property>/controls/gear/floats-inflat</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['inflate', 'repack'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
  </animation>
 
 </PropertyList>

@@ -6,7 +6,7 @@
  http://www.flightgear.org/
 
  Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
-           (C) 2013 Michael Habarta, mhabarta@freenet.de
+           (C) 2014 Michael Habarta, mhabarta@freenet.de
 
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License as
@@ -25,12 +25,16 @@
 
   <layout>vbox</layout>
 	<resizable>false</resizable>
-  <modal>true</modal>
+  <modal>false</modal>
   <draggable>true</draggable>
 	<default-padding>3</default-padding>
 
   <nasal>
     <open>
+
+       var filename = getprop("/sim/aircraft-dir") ~ "/Dialogs/ec130-help-text-config.txt";
+       setprop("/sim/model/ec130/help-text-config", io.readfile(filename));
+
     </open>
     <close># just kept for educational purposes :-)</close>
   </nasal>
@@ -50,12 +54,15 @@
 
 		<button>
 			<legend></legend>
-			<key>Esc</key>
+      <keynum>27</keynum>
 			<pref-width>16</pref-width>
 			<pref-height>16</pref-height>
 			<binding>
         <command>nasal</command>
-        <script>ec130.help_config_dialog.toggle()</script>
+        <script>
+          ec130.help_config_dialog.toggle();
+          ec130.config_dialog.toggle();
+        </script>
 			</binding>
 		</button>
 	</group>
@@ -85,7 +92,7 @@
         <pref-height>550</pref-height>
         <halign>fill</halign>
         <valign>fill</valign>
-        <property>/sim/help-text-config/contents</property>
+        <property>/sim/model/ec130/help-text-config</property>
         <slider>20</slider>
         <wrap>false</wrap>
         <top-line>0</top-line>
@@ -101,13 +108,16 @@
 		<default-padding>3</default-padding>
 
     <button>
-      <legend>Close</legend>
+      <legend>Back</legend>
       <equal>true</equal>
-      <key>Esc</key>
+      <keynum>27</keynum>
       <default>true</default>
       <binding>
         <command>nasal</command>
-        <script>ec130.help_config_dialog.toggle()</script>
+        <script>
+          ec130.help_config_dialog.toggle();
+          ec130.config_dialog.toggle();
+        </script>
       </binding>
     </button>
 

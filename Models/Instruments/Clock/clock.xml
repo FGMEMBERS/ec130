@@ -2,57 +2,92 @@
 
 <PropertyList>
 
- <path>clock.ac</path>
+  <path>clock.ac</path>
 
-<animation>
+  <animation>
     <type>material</type>
     <object-name>Face</object-name>
     <object-name>SecondHand</object-name>
     <object-name>MinuteHand</object-name>
     <object-name>HourHand</object-name>
-       <emission>
+    <emission>
       <red>   0.8 </red>
       <green> 0.8 </green>
       <blue>  1.0 </blue>
-    <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
     </emission>
   </animation>
 
- <animation>
-  <type>rotate</type>
-  <object-name>SecondHand</object-name>
-  <property>/sim/time/utc/day-seconds</property>
-  <factor>6</factor>
-  <axis>
-   <x>-1</x>
-   <y>0</y>
-   <z>0</z>
-  </axis>
- </animation>
+  <animation>
+    <type>rotate</type>
+    <object-name>SecondHand</object-name>
+    <expression>
+      <prod>
+        <sum>
+          <property>/sim/time/real/second</property>
+          <property>/sim/time/warp</property>
+        </sum>
+        <value>6</value>
+      </prod>
+    </expression>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
 
- <animation>
-  <type>rotate</type>
-  <object-name>MinuteHand</object-name>
-  <property>/sim/time/utc/day-seconds</property>
-  <factor>0.1</factor>
-  <axis>
-   <x>-1</x>
-   <y>0</y>
-   <z>0</z>
-  </axis>
- </animation>
+  <animation>
+    <type>rotate</type>
+    <object-name>MinuteHand</object-name>
+    <expression>
+      <prod>
+        <sum>
+          <property>/sim/time/real/minute</property>
+          <div>
+            <property>/sim/time/real/second</property>
+            <value>60</value>
+          </div>
+          <div>
+            <property>/sim/time/warp</property>
+            <value>60</value>
+          </div>
+        </sum>
+        <value>6</value>
+      </prod>
+    </expression>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
 
- <animation>
-  <type>rotate</type>
-  <object-name>HourHand</object-name>
-  <property>/sim/time/utc/day-seconds</property>
-  <factor>0.008333</factor>
-  <axis>
-   <x>-1</x>
-   <y>0</y>
-   <z>0</z>
-  </axis>
- </animation>
+  <animation>
+    <type>rotate</type>
+    <object-name>HourHand</object-name>
+    <expression>
+      <prod>
+        <sum>
+          <property>/sim/time/real/hour</property>
+          <div>
+            <property>/sim/time/real/minute</property>
+            <value>60</value>
+          </div>
+          <div>
+            <property>/sim/time/warp</property>
+            <value>3600</value>
+          </div>
+        </sum>
+        <value>30</value>
+      </prod>
+    </expression>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
 
 </PropertyList>
 

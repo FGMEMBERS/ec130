@@ -34,14 +34,23 @@ EC 130 simulation config.
       <model type="int">5</model>
     </rating>
     <license>GPL v2</license>
-    <version>20140114</version>
+    <version>20150214</version>
+
+    <tags>
+      <tag>helicopter</tag>
+      <tag>airbus</tag>
+      <tag>rembrandt</tag>
+    </tags>
 
     <flight-model>yasim</flight-model>
-    <aero>ec130b4</aero>
+    <aero>Models/ec130b4_fdm</aero>
     <fuel-fraction type="double">0.6</fuel-fraction>
 
     <startup>
-      <splash-texture>Aircraft/ec130/splash_EC130_B4.jpg</splash-texture>
+<!--
+      <splash-title>Airbus Helicopter EC130-B4 (Ecostar)</splash-title>
+-->
+      <splash-texture>Aircraft/ec130/Splashs/splash_EC130_B4.jpg</splash-texture>
     </startup>
 
     <sound>
@@ -62,20 +71,30 @@ EC 130 simulation config.
         <file type="string">FlightGear</file>
       </livery>
       <ec130>
-      <torque-pct>0</torque-pct>
+        <torque-pct>0</torque-pct>
+        <model-info>EC130-B4</model-info>
         <!-- global options for all models/liveries -->
         <state type="int">0</state>
         <rotor-step-deg type="float">-1.0</rotor-step-deg>
-        <searchlight-state-default type="float">3.0</searchlight-state-default>
-        <searchlight-heading-default type="float">0.0</searchlight-heading-default>
-        <searchlight-elevation-default type="float">2.0</searchlight-elevation-default>
 
-        <!-- 0: clear, 1: visible, 2: shaded -->
+        <!-- screen visibility 0: clear, 1: visible, 2: shaded -->
         <cockpit-windscreen-option type="float">1</cockpit-windscreen-option>
         <shadow type="bool">true</shadow>
 
         <!-- model/livery specific options -->
-        <antenna_right type="bool">true</antenna_right>
+        <!-- 0: only right, 1: only left, 2: left and right -->
+        <antenna_left type="int">0</antenna_left>
+        <antenna_tail_front type="bool">false</antenna_tail_front>
+        <vor_2_roof type="bool">false</vor_2_roof>
+        <adf_bottom type="bool">false</adf_bottom>
+        <adf_roof type="bool">false</adf_roof>
+        <VUHF type="bool">false</VUHF>
+        <VUHF_front type="bool">false</VUHF_front>
+        <antenna_flat_tail type="bool">false</antenna_flat_tail>
+        <!-- 0: off, 1: front, 2: rear -->
+        <antenna_square_tail type="int">0</antenna_square_tail>
+        <DME type="bool">false</DME>
+        <DME_small type="bool">false</DME_small>
         <copilot_controls type="bool">true</copilot_controls>
 
         <!-- 4: rescue configuration, 5/6: number of seats  -->
@@ -88,13 +107,54 @@ EC 130 simulation config.
         <emerg_floats type="bool">false</emerg_floats>
         <basket_left type="bool">false</basket_left>
         <basket_right type="bool">false</basket_right>
+        <searchlight_a800 type="bool">false</searchlight_a800>
         <searchlight type="bool">false</searchlight>
         <searchlight_filter type="bool">false</searchlight_filter>
         <snowshoes type="bool">false</snowshoes>
-        <DME type="bool">false</DME>
         <hoist type="bool">false</hoist>
+        <gear_strobe type="bool">false</gear_strobe>
+        <gear_light type="bool">false</gear_light>
+        <luggage_wide type="bool">false</luggage_wide>
       </ec130>
+
+      <!-- searchlight default settings -->
+      <searchlight>
+        <!-- range of lightcone 1: small, 2: medium, 3: large, 4: xlarge -->
+        <state-default type="float">3.0</state-default>
+        <!-- color 1: white, 2: amber, 3: red, 4: IR filter -->
+        <filter-state-default type="int">1</filter-state-default>
+        <!-- intensity of light-cone 0: off, 1: low, 2: medium, 3: high -->
+        <cone-visibility-default type="float">1.0</cone-visibility-default>
+        <!-- slew rate fraction: 1: fast, 2: medium, 3:slow -->
+        <slew-rate-frac-default type="int">1</slew-rate-frac-default>
+
+        <!-- initial orientation relative to model -->
+        <sx16>
+          <!-- heading + left, - right -->
+          <heading-default-deg type="float">0.0</heading-default-deg>
+          <heading-min-deg type="float">-90.0</heading-min-deg>
+          <heading-max-deg type="float">30.0</heading-max-deg>
+          <!-- elevation + up, - down -->
+          <elevation-default-deg type="float">2.0</elevation-default-deg>
+          <elevation-min-deg type="float">-50.0</elevation-min-deg>
+          <elevation-max-deg type="float">3.0</elevation-max-deg>
+          <slew-rate-deg>18.0</slew-rate-deg>
+        </sx16>
+        <a800>
+          <!-- heading + left, - right -->
+          <heading-default-deg type="float">0.0</heading-default-deg>
+          <heading-min-deg type="float">120.0</heading-min-deg>
+          <heading-max-deg type="float">360.0</heading-max-deg>
+          <!-- elevation + up, - down -->
+          <elevation-default-deg type="float">0.0</elevation-default-deg>
+          <elevation-min-deg type="float">-90.0</elevation-min-deg>
+          <elevation-max-deg type="float">35.0</elevation-max-deg>
+          <slew-rate-deg>60.0</slew-rate-deg>
+        </a800>
+      </searchlight>
+
     </model>
+
     <rendering>
       <refl_correction type="float">-0.1</refl_correction>
     </rendering>
@@ -102,7 +162,7 @@ EC 130 simulation config.
     <systems>
       <path>Aircraft/ec130/Systems/systems.xml</path>
       <autopilot>
-        <path>Aircraft/ec130/filter.xml</path>
+        <path>Aircraft/ec130/Models/Instruments/filter.xml</path>
       </autopilot>
       <electrical>
         <path></path>
@@ -113,7 +173,8 @@ EC 130 simulation config.
     </instrumentation>
 
     <!--view-->
-    <chase-distance-m type="double" archive="y">-20.0</chase-distance-m>
+    <chase-distance-m type="double" archive="y">-15.0</chase-distance-m>
+		<view-autozoom-percent-default type="double" userarchive="y">25</view-autozoom-percent-default>
 
     <view n="0">
       <internal type="bool">true</internal>
@@ -122,7 +183,7 @@ EC 130 simulation config.
         <y-offset-m archive="y">  0.03 </y-offset-m> <!--up   -->
         <z-offset-m archive="y"> -3.93 </z-offset-m> <!--back -->
         <pitch-offset-deg>-15</pitch-offset-deg>
-        <default-field-of-view-deg>85</default-field-of-view-deg>
+        <default-field-of-view-deg type="double">85</default-field-of-view-deg>
         <dynamic-view type="bool">true</dynamic-view>
       </config>
     </view>
@@ -139,8 +200,8 @@ EC 130 simulation config.
         <y-offset-m archive="y">  0.03 </y-offset-m> <!--up   -->
         <z-offset-m archive="y"> -3.93 </z-offset-m> <!--back -->
         <pitch-offset-deg>-15</pitch-offset-deg>
-         <heading-offset-deg>0</heading-offset-deg>
-        <default-field-of-view-deg>75</default-field-of-view-deg>
+        <heading-offset-deg>0</heading-offset-deg>
+        <default-field-of-view-deg type="double">75</default-field-of-view-deg>
         <dynamic-view type="bool">true</dynamic-view>
       </config>
       <enabled type="bool">true</enabled>
@@ -158,8 +219,8 @@ EC 130 simulation config.
         <y-offset-m archive="y">  0.03 </y-offset-m> <!--up   -->
         <z-offset-m archive="y"> -3.93 </z-offset-m> <!--back -->
         <pitch-offset-deg>-15</pitch-offset-deg>
-         <heading-offset-deg>0</heading-offset-deg>
-        <default-field-of-view-deg>75</default-field-of-view-deg>
+        <heading-offset-deg>0</heading-offset-deg>
+        <default-field-of-view-deg type="double">75</default-field-of-view-deg>
         <dynamic-view type="bool">true</dynamic-view>
       </config>
       <enabled type="bool">true</enabled>
@@ -177,8 +238,8 @@ EC 130 simulation config.
         <y-offset-m archive="y">  0.03 </y-offset-m> <!--up   -->
         <z-offset-m archive="y"> -3.93 </z-offset-m> <!--back -->
         <pitch-offset-deg>-15</pitch-offset-deg>
-         <heading-offset-deg>0</heading-offset-deg>
-        <default-field-of-view-deg>75</default-field-of-view-deg>
+        <heading-offset-deg>0</heading-offset-deg>
+        <default-field-of-view-deg type="double">75</default-field-of-view-deg>
         <dynamic-view type="bool">true</dynamic-view>
       </config>
       <enabled type="bool">true</enabled>
@@ -197,7 +258,7 @@ EC 130 simulation config.
         <z-offset-m archive="y"> -2.75 </z-offset-m> <!--back -->
         <pitch-offset-deg>-15</pitch-offset-deg>
         <heading-offset-deg>0</heading-offset-deg>
-        <default-field-of-view-deg>75</default-field-of-view-deg>
+        <default-field-of-view-deg type="double">75</default-field-of-view-deg>
         <dynamic-view type="bool">true</dynamic-view>
       </config>
       <enabled type="bool">true</enabled>
@@ -216,7 +277,7 @@ EC 130 simulation config.
         <z-offset-m archive="y"> -2.75 </z-offset-m> <!--back -->
         <pitch-offset-deg>-15</pitch-offset-deg>
         <heading-offset-deg>0</heading-offset-deg>
-        <default-field-of-view-deg>75</default-field-of-view-deg>
+        <default-field-of-view-deg type="double">75</default-field-of-view-deg>
         <dynamic-view type="bool">true</dynamic-view>
       </config>
       <enabled type="bool">true</enabled>
@@ -235,7 +296,7 @@ EC 130 simulation config.
         <z-offset-m archive="y"> -2.75 </z-offset-m> <!--back -->
         <pitch-offset-deg>-15</pitch-offset-deg>
         <heading-offset-deg>0</heading-offset-deg>
-        <default-field-of-view-deg>75</default-field-of-view-deg>
+        <default-field-of-view-deg type="double">75</default-field-of-view-deg>
         <dynamic-view type="bool">true</dynamic-view>
       </config>
       <enabled type="bool">true</enabled>
@@ -254,7 +315,7 @@ EC 130 simulation config.
         <z-offset-m archive="y"> -2.75 </z-offset-m> <!--back -->
         <pitch-offset-deg>-15</pitch-offset-deg>
         <heading-offset-deg>0</heading-offset-deg>
-        <default-field-of-view-deg>75</default-field-of-view-deg>
+        <default-field-of-view-deg type="double">75</default-field-of-view-deg>
         <dynamic-view type="bool">true</dynamic-view>
       </config>
       <enabled type="bool">true</enabled>
@@ -263,7 +324,7 @@ EC 130 simulation config.
     <view n="108">
       <name>Tail Camera View</name>
       <type>lookfrom</type>
-      <internal archive="y">false</internal>
+      <internal type="bool">false</internal>
       <config>
         <from-model type="bool">true</from-model>
         <from-model-idx type="int">0</from-model-idx>
@@ -279,19 +340,62 @@ EC 130 simulation config.
 
     <view n="109">
       <name>Rotor Camera View</name>
+      <type>lookat</type>
+      <internal type="bool">false</internal>
+      <config>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+
+				<at-model type="bool">true</at-model>
+				<at-model-idx type="int">0</at-model-idx>
+
+				<target-y-offset-m type="double"> 1.5</target-y-offset-m>
+				<target-z-offset-m type="double">-2.0</target-z-offset-m>
+
+        <default-field-of-view-deg type="double">50</default-field-of-view-deg>
+        <pitch-offset-deg>0</pitch-offset-deg>
+
+        <x-offset-m archive="y"> 0.000 </x-offset-m> <!--Right-->
+        <y-offset-m archive="y"> 0.000 </y-offset-m> <!--Up   -->
+        <z-offset-m archive="y">-3.000 </z-offset-m> <!--Back -->
+
+      </config>
+      <enabled type="bool">true</enabled>
+    </view>
+
+    <view n="110">
+      <name>Searchlight Watch View</name>
       <type>lookfrom</type>
-      <internal archive="y">false</internal>
+      <internal type="bool">false</internal>
+      <config>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+        <ground-level-nearplane-m type="double">0.01f</ground-level-nearplane-m>
+        <default-field-of-view-deg type="double">45</default-field-of-view-deg>
+        <pitch-offset-deg>-20</pitch-offset-deg>
+        <x-offset-m archive="y">-1.100 </x-offset-m> <!--Right-->
+        <y-offset-m archive="y">-0.600 </y-offset-m> <!--Up   -->
+        <z-offset-m archive="y">-3.500 </z-offset-m> <!--Back -->
+      </config>
+      <enabled type="bool">true</enabled>
+      <enabled_flag type="bool">true</enabled_flag>
+    </view>
+
+    <view n="111">
+      <name>Searchlight Follow View</name>
+      <type>lookfrom</type>
+      <internal type="bool">false</internal>
       <config>
         <from-model type="bool">true</from-model>
         <from-model-idx type="int">0</from-model-idx>
         <ground-level-nearplane-m type="double">0.01f</ground-level-nearplane-m>
-        <default-field-of-view-deg type="double">50</default-field-of-view-deg>
-        <pitch-offset-deg>0</pitch-offset-deg>
-        <x-offset-m archive="y"> 0.000 </x-offset-m> <!--Right-->
-        <y-offset-m archive="y"> 1.200 </y-offset-m> <!--Up   -->
-        <z-offset-m archive="y"> 3.000 </z-offset-m> <!--Back -->
+        <default-field-of-view-deg type="double">20</default-field-of-view-deg>
+        <x-offset-m archive="y"> -1.200 </x-offset-m> <!--Right-->
+        <y-offset-m archive="y"> -1.220 </y-offset-m> <!--Up   -->
+        <z-offset-m archive="y"> -4.940 </z-offset-m> <!--Back -->
       </config>
       <enabled type="bool">true</enabled>
+      <enabled_flag type="bool">true</enabled_flag>
     </view>
 
     <weight n="0">
@@ -387,7 +491,8 @@ EC 130 simulation config.
 
     <hitches>
       <!-- make sure some properties do exist, when the list for multiplayer transfer is defined-->
-      <!-- they need to be in the same value, as they are initilized in the FDM, to get the same values after reset should fix this somehow-->
+      <!-- they need to be in the same value, as they are initialized in the FDM,
+           to get the same values after reset should fix this somehow-->
       <aerotow>
         <tow>
           <length type="float">30</length>
@@ -420,6 +525,8 @@ EC 130 simulation config.
           <int n="1" alias="/systems/electrical/outputs/landing-light"/>
 
           <int n="2" alias="/systems/electrical/outputs/nav-lights"/>
+
+          <int n="3" alias="/controls/lighting/strobe-state/state"/>
 
           <!-- floats -->
           <float n="0" alias="/gear/gear[6]/position-norm"/>
@@ -454,8 +561,33 @@ EC 130 simulation config.
       </key>
 
       <key>
-        <name>E</name>
+        <name>Shift-E</name>
         <desc>Autoshutdown</desc>
+      </key>
+
+      <key>
+        <name>r</name>
+        <desc>apply Rotor Brake</desc>
+      </key>
+
+      <key>
+        <name>Shift-R</name>
+        <desc>toggle Rotor Brake</desc>
+      </key>
+
+      <key>
+        <name>Alt-r</name>
+        <desc>toggle Rotor Brake Lock</desc>
+      </key>
+
+      <key>
+        <name>Alt-c</name>
+        <desc>toggle Cutoff Lever</desc>
+      </key>
+
+      <key>
+        <name>AltGr-c</name>
+        <desc>toggle Cutoff Lever Guard</desc>
       </key>
 
       <key>
@@ -471,6 +603,11 @@ EC 130 simulation config.
       <key>
         <name>Alt-h</name>
         <desc>toggle Horn</desc>
+      </key>
+
+      <key>
+        <name>Alt-w</name>
+        <desc>W/LT TST (Warning Test)</desc>
       </key>
 
       <key>
@@ -490,58 +627,18 @@ EC 130 simulation config.
       </key>
 
       <key>
-        <name>T</name>
+        <name>Shift-T</name>
         <desc>direct trim Rudder</desc>
       </key>
 
       <key>
-        <name>r</name>
-        <desc>apply Rotor Brake</desc>
-      </key>
-
-      <key>
-        <name>R</name>
-        <desc>toggle Rotor Brake</desc>
-      </key>
-
-      <key>
-        <name>Alt-c</name>
-        <desc>toggle Cutoff Lever</desc>
+        <name>a</name>
+        <desc>set Collective to Zero</desc>
       </key>
 
       <key>
         <name>-----</name>
         <desc>---- doors ----</desc>
-      </key>
-
-      <key>
-        <name>d</name>
-        <desc>toggle Pilot Door</desc>
-      </key>
-
-      <key>
-        <name>AltGr-d</name>
-        <desc>toggle Pilot Window</desc>
-      </key>
-
-      <key>
-        <name>D</name>
-        <desc>toggle Passenger Doors</desc>
-      </key>
-
-      <key>
-        <name>Ctrl-d</name>
-        <desc>toggle all Doors</desc>
-      </key>
-
-      <key>
-        <name>Alt-d</name>
-        <desc>toggle Luggage Doors</desc>
-      </key>
-
-      <key>
-        <name>Alt-b</name>
-        <desc>toggle Basket Covers</desc>
       </key>
 
       <key>
@@ -565,48 +662,93 @@ EC 130 simulation config.
       </key>
 
       <key>
+        <name>d</name>
+        <desc>toggle Pilot Door</desc>
+      </key>
+
+      <key>
+        <name>Shift-D</name>
+        <desc>toggle Passenger Doors</desc>
+      </key>
+
+      <key>
+        <name>Ctrl-d</name>
+        <desc>toggle all Doors</desc>
+      </key>
+
+      <key>
+        <name>Alt-d</name>
+        <desc>toggle Luggage Doors</desc>
+      </key>
+
+      <key>
+        <name>Alt-b</name>
+        <desc>toggle Basket Covers</desc>
+      </key>
+
+      <key>
+        <name>AltGr-d</name>
+        <desc>toggle Pilot Window</desc>
+      </key>
+
+      <key>
         <name>-----</name>
         <desc>---- light ----</desc>
       </key>
 
       <key>
-        <name>l</name>
-        <desc>toggle Landing Light (L-Key)</desc>
-      </key>
-
-      <key>
         <name>L</name>
-        <desc>toggle Search Light</desc>
+        <desc>toggle Landing Light</desc>
       </key>
 
       <key>
-        <name>s</name>
-        <desc>cycle Search Light focus/distance</desc>
+        <name>Shift-L</name>
+        <desc>toggle Search Light ON/OFF</desc>
       </key>
 
       <key>
-        <name>S</name>
-        <desc>pause Search Light</desc>
+        <name>AltGr-L</name>
+        <desc>cycle Slew Rate</desc>
       </key>
 
       <key>
-        <name>Alt-s</name>
-        <desc>toggle Search Light Filter</desc>
+        <name>j/Shift-J</name>
+        <desc>rotate Search Light left/right</desc>
       </key>
 
       <key>
-        <name>j/J</name>
-        <desc>rotate Search Light right/left</desc>
-      </key>
-
-      <key>
-        <name>k/K</name>
+        <name>k/Shift-K</name>
         <desc>rotate Search Light down/up</desc>
       </key>
 
       <key>
-        <name>Ctrl-k</name>
+        <name>s</name>
+        <desc>cycle Search Light Focus</desc>
+      </key>
+
+      <key>
+        <name>Shift-S</name>
+        <desc>toggle/cycle Search Light Filter(s)</desc>
+      </key>
+
+      <key>
+        <name>Alt-s</name>
+        <desc>toggle Stabilization (A800)</desc>
+      </key>
+
+      <key>
+        <name>Ctrl-p</name>
+        <desc>pause Search Light</desc>
+      </key>
+
+      <key>
+        <name>Ctrl-s</name>
         <desc>reset Search Light</desc>
+      </key>
+
+      <key>
+        <name>Alt-L</name>
+        <desc>cycle Light-Cone Visibility</desc>
       </key>
 
       <key>
@@ -615,7 +757,7 @@ EC 130 simulation config.
       </key>
 
       <key>
-        <name>F</name>
+        <name>Shift-F</name>
         <desc>toggle Emergency Floats armed</desc>
       </key>
 
@@ -625,15 +767,15 @@ EC 130 simulation config.
       </key>
 
       <key>
-        <name>o/O</name>
+        <name>o/Shift-O</name>
         <desc>close/open Hook</desc>
       </key>
 
   <!--
       <key>
-				  ame>Ctrl-o</name>
-				  esc>Find Object to tow</desc>
-			  <ey>
+        <name>Ctrl-o</name>
+        <desc>Find Object to tow</desc>
+      </key>
   -->
       <key>
         <name>-----</name>
@@ -641,18 +783,33 @@ EC 130 simulation config.
       </key>
 
       <key>
-        <name>AltGr-o</name>
+        <name>Alt-o</name>
         <desc>Configuration Dialog</desc>
       </key>
 
       <key>
-        <name>Alt-o</name>
+        <name>AltGr-o</name>
         <desc>Simulation Options</desc>
+      </key>
+
+      <key>
+        <name>Alt-a</name>
+        <desc>Antenna Setup</desc>
+      </key>
+
+      <key>
+        <name>Alt-i</name>
+        <desc>Model/Operator Info</desc>
       </key>
 
       <key>
         <name>Alt-k</name>
         <desc>cycle Rotor Wake Visibility</desc>
+      </key>
+
+      <key>
+        <name>:A*</name>
+        <desc>Multi-Key Commands</desc>
       </key>
   <!--
       <key>
@@ -689,7 +846,7 @@ EC 130 simulation config.
 
    Additional Help:
    For startup see "Help/Tutorials", and follow "Help/Aircraft Checklists",
-   and see Flightmanual at "Aircraft/ec130/flightmanual.txt"
+   and see Flightmanual at "Aircraft/ec130/Docs/flightmanual.txt"
 
    Special Handling of Twist Grip:
    Power control between 63% = "idle" and 100% = "flight" can be done either
@@ -701,126 +858,12 @@ EC 130 simulation config.
    Is enabled after 15 flights, so to encourage learning of realistic heli-handling.
 
    Misc:
-   Various Click-Animations are implemented. Check with Ctrl-c,
+   Various Click-Animations are implemented. Check with Ctrl-c, watch Tooltips
    and try Searchlight, ...
       </text>
     </help>
 
- <help-text-config>
-  <contents>
-   Introduction:
-   ============
-   The Configuration Dialog for the EC130-B4 is a highly integrated dialog and combines
-   several standard FlightGear dialogs into one. Numerous interactions between the
-   settings are implemented in order to allow a very consistent setup of different
-   helicopter variants.
-
-   It is possible to:
-
-    - select a livery
-    - choose the seating configuration
-    - choose EC130 specific views
-    - set fuel amount
-    - set weights of passengers and luggage
-    - choose exterior equipment
-
-   When first opened, the settings reflect the values predefined for the current
-   helicopter variant in the livery XML file.
-
-
-   Consistency Rules:
-   ===============
-   There are several principles defined for the helicopter configuration, which
-   are ensured by dependencies between different settings.
-
-    - Each internal view corresponds to a specific seat.
-    - A view can only be active if the corresponding seat-weight is set to some
-      value &gt; 30 lbs, i.e. the weight of an empty seat.
-    - If a view is activated, the corresponding seat-weight is set to 30+150lbs,
-      i.e. the default passenger is a person with 150lbs weight.
-    - If a view is deactivated the corresponding seat-weight is set to minimum.
-    - If - on the other hand - a seat-related weight is set to minimum (30lbs)
-      in the weight settings, then the corresponding view is deactivated.
-    - Either pilot or co-pilot must be present (min weight 120lbs)
-    - Seats which are optional (i.e. not there in 5 pass. or Rescue (EMS) variant)
-      have a min. weight of 0, all other seats have a min weight of 30 lbs.
-
-    Remark: The stretcher in the EMS configuration (Emergency Medical Service) is handled
-    as 2 seats (for simplicity), but only one related view is assigned (rear-mid-right)
-
-
-   Interior:
-   ======
-   The EC130 cabin can be setup in three different variants which result in different
-   numbers of available seats and internal views.
-
-
-   Weights:
-   =======
-   There are three kinds of weights.
-
-    - Seat related weights
-    - Luggage related weights
-    - Equipment (no slider)
-
-   Seat related weights are closely tied to the corresponding view (see above).
-
-   The Equipment weight is automatically derived and summed up from the chosen
-   exterior equipment (see below).
-
-
-   Equipment:
-   =========
-   There are two kinds of equipment:
-
-    - combinable equipment
-    - mutually exclusive equipment
-
-   The mutually exclusive equipment cannot be used together for technical or
-   mechanical reasons (e.g. floats cannot be used together with baskets).
-
-   If exclusive equipment is selected, it deactivates any conflicting other equipment.
-
-   Have fun in setting up your desired helicopter variant, and have safe flights.
-
-
-
-   Some Remarks on View-Handling:
-   -----------------------------
-   The idea of having a tight relation between seat-weights and views intends to
-   provide a realistic setup. This however implies quite a number of different views,
-   which add up to the various predefined views in FlightGear.
-
-   With standard FlightGear setup (FG 2.12) and its limited view-control functionality,
-   which only allows to scroll forward or backward between ALL active views, this may
-   seem unrealistic and hard to handle .
-
-   View handling gets much easier, if the view control is configured to allow more
-   flexibility.
-
-   In the installation, where the EC130-B4 was developed and refined, the view control
-   is configured in a way, so that all predefined FG views are deactivated and accessed
-   directly through various Fx function keys. The built-in FG view-scroll functionality
-   is then used only for the EC130-B4 specific views.
-
-   Limitation: For now (FG 2.12) the improved view handling can only be done through
-   changing the keyboard assignments on a deeper level (keyboard.xml) and not through
-   some customization dialog. Hope is, that this will be improved in future FG versions.
-
-   Alternative with Minimum Number of Active Views:
-   -----------------------------------------------
-   If you prefer to have a limited number of views active you may disable most/all views.
-   In order to have enough weight assigned to the helicopter you may increase the
-   weight of active pilots/passengers (realistic weight distribution) or just increase
-   the luggage weight, which is less realistic for weight distribution.
-
-
-   (mhab)
-
-  </contents>
- </help-text-config>
-
-    <checklists include="ec130-checklists.xml"/>
+    <checklists include="Tutorials/ec130-checklists.xml"/>
 
     <tutorials include="Tutorials/ec130_tutorials.xml"/>
 
@@ -830,17 +873,26 @@ EC 130 simulation config.
         <label>EC130-B4</label>
         <enabled type="bool">true</enabled>
 
+        <!-- ATTENTION: if menubar definiton is changed below make sure
+             to cross-check the following code for consistent enable/disable:
+               - Nasal start script below
+               - Dialog: ec130-config-dialog.xml
+        -->
+
         <!-- 0 -->
         <item>
           <label>Configuration (Livery,Payload,...)</label>
-          <key>AltGr-o</key>
+          <key>Alt-o</key>
             <binding>
             <command>nasal</command>
             <script>
               if ( getprop("gear/gear[0]/wow") ) {
-                ec130.config_dialog.toggle();
+                if ( getprop("/sim/model/ec130/config_dialog_active") ) {
+                  setprop("/sim/model/ec130/config_dialog_active",0);
+                }
+                ec130.config_dialog.open();
               } else {
-                gui.popupTip("Only possible on ground",1);
+                screen.log.write("Only possible on ground !!!");
               }
             </script>
             </binding>
@@ -848,15 +900,38 @@ EC 130 simulation config.
 
         <!-- 1 -->
         <item>
-          <label>Simulation Options</label>
-          <key>Alt-o</key>
-          <binding>
+          <label>Operator/Model Info</label>
+          <key>Alt-i</key>
+            <binding>
             <command>nasal</command>
-            <script>ec130.options_dialog.toggle();</script>
-          </binding>
+            <script>
+              <!-- toggle config dialog because info and config are linked -->
+              if ( getprop("/sim/model/ec130/config_dialog_active") ) {
+                <!-- use write because popupTip gets hidden behind open dialog -->
+                screen.log.write("Close Config Dialog or use '?' Button !");
+              } else {
+                if ( getprop("/sim/model/ec130/info_dialog_active") ) {
+                  setprop("/sim/model/ec130/info_dialog_active",0);
+                }
+                ec130.model_info_dialog.open();
+              }
+            </script>
+            </binding>
         </item>
 
         <!-- 2 -->
+        <item>
+          <label>Simulation Options</label>
+          <key>AltGr-o</key>
+          <binding>
+            <command>nasal</command>
+            <script>
+              ec130.options_dialog.toggle();
+            </script>
+          </binding>
+        </item>
+
+        <!-- 3 -->
         <item>
           <label>Toggle External Power</label>
           <key>Alt-p</key>
@@ -866,7 +941,7 @@ EC 130 simulation config.
             </binding>
         </item>
 
-        <!-- 3 -->
+        <!-- 4 -->
         <item>
           <label>Autostart</label>
           <key>Ctrl-e</key>
@@ -876,7 +951,7 @@ EC 130 simulation config.
             </binding>
         </item>
 
-        <!-- 4 -->
+        <!-- 5 -->
         <item>
           <label>Autoshutdown</label>
           <key>E</key>
@@ -886,28 +961,22 @@ EC 130 simulation config.
             </binding>
         </item>
 
-        <!-- 5 -->
+        <!-- 6 -->
         <item>
-          <label>Inflate/Repack Emerg. Floats</label>
+          <label>Repack Emergency Floats</label>
           <key>Alt-f</key>
              <binding>
               <command>nasal</command>
               <script>
-                if ( getprop("/sim/model/ec130/emerg_floats") ) {
-                  if ( getprop("/controls/gear/floats-inflat") ) {
-                    if ( getprop("gear/gear[0]/wow") or getprop("gear/gear[1]/wow") or getprop("gear/gear[2]/wow") or getprop("gear/gear[3]/wow") ) {
-                      setprop("/controls/gear/floats-inflat",0);
-                      setprop("/controls/gear/floats-armed",0);
-                    } else {
-                      gui.popupTip("Repack only possible on ground",1);
-                    }
+                if ( getprop("/sim/model/ec130/emerg_floats") and getprop("/controls/gear/floats-inflat") ) {
+                  if ( getprop("gear/gear[0]/wow") or getprop("gear/gear[1]/wow") or getprop("gear/gear[2]/wow") or getprop("gear/gear[3]/wow") ) {
+                    setprop("/controls/gear/floats-inflat",0);
+                    setprop("/controls/gear/floats-armed",0);
                   } else {
-                    if ( getprop("/controls/gear/floats-armed") ) {
-                      setprop("/controls/gear/floats-inflat",1);
-                    } else {
-                      gui.popupTip("Floats are not armed",1);
-                    }
+                    screen.log.write("Repack only possible on ground !!!");
                   }
+                } else {
+                    screen.log.write("already packed ...");
                 }
               </script>
             </binding>
@@ -940,19 +1009,20 @@ EC 130 simulation config.
   </consumables>
 
   <controls>
-  <!--cold and dark as we all like it!-->
-  <gear>
+   <gear>
     <floats-inflat type ="bool">false</floats-inflat>
     <floats-armed type ="bool">false</floats-armed>
     <floats-deflate type = "bool">false</floats-deflate>
-  </gear>
-  <rotor>
+   </gear>
+
+   <rotor>
      <brake type ="double">1</brake>
+     <brake-locked type ="bool">1</brake-locked>
      <reltarget type="double">0</reltarget>
      <maxreltorque type="double">0</maxreltorque>
-  </rotor>
+   </rotor>
 
-  <engines>
+   <engines>
     <engine n="0">
       <magnetos>1</magnetos>
       <propeller-pitch alias="/controls/engines/power-trim"/>
@@ -968,25 +1038,23 @@ EC 130 simulation config.
     </engine>
     <power-trim type="double">0</power-trim>
     <power-balance type="double">0</power-balance>
-  </engines>
+   </engines>
 
-
-  <lighting>
+   <lighting>
     <beacon type="bool">false</beacon>
+    <strobe type="bool">false</strobe>
     <nav-lights type="bool">false</nav-lights>
-  </lighting>
+   </lighting>
 
   </controls>
   
   <engines>
-  <engine n="0">
+   <engine n="0">
     <tot-degc>0</tot-degc>
     <n1-pct>0</n1-pct>
-  </engine>
+   </engine>
   </engines>
   
-  
-
   <instrumentation>
     <kcs55 include="Systems/kcs55.xml"/>
       <gsdi>
@@ -998,7 +1066,10 @@ EC 130 simulation config.
   </instrumentation>
 
   <input>
-    <keyboard>
+    <keyboard include="Models/SearchLight/searchlight_bindings.xml">
+
+      <!-- multi-key commands -->
+      <multikey include="Systems/ec130-multikey.xml"/>
 
       <!-- Livery Box -->
       <!--<key n="79">
@@ -1010,15 +1081,14 @@ EC 130 simulation config.
       </binding>
       </key>-->
       
-<key n="97">
-    <name>a</name>
-	<desc>Set collective to zero</desc>
-		<binding>
-			<command>nasal</command>
-			<script>interpolate("/controls/engines/engine/throttle", 1.0, 1.25)</script>
-		</binding>
-	</key>
-  
+      <key n="97">
+        <name>a</name>
+        <desc>Set collective to zero</desc>
+        <binding>
+          <command>nasal</command>
+          <script>interpolate("/controls/engines/engine/throttle", 1.0, 1.25)</script>
+        </binding>
+      </key>
 
       <key n="5">
         <name>Ctrl-e</name>
@@ -1043,44 +1113,58 @@ EC 130 simulation config.
 
       <key n="114">
         <name>r</name>
-         <desc>Apply rotor brake</desc>
-         <repeatable type="bool">false</repeatable>
-         <binding>
-           <command>nasal</command>
-           <script>
-             if ( !getprop("/controls/rotor/brake") ) {
-               setprop("/controls/rotor/brake-engaged",0);
-               interpolate("/controls/rotor/brake", 1.0, 1);
-               gui.popupTip("Rotorbrake active ...", 20);
-             } else {
-               setprop("/controls/rotor/brake-engaged",1);
-               gui.popupTip("Rotorbrake is engaged ...", 2);
-             }
-           </script>
-         </binding>
-         <mod-up>
-         <binding>
-           <command>nasal</command>
-           <script>
-             if ( !getprop("/controls/rotor/brake-engaged") ) {
-               interpolate("/controls/rotor/brake", 0.0, 1);
-               gui.popupTip("Rotorbrake released");
-             } 
-           </script>
-         </binding>
-         </mod-up>
+        <desc>Apply rotor brake</desc>
+        <repeatable type="bool">false</repeatable>
+        <binding>
+          <command>nasal</command>
+          <script>
+            if ( getprop("/controls/rotor/brake-locked") ) {
+              screen.log.write("Rotorbrake is locked !");
+            } else {
+              if ( getprop("/controls/rotor/brake") &lt; 1.0 ) {
+                setprop("/controls/rotor/brake-engaged",0);
+                interpolate("/controls/rotor/brake", 1.0, 1);
+                gui.popupTip("Rotorbrake active ...", 20);
+              } else {
+                setprop("/controls/rotor/brake-engaged",1);
+                if ( getprop("/controls/rotor/brake-locked") ) {
+                  screen.log.write("Rotorbrake is locked !");
+                } else {
+                  screen.log.write("Rotorbrake is engaged !");
+                }
+              }
+            }
+          </script>
+        </binding>
+        <mod-up>
+        <binding>
+          <command>nasal</command>
+          <script>
+            if ( !getprop("/controls/rotor/brake-locked") ) {
+              if ( !getprop("/controls/rotor/brake-engaged") ) {
+                interpolate("/controls/rotor/brake", 0.0, 1);
+                gui.popupTip("Rotorbrake released");
+              }
+            }
+          </script>
+        </binding>
+        </mod-up>
       </key>
 
       <key n="82">
-        <name>R</name>
+        <name>Shift-R</name>
         <desc>Toggle rotor brake</desc>
         <repeatable type="bool">false</repeatable>
         <binding>
           <command>nasal</command>
           <script>
-            var p = getprop("/controls/rotor/brake");
-            interpolate("/controls/rotor/brake",!p,1);
-            gui.popupTip("Rotorbrake " ~ (p ? "released !" : "engaged !"));
+            if ( !getprop("/controls/rotor/brake-locked") ) {
+              var p = getprop("/controls/rotor/brake");
+              interpolate("/controls/rotor/brake",!p,1);
+              settimer(func { gui.popupTip("Rotorbrake " ~ (p ? "released !" : "engaged !"));},0.9);
+            } else {
+              screen.log.write("Rotorbrake is locked !");
+            }
           </script>
         </binding>
         <mod-up>
@@ -1090,14 +1174,62 @@ EC 130 simulation config.
         </mod-up>
       </key>
 
+      <key n="114">
+       <mod-alt>
+        <name>Alt-r</name>
+        <desc>toggle rotor brake lock</desc>
+        <repeatable type="bool">false</repeatable>
+        <binding>
+          <command>nasal</command>
+          <script>
+            if ( getprop("/controls/rotor/brake-locked") ) {
+              setprop("/controls/rotor/brake-locked",0);
+              gui.popupTip("Rotorbrake unlocked", 2);
+            } else {
+              setprop("/controls/rotor/brake-locked",1);
+              gui.popupTip("Rotorbrake locked", 2);
+            }
+          </script>
+        </binding>
+        <mod-up>
+        <binding>
+          <command>null</command>
+        </binding>
+        </mod-up>
+       </mod-alt>
+      </key>
+
       <key n="99">
        <mod-alt>
         <name>Alt-c</name>
         <desc>toggle Cutoff lever</desc>
         <binding>
+          <condition>
+            <not>
+              <property>controls/engines/engine/cutoff_guard</property>
+            </not>
+          </condition>
           <command>property-toggle</command>
           <property>controls/engines/engine/cutoff</property>
         </binding>
+       </mod-alt>
+      </key>
+
+      <key n="99">
+       <mod-alt>
+        <mod-ctrl>
+         <name>AltGr-c</name>
+         <desc>toggle Cutoff lever guard</desc>
+         <binding>
+           <condition>
+            <not>
+              <property>controls/engines/engine/cutoff</property>
+            </not>
+           </condition>
+           <command>property-toggle</command>
+           <property>controls/engines/engine/cutoff_guard</property>
+         </binding>
+        </mod-ctrl>
        </mod-alt>
       </key>
 
@@ -1112,7 +1244,7 @@ EC 130 simulation config.
               setprop("/controls/gear/floats-armed",!f);
               gui.popupTip("Floats " ~ (f ? "disabled !" : "armed !"));
             } else {
-              gui.popupTip("NO Floats available !!!",1);
+              screen.log.write("NO Floats available !!!");
             }
           </script>
         </binding>
@@ -1146,7 +1278,7 @@ EC 130 simulation config.
           <script>
             doors.doorsystem.luggagelexport();
             doors.doorsystem.luggagerexport();
-            doors.doorsystem.doorexport();
+            doors.doorsystem.doorbexport();
           </script>
          </binding>
          <mod-ctrl>
@@ -1185,7 +1317,6 @@ EC 130 simulation config.
           <script>
             doors.doorsystem.frontrexport();
             doors.doorsystem.passengerlexport();
-            doors.doorsystem.passengerrexport();
           </script>
         </binding>
       </key>
@@ -1195,14 +1326,7 @@ EC 130 simulation config.
         <desc>toggle all doors</desc>
         <binding>
           <command>nasal</command>
-          <script>
-            doors.doorsystem.frontlexport();
-            doors.doorsystem.frontrexport();
-            doors.doorsystem.passengerlexport();
-            doors.doorsystem.passengerrexport();
-            doors.doorsystem.luggagerexport();
-            doors.doorsystem.doorexport();
-          </script>
+          <script>ec130.toggle_all_doors();</script>
         </binding>
       </key>
 
@@ -1259,57 +1383,38 @@ EC 130 simulation config.
         </binding>
       </key>
 
-      <!-- cycle Searchlight focus/distance -->
-      <!-- cycles up/down as with original SX-16 Nightsun control device -->
-      <key n="115">
-       <name>s</name>
-       <desc>cycle Search Light distance</desc>
-       <repeatable type="bool">false</repeatable>
+      <key n="107">
+       <mod-alt>
+        <name>Alt-k</name>
+        <desc>cycle wake visible</desc>
         <binding>
-          <condition>
-            <property>sim/model/ec130/searchlight-active</property>
-          </condition>
-          <command>nasal</command>
-          <script>ec130.slight_cycle()</script>
+         <command>nasal</command>
+         <script>ec130.cycle_wakes()</script>
         </binding>
-        <mod-alt>
-         <name>Alt-s</name>
-         <desc>toggle Search Light Filter</desc>
-         <binding>
-           <condition>
-             <property>sim/model/ec130/searchlight</property>
-           </condition>
-           <command>nasal</command>
-           <script>
-             doors.doorsystem.slightfilterexport();
-           </script>
-         </binding>
-        </mod-alt>
+       </mod-alt>
       </key>
 
-      <key n="83">
-        <name>S</name>
-        <desc>pause Search Light</desc>
-         <binding>
-          <condition>
-            <property>sim/model/ec130/searchlight-active</property>
-          </condition>
-          <command>property-toggle</command>
-          <property>sim/model/ec130/searchlight-paused</property>
-         </binding>
-      </key>
-
-      <key n="76">
-        <name>L</name>
-        <desc>toggle Search Light</desc>
+      <key n="97">
+       <mod-alt>
+        <name>Alt-a</name>
+        <desc>Antenna Setup</desc>
         <binding>
-          <condition>
-            <property>sim/model/ec130/searchlight</property>
-            <property>/controls/electric/engine/generator</property>
-          </condition>
           <command>nasal</command>
-          <script>ec130.slight_toggle_power()</script>
+            <script>
+              if ( getprop("gear/gear[0]/wow") ) {
+                if ( getprop("/sim/model/ec130/config_dialog_active") ) {
+                  ec130.config_dialog.toggle();
+                }
+                if ( getprop("/sim/model/ec130/antenna_dialog_active") ) {
+                  setprop("/sim/model/ec130/antenna_dialog_active",0);
+                }
+                ec130.antenna_config_dialog.toggle();
+              } else {
+                screen.log.write("Only possible on ground !!!");
+              }
+            </script>
         </binding>
+       </mod-alt>
       </key>
 
       <key n="103">
@@ -1318,10 +1423,6 @@ EC 130 simulation config.
         <desc>Show/hide GSDI</desc>
         <binding>
          <command>property-toggle</command>
-          <property>/sim/model/ec130/hide-gsdi</property>
-        </binding>
-        <binding>
-          <command>property-toggle</command>
           <property>/sim/model/ec130/show_gsdi</property>
         </binding>
        </mod-alt>
@@ -1334,6 +1435,25 @@ EC 130 simulation config.
         <binding>
          <command>property-toggle</command>
           <property>/controls/electric/horn</property>
+        </binding>
+       </mod-alt>
+      </key>
+
+      <key n="105">
+       <mod-alt>
+        <name>Alt-i</name>
+        <desc>Model/Operator Info</desc>
+        <binding>
+          <command>nasal</command>
+          <script>
+            if ( getprop("/sim/model/ec130/config_dialog_active") ) {
+              ec130.config_dialog.toggle();
+            }
+            if ( getprop("/sim/model/ec130/info_dialog_active") ) {
+              setprop("/sim/model/ec130/info_dialog_active",0);
+            }
+            ec130.model_info_dialog.toggle();
+          </script>
         </binding>
        </mod-alt>
       </key>
@@ -1357,6 +1477,38 @@ EC 130 simulation config.
         </mod-alt>
       </key>
 
+      <!-- disable w-binding -->
+      <key n="119">
+        <name>w</name>
+        <desc>w-Key</desc>
+        <binding>
+          <command>nasal</command>
+          <script>
+            <!-- disable binding -->
+          </script>
+        </binding>
+      </key>
+
+      <key n="119">
+        <name>Alt-w</name>
+        <desc>Toggle W/LT TST</desc>
+        <repeatable>false</repeatable>
+        <mod-alt>
+        <binding>
+         <command>property-toggle</command>
+         <property>controls/electric/warningtest</property>
+        </binding>
+        </mod-alt>
+        <mod-up>
+         <binding>
+           <command>property-assign</command>
+           <property>controls/electric/warningtest</property>
+           <value>0</value>
+         </binding>
+        </mod-up>
+      </key>
+
+      <!-- controls for hook -->
       <key n="111">
         <name>o</name>
         <desc>Lock hook</desc>
@@ -1373,24 +1525,40 @@ EC 130 simulation config.
         </binding>
        <mod-alt>
         <name>Alt-o</name>
-        <desc>Simulation Options</desc>
+        <desc>Configuration Options</desc>
         <binding>
-          <command>nasal</command>
-          <script>ec130.options_dialog.toggle();</script>
+         <command>nasal</command>
+         <script>
+           if ( getprop("gear/gear[0]/wow") ) {
+             if ( getprop("/sim/model/ec130/config_dialog_active") ) {
+               setprop("/sim/model/ec130/config_dialog_active",0);
+             }
+             ec130.config_dialog.toggle();
+
+             <!-- toggle antenna dialog if open -->
+             if ( getprop("/sim/model/ec130/antenna_dialog_active") ) {
+               ec130.antenna_config_dialog.toggle();
+               setprop("/sim/model/ec130/antenna_dialog_active",0);
+             }
+
+             <!-- toggle info dialog if open -->
+             if ( getprop("/sim/model/ec130/info_dialog_active") ) {
+               ec130.model_info_dialog.toggle();
+               setprop("/sim/model/ec130/info_dialog_active",0);
+             }
+
+           } else {
+             screen.log.write("Only possible on ground !!!");
+           }
+         </script>
         </binding>
         <mod-ctrl>
          <name>AltGr-o</name>
-         <desc>Configuration Options</desc>
+         <desc>Simulation Options</desc>
          <binding>
           <command>nasal</command>
-          <script>
-            if ( getprop("gear/gear[0]/wow") ) {
-              ec130.config_dialog.toggle();
-            } else {
-              gui.popupTip("Only possible on ground",1);
-            }
-          </script>
-        </binding>
+          <script>ec130.options_dialog.toggle();</script>
+         </binding>
         </mod-ctrl>
        </mod-alt>
       </key>
@@ -1426,115 +1594,7 @@ EC 130 simulation config.
         </mod-up>
       </key>
 
-      <key n="106">
-       <name>j</name>
-       <desc>move Search Light right</desc>
-       <repeatable type="bool">true</repeatable>
-        <binding>
-          <command>nasal</command>
-          <script>
-          <!-- disable pushback script -->
-          </script>
-        </binding>
-        <binding>
-          <condition>
-            <property>sim/model/ec130/searchlight</property>
-          </condition>
-          <command>property-adjust</command>
-          <property>/sim/model/ec130/searchlight-heading-deg</property>
-          <step type="double">-1.0</step>
-          <min>-90</min>
-          <max>30</max>
-          <wrap>false</wrap>
-        </binding>
-      </key>
-
-      <key n="74">
-       <name>J</name>
-       <desc>move Search Light left</desc>
-       <repeatable type="bool">true</repeatable>
-        <binding>
-          <condition>
-            <property>sim/model/ec130/searchlight</property>
-          </condition>
-          <command>property-adjust</command>
-          <property>/sim/model/ec130/searchlight-heading-deg</property>
-          <step type="double">1.0</step>
-          <min>-90</min>
-          <max>30</max>
-          <wrap>false</wrap>
-        </binding>
-      </key>
-
-      <key n="107">
-       <name>k</name>
-       <desc>move Search Light down</desc>
-       <repeatable type="bool">true</repeatable>
-        <binding>
-          <command>nasal</command>
-          <script>
-          <!-- disable pushback script -->
-          </script>
-        </binding>
-        <binding>
-          <condition>
-            <property>sim/model/ec130/searchlight</property>
-          </condition>
-          <command>property-adjust</command>
-          <property>/sim/model/ec130/searchlight-elevation-deg</property>
-          <step type="double">-1.0</step>
-          <min>-50</min>
-          <max>3</max>
-          <wrap>false</wrap>
-        </binding>
-       <mod-alt>
-        <name>Alt-k</name>
-        <desc>cycle wake visible</desc>
-        <binding>
-         <command>nasal</command>
-         <script>ec130.cycle_wakes()</script>
-        </binding>
-       </mod-alt>
-      </key>
-
-      <key n="75">
-       <name>K</name>
-       <desc>move Search Light up</desc>
-       <repeatable type="bool">true</repeatable>
-        <binding>
-          <command>nasal</command>
-          <script>
-          <!-- disable pushback script -->
-          </script>
-        </binding>
-        <binding>
-          <condition>
-            <property>sim/model/ec130/searchlight</property>
-          </condition>
-          <command>property-adjust</command>
-          <property>/sim/model/ec130/searchlight-elevation-deg</property>
-          <step type="double">1.0</step>
-          <min>-50</min>
-          <max>3</max>
-          <wrap>false</wrap>
-        </binding>
-      </key>
-
-      <key n="11">
-       <name>Ctrl-k</name>
-       <desc>reset searchlight</desc>
-        <binding>
-          <command>nasal</command>
-          <script>
-          <!-- disable pushback script -->
-          </script>
-        </binding>
-        <binding>
-          <command>nasal</command>
-          <script>ec130.slight_reset()</script>
-        </binding>
-      </key>
-
+      <!-- trimming -->
       <key n="116">
         <name>t</name>
         <desc>Direct Trim Elev./Aileron</desc>
@@ -1555,38 +1615,14 @@ EC 130 simulation config.
           <desc>Twist Grip +</desc>
           <binding>
           <command>nasal</command>
-          <script>
-            var p = getprop("/controls/engines/engine/power");
-            if ( p &lt; 0.97 ) {
-              if ( p &gt; 0.60 ) {
-                setprop("/controls/engines/engine/power", p+0.03);
-              } else {
-                setprop("/controls/engines/engine/power", 0.63);
-              }
-            } else {
-              setprop("/controls/engines/engine/power", 1.0);
-            }
-            gui.popupTip(sprintf("Twist Grip %d%%", getprop("/controls/engines/engine/power")*100));
-
-            if ( getprop("/controls/electric/external-power") ) {
-              settimer( func{ gui.popupTip("Disconnect external power supply !!!",3); },3);
-            }
-          </script>
+          <script>ec130.adjust_twist_grip(1);</script>
           </binding>
           <mod-ctrl>
             <name>AltGr-t</name>
             <desc>Twist Grip -</desc>
             <binding>
             <command>nasal</command>
-            <script>
-              var p = getprop("/controls/engines/engine/power");
-              if ( p &gt; 0.66 ) {
-                setprop("/controls/engines/engine/power", p-0.03);
-              } else {
-                setprop("/controls/engines/engine/power", 0.63);
-              }
-              gui.popupTip(sprintf("Twist Grip %d%%", getprop("/controls/engines/engine/power")*100));
-            </script>
+            <script>ec130.adjust_twist_grip(-1);</script>
             </binding>
           </mod-ctrl>
         </mod-alt>
@@ -1606,7 +1642,7 @@ EC 130 simulation config.
        </binding>
       </key>
 
-      <!-- doesn't work for RC radio -->
+      <!-- doesn't seem to work for RC radio -->
       <key n="102">
         <name>f</name>
         <desc>Force Trim Release</desc>
@@ -1654,33 +1690,29 @@ EC 130 simulation config.
       <file>Aircraft/ec130/Nasal/doors.nas</file>
     </doors>
     <ec130>
-      <file>Aircraft/ec130/Nasal/lightmap.nas</file>
-       <file>Aircraft/ec130/Nasal/dialog.nas</file>
-       <file>Aircraft/ec130/Nasal/mousehandlery.nas</file>
-       <file>Aircraft/ec130/Nasal/mousehandlerx.nas</file>
-       <file>Aircraft/ec130/Nasal/savestate.nas</file>
-       <file>Aircraft/ec130/Nasal/weights.nas</file>
        <file>Aircraft/ec130/Nasal/ec130.nas</file>
-       <file>Aircraft/ec130/Nasal/woolthread.nas</file>
        <file>Aircraft/ec130/Nasal/limits.nas</file>
-       <file>Aircraft/ec130/Nasal/flightcontrols.nas</file>
        <file>Aircraft/ec130/Nasal/Electrical.nas</file>
-       <file>Aircraft/ec130/Nasal/fadec.nas</file>
-       <file>Aircraft/ec130/Nasal/light.nas</file>
-       <file>Aircraft/ec130/Nasal/rotor.nas</file>
        <file>Aircraft/ec130/Systems/kcs55.nas</file>
-       <file>Aircraft/ec130/Nasal/systems.nas</file>
-       <file>Aircraft/ec130/Nasal/rotorloads.nas</file>
        <file>Aircraft/ec130/Models/Instruments/VEMD/timer.nas</file>
        <file>Aircraft/ec130/Models/Instruments/VEMD/VEMD.nas</file>
        <file>Aircraft/ec130/Models/Instruments/VEMD/roc.nas</file>
        <file>Aircraft/ec130/Models/Instruments/CWS/CWS.nas</file>
-       <file>Aircraft/ec130/Nasal/seats.nas</file>
+       <file>Aircraft/ec130/Models/SearchLight/searchlight.nas</file>
        <script><![CDATA[
               KCS55.new();
             ]]>
          <!-- disable standard fuel-payload menu, use aircraft specific -->
          gui.menuEnable("fuel-and-payload",0);
+
+         <!-- init config dialog flag -->
+         setprop("/sim/model/ec130/config_dialog_active",0);
+
+         <!-- init antenna dialog flag -->
+         setprop("/sim/model/ec130/antenna_dialog_active",0);
+
+         <!-- init info dialog flag -->
+         setprop("/sim/model/ec130/info_dialog_active",0);
 
          <!-- initialize number of flights -->
          if ( getprop("/sim/model/ec130/flightnumber") == nil ) {
@@ -1691,19 +1723,19 @@ EC 130 simulation config.
          setprop("/sim/model/ec130/minflights",15);
 
          <!-- disable autostart menu, if less than minimum flights -->
+         <!-- cross-check menubar definition -->
          if ( getprop("/sim/model/ec130/flightnumber") &lt; getprop("/sim/model/ec130/minflights") ) {
            setprop("/sim/menubar/default/menu[10]/item[4]/enabled",0);
          }
 
          <!-- disable autoshutdown menu, if less than minimum flights -->
+         <!-- cross-check menubar definition -->
          if ( getprop("/sim/model/ec130/flightnumber") &lt; getprop("/sim/model/ec130/minflights") ) {
            setprop("/sim/menubar/default/menu[10]/item[5]/enabled",0);
          }
 
-         <!-- set searchlight props -->
-         setprop("/sim/model/ec130/searchlight-state",getprop("/sim/model/ec130/searchlight-state-default"));
-         setprop("/sim/model/ec130/searchlight-heading-deg",getprop("/sim/model/ec130/searchlight-heading-default"));
-         setprop("/sim/model/ec130/searchlight-elevation-deg",getprop("/sim/model/ec130/searchlight-elevation-default"));
+         <!-- enable/disable floats menu -->
+         ec130.set_menu();
 
          <!-- initialize equipment weight -->
          ec130.external_weights();
@@ -1711,9 +1743,15 @@ EC 130 simulation config.
          <!-- initialize seats and views -->
          ec130.set_seats();
 
+         <!-- init searchlight props with delay
+              otherwise Nasal error is raised   -->
+         setlistener("/sim/signals/fdm-initialized", func {
+           settimer(func { ec130.slight_init(); }, 1);
+         });
+
          <!-- workaround for unclarified problem with uninitialized and wrong types of properties after startup -->
          setprop("/controls/electric/directbat-switch",0);
-         setprop("/controls/lighting/instruments-lights2",0);
+         setprop("/controls/lighting/instrument-lights2",0);
          setprop("/controls/electric/horn",0);
 
          <!-- disable shadow if rembrandt enabled -->

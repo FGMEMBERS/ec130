@@ -7,7 +7,7 @@
   <animation>
     <type>material</type>
     <object-name>panel</object-name>
-       <emission>
+    <emission>
       <red>   0.8 </red>
       <green> 0.8 </green>
       <blue>  1.0 </blue>
@@ -15,54 +15,111 @@
     </emission>
   </animation>
 
- <animation> 
-  <type>rotate</type>
-  <object-name>inst1</object-name>
-   <property>controls/lighting/instrument-lights-norm</property>
-  <factor>270</factor>
-  <axis> 
-   <x>-1</x>
-   <y>0</y>
-   <z>0</z>
-  </axis>
-  <center>
-   <x-m>0.024</x-m>
-   <y-m>0.007</y-m>
-   <z-m>-0.007</z-m>  
-  </center>  
- </animation>                                                              
-
- <animation>
-   <type>pick</type>
+  <animation>
+    <type>rotate</type>
     <object-name>inst1</object-name>
-   <visible>true</visible>
-   <action>
-     <name>Decrease - scrollwheel</name>
-     <button>3</button>
-     <repeatable>true</repeatable>
-     <binding>
-       <command>property-adjust</command>
-     <property>controls/lighting/instrument-lights-norm</property>
-       <step>-0.1</step>
-       <min>0</min>
-       <max>1.0</max>
-       <wrap>0</wrap>
-     </binding>
-   </action>
-   <action>
-     <name>Increase - scrollwheel</name>
-     <button>4</button>
-     <repeatable>true</repeatable>
-     <binding>
-       <command>property-adjust</command>
     <property>controls/lighting/instrument-lights-norm</property>
-       <step>0.1</step>
-       <min>0</min>
-       <max>1.0</max>
-       <wrap>0</wrap>
-     </binding>
-   </action>
- </animation>
+    <factor>270</factor>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    <center>
+      <x-m>0.024</x-m>
+      <y-m>0.007</y-m>
+      <z-m>-0.007</z-m>
+    </center>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>inst1.pickL</object-name>
+    <visible>false</visible>
+    <action>
+      <name>Decrease - scrollwheel</name>
+      <button>0</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property>controls/lighting/instrument-lights-norm</property>
+        <step>-0.05</step>
+        <min>0</min>
+        <max>1.0</max>
+        <wrap>0</wrap>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>inst1L</tooltip-id>
+        <label>dim %1.0f%%</label>
+        <mapping>percent</mapping>
+        <property>controls/lighting/instrument-lights-norm</property>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>inst1.pickR</object-name>
+    <visible>false</visible>
+    <action>
+      <name>Increase - scrollwheel</name>
+      <button>0</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property>controls/lighting/instrument-lights-norm</property>
+        <step>0.05</step>
+        <min>0</min>
+        <max>1.0</max>
+        <wrap>0</wrap>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>inst1R</tooltip-id>
+        <label>brighten %1.0f%%</label>
+        <mapping>percent</mapping>
+        <property>controls/lighting/instrument-lights-norm</property>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>inst1</object-name>
+    <visible>true</visible>
+    <action>
+      <name>Decrease - scrollwheel</name>
+      <button>3</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property>controls/lighting/instrument-lights-norm</property>
+        <step>-0.1</step>
+        <min>0</min>
+        <max>1.0</max>
+        <wrap>0</wrap>
+      </binding>
+    </action>
+    <action>
+      <name>Increase - scrollwheel</name>
+      <button>4</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>property-adjust</command>
+        <property>controls/lighting/instrument-lights-norm</property>
+        <step>0.1</step>
+        <min>0</min>
+        <max>1.0</max>
+        <wrap>0</wrap>
+      </binding>
+    </action>
+  </animation>
+
 <!--
  <animation> 
   <type>rotate</type>

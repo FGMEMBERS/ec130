@@ -3,7 +3,6 @@
 <PropertyList>
   <path>gsdi.ac</path>
 
-
   <animation>
     <type>select</type>
     <object>face</object>
@@ -11,9 +10,7 @@
     <object>vneedle</object>
     <object>uneedle</object>
     <condition>
-      <not>
-        <property>/sim/model/ec130/hide-gsdi</property>
-      </not>
+      <property>/sim/model/ec130/show_gsdi</property>
     </condition>
   </animation>
 
