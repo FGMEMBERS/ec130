@@ -1,0 +1,441 @@
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
+           (C) 2013 Michael Habarta, mhabarta@freenet.de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+ 
+ -->
+ 
+ <!--EC130 B4
+  Max  weight: 2427kg (5350 lbs)
+  Min weight: 1500kg (3307 lbs)
+  Empty weight: 3015 lbs
+  
+  Max Range: 
+
+  Length: 12.64m
+  width: 2.31m
+  width with hstab: 2.73m
+
+  Main Rotor diameter: 10.69m
+  Type: Starflex
+  Disc area: ?? sqm
+  Number of Blades: 3
+  Rotor speed: 386rpm
+  airfoil:  ONERA OA211  -> Lift/drag curve needed
+
+  Tail rotor diameter: 1m
+  Type: Fenestron (TM)
+  Number of Blades: 10
+  Rotor speed: 3568rpm
+  disc area: ?? sqm
+  airfoil: ONERA OA209/OA207  -> Lift/drag curve needed
+  
+  Fuel Capacity: 142.7 US gal = 540liters = 427kg
+
+  1 Turbomeca ARRIEL 2B1
+  max power: 557kw, power rating (MTOP): 747SHP
+  max continous: 543 kw, power rating (MCP): 728SHP
+  
+
+
+  CoG from the Flight Manual:
+  
+  Datum 133.8inch inches forward of main rotor head center line.
+  cg- between 124 inch and 140.9inch from datum
+  
+  Airspeed Limits Never Exceed Power on: 155 kt at Hp = 0, less 3kt/1000ft
+ 
+  FDM based on datas from Flight Manual EC130 B4, Fenestron data from Dave's All The World Fenestrons and EC135 Flight Manual 
+  and help by a forums user with contact to a AS350pilot
+
+  Remark on Aircraft Weight/Mass (mhab):
+  =====================================
+  Internal Equipment:
+  airplane empty mass 3015 lbs is reduced by 180 lbs (= 6 seats each 30 lbs)
+
+  This is done in order to handle differing number of seats (5 or 6) and rescue configuration (4 seats with stretcher).
+  In Rescue config 4 seats are removed for 1 stretcher + stretcher-mount.
+  For simplicity here 2 seats are removed (front left seat, rear right seat) and the stretcher weight
+  is handled like 2 seats (front right seat, rear mid right seat)
+
+  To make up for the weight of empty seats, in the EC130 configuration dialog the sliders for fixed seats are
+  defined with min 30 lbs (= seat is always there) and the sliders for optional seats are defined with min 0 lbs.
+
+  The weight for optional seats which are there is set to 30 lbs by nasal scripting.
+
+  External Equipment:
+  External Equipment, which is fully optional here, is handled by special weight properties for external equipment
+  see "/sim/model/ec130/external/.../weight-lb" below.
+
+  These properties are set by a dedicated nasal function, depending on the fact if the item is active or not.
+  This Nasal function  ("external_weights()") - also calculates the sum of the equipment-weight
+  and stores it on a dedicated weight property, which is used in the "Weight setting part" of the
+  specialized EC130 configuration dialog in order to add up total Gross Weight of the heli.
+
+  Remark: The aerodynamic relevant size of the specific optional parts is defined below as Yasim needs it.
+
+-->
+<airplane mass="2835"> <!--equipment reduced!-->
+
+  <!--not necessary for helis, but useful to prevent sliding on ground engine-out-->
+  <approach speed="75" aoa="16">
+    <control-setting axis="/controls/engines/engine[0]/throttle" value="0.3"/>
+  </approach>
+
+  <cruise speed="100" alt="4">
+    <control-setting axis="/controls/engines/engine[0]/throttle" value="0.5"/>
+  </cruise>
+
+  <!--increased ground-effect-factor to 0.2: The AS350 has a low factor, due its round shape. Air from the rotor flows easily around and prevent a good air cushion.
+  The EC130 isn't that round, and has a much wder bottom, so I expect a much better air cushion-->
+
+  <rotor name="main"
+       x="1.9" y="0.0" z="1.325" 
+       nx="0.035" ny="0" nz="1." 
+       fx="1" fy="0" fz="0" ccw="0"
+       maxcollective="16.0" mincollective="0.5"
+       mincyclicele="-12.6"  maxcyclicele="9.9"
+       mincyclicail="-7.1" maxcyclicail="5.53"
+       diameter="10.69" numblades="3" 
+       weightperblade="66" 
+       twist="10.7" 
+       chord="0.30" 
+       rpm="386" 
+       relbladecenter="0.5" 
+       dynamic="0.65"
+       rellenflaphinge="0.05" 
+       delta3="0" delta="0.25" 
+       pitch-a="10" pitch-b="15" 
+       flapmin="-13" flapmax="13" 
+       flap0="-7.5" flap0factor="0" phi0="180"
+       notorque="0" dragfactor="0.30" 
+       translift-ve="20" 
+       translift-maxfactor="1.35" 
+       ground-effect-constant="0.2" 
+       taper="1"
+       number-of-segments="10" 
+       number-of-parts="10" 
+       rel-len-where-incidence-is-measured="0.5" 
+       rel-len-blade-start="0.15"
+
+       airfoil-lift-coefficient="6.3" 
+       airfoil-drag-coefficient0="0.0074" 
+       airfoil-drag-coefficient1="0.05" 
+       incidence-stall-zero-speed="18" 
+       incidence-stall-half-sonic-speed="9" 
+       lift-factor-stall="0.18" 
+       drag-factor-stall="8.0" 
+       stall-change-over="5.5" 
+       cyclic-factor="1.0" 
+       rotor-correction-factor="0.9" 
+       downwashfactor ="0.8" 
+       balance="0.999905">
+
+    <control-input axis="/controls/flight/aileron-trim" control="CYCLICAIL" split="true"/>
+    <control-input axis="/controls/flight/aileron" control="CYCLICAIL"
+             src0="-1.0" src1="1.0"
+             dst0="-1" dst1="1"/>
+    <control-input axis="/controls/flight/elevator-trim" control="CYCLICELE" split="true"/>
+    <control-input axis="/controls/flight/elevator" control="CYCLICELE"
+             src0="-1.0" src1="1.0"
+             dst0="-1" dst1="1"/>
+    <control-input axis="/controls/engines/engine[0]/throttle" control="COLLECTIVE"
+             src0="0.0" src1="1.0"
+             dst0="1.0" dst1="-1.0"/>
+  </rotor>
+
+  <!--flapmin/max guessed from a real fenestron with 1-3degrees. S0 +/-1.5, lift coefficient 3.85, drag 0.00385.Bug me-->
+  <rotor name="tail"  x="-4.4" y="-0.125" z="0.109"
+      nx="0.00" ny="1" nz="-0.00" fx="1" fy="0" fz="0" ccw="0"
+      maxcollective="-16.8" mincollective="34.2"
+      diameter="1" numblades="10" weightperblade="0.64" relbladecenter="0.5"
+      dynamic="1.4" rpm="3568" rellenflaphinge="0.35" delta3="0" translift="0" delta="0.5" twist="-7.0"
+      pitch-a="10"
+      pitch-b="15"
+      flapmin="-2"
+      flapmax="2"
+      flap0="0"
+      airfoil-lift-coefficient="4.55"
+      airfoil-drag-coefficient0="0.005675"
+      airfoil-drag-coefficient1="0.15"
+      notorque="0"
+      taper="1"
+      chord="0.05"
+      number-of-segments="5"
+      number-of-parts="4"
+      rel-len-blade-start="0.35"
+      incidence-stall-zero-speed="34"
+      incidence-stall-half-sonic-speed="33"
+      lift-factor-stall="0.18"
+      stall-change-over="5.5"
+      drag-factor-stall="8"
+      rotor-correction-factor="0.8">
+
+    <control-input axis="/controls/flight/rudder" control="COLLECTIVE" invert="true"
+             src0="-1.0" src1="1.0"
+             dst0="-1.0" dst1="1.0"/>
+    <control-input axis="/controls/engines/engine[1]/throttle" control="COLLECTIVE"
+             src0="0.0" src1="1.0"
+             dst0="0.0" dst1="0.5"/>
+  </rotor>
+
+  <rotorgear
+      max-power-engine="557"
+      max-power-rotor-brake="100"
+      rotorgear-friction="2.6"
+      engine-prop-factor="0.015"
+      engine-accel-limit="100"
+      yasimdragfactor="19"
+      yasimliftfactor="18">
+
+    <control-input axis="/controls/engines/engine[0]/magnetos" control="ROTORGEARENGINEON"/>
+    <control-input axis="/controls/rotor/brake" control="ROTORBRAKE"
+             src0="0.0" src1="1.0"
+             dst0="0.0" dst1="1.0"/>
+    <control-input axis="/controls/rotor/reltarget" control="ROTORRELTARGET"
+             src0="0.0" src1="2.0"
+             dst0="0.0" dst1="2.0"/>
+    <control-input axis="/controls/rotor/maxreltorque" control="ROTORENGINEMAXRELTORQUE"
+             src0="0.0" src1="2.0"
+             dst0="0.0" dst1="2.0"/>
+  </rotorgear>
+
+
+  <cockpit x="7.589" y="0.694" z="-0.570"/>
+
+  <!-- Fuselage -->
+  <fuselage ax="5.35" ay="0" az="-0.553"
+            bx="0.285" by="0" bz="-0.365"
+            cx="1.0" cy="1.0" cz="1.0"
+            width="2.0"
+            taper="0.4"
+            midpoint="0.45"/>
+
+  <fuselage ax="2.907" ay="0" az="0.602"
+            bx="0.473" by="0" bz="0.522"
+            cx="1.0" cy="1.0" cz="1.0"
+            width="0.65"
+            taper="0.75"
+            midpoint="1.0"/>
+
+  <!-- Tail boom-->
+  <fuselage ax="0.285" ay="0" az="-0.365"
+            bx="-3.445" by="0" bz="-0.170"
+            cz="0.3"
+            width="0.8"
+            taper="0.4"
+            midpoint="0"/>
+
+  <!--upper tailboom-->
+  <fuselage ax="0.379" ay="0" az="0.123"
+            bx="-3.445" by="0" bz="0.080"
+            cz="0.3"
+            width="0.2"
+            taper="1.0"
+            midpoint="0"/>
+
+  <mstab x="1.152" y="0.369" z="-1.030"
+         taper="1.0"
+         effectiveness="2"
+         length="1.2"
+         chord="0.550"
+         sweep="0"
+         incidence="1"
+         dihedral="-35">
+    <stall aoa="27" width="0" peak="1.5"/>
+  </mstab>
+
+
+  <hstab x="-2.95" y="0.16" z="-0.2"
+         taper="1.0"
+         effectiveness="2"
+         length="1.2"
+         chord="0.550"
+         sweep="0"
+         incidence="-2.5">
+    <stall aoa="27" width="0" peak="1.5"/>
+  </hstab>
+
+
+  <vstab x="-4.066" y="0" z="0.251"
+         taper=".7"
+         length="1.84"
+         effectiveness="2"
+         chord="1.40"
+         sweep="37"
+         incidence="-7">
+    <stall aoa="16" width="4" peak="1.5"/>
+  </vstab>
+
+  <!--lower fin-->
+  <vstab x="-4.031" y="0" z="-0.461"
+         taper=".7"
+         length="0.40"
+         effectiveness="2"
+         chord="1.20"
+         sweep="37"
+         incidence="0"
+         dihedral="-90">
+    <stall aoa="16" width="4" peak="1.5"/>
+  </vstab>
+
+  <!-- ballast - tensors recalculated 
+
+  CoG should be according to POH: 
+  x= +1.598
+  y = 0
+  z = -0.13(not known - guessed)
+  
+  -->
+  
+  
+  <ballast x="5.198"  y="+0.0" z="  -0.13" mass="472.5"/>
+  <ballast x="-2.098" y="-0.0" z="  -0.13" mass="472.5"/>
+
+  <ballast x="1.598" y="+1.55" z="  -0.13" mass="472.5"/>
+  <ballast x="1.598" y="-1.55" z="  -0.13" mass="472.5"/>
+
+  <ballast x="1.598" y="+0.0" z="   1.42" mass="472.5"/>
+  <ballast x="1.598" y="-0.0" z="  -1.68" mass="472.5"/>
+
+
+  <!-- pilot -->
+  <weight x="3.674" y="+.676" z="-.681" mass-prop="/sim/weight[0]/weight-lb"/>
+  <!-- co-pilot -->
+  <weight x="3.674" y="-.040" z="-.681" mass-prop="/sim/weight[1]/weight-lb"/>
+  <!-- front left passenger -->
+  <weight x="4.170" y="-.350" z="-.681" mass-prop="/sim/weight[2]/weight-lb"/>
+  <!-- front right passenger -->
+  <weight x="3.674" y="-.730" z="-.681" mass-prop="/sim/weight[3]/weight-lb"/>
+  <!-- rear left passenger -->
+  <weight x="2.755" y="+.699" z="-.681" mass-prop="/sim/weight[4]/weight-lb"/>
+  <!-- rear middle left passenger -->
+  <weight x="2.755" y="+.232" z="-.681" mass-prop="/sim/weight[5]/weight-lb"/>
+  <!-- rear middle right passenger -->
+  <weight x="2.755" y="-.259" z="-.681" mass-prop="/sim/weight[6]/weight-lb"/>
+  <!-- rear right passenger -->
+  <weight x="2.755" y="-.707" z="-.681" mass-prop="/sim/weight[7]/weight-lb"/>
+  <!-- luggage left -->
+  <weight x="1.900" y="+.500" z="-.550" mass-prop="/sim/weight[8]/weight-lb"/>
+  <!-- luggage right -->
+  <weight x="1.900" y="-.500" z="-.550" mass-prop="/sim/weight[9]/weight-lb"/>
+  <!-- luggage back -->
+  <weight x="0.760" y="+0.00" z="-.600" mass-prop="/sim/weight[10]/weight-lb"/>
+  <!-- luggage basket left -->
+  <weight x="2.000" y="+1.45" z="-1.20" mass-prop="/sim/weight[11]/weight-lb"/>
+  <!-- luggage basket right -->
+  <weight x="2.000" y="-1.45" z="-1.20" mass-prop="/sim/weight[12]/weight-lb"/>
+
+  <!--weight by the additional things like emergency floats, skiboxes, FLIR...-->
+  <weight x="4.317" y="+0.000" z="-0.400" size="0.01"  mass-prop="/sim/model/ec130/external/wirecutter/weight-lb"/><!--L-->
+  <weight x="4.290" y="+0.700" z="-1.200" size="0.03"  mass-prop="/sim/model/ec130/external/mirror/weight-lb"/><!--L-->
+  <weight x="4.732" y="+1.050" z="-1.180" size="0.25"  mass-prop="/sim/model/ec130/external/searchlight_a800/weight-lb"/><!--L-->
+
+  <weight x="4.435" y="-1.094" z="-1.186" size="0.50"  mass-prop="/sim/model/ec130/external/FLIR/weight-lb"/><!--R-->
+  <weight x="2.382" y="-1.495" z="-1.167" size="0.30"  mass-prop="/sim/model/ec130/external/searchlight/weight-lb"/><!--R-->
+
+  <weight x="2.047" y="+1.411" z="-1.176" size="0.30"  mass-prop="/sim/model/ec130/external/basket_left/weight-lb"/><!--OL-->
+  <weight x="2.047" y="-1.411" z="-1.176" size="0.30"  mass-prop="/sim/model/ec130/external/basket_right/weight-lb"/><!--OR-->
+
+  <!-- wide luggage boxes -->
+  <weight x="1.420" y="+0.860" z="-0.550" size="0.10"  mass-prop="/sim/model/ec130/external/luggage_left_wide/weight-lb"/><!--OL-->
+  <weight x="1.420" y="-0.860" z="-0.550" size="0.10"  mass-prop="/sim/model/ec130/external/luggage_right_wide/weight-lb"/><!--OR-->
+
+  <weight x="2.213" y="+1.245" z="-1.626" size="0.10"  mass-prop="/sim/model/ec130/external/float_deflated_left/weight-lb"/><!--ML-->
+  <weight x="2.213" y="-1.245" z="-1.626" size="0.10"  mass-prop="/sim/model/ec130/external/float_deflated_right/weight-lb"/><!--MR-->
+  <weight x="2.213" y="+1.401" z="-1.362" size="0.70"  mass-prop="/sim/model/ec130/external/float_inflated_left/weight-lb"/><!--IL-->
+  <weight x="2.213" y="-1.401" z="-1.362" size="0.70"  mass-prop="/sim/model/ec130/external/float_inflated_right/weight-lb"/><!--IR-->
+
+  <weight x="1.350" y="+1.245" z="-1.800" size="0.05" mass-prop="/sim/model/ec130/external/snowshoe_left/weight-lb"/><!--SL-->
+  <weight x="1.350" y="-1.245" z="-1.800" size="0.05" mass-prop="/sim/model/ec130/external/snowshoe_right/weight-lb"/><!--SR-->
+
+  <weight x="1.794" y="+0.000" z="-1.280" size="0.10"  mass-prop="/sim/model/ec130/external/hoist/weight-lb"/><!--HS-->
+
+  <!-- left skid -->
+  <gear x="+3.325" y="+1.22" z="-1.770" skid="1" compression="0.15" spring="0.5"  sfric="0.5" dfric="0.4"/>
+  <gear x="+1.028" y="+1.22" z="-1.770" skid="1" compression="0.15" spring="0.5"  sfric="0.5" dfric="0.4"/>
+
+  <!-- right skid -->
+  <gear x="+3.325" y="-1.22" z="-1.770" skid="1" compression="0.15" spring="0.5"  sfric="0.5" dfric="0.4"/>
+  <gear x="+1.028" y="-1.22" z="-1.770" skid="1" compression="0.15" spring="0.5"  sfric="0.5" dfric="0.4"/>
+
+  <!-- tail skid -->
+  <gear x="-4.252" y="+0.00" z="-1.034" skid="1" compression="0.15" spring="0.5" damp="1" sfric="1" dfric="1"/>
+
+  <!-- back end fenestron -->
+  <gear x="-5.430" y="+0.00" z="+0.000" skid="1" compression="0.1" spring="0.5" damp="1" sfric="1" dfric="1"/>
+
+  <!-- wire cutter -->
+  <gear x="+4.923" y="+0.00" z="-1.431" skid="1" compression="0.1" spring="1.0" damp="1" sfric="1" dfric="1"/>
+
+  <!-- canopy front -->
+  <gear x="+5.184" y="+0.00" z="-1.100" skid="1" compression="0.1" spring="1.0" damp="1" sfric="1" dfric="1"/>
+
+  <!--left float-->
+  <gear x="+4.100" y="+1.474" z="-1.470"  compression="0.4" spring="1" sfric="0.8" dfric="0.7"
+        on-water="1" on-solid="0" ignored-by-solver="1" reduce-friction-by-extension="1.0"  speed-planing="25" spring-factor-not-planing="0.7">
+
+    <control-input axis="/controls/gear/floats-inflat" control="EXTEND"/>
+    <control-output control="EXTEND" prop="/gear/gear[5]/position-norm"/>
+    <control-speed control="EXTEND" transition-time="0.25"/>
+  </gear>
+
+  <gear x="+0.148" y="+1.474" z="-1.470"  compression="0.4" spring="1" sfric="0.8" dfric="0.7"
+        on-water="1" on-solid="0" ignored-by-solver="1" reduce-friction-by-extension="1.0"  speed-planing="25" spring-factor-not-planing="0.7">
+
+    <control-input axis="/controls/gear/floats-inflat" control="EXTEND"/>
+    <control-output control="EXTEND" prop="/gear/gear[6]/position-norm"/>
+    <control-speed control="EXTEND" transition-time="0.25"/>
+  </gear>
+
+  <!--right float-->
+  <gear x="4.1" y="-1.474" z="-1.470"  compression="0.4" spring="1" sfric="0.8" dfric="0.7"
+        on-water="1" on-solid="0" ignored-by-solver="1" reduce-friction-by-extension="1.0"  speed-planing="25" spring-factor-not-planing="0.7">
+
+    <control-input axis="/controls/gear/floats-inflat" control="EXTEND"/>
+    <control-output control="EXTEND" prop="/gear/gear[7]/position-norm"/>
+    <control-speed control="EXTEND" transition-time="0.25"/>
+  </gear>
+
+  <gear x="0.148" y="-1.474" z="-1.470"  compression="0.4" spring="1" sfric="0.8" dfric="0.7"
+        on-water="1" on-solid="0" ignored-by-solver="1" reduce-friction-by-extension="1.0"  speed-planing="25" spring-factor-not-planing="0.7">
+    <control-input axis="/controls/gear/floats-inflat" control="EXTEND"/>
+    <control-output control="EXTEND" prop="/gear/gear[8]/position-norm"/>
+    <control-speed control="EXTEND" transition-time="0.25"/>
+  </gear>
+
+  <!-- left snowshoe -->
+  <gear x="+1.028" y="+1.22" z="-1.847" skid="1" compression="0.1" spring="0.5"  sfric="0.5" dfric="0.4"/>
+    <control-input axis="sim/model/ec130/snowshoes" control="EXTEND"/>
+    <control-output control="EXTEND" prop="/gear/gear[9]/position-norm"/>
+    <control-speed control="EXTEND" transition-time="0.2"/>
+
+  <!-- right snowshoe -->
+  <gear x="+1.028" y="-1.22" z="-1.847" skid="1" compression="0.15" spring="0.5"  sfric="0.5" dfric="0.4"/>
+    <control-input axis="sim/model/ec130/snowshoes" control="EXTEND"/>
+    <control-output control="EXTEND" prop="/gear/gear[10]/position-norm"/>
+    <control-speed control="EXTEND" transition-time="0.2"/>
+
+  <tank x="1.90" y="0.0" z="-.03" capacity="941" /><!-- 538.7l -->
+
+  <thruster x="-1.9" y="0.0" z="1.3" vx="1" vy="0" vz="0" thrust="2000">
+    <control-input axis="/rotors/main/vibration/longitudinal" src0="-1" src1="1" dst0="-1" dst1="1" control="THROTTLE"/>
+  </thruster>
+
+  <thruster x="-1.9" y="0.0" z="1.3" vx="0" vy="1" vz="0" thrust="2000">
+    <control-input axis="/rotors/main/vibration/lateral" src0="-1" src1="1" dst0="-1" dst1="1" control="THROTTLE"/>
+  </thruster>
+
+</airplane>

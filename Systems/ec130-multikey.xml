@@ -1,0 +1,653 @@
+<?xml version="1.0"?>
+
+<!--
+  This file defines vi-like key sequences which are started with the ':'-key.
+  It's evaluated by $FG_ROOT/Nasal/multikey.nas.
+
+  - <Esc> always aborts.
+  - <Return>/<Enter> executes and terminates the command mode, given that
+    <binding>s exist (use "null" if there's nothing else to do) and <no-exit/>
+    isn't defined.
+  - Keys with defined <exit/> property execute their bindings immediately,
+    that is: without having to press <Return>/<Enter>.
+  - Format placeholder values are available to Nasal code via arg[].
+  - Nasal code can set the dialog title by assignment to the _ variable.
+  - <key> indices aren't used by the system, but are recommended to allow
+    reliable overwriting by aircraft or user xml files.
+  - Cursor keys are equivalent to characters <, >, ^, _.
+-->
+
+<PropertyList>
+
+  <key n="65">
+    <name>A</name>
+    <desc>EC130-B4 Controls</desc><!-- reserved for aircraft extensions -->
+
+    <!-- begin SCU BUTTON handling -->
+    <key n="65">
+      <name>A</name>
+      <desc>BAT EPU</desc>
+      <exit/>
+      <binding>
+       <command>property-toggle</command>
+       <property>controls/electric/battery-switch</property>
+      </binding>
+    </key>
+
+    <key n="66">
+      <name>B</name>
+      <desc>DCT/BAT</desc>
+      <exit/>
+      <binding>
+       <command>property-toggle</command>
+       <property>controls/electric/directbat-switch</property>
+      </binding>
+    </key>
+
+    <key n="67">
+      <name>C</name>
+      <desc>GENE</desc>
+      <exit/>
+      <binding>
+       <command>property-toggle</command>
+       <property>controls/electric/engine[0]/generator</property>
+      </binding>
+    </key>
+
+    <key n="68">
+      <name>D</name>
+      <desc>HORN</desc>
+      <exit/>
+      <binding>
+       <command>property-toggle</command>
+       <property>controls/electric/horn</property>
+      </binding>
+    </key>
+
+    <key n="69">
+      <name>E</name>
+      <desc>DOME LT</desc>
+      <exit/>
+      <binding>
+       <command>property-toggle</command>
+       <property>controls/lighting/dome-light</property>
+      </binding>
+    </key>
+
+    <key n="70">
+      <name>F</name>
+      <desc>AVIONIC</desc>
+      <exit/>
+      <binding>
+       <command>property-toggle</command>
+       <property>controls/electric/avionics-switch</property>
+      </binding>
+    </key>
+
+    <!-- short-time toggle buttons cannot react on mod-up -->
+    <!-- WORKAROUND: reset with timer after 1 sec         -->
+    <key n="71">
+      <name>G</name>
+      <desc>GENE RST</desc>
+      <exit/>
+      <binding>
+        <command>nasal</command>
+        <script>
+          setprop("/controls/electric/engine[0]/generator",-1);
+          settimer( func{ setprop("/controls/electric/engine[0]/generator",0); },1);
+        </script>
+      </binding>
+    </key>
+
+    <key n="72">
+      <name>H</name>
+      <desc>A/COL LT</desc>
+      <exit/>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/lighting/beacon</property>
+      </binding>
+      <!-- mhab strobe is tied to beacon (for simplicity) -->
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/lighting/strobe</property>
+      </binding>
+    </key>
+
+    <key n="73">
+      <name>I</name>
+      <desc>POS LT</desc>
+      <exit/>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/lighting/nav-lights</property>
+      </binding>
+    </key>
+
+    <key n="80">
+      <name>P</name>
+      <desc>FUEL P</desc>
+      <exit/>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/fuel/tank/boost-pump</property>
+      </binding>
+    </key>
+
+    <key n="74">
+      <name>J</name>
+      <desc>INST L1</desc>
+      <exit/>
+      <binding>
+       <command>property-toggle</command>
+       <property>controls/lighting/instrument-lights</property>
+      </binding>
+    </key>
+
+    <key n="75">
+      <name>K</name>
+      <desc>INST L2</desc>
+      <exit/>
+      <binding>
+       <command>property-toggle</command>
+       <property>controls/lighting/instrument-lights2</property>
+      </binding>
+    </key>
+
+    <key n="76">
+      <name>L</name>
+      <desc>PITOTS</desc>
+      <exit/>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/anti-ice/pitot-heat</property>
+      </binding>
+    </key>
+
+    <key n="77">
+      <name>M</name>
+      <desc>HORIZON</desc>
+      <exit/>
+      <binding>
+        <command>property-toggle</command>
+        <property>instrumentation/attitude-indicator/serviceable</property>
+      </binding>
+    </key>
+
+    <key n="78">
+      <name>N</name>
+      <desc>GYRO</desc>
+      <exit/>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/electric/gyrocompass</property>
+      </binding>
+    </key>
+
+    <key n="84">
+      <name>T</name>
+      <desc>FLOAT ARM</desc>
+      <exit/>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/gear/floats-armed</property>
+      </binding>
+    </key>
+
+    <key n="81">
+      <name>Q</name>
+      <desc>CRANK</desc>
+      <exit/>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/engines/engine/starter</property>
+      </binding>
+    </key>
+
+    <!-- short-time toggle buttons cannot react on mod-up -->
+    <!-- WORKAROUND: reset with timer after 1 sec         -->
+    <key n="87">
+      <name>W</name>
+      <desc>W/LT TST</desc>
+      <exit/>
+      <binding>
+        <command>nasal</command>
+        <script>
+          setprop("/controls/electric/warningtest",1);
+          settimer( func{ setprop("/controls/electric/warningtest",0); },1);
+        </script>
+      </binding>
+    </key>
+
+    <key n="82">
+      <name>R</name>
+      <desc>FIRE TST</desc>
+      <exit/>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/electric/firetest</property>
+      </binding>
+    </key>
+
+    <key n="83">
+      <name>S</name>
+      <desc>SERVO TST</desc>
+      <exit/>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/electric/servotest</property>
+      </binding>
+    </key>
+    <!-- End SCU BUTTON handling -->
+
+    <key n="97">
+      <name>a</name>
+      <desc>Altimeter adjust</desc>
+      <binding>
+        <command>null</command>
+      </binding>
+
+      <key n="94">
+        <name>^</name>
+        <desc>adjust +</desc>
+        <no-exit/>
+        <binding>
+          <command>nasal</command>
+          <script>_ = sprintf("Pressure = %3.2f", ec130.adjust_altimeter(0.01))</script>
+        </binding>
+      </key>
+
+      <key n="95">
+        <name>_</name>
+        <desc>adjust -</desc>
+        <no-exit/>
+        <binding>
+          <command>nasal</command>
+          <script>_ = sprintf("Pressure = %3.2f", ec130.adjust_altimeter(-0.01))</script>
+        </binding>
+      </key>
+
+    </key>
+
+    <key n="100">
+      <name>d</name>
+      <desc>Doors/Windows/Covers</desc>
+      <binding>
+        <command>null</command>
+      </binding>
+
+      <key n="48">
+        <name>0</name>
+        <desc>toggle Pilot Window</desc>
+        <exit/>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.pilotwexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="49">
+        <name>1</name>
+        <desc>toggle Front Door left (pilot)</desc>
+        <exit/>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.frontlexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="50">
+        <name>2</name>
+        <desc>toggle Front Door right</desc>
+        <exit/>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.frontrexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="51">
+        <name>3</name>
+        <desc>toggle Back Door left</desc>
+        <exit/>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.passengerlexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="52">
+        <name>4</name>
+        <desc>toggle Back Door right</desc>
+        <exit/>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.passengerrexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="53">
+        <name>5</name>
+        <desc>toggle Luggage Door left</desc>
+        <exit/>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.luggagelexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="54">
+        <name>6</name>
+        <desc>toggle Luggage Door right</desc>
+        <exit/>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.luggagerexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="55">
+        <name>7</name>
+        <desc>toggle Luggage Door back</desc>
+        <exit/>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.doorbexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="56">
+        <name>8</name>
+        <desc>toggle Basket Cover left</desc>
+        <exit/>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.basketlexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="57">
+        <name>9</name>
+        <desc>toggle Basket Cover right</desc>
+        <exit/>
+        <binding>
+          <command>nasal</command>
+          <script>
+            doors.doorsystem.basketrexport();
+          </script>
+        </binding>
+      </key>
+
+      <key n="68">
+        <name>D</name>
+        <desc>toggle all Doors</desc>
+        <exit/>
+        <binding>
+          <command>nasal</command>
+          <script>ec130.toggle_all_doors();</script>
+        </binding>
+      </key>
+
+    </key>
+
+    <key n="101">
+      <name>e</name>
+      <desc>toggle Starter OFF/FLT</desc>
+      <exit/>
+      <binding>
+        <condition>
+          <not>
+            <property>controls/engines/engine/switchguard</property>
+          </not>
+        </condition>
+        <command>property-toggle</command>
+        <property>controls/engines/engine/startselector</property>
+      </binding>
+      <binding>
+        <condition>
+          <not>
+            <property>controls/engines/engine/switchguard</property>
+          </not>
+        </condition>
+        <command>property-toggle</command>
+        <property>sim/model/sound/click</property>
+      </binding>
+    </key>
+
+    <key n="103">
+      <name>g</name>
+      <desc>toggle Selector Guard</desc>
+      <exit/>
+      <binding>
+        <condition>
+          <property>controls/engines/engine/startselector</property>
+        </condition>
+        <command>property-toggle</command>
+        <property>controls/engines/engine/switchguard</property>
+      </binding>
+    </key>
+
+    <key n="106">
+      <name>j</name>
+      <desc>INST.1 dimming</desc>
+      <binding>
+        <command>null</command>
+      </binding>
+
+      <key n="94">
+        <name>^</name>
+        <desc>Light +</desc>
+        <no-exit/>
+        <binding>
+          <command>nasal</command>
+          <script>_ = sprintf("INST.1 = %d%%", ec130.adjust_inst1(0.05))</script>
+        </binding>
+      </key>
+
+      <key n="95">
+        <name>_</name>
+        <desc>Light -</desc>
+        <no-exit/>
+        <binding>
+          <command>nasal</command>
+          <script>_ = sprintf("INST.1 = %d%%", ec130.adjust_inst1(-0.05))</script>
+        </binding>
+      </key>
+
+    </key>
+
+    <key n="109">
+      <name>m</name>
+      <desc>Horizon adjust</desc>
+      <binding>
+        <command>null</command>
+      </binding>
+
+      <key n="104">
+        <name>h</name>
+        <desc>Horizon Offset</desc>
+        <binding>
+          <command>null</command>
+        </binding>
+
+        <key n="94">
+          <name>^</name>
+          <desc>Offset +</desc>
+          <no-exit/>
+          <binding>
+            <command>nasal</command>
+            <script>_ = sprintf("Offset = %1.0f", ec130.adjust_horizon_offset(0.5))</script>
+          </binding>
+        </key>
+
+        <key n="95">
+          <name>_</name>
+          <desc>Offset -</desc>
+          <no-exit/>
+          <binding>
+            <command>nasal</command>
+            <script>_ = sprintf("Offset = %1.0f", ec130.adjust_horizon_offset(-0.5))</script>
+          </binding>
+        </key>
+
+      </key>
+
+      <key n="112">
+        <name>p</name>
+        <exit/>
+        <desc>toggle Pull To Cage</desc>
+        <binding>
+          <command>property-toggle</command>
+          <property>instrumentation/attitude-indicator/caged</property>
+          <value type="bool">true</value>
+        </binding>
+      </key>
+
+    </key>
+
+    <key n="110">
+      <name>n</name>
+      <desc>Gyro-Compass (HSI)</desc>
+      <binding>
+        <command>null</command>
+      </binding>
+
+      <key n="72">
+        <name>H</name>
+        <desc>Heading ADJUST</desc>
+        <binding>
+          <command>null</command>
+        </binding>
+
+        <key n="94">
+          <name>^</name>
+          <desc>Heading ++</desc>
+          <no-exit/>
+          <binding>
+            <command>nasal</command>
+            <script>_ = sprintf("HDG = %1.0f", ec130.adjust_heading(10))</script>
+          </binding>
+        </key>
+
+        <key n="95">
+          <name>_</name>
+          <desc>Heading --</desc>
+          <no-exit/>
+          <binding>
+            <command>nasal</command>
+            <script>_ = sprintf("HDG = %1.0f", ec130.adjust_heading(-10))</script>
+          </binding>
+        </key>
+
+      </key>
+
+      <key n="79">
+        <name>O</name>
+        <desc>Bearing ADJUST</desc>
+        <binding>
+          <command>null</command>
+        </binding>
+
+        <key n="94">
+          <name>^</name>
+          <desc>Bearing ++</desc>
+          <no-exit/>
+          <binding>
+            <command>nasal</command>
+            <script>_ = sprintf("Bearing = %1.0f", ec130.adjust_obs(10))</script>
+          </binding>
+        </key>
+
+        <key n="95">
+          <name>_</name>
+          <desc>Bearing --</desc>
+          <no-exit/>
+          <binding>
+            <command>nasal</command>
+            <script>_ = sprintf("Bearing = %1.0f", ec130.adjust_obs(-10))</script>
+          </binding>
+        </key>
+
+      </key>
+
+      <key n="104">
+        <name>h</name>
+        <desc>Heading adjust</desc>
+        <binding>
+          <command>null</command>
+        </binding>
+
+        <key n="94">
+          <name>^</name>
+          <desc>Heading +</desc>
+          <no-exit/>
+          <binding>
+            <command>nasal</command>
+            <script>_ = sprintf("HDG = %1.0f", ec130.adjust_heading(1))</script>
+          </binding>
+        </key>
+
+        <key n="95">
+          <name>_</name>
+          <desc>Heading -</desc>
+          <no-exit/>
+          <binding>
+            <command>nasal</command>
+            <script>_ = sprintf("HDG = %1.0f", ec130.adjust_heading(-1))</script>
+          </binding>
+        </key>
+
+      </key>
+
+      <key n="111">
+        <name>o</name>
+        <desc>Bearing adjust</desc>
+        <binding>
+          <command>null</command>
+        </binding>
+
+        <key n="94">
+          <name>^</name>
+          <desc>Bearing +</desc>
+          <no-exit/>
+          <binding>
+            <command>nasal</command>
+            <script>_ = sprintf("Bearing = %1.0f", ec130.adjust_obs(1))</script>
+          </binding>
+        </key>
+
+        <key n="95">
+          <name>_</name>
+          <desc>Bearing -</desc>
+          <no-exit/>
+          <binding>
+            <command>nasal</command>
+            <script>_ = sprintf("Bearing = %1.0f", ec130.adjust_obs(-1))</script>
+          </binding>
+        </key>
+
+      </key>
+
+    </key>
+
+  </key>
+
+</PropertyList>

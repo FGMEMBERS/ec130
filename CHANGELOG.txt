@@ -1,0 +1,453 @@
+EC130B4 Updates
+===============
+
+Updates After FG 3.0:
+--------------------
+
+Liveries:
+--------
+
+ - N812MH Maverick (Grand Canyon and Las Vegas)
+    - NEW
+
+ - N156BC Sheriff (Broward County, Florida)
+    - NEW
+
+ - PR-BOP Parana Police (Brasil)
+    - NEW
+
+Model:
+-----
+Searchlights:
+ - NEW Searchlight Trakkabeam A800
+   (as seen with MAC rescue)
+   Rem.: fully functional with
+     - stow/deploy
+     - 4 cycleable light cones (200m, 500m, 1km, 1.7km)
+     - 4 cycleable color filters (white, amber, red, IR)
+     - Searchlight stabilized
+ - Searchlight cone visibility adjustable (0/1/2/3)
+ - toggle Stabilization (Alt-s)
+ - cycle Slew Rate (fast/medium/slow) (AltGr-L)
+
+Independent Searchlight:
+ - Searchlight implementation made easier portable
+   and more independent of EC130
+ - NEW searchlight options dialog (for independent use)
+
+Other:
+ - additional antennas of different kinds
+   (as seen with Broward County Sheriff, Parana Police)
+ - additional landing lights
+   (as seen with MedFlight Helis)
+ - additional lower strobe light
+   (as seen with MedFlight,Maverick,Blue Hawaiian)
+ - Texture Bug fixes
+ - Wide luggage boxes (optional)
+
+Instruments:
+ - improved dimming
+ - Fix: Horizon offset adjustment (AI)
+ - Fix/Add: Altimeter, pressure adjustable
+ - Rotor Break Lock operable
+ - Cutoff Lever Guard operable
+ - Objects for Pick animations unified (all knobs use half cylinders left/right)
+ - DOOR warning added
+
+User Interface:
+--------------
+ - NEW Antenna Configuration Dialog
+ - NEW Operator/Model Info
+   --> Background Info about the real model
+   --> in Aircraft Menu and Config Dialog
+ - Configuration Dialog extended/updated
+ - Simulation Options Dialog extended/updated
+ - Help Dialog updated
+ - NEW Searchlight Watch View
+ - NEW Searchlight Follow View, syncronized with searchlight direction
+ - NEW Multikey Commands for System Control Unit (SCU)
+ - NEW Tooltips for pick animations
+ - improved pick animation for INST.1 light
+ - Shortcuts (modified/new):
+   - Alt-o    ... Config Dialog (was AltGr-o)
+   - AltGr-o  ... Simulation Options (was Alt-o)
+   - Alt-a    ... Antenna Setup Dialog (new)
+   - Alt-i    ... Operator/Model Info Dialog (new)
+   - Alt-L    ... cycle Light-Cone Visibility (new)
+   - AltGr-L  ... cycle Slew Rate (new)
+   - Alt-s    ... toggle Stabilization (A800) (new)
+   - Shift-S  ... cycle Filter (was Alt-s)
+   - Ctrl-s   ... reset Searchlight (was Ctrl-k)
+   - Ctrl-p   ... pause Searchlight (was Shift-S)
+   - Alt-w    ... W/LT TST (Warning Test) (new)
+   - Alt-r    ... toggle Rotor Break Lock (new)
+   - AltGr-c  ... toggle Cutoff Lever Guard (new)
+   - :A*      ... multi key commands
+
+Misc:
+----
+ - Searchlight optimized for Rembrandt
+ - Searchlights modularized for easy reuse in other models
+ - Rembrandt Lights dimmed during the day (more realistic)
+ - Snowshoes defined as retractable gear
+ - Directories restructured according to http://wiki.flightgear.org/Standard_aircraft_structure
+ - merge some Nasal scripts into ec130.nas
+ - Autostart/Autoshutdown more realistic/smoother
+
+FG 3.0 Version
+--------------
+
+Highlights:
+----------
+ - new Splashscreen
+ - Checklists implemented with conditional display
+ - Mainrotor fully animated swashplate geometry adapted to original
+ - Fenestron fully designed and animated, incl. control rod
+ - Controls added: Stick, Collective, Pedals,  Co-Pilot Controls (optional)
+ - Luggage compartments added
+ - all doors movable
+ - New Liveries:
+     --> see below
+ - Searchlight (optional):
+     - detailed model
+     - movable (elev, heading)
+     - movable Filter
+     - adjustable lightcone,
+     - light overcast, ...
+ - Snowshoes (optional)
+ - Hoist/Hook (optional)
+ - New integrated Configuration Dialog with special Help dialog
+   - livery
+   - Tank
+   - Views
+   - Weights
+   - Interior: Seats configurable 5/6 passengers or rescue equipment
+   - Equipment
+ - additional views for each passenger, tail, rotor
+ - Pilot: fully animated
+ - Autostart/Autoshutdown enabled after 15 flights
+ - Rotor-Wakes off-low-medium-high cyclable
+   - visible only at daylight
+ - Sound improved
+    - sound inside depending on open doors
+    - door open/close sound
+    - splash if landing/touching on water
+    - low/high rotor warning <360rpm >410rpm (screen+audible)
+    - extreme sound alarm at overspeed > vne+20 = 175kts
+ - Crash at overspeed > vne+45 = 200 kts
+ - many new shortcuts
+ - many new pick animations
+
+Details:
+-------
+ - sounds copied from EC135, configuration adapted
+ - some sounds from R44
+ - Yasim: tailgear protects fenestron
+ - Fenestron fuselage a bit less wide
+ - Exhaust shorter and wider
+ - Seats:
+    - seat covers textured
+    - rear seats higher
+ - Collective Lever: Power clickable (upper/lower half +/-)
+ - Pilot: shoesoles added
+ - Windshield options: clear, visible (grey-tone), or shaded (glass-reflection)
+ - Pilot Window animated (clickable ;-)
+ - Shadow (optional):
+   - half-transparent
+   - only if Sun >10deg above horizon
+ - Search Light
+     - more detailed
+     - light cone 4 steps normal, medium, large, xlarge
+     - Filter animated
+     - Light overcast
+     - timed startup 4sec with message ...
+     - Shutdowntime 2sec with message ...
+     - Pause (inermediate Deactivation without Startup/Shutdown)
+     - Click Animations:
+        - Filter up/down
+        - on/off
+        - cycle focus/distance
+        - pause
+        - reset (heading,elevation, all)
+ - Skibox Covers animated
+ - Telescopes for doors
+
+Liveries:
+ - livery-PNGs moved to "Liveries" folder
+ - Texture dark around mainrotor-mast
+ - exhaust with realistic texture
+
+ - D-HTLL (black)
+    - left D-HTLL smaller (as on right side) (undone by HHS)
+    - fix grey spot under Fenestron
+
+ - FLIGHTGEAR
+    - adapted and bugs fixed (but mostly undone by HHS)
+
+ - HB-ZIN
+    - adapted and bugs fixed (but mostly undone by HHS)
+
+ - D-HSTS
+    - taken from Livery-Download (WEB), and adapted
+
+ - N155GC Grand Canyon Heli
+    - NEW
+
+ - N130NE MedFlight
+    - NEW
+
+ - N11QC Blue Hawaiian
+    - NEW
+
+ - F-GOLH private
+    - NEW
+
+ - VH-OSA MAC rescue
+    - NEW
+
+ - ZS-HOY Starlite
+    - NEW
+
+Models\ec130.nas:
+ - removed
+   --> necessary parts moved to Nasal\ec130.nas
+
+Nasal/ec130.nas:
+ - use sort for Liveries 
+ - EC130 Logo
+ - do not Connect power with fast Rotor (>300rpm)
+
+ec130-checklists.xml
+ - new implemented
+
+ec130b4-set.xml:
+ - neue Views
+    - Co-Pilot
+    - all Passengers
+ - weight Passengers
+ - checklist
+ - Keyboard Shortcuts
+    ---startup---
+   - Alt-p   ... external power
+   - AltGr-p ... toggle fuel-pump
+   - Ctrl-e  ... Autostart
+   - E       ... Autoshutdown
+    ---flight---
+   - Alt-g   ... toggle GSDI
+   - Alt-c   ... toggle cutoff lever
+   - r/R     ... Rotorbrake
+   - t/T     ... direct trim
+    ---doors---
+   - d/D     ... toggle Pilot/Passenger Doors
+   - AltGr-d ... toggle Pilot Window
+   - Ctrl-d  ... toggle all Doors
+   - Alt-d   ... toggle Luggage Doors
+   - Alt-b   ... toggle Basket Covers
+   - 1-4     ... toggle doors
+    ---light---
+   - l       ... toggle Landing-Light (L-Key)
+   - L       ... toggle Searchlight (Timer)
+   - s       ... cycle Searchlight Focus/Distance
+   - S       ... toggle Searchlight Filter
+   - Alt-s   ... toggle Stabilization (A800)
+   - j/j     ... rotate Searchlight right/left
+   - k/K     ... rotate Searchlight down/up
+   - Ctrl-s  ... reset Searchlight
+   - Ctrl-p  ... pause Searchlight
+    ---equipment---
+   - F       ... toggle Floats armed
+   - Alt-f   ... inflate/repack Floats
+   - o/O     ... close/open Hook
+    ---simulation---
+   - AltGr-o ... Configuration
+   - Alt-o   ... Simulation Options
+   - Alt-k   ... cycle Rotor Wake Visibility
+
+ - Autostart/Autoshutdown enable after 15 flights
+
+
+scu.xml:
+ - "FLT ARM" button effective for floats
+
+Models\ec130b4.xml:
+ - fix: position of GSDI
+ - all doors movable clickable
+ - tail rotor animated
+ - tail disc animated
+ - stick, collective animated
+ - searchlight animated
+ - baskets animated
+
+ec130b4.ac:
+ - "fuselage.016" renamed in "windowbr.002"
+   --> wondowframe was assigned wrong
+ - "frame2" renamed to "windowl.003"
+ - backdoorl.002 (white fixing) move with door
+ - doors moveable
+ - slide door link upper
+ - slide door hinge
+ - mirror grey
+ - many texture bugs fixed
+ - Fenestron made new (based on ec135)
+   - stator
+   - blade
+   - rotor_disc_T
+ - Tail-Rotor Blades moveable like Dauphin
+ - fix Pilot Door Inside
+ - luggage compartments
+ - flattened rear end
+ - added grip at rear end
+ - Pilotdoor/other doors less thickness
+ - Searchlight detailed
+ - Baskets split
+ - luggage back added details inside
+ - Hoist/Hook
+ - Exhaust cut out
+ - Exhaust pipe
+ - rear gear tube added
+ - gear rear end a bit longer
+
+ - fixed according to HHS sketches
+     - Tail texture
+     - texture near roof to improve distortion
+     - Exhaust longer higher
+     - Exhaust pipe prolonged
+     - sharp bend at front-tail pass
+
+rotor.ac:
+ - more realistic/detailed swashplate/control rods
+ - lower swashplate redesigned
+ - geometry according to original
+ - cut rubber in 5 pieces for animation
+ - change blade connection levers
+ - rotorhead details
+
+gsdi.ac:
+ - added backside (black)
+
+gsdi.xml
+ - indicators don't leave box
+
+left_float.xml:
+right_float.xml:
+ - pick animation for toggle inflate/repack
+
+Wiki Images uploaded (Newsletter images NOT included):
+[[File:EC130 Grand Canyon winter.jpg|thumb|EC130-B4 N155GC on a wintertime flight over Grand Canyon]]
+[[File:EC130 Grand Canyon winter 2.jpg|thumb|EC130-B4 N155GC on a wintertime flight over Grand Canyon]]
+[[File:EC130 Grand Canyon winter 3.jpg|thumb|EC130-B4 N155GC on a wintertime flight over Grand Canyon]]
+
+[[File:EC130 HB-ZIN.png|thumb|EC130 HB-ZIN]]
+[[File:EC130 HB-ZIN landed.png|thumb|EC130 HB-ZIN landed on a high place in Switzerland]]
+[[File:EC130 KSFO.png|thumb|Usually helis are not supposed to land here, but it looks good (KSFO)]]
+[[File:EC130 landed on top of Hohe Munde.png|thumb|landed on top of Hohe Munde above Telfs, near LOWI]]
+[[File:EC130 MedFlight Alcatraz.png|thumb|Not sure if an EMS Heli is needed in Alcatraz]]
+[[File:EC130 MedFlight Alcatraz 2.png|thumb|MedFlight EMS Heli in Alcatraz]]
+[[File:EC130 MedFlight Samedan.png|thumb|a U.S. helicopter on tour in Samedan, Switzerland]]
+[[File:EC130B4 near LOWI.jpg|thumb|climbing from LOWI, nice new Scenery 2.0]]
+
+[[File:EC130 Matterhorn.png|thumb|EC130-B4 over Zermatt on the way to Matterhorn]]
+[[File:EC130 Matterhorn landing.png|thumb|EC130-B4 trying to land near Matterhorn top]]
+
+[[File:EC130 climbing above Kals Osttirol.jpg|thumb|EC130 helicopter on it's way to Grossglockner/Tirol/Austria flying above the village Kals/Osttirol]]
+[[File:EC130 with most equipment.jpg|thumb|EC130 Eurocopter carrying most of the available equipment of upgraded version (FG 2.12/3.0)]]
+[[File:EC130 heading for Grossglockner.png|thumb|approaching Grossglockner, highest mountain of Austria in a EC130 helicopter]]
+[[File:EC130 in Hohe Tauern.png|thumb|EC130 flying in Hohe Tauern]]
+[[File:EC130 on way to Grossglockner.png|thumb|EC130 flying high on it's way from Lienz/Osttriol to Grossglockner]]
+
+[[File:EC130 Dolomiten.jpg|thumb|EC130 flying near Austrian Italian border, Dolomites in the background]]
+
+[[File:EC130-B4 Blue Hawaiian at coast of Kalaupapa.jpg|thumb|EC130-B4 Blue Hawaiian at coast of Kalaupapa]]
+[[File:EC130-B4 Blue Hawaiian near ship.jpg|thumb|EC130-B4 Blue Hawaiian with ship near Kalaupapa]]
+[[File:EC130-B4 Blue Hawaiian floating.jpg|thumb|EC130-B4 of Blue Hawaiian Helicopters using floats]]
+
+[[File:EC130-B4 F-GOLH Geneva.jpg|thumb|EC130-B4 F-GOLH on Geneva airport LSGG]]
+[[File:EC130-B4 F-GOLH Lake Geneva.jpg|thumb|EC130-B4 F-GOLH landing in Lake Geneva with floats inflated]]
+
+[[File:EC130-B4 MAC rescue 2.jpg|thumb|EC130-B4 of MAC rescue (South Australia)]]
+[[File:EC130-B4 MAC rescue.jpg|thumb|EC130-B4 of MAC rescue (South Australia)]]
+
+[[File:EC130-B4 ZS-HOY.jpg|thumb|EC130-B4 ZS-HOY Starlite Helicopters]]
+
+[[File:EC130-B4 with Grand Canyon in the Alps.jpg|thumb|EC130-B4 with Grand Canyon Heli Livery somewhere in the Austrian Alps]]
+
+[[File:EC130-B4 Maverick.jpg|thumb|EC130-B4 of Maverick Helicopters (Grand Canyon) at LOWI]]
+[[File:EC130-B4 Maverick LOWI in summer.jpg|thumb|EC130-B4 of Maverick Helicopters (Grand Canyon) at LOWI airport]]
+[[File:EC130-B4 Broward County Sheriff.jpg|thumb|EC130-B4 of Broward County Sheriff (Florida)]]
+[[File:EC130-B4 Broward County Sheriff 2.jpg|thumb|EC130-B4 Broward County Sheriff in flight near Miami]]
+
+[[File:EC130-B4 MAC rescue equipment.jpg|thumb|EC130-B4 MAC rescue with FLIR and equipment]]
+http://wiki.flightgear.org/File:EC130-B4_MAC_rescue_equipment.jpg
+
+[[File:EC130-B4 MAC rescue equipment 2.jpg|thumb|EC130-B4 MAC rescue special equipment]]
+http://wiki.flightgear.org/File:EC130-B4_MAC_rescue_equipment_2.jpg
+
+[[File:EC130-B4 PR-BOP Parana Policia Militar 1.jpg|thumb|EC130-B4 PR-BOP Parana Policia Militar (Falcao 04)]]
+[[File:EC130-B4 PR-BOP Parana Policia Militar 2.jpg|thumb|EC130-B4 PR-BOP Parana Policia Militar (Falcao 04)]]
+[[File:EC130-B4 PR-BOP Parana Policia Militar 3.jpg|thumb|EC130-B4 PR-BOP view from below]]
+[[File:EC130-B4 PR-BOP Parana Policia Militar 4.jpg|thumb|EC130-B4 PR-BOP using the SX-16 searchlight]]
+[[File:EC130-B4 PR-BOP Parana Policia Militar 5.jpg|thumb|EC130-B4 PR-BOP Parana Policia Militar (Falcao 04)]]
+
+[[File:EC130-B4 Trakkabeam A800 Searchlight 04.jpg|thumb|Trakkabeam A800 Searchlight deployed and active]]
+[[File:EC130-B4 Trakkabeam A800 Searchlight 03.jpg|thumb|EC130-B4 of MAC rescue using Trakkabeam A800 Searchlight during flight]]
+[[File:EC130-B4 Trakkabeam A800 Searchlight 02.jpg|thumb|never look into the Trakkabeam A800 searchlight, this may cause severe problems to the unprotected eyes ...]]
+
+[[File:EC130 Config updated.jpg|thumb|EC130-B4 extended configuration dialog]]
+[[File:EC130 Help new.jpg|thumb|EC130-B4 updated Help Dialog]]
+[[File:EC130 Antenna Setup.jpg|thumb|New Antenna Setup Dialog]]
+[[File:EC130 Operator Info MedFlight.jpg|thumb|New info dialog about the Operator of the selected livery]]
+
+[[File:EC130-B4 additional lights.jpg|thumb|EC130-B4 additonal landing lights and strobe]]
+
+[[File:EC130-B4 Blue Hawaiian at Patscherkofel.jpg|thumb|EC130-B4 of Blue Hawaiian Helicopters landed at Patscherkofel above Innsbruck (LOWI) in an evening scene.]]
+[[File:EC130-B4 Blue Hawaiian with Trakkabeam A800.jpg|thumb|EC130-B4 of Blue Hawaiian Helicopters using the A800 Trakkabeam searchlight with red color filter]]
+
+[[File:EC130 Options after FG 30.jpg|thumb|EC130 New Options Dialog after FG 30]]
+
+[[File:EC130-B4 wide luggage box-012.jpg|thumb|EC130-B4 wide luggage boxes seen from above]]
+[[File:EC130-B4 wide luggage box-004.jpg|thumb|EC130-B4 wide luggage box on right side]]
+[[File:EC130-B4 wide luggage box-007.jpg|thumb|EC130-B4 wide luggage box open]]
+[[File:EC130-B4 wide luggage box-016.jpg|thumb|EC130-B4 wide luggage box on left side]]
+
+[[File:EC130 MultiKey.jpg|thumb|Multi-Key commands for EC130]]
+
+BUG:
+
+ENG P Warning:
+endless loop auf Konsole:
+
+Nasal getValue: property /engines[0]/engine[0]/oil-pressure-bar[0] is NaN
+Nasal getValue: property /engines[0]/engine[0]/oil-pressure-bar-filter[0] is NaN
+
+--> hopefully fixed 20150119
+
+
+To-Do:
+-----
+ - PDF aktualisieren Mitarbeiter, etc.(HHS)
+ - Lightmap anpassen
+    - gear strobe
+    - gear landing lights (additional)
+ - Bumpmap für wide luggage boxes
+
+Prio 2
+ - Livery in Configuration dynamisch integrieren
+   hint: /sim/aircraft-dir ... aktuelles Verzeichnis
+ - Hauptrotor Animation mit incidence-deg
+   - Rotor nach abstellen NICHT synchronisiert !
+ - Netz in Luggage-Boxes
+ - Innenraum Luggage NICHT strahlend
+ - Hauptrotor Textur
+ - hoist/hook Animation
+ - Wake Farbe abhängig von Untergrund/Schnee
+ - Searchlight fully portable
+ - balance/weight wegen A800 searchlight pruefen
+
+
+Prio 1 (Freigabe FG3.x)
+ - Rembrandt: Strobe in Kabine unsichtbar
+   --> undurchsichtige Fuselage lösen
+ - neue Wakes fertigstellen
+    - Steuerung über Multiplayer Properties
+
+Prio 0 (nächster Commit):

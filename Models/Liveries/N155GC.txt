@@ -1,0 +1,40 @@
+   Helicopter EC130-B4
+   -------------------
+
+   Registration: N155GC
+   C/N: 7091 (2010)
+   Operator: Grand Canyon Helicopters
+   Operator Id: 34
+   Locations: Tusayan Grand Canyon AZ (KGCN), Las Vegas NV (KLAS), Page AZ (KGPA), USA
+
+   Papillon Airways, founded 1965, is the mother company to Papillon Grand Canyon Helicopters.
+   Originally started as Grand Canyon Helicopters, and later as Papillon Hawaiian Helicopters,
+   the company is incorporated in Washington State. Currently the worlds largest aerial
+   sightseeing company. (Source: http://en.wikipedia.org)
+
+   Today, Papillon Airways Inc. continues to operate its largest base in Grand Canyon, Arizona.
+   The company offers air tours of the Grand Canyon South Rim, Grand Canyon West, Las Vegas,
+   Sedona, Flagstaff, Phoenix and Scottsdale.
+
+   According to http://www.helis.com/database Grand Canyon Helicopters together with
+   Papillon Helicopters operate 15 EC130-B4 Helicopters.
+
+   WEB-Links:
+   Homepage: http://www.grandcanyonhelicopter.com/
+   Facebook: https://www.facebook.com/FlyTheCanyon
+   Twitter: https://twitter.com/FlyTheCanyon
+
+   Personal Notes of the Livery Editor (mhab):
+   ------------------------------------------
+   A flight in this very EC130-B4 N155GC over Grand Canyon in Sept. 2011 was unforgettable.
+   This experience together with a passion for RC model helicopters started the whole
+   FlightGear activity for the EC130 model.
+
+   It was the motivation to try and prepare a model as close as possible to the machine we
+   had been flying. In a sense it ignited the whole effort to dig into FlightGear and
+   keep on improving despite all the obstacles on the long way to learn how to do a
+   real advanced model in a simulator.
+
+   The model has a minimum of equipment but one of the most beautiful liveries.
+
+   last update: 2014-03-12
