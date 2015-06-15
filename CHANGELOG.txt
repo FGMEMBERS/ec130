@@ -1,6 +1,57 @@
 EC130B4 Updates
 ===============
 
+Updates After FG 3.5:
+--------------------
+
+Liveries:
+--------
+
+ - N836GC Grand Canyon Gold
+   - NEW
+
+General:
+-------
+ - Non-Rembrandt aircraft-shadow improved and ALS compatible
+ - Nasal: replace many ".getNode(path).getValue()" by ".getValue(path)"
+          unify use of leading / in properties
+          avoid several div/0 situations
+          handle nil values whereever necessary
+          hopefully fixes some really irritating bugs ...
+ - Tooltips improved/fixed
+ - many pick animations replaced by knob animations
+ - MGPU can be removed by mouse click
+ - Panel/Instruments Lighting controls fully functional
+ - Warning/cautions next to CWS added
+ - LITE+LIMIT is operational
+ - Taxi Light independent of Nav lights
+ - Light/Searchlight Shortcuts adapted for Taxi Light
+ - Dimming of instr. only in NIGHT1/NIGHT2 position
+ - A gong is generated if a red warning appears on CWS
+ - Stretcher backrest adjustable
+ - EBCAU TEST button animated, test implemented
+ - EBCAU Check tutorial (NEW)
+ - ELT Emergency Locator Transmitter operational
+ - improved rotor speed management
+ - Warning if airspeed exceeds VNE with inflated floats
+ - NEW: Formation/Wingman Support:
+   A fully animated wingman model and several formation scenarios are available.
+ - Crash fire when aircraft crashes and enough fuel available
+
+Instruments:
+-----------
+ - W/LT TST shows ALL warning lights
+ - Rotor Break disables starter
+ - Rotor RPM indicator improved
+ - clock displays sim time
+ - RPM indicator dim knob
+ - VEMD flightreport displays heli/turbine hobbs time
+ - SCU: FIRETST,SERVOTST buttons functional
+ - SCU: TAXI LT,LDG LT buttons (NEW)
+ - EMER SW new emergency switch
+ - VEMD some basic control buttons animated (W.I.P.)
+
+
 Updates After FG 3.0:
 --------------------
 
@@ -53,6 +104,8 @@ Instruments:
  - Cutoff Lever Guard operable
  - Objects for Pick animations unified (all knobs use half cylinders left/right)
  - DOOR warning added
+ - W/LT TST shows ALL warning lights
+ - Rotor Break disables starter
 
 User Interface:
 --------------
@@ -411,15 +464,17 @@ http://wiki.flightgear.org/File:EC130-B4_MAC_rescue_equipment_2.jpg
 
 [[File:EC130 MultiKey.jpg|thumb|Multi-Key commands for EC130]]
 
-BUG:
+[[File:EC130 GC Golden-Copter-006.jpg|thumb|EC130 five helicopter formation]]
+[[File:EC130 GC Golden-Copter-006.jpg|thumb|EC130 five helicopter formation]]
+[[File:EC130 GC Gold-009.jpg|thumb|EC130 five helicopter formation]]
+[[File:EC130 GC Gold-015.jpg|thumb|EC130 five helicopter formation]]
+[[File:EC130 GC Golden Copter Formation-046.jpg|thumb|EC130 five helicopter formation]]
+[[File:EC130 GC Golden Copter Formation-026.jpg|thumb|EC130 five helicopter formation]]
 
-ENG P Warning:
-endless loop auf Konsole:
-
-Nasal getValue: property /engines[0]/engine[0]/oil-pressure-bar[0] is NaN
-Nasal getValue: property /engines[0]/engine[0]/oil-pressure-bar-filter[0] is NaN
-
---> hopefully fixed 20150119
+[[File:EC130 crash fire-002.jpg|thumb|EC130 post crash fire]]
+[[File:EC130 crash fire-004.jpg|thumb|EC130 post crash fire]]
+[[File:EC130 crash fire smoke-021.jpg|thumb|EC130 post crash fire with smoke]]
+[[File:EC130 crash fire smoke-023.jpg|thumb|EC130 post crash fire smoking]]
 
 
 To-Do:
@@ -430,7 +485,7 @@ To-Do:
     - gear landing lights (additional)
  - Bumpmap für wide luggage boxes
 
-Prio 2
+Prio 3
  - Livery in Configuration dynamisch integrieren
    hint: /sim/aircraft-dir ... aktuelles Verzeichnis
  - Hauptrotor Animation mit incidence-deg
@@ -440,14 +495,48 @@ Prio 2
  - Hauptrotor Textur
  - hoist/hook Animation
  - Wake Farbe abhängig von Untergrund/Schnee
- - Searchlight fully portable
- - balance/weight wegen A800 searchlight pruefen
 
 
-Prio 1 (Freigabe FG3.x)
+Prio 2
  - Rembrandt: Strobe in Kabine unsichtbar
    --> undurchsichtige Fuselage lösen
- - neue Wakes fertigstellen
-    - Steuerung über Multiplayer Properties
+
+Prio 1
+ - Beleuchtung Radio, ...
+ - Stromkreis INST.2
+ - Hebel für Floats inflate
+ - Turbine Hobbs werden falsch gezählt
 
 Prio 0 (nächster Commit):
+
+
+
+Crash stack:
+
+Nasal getprop: property /accelerations[0]/pilot-g[0] is NaN
+Nasal getprop: property /velocities[0]/airspeed-kt[0] is NaN
+Nasal getprop: property /orientation[0]/side-slip-deg[0] is NaN
+Nasal runtime error: nil used in numeric context
+  at C:/Users/michael/Documents/FlightGear/Aircraft/ec130/Nasal/ec130.nas, line 1144
+Nasal getValue: property /velocities[0]/vertical-speed-fps[0] is NaN
+Nasal getValue: property /velocities[0]/vertical-speed-fps[0] is NaN
+AL Error (sound manager): Invalid Value at update
+calc_bearing is not a finite number : Speed -1.#INDpos : -1.#IND, -1.#IND, waypoint: 47.7927, 13.004
+7
+waypoint name: 'gear-up'
+Nasal getValue: property /velocities[0]/vertical-speed-fps[0] is NaN
+Nasal getValue: property /rotors[0]/gear[0]/total-torque[0] is NaN
+Nasal runtime error: nil used in numeric context
+  at C:/Users/michael/Documents/FlightGear/Aircraft/ec130/Nasal/ec130.nas, line 722
+  called from: C:/Users/michael/Documents/FlightGear/Aircraft/ec130/Nasal/ec130.nas, line 2348
+Nasal getValue: property /orientation[0]/roll-deg[0] is NaN
+Nasal getValue: property /orientation[0]/pitch-deg[0] is NaN
+Nasal getValue: property /orientation[0]/heading-magnetic-deg[0] is NaN
+Nasal getValue: property /orientation[0]/heading-magnetic-deg[0] is NaN
+Nasal runtime error: nil used in numeric context
+  at C:/Users/michael/Documents/FlightGear/Aircraft/ec130/Systems/kcs55.nas, line 62
+  called from: C:/Users/michael/Documents/FlightGear/Aircraft/ec130/Systems/kcs55.nas, line 151
+  called from: C:/Users/michael/Documents/FlightGear/Aircraft/ec130/Systems/kcs55.nas, line 438
+  called from: C:/Users/michael/Documents/FlightGear/Aircraft/ec130/Systems/kcs55.nas, line 443
+Nasal getprop: property /accelerations[0]/pilot-g[0] is NaN
+

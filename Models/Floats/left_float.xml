@@ -39,7 +39,7 @@
         <command>set-tooltip</command>
         <tooltip-id>left_float</tooltip-id>
         <label>%s</label>
-        <property>/controls/gear/floats-inflat</property>
+        <property>controls/gear/floats-inflat</property>
         <mapping>nasal</mapping>
         <script>
           var mode = ['inflate', 'repack'];

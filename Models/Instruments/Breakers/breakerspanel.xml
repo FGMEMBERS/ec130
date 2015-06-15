@@ -2,9 +2,43 @@
 
 <PropertyList>
 
- <path>breakerspanel.ac</path>
+  <path>breakerspanel.ac</path>
 
- 
+  <!-- dimming -->
+  <animation>
+    <type>material</type>
+    <object-name>Plane</object-name>
+    <condition>
+      <property>systems/electrical/outputs/instrument-lights2-norm</property>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor>0.3</factor>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>Plane</object-name>
+    <condition>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights2-norm</factor-prop>
+      <offset>-0.1</offset>
+    </emission>
+  </animation>
+
 </PropertyList>
-
-

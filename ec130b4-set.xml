@@ -34,7 +34,7 @@ EC 130 simulation config.
       <model type="int">5</model>
     </rating>
     <license>GPL v2</license>
-    <version>20150214</version>
+    <version>20150614</version>
 
     <tags>
       <tag>helicopter</tag>
@@ -519,20 +519,35 @@ EC 130 simulation config.
     </hitches>
 
     <multiplay>
-       <generic>
-          <int n="0" alias="/systems/electrical/outputs/beacon"/>
+      <generic>
 
-          <int n="1" alias="/systems/electrical/outputs/landing-light"/>
+        <!-- lights -->
+        <int n="1" alias="/systems/electrical/outputs/taxi-light"/>
 
-          <int n="2" alias="/systems/electrical/outputs/nav-lights"/>
+        <int n="2" alias="/systems/electrical/outputs/nav-lights"/>
 
-          <int n="3" alias="/controls/lighting/strobe-state/state"/>
+        <int n="3" alias="/controls/lighting/strobe-state/state"/>
 
-          <!-- floats -->
-          <float n="0" alias="/gear/gear[6]/position-norm"/>
+        <int n="4" alias="/systems/electrical/outputs/landing-light"/>
 
-          <string  alias="/sim/multiplay/callsign"/>
-       </generic>
+        <int n="5" alias="/systems/electrical/outputs/beacon"/>
+
+        <!-- floats -->
+        <float n="0" alias="/gear/gear[6]/position-norm"/>
+
+        <!-- wake control -->
+        <int n="0" alias="/gear/gear/ground-is-solid"/>
+
+        <float n="1" alias="/orientation/pitch-deg"/>
+
+        <float n="2" alias="/orientation/roll-deg"/>
+
+        <float n="3" alias="/rotors/main/torque"/>
+
+        <float n="4" alias="/position/gear-agl-m"/>
+
+        <string  alias="/sim/multiplay/callsign"/>
+      </generic>
     </multiplay>
 
     <flight-recorder include="Systems/flight-recorder.xml"/>
@@ -698,16 +713,21 @@ EC 130 simulation config.
 
       <key>
         <name>L</name>
-        <desc>toggle Landing Light</desc>
+        <desc>toggle Taxi Light</desc>
       </key>
 
       <key>
         <name>Shift-L</name>
-        <desc>toggle Search Light ON/OFF</desc>
+        <desc>toggle Landing Light</desc>
       </key>
 
       <key>
         <name>AltGr-L</name>
+        <desc>toggle Search Light ON/OFF</desc>
+      </key>
+
+      <key>
+        <name>Ctrl-L</name>
         <desc>cycle Slew Rate</desc>
       </key>
 
@@ -820,7 +840,7 @@ EC 130 simulation config.
       <text>
    Characteristics:
    Cruise speed:        100-137 kts (best 120 kts)
-   Never exceed (Vne): 155 kts (Pwr on), 125 kts (Pwr off)
+   Never exceed (Vne): 155 kts (Pwr on), 125 kts (Pwr off), 90 kts (Floats inflated)
 
    Main Rotor Limits:
    Normal Range:   375 - 405 rpm
@@ -851,15 +871,18 @@ EC 130 simulation config.
    Special Handling of Twist Grip:
    Power control between 63% = "idle" and 100% = "flight" can be done either
     a) by dragging MMB up/down (middle mouse button pressed)
-    b) by clicking Twist Grip on Collective, upper half for + , lower half for -
+    b) by Twist Grip animation on Collective
     c) by keyboard shortcut Alt-t for + and AltGr-t for -
+
+   Emergency Switch (on Panel) must be unlocked before switching is possible.
+   Click the wire to unlock. ATTENTION: Once switched, no reset is possible !!!.
 
    Autostart/Autoshutdown:
    Is enabled after 15 flights, so to encourage learning of realistic heli-handling.
 
    Misc:
-   Various Click-Animations are implemented. Check with Ctrl-c, watch Tooltips
-   and try Searchlight, ...
+   Various Click-Animations are implemented, in cockpit use Knob-animations and
+   check with Ctrl-c, watch Tooltips and try Searchlight, ...
       </text>
     </help>
 
@@ -954,7 +977,7 @@ EC 130 simulation config.
         <!-- 5 -->
         <item>
           <label>Autoshutdown</label>
-          <key>E</key>
+          <key>Shift-E</key>
             <binding>
               <command>nasal</command>
               <script>ec130.autoshutdown()</script>
@@ -990,6 +1013,7 @@ EC 130 simulation config.
 
   <limits>
     <vne>155</vne>
+    <vne-floats>90</vne-floats>
     <MTOW>5350</MTOW>
     <rpm-min>360</rpm-min>
     <rpm-max>410</rpm-max>
@@ -1012,7 +1036,9 @@ EC 130 simulation config.
    <gear>
     <floats-inflat type ="bool">false</floats-inflat>
     <floats-armed type ="bool">false</floats-armed>
+<!--
     <floats-deflate type = "bool">false</floats-deflate>
+-->
    </gear>
 
    <rotor>
@@ -1054,14 +1080,16 @@ EC 130 simulation config.
     <n1-pct>0</n1-pct>
    </engine>
   </engines>
-  
+
   <instrumentation>
     <kcs55 include="Systems/kcs55.xml"/>
-      <gsdi>
-        <serviceable type="bool">true</serviceable>
-      </gsdi>
+    <gsdi>
+      <serviceable type="bool">true</serviceable>
+    </gsdi>
     <attitude-indicator>
       <serviceable type="bool">false</serviceable>
+      <caged type="bool">false</caged>
+      <horizon-offset-deg type="double">0</horizon-offset-deg>
     </attitude-indicator>
   </instrumentation>
 
@@ -1071,16 +1099,6 @@ EC 130 simulation config.
       <!-- multi-key commands -->
       <multikey include="Systems/ec130-multikey.xml"/>
 
-      <!-- Livery Box -->
-      <!--<key n="79">
-        <name>O</name>
-        <desc>start timer</desc>
-        <binding>
-        <command>nasal</command>
-        <script>ec130.begin()</script>
-      </binding>
-      </key>-->
-      
       <key n="97">
         <name>a</name>
         <desc>Set collective to zero</desc>
@@ -1103,7 +1121,7 @@ EC 130 simulation config.
       </key>
 
       <key n="69">
-        <name>E</name>
+        <name>Shift-E</name>
         <desc>Autoshutdown</desc>
         <binding>
           <command>nasal</command>
@@ -1119,7 +1137,7 @@ EC 130 simulation config.
           <command>nasal</command>
           <script>
             if ( getprop("/controls/rotor/brake-locked") ) {
-              screen.log.write("Rotorbrake is locked !");
+              screen.log.write("Rotorbrake is locked !!!");
             } else {
               if ( getprop("/controls/rotor/brake") &lt; 1.0 ) {
                 setprop("/controls/rotor/brake-engaged",0);
@@ -1128,9 +1146,9 @@ EC 130 simulation config.
               } else {
                 setprop("/controls/rotor/brake-engaged",1);
                 if ( getprop("/controls/rotor/brake-locked") ) {
-                  screen.log.write("Rotorbrake is locked !");
+                  screen.log.write("Rotorbrake is locked !!!");
                 } else {
-                  screen.log.write("Rotorbrake is engaged !");
+                  screen.log.write("Rotorbrake is engaged !!!");
                 }
               }
             }
@@ -1157,15 +1175,7 @@ EC 130 simulation config.
         <repeatable type="bool">false</repeatable>
         <binding>
           <command>nasal</command>
-          <script>
-            if ( !getprop("/controls/rotor/brake-locked") ) {
-              var p = getprop("/controls/rotor/brake");
-              interpolate("/controls/rotor/brake",!p,1);
-              settimer(func { gui.popupTip("Rotorbrake " ~ (p ? "released !" : "engaged !"));},0.9);
-            } else {
-              screen.log.write("Rotorbrake is locked !");
-            }
-          </script>
+          <script>ec130.toggle_rotorbrake();</script>
         </binding>
         <mod-up>
         <binding>
@@ -1204,13 +1214,8 @@ EC 130 simulation config.
         <name>Alt-c</name>
         <desc>toggle Cutoff lever</desc>
         <binding>
-          <condition>
-            <not>
-              <property>controls/engines/engine/cutoff_guard</property>
-            </not>
-          </condition>
-          <command>property-toggle</command>
-          <property>controls/engines/engine/cutoff</property>
+          <command>nasal</command>
+          <script>ec130.toggle_cutoff();</script>
         </binding>
        </mod-alt>
       </key>
@@ -1226,15 +1231,23 @@ EC 130 simulation config.
               <property>controls/engines/engine/cutoff</property>
             </not>
            </condition>
-           <command>property-toggle</command>
-           <property>controls/engines/engine/cutoff_guard</property>
+           <command>nasal</command>
+           <script>
+             if ( getprop("/controls/engines/engine/cutoff_guard") ) {
+               setprop("/controls/engines/engine/cutoff_guard",0);
+               gui.popupTip("Cutoff unlocked", 2);
+             } else {
+               setprop("/controls/engines/engine/cutoff_guard",1);
+               gui.popupTip("Cutoff locked", 2);
+             }
+           </script>
          </binding>
         </mod-ctrl>
        </mod-alt>
       </key>
 
       <key n="70">
-        <name>F</name>
+        <name>Shift-F</name>
         <desc>toggle Emergency Floats armed</desc>
         <binding>
           <command>nasal</command>
@@ -1375,7 +1388,16 @@ EC 130 simulation config.
       </key>
 
       <key n="108">
-        <name>l</name>
+        <name>L</name>
+        <desc>toggle Taxi Light</desc>
+        <binding>
+          <command>property-toggle</command>
+          <property>controls/lighting/taxi-light</property>
+        </binding>
+      </key>
+
+      <key n="76">
+        <name>Shift-L</name>
         <desc>toggle Landing Light</desc>
         <binding>
           <command>property-toggle</command>
@@ -1470,6 +1492,9 @@ EC 130 simulation config.
           <name>AltGr-p</name>
           <desc>toggle Fuel Pump</desc>
           <binding>
+            <condition>
+              <property>systems/electrical/volts</property>
+            </condition>
             <command>property-toggle</command>
             <property>/controls/fuel/tank/boost-pump</property>
           </binding>
@@ -1515,7 +1540,7 @@ EC 130 simulation config.
         <binding>
           <command>nasal</command>
           <script>
-            if ( getprop("instrumentation/doors/hook/position-norm") ) {
+            if ( getprop("sim/model/ec130/doors/hook/position-norm") ) {
               doors.doorsystem.hookexport();
               settimer( func {
                 setprop("/sim/hitches/aerotow/open",0);
@@ -1569,7 +1594,7 @@ EC 130 simulation config.
         <binding>
           <command>nasal</command>
           <script>
-            if ( !getprop("instrumentation/doors/hook/position-norm") ) {
+            if ( !getprop("sim/model/ec130/doors/hook/position-norm") ) {
               setprop("/sim/hitches/aerotow/open",1);
               doors.doorsystem.hookexport();
             }
@@ -1689,76 +1714,85 @@ EC 130 simulation config.
     <doors>
       <file>Aircraft/ec130/Nasal/doors.nas</file>
     </doors>
+    <ELT>
+      <file>Aircraft/ec130/Models/Instruments/Breakers/ELTmessage.nas</file>
+    </ELT>
     <ec130>
-       <file>Aircraft/ec130/Nasal/ec130.nas</file>
-       <file>Aircraft/ec130/Nasal/limits.nas</file>
-       <file>Aircraft/ec130/Nasal/Electrical.nas</file>
-       <file>Aircraft/ec130/Systems/kcs55.nas</file>
-       <file>Aircraft/ec130/Models/Instruments/VEMD/timer.nas</file>
-       <file>Aircraft/ec130/Models/Instruments/VEMD/VEMD.nas</file>
-       <file>Aircraft/ec130/Models/Instruments/VEMD/roc.nas</file>
-       <file>Aircraft/ec130/Models/Instruments/CWS/CWS.nas</file>
-       <file>Aircraft/ec130/Models/SearchLight/searchlight.nas</file>
-       <script><![CDATA[
+      <file>Aircraft/ec130/Nasal/ec130.nas</file>
+      <file>Aircraft/ec130/Nasal/limits.nas</file>
+      <file>Aircraft/ec130/Nasal/Electrical.nas</file>
+      <file>Aircraft/ec130/Systems/kcs55.nas</file>
+      <file>Aircraft/ec130/Models/Instruments/VEMD/VEMD.nas</file>
+      <file>Aircraft/ec130/Models/Instruments/CWS/CWS.nas</file>
+      <file>Aircraft/ec130/Models/SearchLight/searchlight.nas</file>
+      <script><![CDATA[
               KCS55.new();
             ]]>
-         <!-- disable standard fuel-payload menu, use aircraft specific -->
-         gui.menuEnable("fuel-and-payload",0);
+        <!-- disable standard fuel-payload menu, use aircraft specific -->
+        gui.menuEnable("fuel-and-payload",0);
 
-         <!-- init config dialog flag -->
-         setprop("/sim/model/ec130/config_dialog_active",0);
+        <!-- init config dialog flag -->
+        setprop("/sim/model/ec130/config_dialog_active",0);
 
-         <!-- init antenna dialog flag -->
-         setprop("/sim/model/ec130/antenna_dialog_active",0);
+        <!-- init antenna dialog flag -->
+        setprop("/sim/model/ec130/antenna_dialog_active",0);
 
-         <!-- init info dialog flag -->
-         setprop("/sim/model/ec130/info_dialog_active",0);
+        <!-- init info dialog flag -->
+        setprop("/sim/model/ec130/info_dialog_active",0);
 
-         <!-- initialize number of flights -->
-         if ( getprop("/sim/model/ec130/flightnumber") == nil ) {
-           setprop("/sim/model/ec130/flightnumber", 0);
-         }
+        <!-- initialize number of flights -->
+        if ( getprop("/sim/model/ec130/flightnumber") == nil ) {
+          setprop("/sim/model/ec130/flightnumber", 0);
+        }
 
-         <!-- minimum number of flights for autostart/autoshutdown -->
-         setprop("/sim/model/ec130/minflights",15);
+        <!-- minimum number of flights for autostart/autoshutdown -->
+        setprop("/sim/model/ec130/minflights",15);
 
-         <!-- disable autostart menu, if less than minimum flights -->
-         <!-- cross-check menubar definition -->
-         if ( getprop("/sim/model/ec130/flightnumber") &lt; getprop("/sim/model/ec130/minflights") ) {
-           setprop("/sim/menubar/default/menu[10]/item[4]/enabled",0);
-         }
+        <!-- disable autostart menu, if less than minimum flights -->
+        <!-- cross-check menubar definition -->
+        if ( getprop("/sim/model/ec130/flightnumber") &lt; getprop("/sim/model/ec130/minflights") ) {
+          setprop("/sim/menubar/default/menu[10]/item[4]/enabled",0);
+        }
 
-         <!-- disable autoshutdown menu, if less than minimum flights -->
-         <!-- cross-check menubar definition -->
-         if ( getprop("/sim/model/ec130/flightnumber") &lt; getprop("/sim/model/ec130/minflights") ) {
-           setprop("/sim/menubar/default/menu[10]/item[5]/enabled",0);
-         }
+        <!-- disable autoshutdown menu, if less than minimum flights -->
+        <!-- cross-check menubar definition -->
+        if ( getprop("/sim/model/ec130/flightnumber") &lt; getprop("/sim/model/ec130/minflights") ) {
+          setprop("/sim/menubar/default/menu[10]/item[5]/enabled",0);
+        }
 
-         <!-- enable/disable floats menu -->
-         ec130.set_menu();
+        <!-- enable/disable floats menu -->
+        ec130.set_menu();
 
-         <!-- initialize equipment weight -->
-         ec130.external_weights();
+        <!-- initialize equipment weight -->
+        ec130.external_weights();
 
-         <!-- initialize seats and views -->
-         ec130.set_seats();
+        <!-- initialize seats and views -->
+        ec130.set_seats();
 
-         <!-- init searchlight props with delay
-              otherwise Nasal error is raised   -->
-         setlistener("/sim/signals/fdm-initialized", func {
-           settimer(func { ec130.slight_init(); }, 1);
-         });
+        <!-- initialize ELT -->
+        setprop("/ELT/test",0);
+        setprop("/ELT/armed",0);
 
-         <!-- workaround for unclarified problem with uninitialized and wrong types of properties after startup -->
-         setprop("/controls/electric/directbat-switch",0);
-         setprop("/controls/lighting/instrument-lights2",0);
-         setprop("/controls/electric/horn",0);
+        <!-- initialize stretcher position -->
+        setprop("/controls/seat/stretcher/position-deg",0);
 
-         <!-- disable shadow if rembrandt enabled -->
-         if ( getprop("/sim/rendering/rembrandt/enabled")) {
-           setprop("sim/model/ec130/shadow",0);
-         }
-       </script>
+        <!-- init searchlight props with delay
+             otherwise Nasal error is raised   -->
+        setlistener("/sim/signals/fdm-initialized", func {
+          settimer(func { ec130.slight_init(); }, 1);
+        });
+
+        <!-- engine -->
+        setprop("/engines/engine/oil-pressure-low",0);
+        setprop("/engines/engine/oil-pressure-norm",0);
+        setprop("/controls/engines/engine/cutoff-norm",1);
+        setprop("/controls/engines/engine/cutoff_guard",0);
+
+        <!-- disable shadow if rembrandt enabled -->
+        if ( getprop("/sim/rendering/rembrandt/enabled")) {
+          setprop("sim/model/ec130/shadow",0);
+        }
+      </script>
     </ec130>
   </nasal>
 

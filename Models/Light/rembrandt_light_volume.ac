@@ -2752,7 +2752,7 @@ refs 3
 17 0 0
 kids 0
 OBJECT poly
-name "NavLightFrontVolume"
+name "TaxiLightVolume"
 loc 1.33058 1.58057 -2.98023e-008
 data 8
 Cone.010

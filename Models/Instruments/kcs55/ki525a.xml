@@ -46,33 +46,19 @@
     <type>material</type>
     <object-name>Chassis</object-name>
     <object-name>Screw</object-name>
+    <condition>
+      <property>systems/electrical/outputs/instrument-lights-norm</property>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
     <emission>
       <red>   0.8 </red>
       <green> 0.8 </green>
       <blue>  1.0 </blue>
-      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+      <factor>0.5</factor>
     </emission>
-  </animation>
-
-  <animation>
-    <type>material</type>
-    <object-name>CompassRose</object-name>
-    <object-name>TO</object-name>
-    <object-name>FROM</object-name>
-    <object-name>ArrowHead</object-name>
-    <object-name>ArrowTail</object-name>
-    <object-name>ArrowBody</object-name>
-    <object-name>NAV</object-name>
-    <object-name>HDG</object-name>
-    <object-name>HDGBug</object-name>
-    <object-name>CDIPlate</object-name>
-    <object-name>GS</object-name>
-    <object-name>GSMarker</object-name>
-    <object-name>GSLabel</object-name>
-    <object-name>Marker</object-name>
-    <object-name>LubberLine</object-name>
-    <object-name>OBSSelector</object-name>
-    <object-name>HDGSelector</object-name>
     <emission>
       <red>   0.8 </red>
       <green> 0.8 </green>
@@ -245,211 +231,51 @@
   </animation>
 
   <animation>
-    <type>pick</type>
-    <object-name>HDGSelectorPick.L</object-name>
-    <visible>false</visible>
-    <action>
-      <button>0</button>
-      <repeatable>true</repeatable>
-      <binding>
-        <command>property-adjust</command>
-        <property alias="../../../../params/selected-heading"/>
-        <step>-1</step>
-        <min>0</min>
-        <max>360</max>
-        <wrap>1</wrap>
-      </binding>
-    </action>
-    <action>
-      <button>1</button>
-      <repeatable>true</repeatable>
-      <binding>
-        <command>property-adjust</command>
-        <property alias="../../../../params/selected-heading"/>
-        <step>-10</step>
-        <min>0</min>
-        <max>360</max>
-        <wrap>1</wrap>
-      </binding>
-    </action>
-    <hovered>
-      <binding>
-        <command>set-tooltip</command>
-        <tooltip-id>HDGL</tooltip-id>
-        <label>Heading -</label>
-      </binding>
-    </hovered>
-  </animation>
-
-  <animation>
-    <type>pick</type>
-    <object-name>HDGSelectorPick.R</object-name>
-    <visible>false</visible>
-    <action>
-      <button>0</button>
-      <repeatable>true</repeatable>
-      <binding>
-        <command>property-adjust</command>
-        <property alias="../../../../params/selected-heading"/>
-        <step>1</step>
-        <min>0</min>
-        <max>360</max>
-        <wrap>1</wrap>
-      </binding>
-    </action>
-    <action>
-      <button>1</button>
-      <repeatable>true</repeatable>
-      <binding>
-        <command>property-adjust</command>
-        <property alias="../../../../params/selected-heading"/>
-        <step>10</step>
-        <min>0</min>
-        <max>360</max>
-        <wrap>1</wrap>
-      </binding>
-    </action>
-    <hovered>
-      <binding>
-        <command>set-tooltip</command>
-        <tooltip-id>HDGR</tooltip-id>
-        <label>Heading +</label>
-      </binding>
-    </hovered>
-  </animation>
-
-  <animation>
-    <type>pick</type>
+    <type>knob</type>
     <object-name>HDGSelector</object-name>
     <visible>true</visible>
     <action>
-      <button>3</button>
-      <repeatable>true</repeatable>
       <binding>
         <command>property-adjust</command>
         <property alias="../../../../params/selected-heading"/>
-        <step>-1</step>
+        <factor>1</factor>
         <min>0</min>
         <max>360</max>
-        <wrap>1</wrap>
-      </binding>
-    </action>
-    <action>
-      <button>4</button>
-      <repeatable>true</repeatable>
-      <binding>
-        <command>property-adjust</command>
-        <property alias="../../../../params/selected-heading"/>
-        <step>1</step>
-        <min>0</min>
-        <max>360</max>
-        <wrap>1</wrap>
-      </binding>
-    </action>
-  </animation>
-
-  <animation>
-    <type>pick</type>
-    <object-name>OBSSelectorPick.L</object-name>
-    <visible>false</visible>
-    <action>
-      <button>0</button>
-      <repeatable>true</repeatable>
-      <binding>
-        <command>property-adjust</command>
-        <property alias="../../../../params/selected-course"/>
-        <step>-1</step>
-        <min>0</min>
-        <max>360</max>
-        <wrap>1</wrap>
-      </binding>
-    </action>
-    <action>
-      <button>1</button>
-      <repeatable>true</repeatable>
-      <binding>
-        <command>property-adjust</command>
-        <property alias="../../../../params/selected-course"/>
-        <step>-10</step>
-        <min>0</min>
-        <max>360</max>
-        <wrap>1</wrap>
+        <wrap>true</wrap>
       </binding>
     </action>
     <hovered>
       <binding>
         <command>set-tooltip</command>
-        <tooltip-id>OBSL</tooltip-id>
-        <label>Bearing -</label>
+        <tooltip-id>HDG</tooltip-id>
+        <label>Heading: %3.0f</label>
+        <property alias="../../../../params/selected-heading"/>
       </binding>
     </hovered>
   </animation>
 
   <animation>
-    <type>pick</type>
-    <object-name>OBSSelectorPick.R</object-name>
-    <visible>false</visible>
-    <action>
-      <button>0</button>
-      <repeatable>true</repeatable>
-      <binding>
-        <command>property-adjust</command>
-        <property alias="../../../../params/selected-course"/>
-        <step>1</step>
-        <min>0</min>
-        <max>360</max>
-        <wrap>1</wrap>
-      </binding>
-    </action>
-    <action>
-      <button>1</button>
-      <repeatable>true</repeatable>
-      <binding>
-        <command>property-adjust</command>
-        <property alias="../../../../params/selected-course"/>
-        <step>10</step>
-        <min>0</min>
-        <max>360</max>
-        <wrap>1</wrap>
-      </binding>
-    </action>
-    <hovered>
-      <binding>
-        <command>set-tooltip</command>
-        <tooltip-id>OBSR</tooltip-id>
-        <label>Bearing +</label>
-      </binding>
-    </hovered>
-  </animation>
-
-  <animation>
-    <type>pick</type>
+    <type>knob</type>
     <object-name>OBSSelector</object-name>
     <visible>true</visible>
     <action>
-      <button>3</button>
-      <repeatable>true</repeatable>
       <binding>
         <command>property-adjust</command>
         <property alias="../../../../params/selected-course"/>
-        <step>-1</step>
+        <factor>1</factor>
         <min>0</min>
         <max>360</max>
         <wrap>1</wrap>
       </binding>
     </action>
-    <action>
-      <button>4</button>
-      <repeatable>true</repeatable>
+    <hovered>
       <binding>
-        <command>property-adjust</command>
+        <command>set-tooltip</command>
+        <tooltip-id>OBS</tooltip-id>
+        <label>Bearing: %3.0f</label>
         <property alias="../../../../params/selected-course"/>
-        <step>1</step>
-        <min>0</min>
-        <max>360</max>
-        <wrap>1</wrap>
       </binding>
-    </action>
+    </hovered>
   </animation>
 
   <animation>
@@ -572,6 +398,63 @@
       <y-m>0</y-m>
       <z-m>0</z-m>
     </center>
+  </animation>
+
+  <!-- dimming -->
+  <animation>
+    <name>all</name>
+    <object-name>CompassRose</object-name>
+    <object-name>TO</object-name>
+    <object-name>FROM</object-name>
+    <object-name>ArrowHead</object-name>
+    <object-name>ArrowTail</object-name>
+    <object-name>ArrowBody</object-name>
+    <object-name>NAV</object-name>
+    <object-name>HDG</object-name>
+    <object-name>HDGBug</object-name>
+    <object-name>CDIPlate</object-name>
+    <object-name>GS</object-name>
+    <object-name>GSMarker</object-name>
+    <object-name>GSLabel</object-name>
+    <object-name>Marker</object-name>
+    <object-name>LubberLine</object-name>
+    <object-name>OBSSelector</object-name>
+    <object-name>HDGSelector</object-name>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>all</object-name>
+    <condition>
+      <property>systems/electrical/outputs/instrument-lights-norm</property>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor>0.5</factor>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>all</object-name>
+    <condition>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+    </emission>
   </animation>
 
 </PropertyList>

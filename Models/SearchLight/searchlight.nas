@@ -60,13 +60,13 @@ slight_orientation = func () {
   if ( getprop("/sim/model/ec130/searchlight_a800") ) {
 
     # heading
-    var h = getprop("orientation/model/heading-deg");
+    var h = getprop("/orientation/model/heading-deg");
 
     # pitch/elevation
-    var p = getprop("orientation/model/pitch-deg");
+    var p = getprop("/orientation/model/pitch-deg");
 
     # roll
-    var r = getprop("orientation/model/roll-deg");
+    var r = getprop("/orientation/model/roll-deg");
 
     setprop("/sim/model/searchlight/orientation/heading-deg", h);
     setprop("/sim/model/searchlight/orientation/pitch-deg", p);
@@ -195,6 +195,7 @@ slight_toggle_power = func () {
     }
   } else {
     setprop("/sim/model/searchlight/paused",1);
+    slight_reset();
     if ( !trak ) {
       # SX16
       gui.popupTip("Searchlight is shut down ...",2);
@@ -209,7 +210,6 @@ slight_toggle_power = func () {
       setprop("/sim/model/searchlight/active",0);
       setprop("/sim/model/searchlight/paused",0);
       setprop("/sim/model/searchlight/cycle-state",1);
-      slight_reset();
     }
   }
 }

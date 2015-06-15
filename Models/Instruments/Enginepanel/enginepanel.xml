@@ -5,16 +5,23 @@
   <path>enginepanel.ac</path>
  
   <animation>
-    <type>material</type>
-    <object-name>Plane</object-name>
-    <emission>
-      <red>   0.8 </red>
-      <green> 0.8 </green>
-      <blue>  1.0 </blue>
-      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
-    </emission>
+    <type>select</type>
+    <object-name>ebcautext</object-name>
+    <condition>
+      <not>
+        <property>controls/engines/engine/ebcautest</property>
+      </not>
+    </condition>
   </animation>
- 
+
+  <animation>
+    <type>select</type>
+    <object-name>ebcautext_active</object-name>
+    <condition>
+      <property>controls/engines/engine/ebcautest</property>
+    </condition>
+  </animation>
+
   <animation>
     <type>pick</type>
     <object-name>switchguard</object-name>
@@ -33,8 +40,11 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>switchguard</tooltip-id>
+<!--
+        <label>guard/unlock</label>
+-->
         <label>%s</label>
-        <property>/controls/engines/engine/switchguard</property>
+        <property>controls/engines/engine/switchguard</property>
         <mapping>nasal</mapping>
         <script>
           var mode = ['guard', 'unlock'];
@@ -51,30 +61,19 @@
       <repeatable>false</repeatable>
       <button>0</button>
       <binding>
-        <condition>
-          <not>
-            <property>controls/engines/engine/switchguard</property>
-          </not>
-        </condition>
-        <command>property-toggle</command>
-        <property>controls/engines/engine/startselector</property>
-      </binding>
-      <binding>
-        <condition>
-          <not>
-            <property>controls/engines/engine/switchguard</property>
-          </not>
-        </condition>
-        <command>property-toggle</command>
-        <property>sim/model/sound/click</property>
+        <command>nasal</command>
+        <script>ec130.switch_startselector();</script>
       </binding>
     </action>
     <hovered>
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>startselector</tooltip-id>
+<!--
+        <label>engine starter</label>
+-->
         <label>%s</label>
-        <property>/controls/engines/engine/startselector</property>
+        <property>controls/engines/engine/startselector</property>
         <mapping>nasal</mapping>
         <script>
           var mode = ['start Engine', 'switch OFF Engine'];
@@ -123,6 +122,163 @@
     </axis>
   </animation>
     
+  <animation>
+    <type>pick</type>
+    <object-name>ebcauguard</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/engines/engine/ebcauguard</property>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>ebcauguard</tooltip-id>
+<!--
+        <label>guard/unlock</label>
+-->
+        <label>%s</label>
+        <property>controls/engines/engine/ebcauguard</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['guard', 'unlock'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>ebcaubutton</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>ec130.toggle_ebcautest();</script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>ebcautest</tooltip-id>
+<!--
+        <label>guard/unlock</label>
+-->
+        <label>%s</label>
+        <property>controls/engines/engine/ebcautest</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['test', 'release'];
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>ebcauguard</object-name>
+    <property>controls/engines/engine/ebcauguard</property>
+    <factor>105</factor>
+    <offset-deg>-105</offset-deg>
+    <center>
+      <x-m>0.011</x-m>
+      <y-m>0.041</y-m>
+      <z-m>0.015</z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <!-- dimming -->
+  <animation>
+    <type>material</type>
+    <object-name>Plane</object-name>
+    <object-name>ebcautext</object-name>
+    <object-name>ebcautext_active</object-name>
+    <condition>
+      <property>systems/electrical/outputs/instrument-lights2-norm</property>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor>0.5</factor>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>Plane</object-name>
+    <object-name>ebcautext</object-name>
+    <object-name>ebcautext_active</object-name>
+    <condition>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights2-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>ebcautext</object-name>
+    <condition>
+      <not>
+        <property>controls/engines/engine/ebcautest</property>
+      </not>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights2-norm</factor-prop>
+      <offset>-0.2</offset>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>ebcautext_active</object-name>
+    <condition>
+      <property>controls/engines/engine/ebcautest</property>
+    </condition>
+    <emission>
+      <red>   1.0 </red>
+      <green> 1.0 </green>
+      <blue>  0.0 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights2-norm</factor-prop>
+      <offset>0.8</offset>
+    </emission>
+  </animation>
+
+  <!--  REMBRANDT support for transparent objects -->
+  <effect>
+    <inherits-from>Effects/model-transparent</inherits-from>
+    <object-name>ebcauguard</object-name>
+    <object-name>ebcautext</object-name>
+    <object-name>ebcautext_active</object-name>
+    <condition>
+      <property>sim/rendering/rembrandt/enabled</property>
+    </condition>
+  </effect>
+
 </PropertyList>
-
-

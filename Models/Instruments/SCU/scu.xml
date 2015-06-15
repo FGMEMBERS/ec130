@@ -5,18 +5,6 @@
  <path>scu2.ac</path>
 
   <animation>
-    <type>material</type>
-    <object-name>text</object-name>
-    <object-name>floatarm_text</object-name>
-    <emission>
-      <red>   0.8 </red>
-      <green> 0.8 </green>
-      <blue>  1.0 </blue>
-      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
-    </emission>
-  </animation>
-
-  <animation>
     <type>pick</type>
     <object-name>batepu</object-name>
     <action>
@@ -32,11 +20,22 @@
   <animation>
     <type>select</type>
     <object-name>batepu_led</object-name>
-      <condition>
+    <condition>
+      <property>systems/electrical/volts</property>
       <greater-than>
         <property>controls/electric/battery-switch</property>
         <value>0</value>
       </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>batepu_led_off</object-name>
+    <condition>
+      <not>
+        <property>controls/electric/battery-switch</property>
+      </not>
     </condition>
   </animation>
 
@@ -57,11 +56,27 @@
     <type>select</type>
     <object-name>directbat_led</object-name>
     <object-name>directbat_led2</object-name>
-      <condition>
+    <condition>
+      <property>systems/electrical/volts</property>
       <greater-than>
-       <property>controls/electric/directbat-switch</property>
+        <property>controls/electric/directbat-switch</property>
         <value>0</value>
       </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>directbat_led_off</object-name>
+    <condition>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>controls/electric/directbat-switch</property>
+        </not>
+      </or>
     </condition>
   </animation>
 
@@ -72,6 +87,9 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/electric/engine[0]/generator</property>
       </binding>
@@ -82,10 +100,26 @@
     <type>select</type>
     <object-name>gene_led</object-name>
     <condition>
+      <property>systems/electrical/volts</property>
       <greater-than>
         <property>controls/electric/engine[0]/generator</property>
         <value>0</value>
       </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>gene_led_off</object-name>
+    <condition>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>controls/electric/engine[0]/generator</property>
+        </not>
+      </or>
     </condition>
   </animation>
 
@@ -96,6 +130,9 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/electric/horn</property>
       </binding>
@@ -106,10 +143,26 @@
     <type>select</type>
     <object-name>horn_led</object-name>
     <condition>
+      <property>systems/electrical/volts</property>
       <greater-than>
         <property>controls/electric/horn</property>
         <value>0</value>
       </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>horn_led_off</object-name>
+    <condition>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>controls/electric/horn</property>
+        </not>
+      </or>
     </condition>
   </animation>
 
@@ -120,6 +173,9 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/lighting/dome-light</property>
       </binding>
@@ -130,10 +186,26 @@
     <type>select</type>
     <object-name>domelt_led</object-name>
     <condition>
+      <property>systems/electrical/volts</property>
       <greater-than>
         <property>controls/lighting/dome-light</property>
         <value>0</value>
       </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>domelt_led_off</object-name>
+    <condition>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>controls/lighting/dome-light</property>
+        </not>
+      </or>
     </condition>
   </animation>
 
@@ -144,6 +216,9 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/electric/avionics-switch</property>
       </binding>
@@ -154,10 +229,26 @@
     <type>select</type>
     <object-name>avionic_led</object-name>
     <condition>
+      <property>systems/electrical/volts</property>
       <greater-than>
         <property>controls/electric/avionics-switch</property>
         <value>0</value>
       </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>avionic_led_off</object-name>
+    <condition>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>controls/electric/avionics-switch</property>
+        </not>
+      </or>
     </condition>
   </animation>
 
@@ -168,12 +259,18 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-assign</command>
         <property>controls/electric/engine[0]/generator</property>
         <value type="double">-1</value>
       </binding>
 	    <mod-up>
        <binding>
+         <condition>
+           <property>systems/electrical/volts</property>
+         </condition>
          <command>property-assign</command>
          <property>controls/electric/engine[0]/generator</property>
          <value type="double">0</value>
@@ -189,11 +286,17 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/lighting/beacon</property>
       </binding>
       <!-- mhab strobe is tied to beacon (for simplicity) -->
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/lighting/strobe</property>
       </binding>
@@ -204,10 +307,26 @@
     <type>select</type>
     <object-name>acollt_led</object-name>
     <condition>
+      <property>systems/electrical/volts</property>
       <greater-than>
         <property>controls/lighting/beacon</property>
         <value>0</value>
       </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>acollt_led_off</object-name>
+    <condition>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>controls/lighting/beacon</property>
+        </not>
+      </or>
     </condition>
   </animation>
 
@@ -218,6 +337,9 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/lighting/nav-lights</property>
       </binding>
@@ -227,11 +349,27 @@
   <animation>
     <type>select</type>
     <object-name>poslt_led</object-name>
-      <condition>
+    <condition>
+      <property>systems/electrical/volts</property>
       <greater-than>
         <property>controls/lighting/nav-lights</property>
         <value>0</value>
       </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>poslt_led_off</object-name>
+    <condition>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>controls/lighting/nav-lights</property>
+        </not>
+      </or>
     </condition>
   </animation>
 
@@ -242,6 +380,9 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/fuel/tank/boost-pump</property>
       </binding>
@@ -253,10 +394,26 @@
     <object-name>fuelp_led</object-name>
     <object-name>fuelp_led2</object-name>
     <condition>
+      <property>systems/electrical/volts</property>
       <greater-than>
-      <property>controls/fuel/tank/boost-pump</property>
+        <property>controls/fuel/tank/boost-pump</property>
         <value>0</value>
       </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>fuelp_led_off</object-name>
+    <condition>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>controls/fuel/tank/boost-pump</property>
+        </not>
+      </or>
     </condition>
   </animation>
 
@@ -267,6 +424,9 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/lighting/instrument-lights</property>
       </binding>
@@ -276,11 +436,27 @@
   <animation>
     <type>select</type>
     <object-name>instl1_led</object-name>
-      <condition>
+    <condition>
+      <property>systems/electrical/volts</property>
       <greater-than>
         <property>controls/lighting/instrument-lights</property>
         <value>0</value>
       </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>instl1_led_off</object-name>
+    <condition>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>controls/lighting/instrument-lights</property>
+        </not>
+      </or>
     </condition>
   </animation>
 
@@ -291,6 +467,9 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/lighting/instrument-lights2</property>
       </binding>
@@ -301,10 +480,26 @@
     <type>select</type>
     <object-name>instl2_led</object-name>
     <condition>
+      <property>systems/electrical/volts</property>
       <greater-than>
-      <property>controls/lighting/instrument-lights2</property>
+        <property>controls/lighting/instrument-lights2</property>
         <value>0</value>
       </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>instl2_led_off</object-name>
+    <condition>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>controls/lighting/instrument-lights2</property>
+        </not>
+      </or>
     </condition>
   </animation>
 
@@ -315,6 +510,9 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/anti-ice/pitot-heat</property>
       </binding>
@@ -325,10 +523,26 @@
     <type>select</type>
     <object-name>pitot_led</object-name>
     <condition>
+      <property>systems/electrical/volts</property>
       <greater-than>
         <property>controls/anti-ice/pitot-heat</property>
         <value>0</value>
       </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>pitot_led_off</object-name>
+    <condition>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>controls/anti-ice/pitot-heat</property>
+        </not>
+      </or>
     </condition>
   </animation>
 
@@ -339,20 +553,39 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
-        <property>/instrumentation/attitude-indicator/serviceable</property>
+        <property>instrumentation/attitude-indicator/serviceable</property>
       </binding>
     </action>
   </animation>
 
   <animation>
     <type>select</type>
-      <object-name>horizon_led</object-name>
-      <condition>
+    <object-name>horizon_led</object-name>
+    <condition>
+      <property>systems/electrical/volts</property>
       <greater-than>
-        <property>/instrumentation/attitude-indicator/serviceable</property>
+        <property>instrumentation/attitude-indicator/serviceable</property>
         <value>0</value>
       </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>horizon_led_off</object-name>
+    <condition>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>instrumentation/attitude-indicator/serviceable</property>
+        </not>
+      </or>
     </condition>
   </animation>
 
@@ -363,6 +596,9 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/electric/gyrocompass</property>
       </binding>
@@ -373,10 +609,114 @@
     <type>select</type>
     <object-name>gyro_led</object-name>
     <condition>
+      <property>systems/electrical/volts</property>
       <greater-than>
         <property>controls/electric/gyrocompass</property>
         <value>0</value>
       </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>gyro_led_off</object-name>
+    <condition>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>controls/electric/gyrocompass</property>
+        </not>
+      </or>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>taxilt</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
+        <command>property-toggle</command>
+        <property>controls/lighting/taxi-light</property>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>taxilt_led</object-name>
+    <object-name>taxilt_led2</object-name>
+    <condition>
+      <property>systems/electrical/volts</property>
+      <greater-than>
+        <property>controls/lighting/taxi-light</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>taxilt_led_off</object-name>
+    <condition>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>controls/lighting/taxi-light</property>
+        </not>
+      </or>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>landinglight</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
+        <command>property-toggle</command>
+        <property>controls/lighting/landing-lights</property>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>landinglight_led</object-name>
+    <object-name>landinglight_led2</object-name>
+    <condition>
+      <property>systems/electrical/volts</property>
+      <greater-than>
+        <property>controls/lighting/landing-lights</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>landinglight_led_off</object-name>
+    <condition>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>controls/lighting/landing-lights</property>
+        </not>
+      </or>
     </condition>
   </animation>
 
@@ -387,6 +727,9 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/engines/engine/starter</property>
       </binding>
@@ -395,15 +738,18 @@
     
   <animation>
     <type>pick</type>
-      <object-name>firettest</object-name>
-      <action>
-        <button>0</button>
-        <repeatable>false</repeatable>
-        <binding>
-          <command>property-toggle</command>
-          <property>controls/electric/firetest</property>
-        </binding>
-      </action>
+    <object-name>firettest</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
+        <command>property-toggle</command>
+        <property>controls/electric/firetest</property>
+      </binding>
+    </action>
   </animation>
 
   <animation>
@@ -413,11 +759,17 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/electric/warningtest</property>
       </binding>
       <mod-up>
        <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/electric/warningtest</property>
        </binding>
@@ -432,6 +784,9 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/electric/servotest</property>
       </binding>
@@ -457,6 +812,23 @@
     <condition>
       <property>sim/model/ec130/emerg_floats</property>
       <property>controls/gear/floats-armed</property>
+      <property>systems/electrical/volts</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>floatarm_led_off</object-name>
+    <condition>
+      <property>sim/model/ec130/emerg_floats</property>
+      <or>
+        <not>
+          <property>systems/electrical/volts</property>
+        </not>
+        <not>
+          <property>controls/gear/floats-armed</property>
+        </not>
+      </or>
     </condition>
   </animation>
 
@@ -468,5 +840,234 @@
       <property>sim/model/ec130/emerg_floats</property>
     </condition>
   </animation>
+
+  <animation>
+    <name>text</name>
+    <object-name>text</object-name>
+    <object-name>floatarm_text</object-name>
+  </animation>
+
+  <animation>
+    <name>leds</name>
+    <object-name>batepu_led</object-name>
+    <object-name>directbat_led</object-name>
+    <object-name>gene_led</object-name>
+    <object-name>horn_led</object-name>
+    <object-name>domelt_led</object-name>
+    <object-name>avionic_led</object-name>
+    <object-name>acollt_led</object-name>
+    <object-name>poslt_led</object-name>
+    <object-name>fuelp_led</object-name>
+    <object-name>instl1_led</object-name>
+    <object-name>instl2_led</object-name>
+    <object-name>pitot_led</object-name>
+    <object-name>horizon_led</object-name>
+    <object-name>gyro_led</object-name>
+    <object-name>taxilt_led</object-name>
+    <object-name>landinglight_led</object-name>
+    <object-name>floatarm_led</object-name>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>leds</object-name>
+    <condition>
+      <not>
+        <property>systems/electrical/outputs/instrument-lights-norm</property>
+      </not>
+      <not>
+        <property>systems/electrical/outputs/instrument-lights2-norm</property>
+      </not>
+    </condition>
+    <emission>
+      <red>   0.0 </red>
+      <green> 0.0 </green>
+      <blue>  0.0 </blue>
+    </emission>
+  </animation>
+
+  <!-- dimming -->
+  <animation>
+    <type>material</type>
+    <object-name>text</object-name>
+    <condition>
+      <or>
+        <property>systems/electrical/outputs/instrument-lights-norm</property>
+        <property>systems/electrical/outputs/instrument-lights2-norm</property>
+      </or>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor>0.5</factor>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>leds</object-name>
+    <condition>
+      <or>
+        <property>systems/electrical/outputs/instrument-lights-norm</property>
+        <property>systems/electrical/outputs/instrument-lights2-norm</property>
+      </or>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
+    <emission>
+      <red>   0.25</red>
+      <green> 1.0 </green>
+      <blue>  0.16</blue>
+      <factor>0.5</factor>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>directbat_led2</object-name>
+    <condition>
+      <or>
+        <property>systems/electrical/outputs/instrument-lights-norm</property>
+        <property>systems/electrical/outputs/instrument-lights2-norm</property>
+      </or>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
+    <emission>
+      <red>   0.0 </red>
+      <green> 0.8 </green>
+      <blue>  0.0 </blue>
+      <factor>0.5</factor>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>fuelp_led2</object-name>
+    <condition>
+      <or>
+        <property>systems/electrical/outputs/instrument-lights-norm</property>
+        <property>systems/electrical/outputs/instrument-lights2-norm</property>
+      </or>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
+    <emission>
+      <red>  -0.2 </red>
+      <green>-0.2 </green>
+      <blue>  0.8 </blue>
+      <factor>0.5</factor>
+      <offset>0.2</offset>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>text</object-name>
+    <condition>
+      <or>
+        <property>systems/electrical/outputs/instrument-lights-norm</property>
+        <property>systems/electrical/outputs/instrument-lights2-norm</property>
+      </or>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights2-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>leds</object-name>
+    <condition>
+      <or>
+        <property>systems/electrical/outputs/instrument-lights-norm</property>
+        <property>systems/electrical/outputs/instrument-lights2-norm</property>
+      </or>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+    <emission>
+      <red>   0.25</red>
+      <green> 1.0 </green>
+      <blue>  0.16</blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights2-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>directbat_led2</object-name>
+    <condition>
+      <or>
+        <property>systems/electrical/outputs/instrument-lights-norm</property>
+        <property>systems/electrical/outputs/instrument-lights2-norm</property>
+      </or>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+    <emission>
+      <red>   0.0 </red>
+      <green> 0.8 </green>
+      <blue>  0.0 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights2-norm</factor-prop>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>fuelp_led2</object-name>
+    <condition>
+      <or>
+        <property>systems/electrical/outputs/instrument-lights-norm</property>
+        <property>systems/electrical/outputs/instrument-lights2-norm</property>
+      </or>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+    <emission>
+      <red>  -0.2 </red>
+      <green>-0.2 </green>
+      <blue>  0.8 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights2-norm</factor-prop>
+      <offset>0.2</offset>
+    </emission>
+  </animation>
+
+  <!--  REMBRANDT support for transparent objects -->
+  <effect>
+    <inherits-from>Effects/model-transparent</inherits-from>
+    <object-name>leds</object-name>
+    <object-name>fuelp_led2</object-name>
+    <object-name>directbat_led2</object-name>
+    <object-name>taxilt_led2</object-name>
+    <object-name>landinglight_led2</object-name>
+    <condition>
+      <property>sim/rendering/rembrandt/enabled</property>
+    </condition>
+  </effect>
 
 </PropertyList>

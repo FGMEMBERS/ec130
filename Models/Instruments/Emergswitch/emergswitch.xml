@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+  <path>emergswitch.ac</path>
+
+  <animation>
+    <type>translate</type>
+    <object-name>knob</object-name>
+    <property>controls/electric/emergency-switch</property>
+    <factor>-0.008</factor>
+    <axis>
+      <x>0</x>
+      <y>0</y>
+      <z>1</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>wire</object-name>
+    <condition>
+      <property>controls/electric/emergency-switch-locked</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>wire</object-name>
+    <visible>true</visible>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>ec130.unlock_emergency();</script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>emer_wire</tooltip-id>
+        <label>unlock Switch</label>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>knob</object-name>
+    <visible>true</visible>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>ec130.switch_emergency();</script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>emersw</tooltip-id>
+        <label>%s</label>
+        <property>controls/electric/emergency-switch-locked</property>
+        <mapping>nasal</mapping>
+        <script>
+          if ( getprop("controls/electric/emergency-switch") == 0 ) {
+            var mode = ['"Switch is unlocked: ATTENTION No RESET possible !!!"','Switch is locked ! --> click wire'];
+          } else {
+            var mode = ['No RESET possible !!!','dummy'];
+          }
+          return mode[arg[0]];
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!-- dimming -->
+  <animation>
+    <name>all</name>
+    <object-name>knob</object-name>
+    <object-name>block</object-name>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>all</object-name>
+    <condition>
+      <property>systems/electrical/outputs/instrument-lights-norm</property>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor>0.4</factor>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>all</object-name>
+    <condition>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+    </emission>
+  </animation>
+
+</PropertyList>

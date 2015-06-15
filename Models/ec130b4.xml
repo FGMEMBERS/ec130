@@ -35,36 +35,38 @@
 
   <nasal>
     <load>
-      var livery_update = aircraft.livery_update.new("Aircraft/ec130/Models/liveries", 5, func { print("ec130 livery update") });
+      var livery_update = aircraft.livery_update.new("Aircraft/ec130/Models/Liveries", 5, func { print("ec130 livery updated") });
 
       var self = cmdarg();
-
+<!--
       var float_0 = self.getNode("sim/multiplay/generic/float[0]", 1);
       var float_1 = self.getNode("sim/multiplay/generic/float[1]", 1);
-
-      var frontl_door = self.getNode("instrumentation/doors/frontl/position-norm", 1);
-      var frontr_door = self.getNode("instrumentation/doors/frontr/position-norm", 1);
-      var passengerl_door = self.getNode("instrumentation/doors/passengerl/position-norm", 1);
-      var passengerr_door = self.getNode("instrumentation/doors/passengerr/position-norm", 1);
-      var luggagel = self.getNode("instrumentation/doors/luggagel/position-norm", 1);
-      var luggager = self.getNode("instrumentation/doors/luggager/position-norm", 1);
-      var door = self.getNode("instrumentation/doors/door/position-norm", 1);
-      var pilotw = self.getNode("instrumentation/doors/pilotw/position-norm", 1);
-      var basketl = self.getNode("instrumentation/doors/basketl/position-norm", 1);
-      var basketr = self.getNode("instrumentation/doors/basketr/position-norm", 1);
-      var hook = self.getNode("instrumentation/doors/hook/position-norm", 1);
-
+-->
+      var frontl_door = self.getNode("sim/model/ec130/doors/frontl/position-norm", 1);
+      var frontr_door = self.getNode("sim/model/ec130/doors/frontr/position-norm", 1);
+      var passengerl_door = self.getNode("sim/model/ec130/doors/passengerl/position-norm", 1);
+      var passengerr_door = self.getNode("sim/model/ec130/doors/passengerr/position-norm", 1);
+      var luggagel = self.getNode("sim/model/ec130/doors/luggagel/position-norm", 1);
+      var luggager = self.getNode("sim/model/ec130/doors/luggager/position-norm", 1);
+      var door = self.getNode("sim/model/ec130/doors/door/position-norm", 1);
+      var pilotw = self.getNode("sim/model/ec130/doors/pilotw/position-norm", 1);
+      var basketl = self.getNode("sim/model/ec130/doors/basketl/position-norm", 1);
+      var basketr = self.getNode("sim/model/ec130/doors/basketr/position-norm", 1);
+      var hook = self.getNode("sim/model/ec130/doors/hook/position-norm", 1);
+<!--
       frontl_door.alias(float_0);
       passengerl_door.alias(float_1);
-
+-->
       ec130.engines.init();
 
     </load>
 
     <unload>
       livery_update.stop();
+<!--
       frontl_door.unalias();
       passengerl_door.unalias();
+-->
     </unload>
 
   </nasal>
@@ -236,7 +238,7 @@
     <name>kcs55</name>
     <path>Aircraft/ec130/Models/Instruments/kcs55/ki525a.xml</path>
     <offsets>
-      <x-m>-4.552</x-m>
+      <x-m>-4.547</x-m>
       <y-m>-0.574</y-m>
       <z-m>-0.394</z-m>
       <pitch-deg>-10</pitch-deg>
@@ -357,9 +359,20 @@
     <name>RPM</name>
     <path>Aircraft/ec130/Models/Instruments/Tach/tach.xml</path>
     <offsets>
-      <x-m>-4.586</x-m>
-      <y-m>-0.475</y-m>
-      <z-m>-0.195</z-m>
+      <x-m>-4.570</x-m>
+      <y-m>-0.477</y-m>
+      <z-m>-0.192</z-m>
+      <pitch-deg>-10</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>EMERSW</name>
+    <path>Aircraft/ec130/Models/Instruments/Emergswitch/emergswitch.xml</path>
+    <offsets>
+      <x-m>-4.570</x-m>
+      <y-m>-0.433</y-m>
+      <z-m>-0.185</z-m>
       <pitch-deg>-10</pitch-deg>
     </offsets>
   </model>
@@ -692,7 +705,7 @@
     <object-name>luggager_in_slight</object-name>
     <condition>
       <not>
-        <property>/sim/model/ec130/luggage_wide</property>
+        <property>sim/model/ec130/luggage_wide</property>
       </not>
       <not>
         <property>sim/model/ec130/searchlight</property>
@@ -706,10 +719,10 @@
     <object-name>slight_darkening_box</object-name>
     <condition>
       <not>
-        <property>/sim/model/ec130/luggage_wide</property>
+        <property>sim/model/ec130/luggage_wide</property>
       </not>
       <not>
-        <property>instrumentation/doors/luggager/position-norm</property>
+        <property>sim/model/ec130/doors/luggager/position-norm</property>
       </not>
     </condition>
   </animation>
@@ -720,6 +733,108 @@
     <condition>
       <property>sim/model/ec130/wirecutter</property>
     </condition>
+  </animation>
+
+  <!-- stretcher -->
+  <animation>
+    <type>knob</type>
+    <object-name>frame_upper</object-name>
+    <object-name>stretcher_soft_head_up</object-name>
+    <object-name>stretcher_cyl</object-name>
+    <object-name>stretcher_rod</object-name>
+    <drag-direction>vertical</drag-direction>
+    <factor>1.0</factor>
+    <center>
+      <x-m> 3.650 </x-m>
+      <y-m> 0.000 </y-m>
+      <z-m>-0.842 </z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property>controls/seat/stretcher/position-deg</property>
+        <factor>1</factor>
+        <min>0</min>
+        <max>50</max>
+        <wrap>false</wrap>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>Stretcher</tooltip-id>
+        <label>adjust backrest</label>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>frame_upper</object-name>
+    <object-name>stretcher_soft_head_up</object-name>
+    <object-name>bar_head</object-name>
+    <property>controls/seat/stretcher/position-deg</property>
+    <factor>-1.0</factor>
+    <center>
+      <x-m>-3.650 </x-m>
+      <y-m> 0.000 </y-m>
+      <z-m>-0.842 </z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>stretcher_cyl</object-name>
+    <object-name>stretcher_rod</object-name>
+    <property>controls/seat/stretcher/position-deg</property>
+    <interpolation>
+      <entry><ind> 0</ind><dep> -4.0</dep></entry>
+      <entry><ind>10</ind><dep>-18.0</dep></entry>
+      <entry><ind>20</ind><dep>-32.0</dep></entry>
+      <entry><ind>30</ind><dep>-45.0</dep></entry>
+      <entry><ind>40</ind><dep>-57.0</dep></entry>
+      <entry><ind>50</ind><dep>-68.5</dep></entry>
+    </interpolation>
+    <center>
+      <x-m>-3.514 </x-m>
+      <y-m> 0.000 </y-m>
+      <z-m>-0.857 </z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>stretcher_rod</object-name>
+    <property>controls/seat/stretcher/position-deg</property>
+    <factor>1</factor>
+    <offset>0</offset>
+    <interpolation>
+      <entry><ind> 0</ind><dep>0.000</dep></entry>
+      <entry><ind>10</ind><dep>0.007</dep></entry>
+      <entry><ind>20</ind><dep>0.018</dep></entry>
+      <entry><ind>40</ind><dep>0.055</dep></entry>
+      <entry><ind>50</ind><dep>0.077</dep></entry>
+    </interpolation>
+    <axis>
+      <x> 1 </x>
+      <y> 0 </y>
+      <z> 0 </z>
+    </axis>
   </animation>
 
   <!--material animation-->
@@ -775,8 +890,6 @@
     <object-name>navlight_left</object-name>
     <object-name>navlight_right</object-name>
     <object-name>navlight_back</object-name>
-    <object-name>navlight_front</object-name>
-    <object-name>navlight_front2</object-name>
     <condition>
       <greater-than>
         <property>sim/multiplay/generic/int[2]</property>
@@ -784,10 +897,22 @@
       </greater-than>
     </condition>
   </animation>
- 
+
+  <animation>
+    <type>select</type>
+    <object-name>taxilight</object-name>
+    <object-name>taxilight2</object-name>
+    <condition>
+      <greater-than>
+        <property>sim/multiplay/generic/int[1]</property>
+        <value>24</value>
+      </greater-than>
+    </condition>
+  </animation>
+
   <animation>
     <type>flash</type>
-    <object-name>navlight_front</object-name>
+    <object-name>taxilight</object-name>
     <center>
       <x-m>-3.418</x-m>
       <y-m>0.395</y-m>
@@ -814,7 +939,7 @@
     <object-name>landing_light_gear_right</object-name>
     <condition>
       <greater-than>
-       <property>sim/multiplay/generic/int[1]</property>
+       <property>sim/multiplay/generic/int[4]</property>
        <value>24</value>
      </greater-than>
     </condition>
@@ -896,7 +1021,7 @@
     <object-name>navlight_left</object-name>
     <object-name>navlight_right</object-name>
     <object-name>navlight_back</object-name>
-    <object-name>navlight_front</object-name>
+    <object-name>taxilight</object-name>
     <object-name>Plane.005X</object-name>
     <object-name>Plane.005Xb</object-name>
     <object-name>basket_mesh_left</object-name>
@@ -910,9 +1035,9 @@
     <type>select</type>
     <object-name>LandLightVolume</object-name>
     <condition>
-      <property>/sim/rendering/rembrandt/enabled</property>
+      <property>sim/rendering/rembrandt/enabled</property>
       <greater-than>
-        <property>sim/multiplay/generic/int[1]</property>
+        <property>sim/multiplay/generic/int[4]</property>
         <value>24</value>
       </greater-than>
     </condition>
@@ -925,9 +1050,9 @@
     <object-name>LandLightVolume_gear_right</object-name>
     <condition>
       <property>sim/model/ec130/gear_light</property>
-      <property>/sim/rendering/rembrandt/enabled</property>
+      <property>sim/rendering/rembrandt/enabled</property>
       <greater-than>
-        <property>sim/multiplay/generic/int[1]</property>
+        <property>sim/multiplay/generic/int[4]</property>
         <value>24</value>
       </greater-than>
     </condition>
@@ -938,11 +1063,22 @@
     <object-name>NavLightLeftVolume</object-name>
     <object-name>NavLightRightVolume</object-name>
     <object-name>NavLightBackVolume</object-name>
-    <object-name>NavLightFrontVolume</object-name>
     <condition>
-      <property>/sim/rendering/rembrandt/enabled</property>
+      <property>sim/rendering/rembrandt/enabled</property>
       <greater-than>
         <property>sim/multiplay/generic/int[2]</property>
+        <value>24</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>TaxiLightVolume</object-name>
+    <condition>
+      <property>sim/rendering/rembrandt/enabled</property>
+      <greater-than>
+        <property>sim/multiplay/generic/int[1]</property>
         <value>24</value>
       </greater-than>
     </condition>
@@ -956,7 +1092,7 @@
     <condition>
       <or>
         <greater-than>
-          <property>sim/multiplay/generic/int[0]</property>
+          <property>sim/multiplay/generic/int[5]</property>
           <value>24</value>
         </greater-than>
         <greater-than>
@@ -972,9 +1108,9 @@
     <type>select</type>
     <object-name>BeaconVolume</object-name>
     <condition>
-      <property>/sim/rendering/rembrandt/enabled</property>
+      <property>sim/rendering/rembrandt/enabled</property>
       <greater-than>
-        <property>sim/multiplay/generic/int[0]</property>
+        <property>sim/multiplay/generic/int[5]</property>
         <value>24</value>
       </greater-than>
     </condition>
@@ -1003,7 +1139,7 @@
     <object-name>GearStrobeVolume</object-name>
     <condition>
       <property>sim/model/ec130/gear_strobe</property>
-      <property>/sim/rendering/rembrandt/enabled</property>
+      <property>sim/rendering/rembrandt/enabled</property>
       <or>
         <property>sim/multiplay/generic/int[3]</property>
         <greater-than>
@@ -1021,7 +1157,7 @@
     <name>NavLightLeft</name>
     <object-name>NavLightLeftVolume</object-name>
     <condition>
-      <property>/sim/rendering/rembrandt/enabled</property>
+      <property>sim/rendering/rembrandt/enabled</property>
     </condition>
     <position>
       <x>2.901</x>
@@ -1084,7 +1220,7 @@
     <name>NavLightRight</name>
     <object-name>NavLightRightVolume</object-name>
     <condition>
-      <property>/sim/rendering/rembrandt/enabled</property>
+      <property>sim/rendering/rembrandt/enabled</property>
     </condition>
     <position>
       <x>2.901</x>
@@ -1147,7 +1283,7 @@
     <name>NavLightBack</name>
     <object-name>NavLightBackVolume</object-name>
     <condition>
-      <property>/sim/rendering/rembrandt/enabled</property>
+      <property>sim/rendering/rembrandt/enabled</property>
     </condition>
     <position>
       <x>5.402</x>
@@ -1207,10 +1343,10 @@
   <animation>
     <type>light</type>
 	  <light-type>spot</light-type>
-	  <name>NavLightFront</name>
-	  <object-name>NavLightFrontVolume</object-name>
+	  <name>TaxiLight</name>
+	  <object-name>TaxiLightVolume</object-name>
     <condition>
-      <property>/sim/rendering/rembrandt/enabled</property>
+      <property>sim/rendering/rembrandt/enabled</property>
     </condition>
 	  <position>
 		  <x>-3.6</x>
@@ -1273,7 +1409,7 @@
     <name>Landinglight</name>
     <object-name>LandLightVolume</object-name>
     <condition>
-      <property>/sim/rendering/rembrandt/enabled</property>
+      <property>sim/rendering/rembrandt/enabled</property>
     </condition>
     <position>
       <x>-3.419</x>
@@ -1330,7 +1466,7 @@
     <name>Landinglight_gear_left</name>
     <object-name>LandLightVolume_gear_left</object-name>
     <condition>
-      <property>/sim/rendering/rembrandt/enabled</property>
+      <property>sim/rendering/rembrandt/enabled</property>
     </condition>
     <position>
       <x-m>-1.260</x-m>
@@ -1387,7 +1523,7 @@
     <name>Landinglight_gear_right</name>
     <object-name>LandLightVolume_gear_right</object-name>
     <condition>
-      <property>/sim/rendering/rembrandt/enabled</property>
+      <property>sim/rendering/rembrandt/enabled</property>
     </condition>
     <position>
       <x-m>-1.260</x-m>
@@ -1455,7 +1591,7 @@
     <alpha-factor>0.001</alpha-factor>
     <condition>
       <not>
-        <property>/sim/rendering/rembrandt/enabled</property>
+        <property>sim/rendering/rembrandt/enabled</property>
       </not>
     </condition>
   </animation>
@@ -1548,9 +1684,9 @@
     <name>Beacon</name>
     <object-name>BeaconVolume</object-name>
     <condition>
-      <property>/sim/rendering/rembrandt/enabled</property>
+      <property>sim/rendering/rembrandt/enabled</property>
       <greater-than>
-        <property>sim/multiplay/generic/int[0]</property>
+        <property>sim/multiplay/generic/int[5]</property>
         <value>24</value>
       </greater-than>
     </condition>
@@ -1610,7 +1746,7 @@
     <object-name>GearStrobeVolume</object-name>
     <condition>
       <property>sim/model/ec130/gear_strobe</property>
-      <property>/sim/rendering/rembrandt/enabled</property>
+      <property>sim/rendering/rembrandt/enabled</property>
       <or>
         <property>sim/multiplay/generic/int[3]</property>
         <greater-than>
@@ -1977,7 +2113,7 @@
   <animation>
     <type>rotate</type>
     <object-name>stickl</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
     <factor>-12</factor>
     <center>
       <x-m> -4.168 </x-m>
@@ -1994,7 +2130,7 @@
   <animation>
     <type>rotate</type>
     <object-name>stickl</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
     <factor>-12</factor>
     <center>
       <x-m> -4.168 </x-m>
@@ -2012,7 +2148,7 @@
   <animation>
     <type>rotate</type>
     <object-name>stickr</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
     <factor>-12</factor>
     <center>
       <x-m> -4.168 </x-m>
@@ -2029,7 +2165,7 @@
   <animation>
     <type>rotate</type>
     <object-name>stickr</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
     <factor>-12</factor>
     <center>
       <x-m> -4.168 </x-m>
@@ -2051,7 +2187,7 @@
     <object-name>collectivel_grip_high</object-name>
     <object-name>collectivel_shaft</object-name>
     <object-name>collectivel_leather</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
     <factor>-20</factor>
     <offset-deg>20</offset-deg>
     <center>
@@ -2067,41 +2203,28 @@
   </animation>
 
   <animation>
-    <type>pick</type>
+    <type>knob</type>
     <object-name>collectivel_grip_high</object-name>
-    <action>
-      <button>0</button>
-      <repeatable>true</repeatable>
-      <binding>
-        <command>nasal</command>
-        <script>ec130.adjust_twist_grip(1);</script>
-      </binding>
-    </action>
-    <hovered>
-      <binding>
-        <command>set-tooltip</command>
-        <tooltip-id>grip_highl</tooltip-id>
-        <label>Twist Grip Power +</label>
-      </binding>
-    </hovered>
-  </animation>
-
-  <animation>
-    <type>pick</type>
     <object-name>collectivel_grip_low</object-name>
+    <drag-direction>vertical</drag-direction>
+    <drag-scale>30</drag-scale>
     <action>
-      <button>0</button>
-      <repeatable>true</repeatable>
       <binding>
-        <command>nasal</command>
-        <script>ec130.adjust_twist_grip(-1);</script>
+        <command>property-adjust</command>
+        <property>controls/engines/engine/power</property>
+        <factor>0.06</factor>
+        <min>0.63</min>
+        <max>1.0</max>
+        <wrap>false</wrap>
       </binding>
     </action>
     <hovered>
       <binding>
         <command>set-tooltip</command>
-        <tooltip-id>grip_lowl</tooltip-id>
-        <label>Twist Grip Power -</label>
+        <tooltip-id>gripl</tooltip-id>
+        <label>Twist Grip %d%%</label>
+        <mapping>percent</mapping>
+        <property>controls/engines/engine/power</property>
       </binding>
     </hovered>
   </animation>
@@ -2114,7 +2237,7 @@
     <object-name>collectiver_grip_high</object-name>
     <object-name>collectiver_shaft</object-name>
     <object-name>collectiver_leather</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
     <factor>-20</factor>
     <offset-deg>20</offset-deg>
     <center>
@@ -2130,41 +2253,28 @@
   </animation>
 
   <animation>
-    <type>pick</type>
+    <type>knob</type>
     <object-name>collectiver_grip_high</object-name>
-    <action>
-      <button>0</button>
-      <repeatable>true</repeatable>
-      <binding>
-        <command>nasal</command>
-        <script>ec130.adjust_twist_grip(1);</script>
-      </binding>
-    </action>
-    <hovered>
-      <binding>
-        <command>set-tooltip</command>
-        <tooltip-id>grip_highr</tooltip-id>
-        <label>Twist Grip Power +</label>
-      </binding>
-    </hovered>
-  </animation>
-
-  <animation>
-    <type>pick</type>
     <object-name>collectiver_grip_low</object-name>
+    <drag-direction>vertical</drag-direction>
+    <drag-scale>40</drag-scale>
     <action>
-      <button>0</button>
-      <repeatable>true</repeatable>
       <binding>
-        <command>nasal</command>
-        <script>ec130.adjust_twist_grip(-1);</script>
+        <command>property-adjust</command>
+        <property>controls/engines/engine/power</property>
+        <factor>0.06</factor>
+        <min>0.63</min>
+        <max>1.0</max>
+        <wrap>false</wrap>
       </binding>
     </action>
     <hovered>
       <binding>
         <command>set-tooltip</command>
-        <tooltip-id>grip_lowr</tooltip-id>
-        <label>Twist Grip Power -</label>
+        <tooltip-id>gripr</tooltip-id>
+        <label>Twist Grip %d%%</label>
+        <mapping>percent</mapping>
+        <property>controls/engines/engine/power</property>
       </binding>
     </hovered>
   </animation>
@@ -2246,7 +2356,7 @@
   <animation>
     <type>rotate</type>
     <object-name>doorfl</object-name>
-    <property>/instrumentation/doors/frontl/position-norm</property>
+    <property>sim/model/ec130/doors/frontl/position-norm</property>
     <factor> -80.0 </factor>
     <axis>
       <x1-m> -4.42 </x1-m>
@@ -2275,13 +2385,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>doorfl</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/frontl/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -2290,7 +2394,7 @@
   <animation>
     <type>rotate</type>
     <object-name>pilotw</object-name>
-    <property>/instrumentation/doors/frontl/position-norm</property>
+    <property>sim/model/ec130/doors/frontl/position-norm</property>
     <factor> -80.0 </factor>
     <axis>
       <x1-m> -4.42 </x1-m>
@@ -2305,7 +2409,7 @@
   <animation>
     <type>translate</type>
     <object-name>pilotw</object-name>
-    <property>/instrumentation/doors/pilotw/position-norm</property>
+    <property>sim/model/ec130/doors/pilotw/position-norm</property>
     <factor>1</factor>
     <offset>10</offset>
     <interpolation>
@@ -2322,7 +2426,7 @@
   <animation>
     <type>pick</type>
     <object-name>pilotw</object-name>
-    <property>/instrumentation/doors/pilotw/position-norm</property>
+    <property>sim/model/ec130/doors/pilotw/position-norm</property>
     <action>
       <button>0</button>
       <repeatable>false</repeatable>
@@ -2337,13 +2441,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>pilotw</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/pilotw/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move window</label>
       </binding>
     </hovered>
   </animation>
@@ -2352,7 +2450,7 @@
   <animation>
     <type>rotate</type>
     <object-name>doorfr</object-name>
-    <property>/instrumentation/doors/frontr/position-norm</property>
+    <property>sim/model/ec130/doors/frontr/position-norm</property>
     <factor>  70.0 </factor>
     <axis>
       <x1-m> -4.42 </x1-m>
@@ -2381,13 +2479,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>doorfr</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/frontr/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -2398,7 +2490,7 @@
     <object-name>doorbl</object-name>
     <object-name>doorbl_lever</object-name>
     <object-name>doorbl_hinge</object-name>
-    <property>/instrumentation/doors/passengerl/position-norm</property>
+    <property>sim/model/ec130/doors/passengerl/position-norm</property>
     <interpolation>
       <entry><ind> 0.0 </ind><dep> 0.0  </dep></entry>
       <entry><ind> 0.5 </ind><dep> 0.42 </dep></entry>
@@ -2416,7 +2508,7 @@
     <object-name>doorbl</object-name>
     <object-name>doorbl_lever</object-name>
     <object-name>doorbl_hinge</object-name>
-    <property>/instrumentation/doors/passengerl/position-norm</property>
+    <property>sim/model/ec130/doors/passengerl/position-norm</property>
     <interpolation>
       <entry><ind> 0.00 </ind><dep>  0.00 </dep></entry>
       <entry><ind> 0.05 </ind><dep>  0.00 </dep></entry>
@@ -2433,7 +2525,7 @@
   <animation>
     <type>rotate</type>
     <object-name>doorbl_lever</object-name>
-    <property>/instrumentation/doors/passengerl/position-norm</property>
+    <property>sim/model/ec130/doors/passengerl/position-norm</property>
     <factor> 15 </factor>
     <interpolation>
       <entry><ind>0.00</ind><dep>  0</dep></entry>
@@ -2457,7 +2549,7 @@
     <nopreview/>
     <type>rotate</type>
     <object-name>doorbl_hinge</object-name>
-    <property>/instrumentation/doors/passengerl/position-norm</property>
+    <property>sim/model/ec130/doors/passengerl/position-norm</property>
     <factor> 90 </factor>
     <interpolation>
       <entry><ind>0.00</ind><dep> 12</dep></entry>
@@ -2494,13 +2586,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>doorbl</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/passengerl/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -2509,7 +2595,7 @@
   <animation>
     <type>rotate</type>
     <object-name>doorbr</object-name>
-    <property>/instrumentation/doors/passengerr/position-norm</property>
+    <property>sim/model/ec130/doors/passengerr/position-norm</property>
     <factor> -100.0 </factor>
     <axis>
       <x1-m> -2.70 </x1-m>
@@ -2538,13 +2624,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>doorbr</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/passengerr/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -2554,7 +2634,7 @@
     <type>rotate</type>
     <object-name>luggagel</object-name>
     <object-name>luggagel_in</object-name>
-    <property>/instrumentation/doors/luggagel/position-norm</property>
+    <property>sim/model/ec130/doors/luggagel/position-norm</property>
     <factor> -100.0 </factor>
     <axis>
       <x1-m> -2.38 </x1-m>
@@ -2584,13 +2664,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>luggagel</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/luggagel/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -2600,7 +2674,7 @@
     <type>rotate</type>
     <object-name>luggagelw</object-name>
     <object-name>luggagelw_in</object-name>
-    <property>/instrumentation/doors/luggagel/position-norm</property>
+    <property>sim/model/ec130/doors/luggagel/position-norm</property>
     <factor> 90.0 </factor>
     <axis>
       <x1-m> -2.447 </x1-m>
@@ -2630,13 +2704,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>luggagelw</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/luggagel/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -2648,7 +2716,7 @@
     <object-name>luggager_in</object-name>
     <object-name>luggager_slight</object-name>
     <object-name>luggager_in_slight</object-name>
-    <property>/instrumentation/doors/luggager/position-norm</property>
+    <property>sim/model/ec130/doors/luggager/position-norm</property>
     <factor>100.0 </factor>
     <axis>
       <x1-m> -2.38 </x1-m>
@@ -2680,13 +2748,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>luggager</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/luggager/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -2696,7 +2758,7 @@
     <type>rotate</type>
     <object-name>luggagerw</object-name>
     <object-name>luggagerw_in</object-name>
-    <property>/instrumentation/doors/luggager/position-norm</property>
+    <property>sim/model/ec130/doors/luggager/position-norm</property>
     <factor>-90.0 </factor>
     <axis>
       <x1-m> -2.467 </x1-m>
@@ -2726,13 +2788,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>luggagerw</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/luggager/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -2742,7 +2798,7 @@
     <type>rotate</type>
     <object-name>doorb</object-name>
     <object-name>door_in</object-name>
-    <property>/instrumentation/doors/doorb/position-norm</property>
+    <property>sim/model/ec130/doors/doorb/position-norm</property>
     <factor> -90.0 </factor>
     <axis>
       <x1-m> -0.99 </x1-m>
@@ -2772,13 +2828,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>doorb</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/doorb/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -2789,7 +2839,7 @@
     <type>rotate</type>
     <object-name>doorfl_cyl</object-name>
     <object-name>doorfl_rod</object-name>
-    <property>/instrumentation/doors/frontl/position-norm</property>
+    <property>sim/model/ec130/doors/frontl/position-norm</property>
     <factor> -77 </factor>
     <interpolation>
       <entry><ind>0.00</ind><dep> 0.00</dep></entry>
@@ -2813,7 +2863,7 @@
   <animation>
     <type>translate</type>
     <object-name>doorfl_rod</object-name>
-    <property>/instrumentation/doors/frontl/position-norm</property>
+    <property>sim/model/ec130/doors/frontl/position-norm</property>
     <factor>1</factor>
     <offset>0</offset>
     <interpolation>
@@ -2831,7 +2881,7 @@
     <type>pick</type>
     <object-name>doorfl_cyl</object-name>
     <object-name>doorfl_rod</object-name>
-    <property>/instrumentation/doors/frontl/position-norm</property>
+    <property>sim/model/ec130/doors/frontl/position-norm</property>
     <action>
       <button>0</button>
       <repeatable>false</repeatable>
@@ -2846,13 +2896,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>doorflc</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/frontl/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -2862,7 +2906,7 @@
     <type>rotate</type>
     <object-name>doorfr_cyl</object-name>
     <object-name>doorfr_rod</object-name>
-    <property>/instrumentation/doors/frontr/position-norm</property>
+    <property>sim/model/ec130/doors/frontr/position-norm</property>
     <factor> 70 </factor>
     <interpolation>
       <entry><ind>0.00</ind><dep> 0</dep></entry>
@@ -2886,7 +2930,7 @@
   <animation>
     <type>translate</type>
     <object-name>doorfr_rod</object-name>
-    <property>/instrumentation/doors/frontr/position-norm</property>
+    <property>sim/model/ec130/doors/frontr/position-norm</property>
     <factor>1</factor>
     <offset>0</offset>
     <interpolation>
@@ -2904,7 +2948,7 @@
     <type>pick</type>
     <object-name>doorfr_cyl</object-name>
     <object-name>doorfr_rod</object-name>
-    <property>/instrumentation/doors/frontr/position-norm</property>
+    <property>sim/model/ec130/doors/frontr/position-norm</property>
     <action>
       <button>0</button>
       <repeatable>false</repeatable>
@@ -2919,13 +2963,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>doorfrc</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/frontr/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -2935,7 +2973,7 @@
     <type>rotate</type>
     <object-name>luggagel_cylf</object-name>
     <object-name>luggagel_rodf</object-name>
-    <property>/instrumentation/doors/luggagel/position-norm</property>
+    <property>sim/model/ec130/doors/luggagel/position-norm</property>
     <factor> 6.5 </factor>
     <center>
       <x-m> -2.510 </x-m>
@@ -2952,7 +2990,7 @@
   <animation>
     <type>translate</type>
     <object-name>luggagel_cylf</object-name>
-    <property>/instrumentation/doors/luggagel/position-norm</property>
+    <property>sim/model/ec130/doors/luggagel/position-norm</property>
     <factor>1</factor>
     <offset>0</offset>
     <interpolation>
@@ -2973,7 +3011,7 @@
     <type>pick</type>
     <object-name>luggagel_cylf</object-name>
     <object-name>luggagel_rodf</object-name>
-    <property>/instrumentation/doors/luggagel/position-norm</property>
+    <property>sim/model/ec130/doors/luggagel/position-norm</property>
     <action>
       <button>0</button>
       <repeatable>false</repeatable>
@@ -2988,13 +3026,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>luggagelcf</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/luggagel/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -3004,7 +3036,7 @@
     <type>rotate</type>
     <object-name>luggagel_cylb</object-name>
     <object-name>luggagel_rodb</object-name>
-    <property>/instrumentation/doors/luggagel/position-norm</property>
+    <property>sim/model/ec130/doors/luggagel/position-norm</property>
     <factor> 8.5 </factor>
     <center>
       <x-m> -1.245 </x-m>
@@ -3021,7 +3053,7 @@
   <animation>
     <type>translate</type>
     <object-name>luggagel_cylb</object-name>
-    <property>/instrumentation/doors/luggagel/position-norm</property>
+    <property>sim/model/ec130/doors/luggagel/position-norm</property>
     <factor>1</factor>
     <offset>0</offset>
     <interpolation>
@@ -3040,7 +3072,7 @@
     <type>pick</type>
     <object-name>luggagel_cylb</object-name>
     <object-name>luggagel_rodb</object-name>
-    <property>/instrumentation/doors/luggagel/position-norm</property>
+    <property>sim/model/ec130/doors/luggagel/position-norm</property>
     <action>
       <button>0</button>
       <repeatable>false</repeatable>
@@ -3055,13 +3087,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>luggagelcb</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/luggagel/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -3071,7 +3097,7 @@
     <type>rotate</type>
     <object-name>luggager_cylf</object-name>
     <object-name>luggager_rodf</object-name>
-    <property>/instrumentation/doors/luggager/position-norm</property>
+    <property>sim/model/ec130/doors/luggager/position-norm</property>
     <factor> -6.5 </factor>
     <center>
       <x-m> -2.510 </x-m>
@@ -3088,7 +3114,7 @@
   <animation>
     <type>translate</type>
     <object-name>luggager_cylf</object-name>
-    <property>/instrumentation/doors/luggager/position-norm</property>
+    <property>sim/model/ec130/doors/luggager/position-norm</property>
     <factor>1</factor>
     <offset>0</offset>
     <interpolation>
@@ -3109,7 +3135,7 @@
     <type>pick</type>
     <object-name>luggager_cylf</object-name>
     <object-name>luggager_rodf</object-name>
-    <property>/instrumentation/doors/luggager/position-norm</property>
+    <property>sim/model/ec130/doors/luggager/position-norm</property>
     <action>
       <button>0</button>
       <repeatable>false</repeatable>
@@ -3124,13 +3150,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>luggagercf</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/luggager/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -3140,7 +3160,7 @@
     <type>rotate</type>
     <object-name>luggager_cylb</object-name>
     <object-name>luggager_rodb</object-name>
-    <property>/instrumentation/doors/luggager/position-norm</property>
+    <property>sim/model/ec130/doors/luggager/position-norm</property>
     <factor> -20 </factor>
     <center>
       <x-m> -1.236 </x-m>
@@ -3157,7 +3177,7 @@
   <animation>
     <type>translate</type>
     <object-name>luggager_cylb</object-name>
-    <property>/instrumentation/doors/luggager/position-norm</property>
+    <property>sim/model/ec130/doors/luggager/position-norm</property>
     <factor>1</factor>
     <offset>0</offset>
     <interpolation>
@@ -3178,7 +3198,7 @@
     <type>pick</type>
     <object-name>luggager_cylb</object-name>
     <object-name>luggager_rodb</object-name>
-    <property>/instrumentation/doors/luggager/position-norm</property>
+    <property>sim/model/ec130/doors/luggager/position-norm</property>
     <action>
       <button>0</button>
       <repeatable>false</repeatable>
@@ -3193,13 +3213,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>luggagercb</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/luggager/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -3209,7 +3223,7 @@
     <type>rotate</type>
     <object-name>door_cyl</object-name>
     <object-name>door_rod</object-name>
-    <property>/instrumentation/doors/doorb/position-norm</property>
+    <property>sim/model/ec130/doors/doorb/position-norm</property>
     <factor> 10 </factor>
     <center>
       <x-m> -0.633 </x-m>
@@ -3226,7 +3240,7 @@
   <animation>
     <type>translate</type>
     <object-name>door_rod</object-name>
-    <property>/instrumentation/doors/doorb/position-norm</property>
+    <property>sim/model/ec130/doors/doorb/position-norm</property>
     <factor>1</factor>
     <offset>0</offset>
     <interpolation>
@@ -3244,7 +3258,7 @@
     <type>pick</type>
     <object-name>door_cyl</object-name>
     <object-name>door_rod</object-name>
-    <property>/instrumentation/doors/doorb/position-norm</property>
+    <property>sim/model/ec130/doors/doorb/position-norm</property>
     <action>
       <button>0</button>
       <repeatable>false</repeatable>
@@ -3259,13 +3273,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>doorc</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/doorb/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -3275,7 +3283,7 @@
     <type>rotate</type>
     <object-name>luggagelw_cyl</object-name>
     <object-name>luggagelw_rod</object-name>
-    <property>/instrumentation/doors/luggagel/position-norm</property>
+    <property>sim/model/ec130/doors/luggagel/position-norm</property>
     <factor> 13 </factor>
     <interpolation>
       <entry><ind>0.00</ind><dep> 0.0</dep></entry>
@@ -3298,7 +3306,7 @@
   <animation>
     <type>translate</type>
     <object-name>luggagelw_rod</object-name>
-    <property>/instrumentation/doors/luggagel/position-norm</property>
+    <property>sim/model/ec130/doors/luggagel/position-norm</property>
     <factor>1</factor>
     <offset>0</offset>
     <interpolation>
@@ -3319,7 +3327,7 @@
     <type>pick</type>
     <object-name>luggagelw_cyl</object-name>
     <object-name>luggagelw_rod</object-name>
-    <property>/instrumentation/doors/luggagel/position-norm</property>
+    <property>sim/model/ec130/doors/luggagel/position-norm</property>
     <action>
       <button>0</button>
       <repeatable>false</repeatable>
@@ -3334,13 +3342,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>luggagelwc</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/luggagel/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -3350,7 +3352,7 @@
     <type>rotate</type>
     <object-name>luggagerw_cyl</object-name>
     <object-name>luggagerw_rod</object-name>
-    <property>/instrumentation/doors/luggager/position-norm</property>
+    <property>sim/model/ec130/doors/luggager/position-norm</property>
     <factor> -15 </factor>
     <interpolation>
       <entry><ind>0.00</ind><dep>  0.0</dep></entry>
@@ -3373,7 +3375,7 @@
   <animation>
     <type>translate</type>
     <object-name>luggagerw_rod</object-name>
-    <property>/instrumentation/doors/luggager/position-norm</property>
+    <property>sim/model/ec130/doors/luggager/position-norm</property>
     <factor>1</factor>
     <offset>0</offset>
     <interpolation>
@@ -3393,7 +3395,7 @@
     <type>pick</type>
     <object-name>luggagerw_cyl</object-name>
     <object-name>luggagerw_rod</object-name>
-    <property>/instrumentation/doors/luggager/position-norm</property>
+    <property>sim/model/ec130/doors/luggager/position-norm</property>
     <action>
       <button>0</button>
       <repeatable>false</repeatable>
@@ -3408,13 +3410,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>luggagerw</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/luggager/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>move door</label>
       </binding>
     </hovered>
   </animation>
@@ -3468,15 +3464,25 @@
     <name>fu_select</name>
     <object-name>shadow_fuselage</object-name>
     <condition>
-      <property>sim/model/ec130/shadow</property>
-      <not>
-        <property>/sim/rendering/shadows-ac</property>
-      </not>
-      <less-than>
-        <property>/sim/time/sun-angle-rad</property>
-        <value>1.40</value>
-      </less-than>
+      <or>
+        <property>sim/rendering/shaders/skydome</property>
+        <and>
+          <property>sim/model/ec130/shadow</property>
+          <not>
+            <property>sim/rendering/shadows-ac</property>
+          </not>
+          <less-than>
+            <property>sim/time/sun-angle-rad</property>
+            <value>1.40</value>
+          </less-than>
+        </and>
+      </or>
     </condition>
+  </animation>
+
+  <animation>
+    <type>noshadow</type>
+    <object-name>shadow_fuselage</object-name>
   </animation>
 
   <!-- shadow fuselage -->
@@ -3510,12 +3516,22 @@
     <name>fu_trans</name>
     <object-name>shadow_fuselage</object-name>
     <property>position/gear-agl-m</property>
+    <condition>
+      <not>
+        <property>sim/rendering/shaders/skydome</property>
+      </not>
+    </condition>
     <axis>
       <x>0</x>
       <y>0</y>
       <z>-1</z>
     </axis>
   </animation>
+
+  <effect>
+    <inherits-from>Effects/shadow</inherits-from>
+    <object-name>shadow_fuselage</object-name>
+  </effect>
 
   <!-- baskets animation -->
   <animation>
@@ -3535,7 +3551,7 @@
   <animation>
     <type>rotate</type>
     <object-name>basketl</object-name>
-    <property>/instrumentation/doors/basketl/position-norm</property>
+    <property>sim/model/ec130/doors/basketl/position-norm</property>
     <factor> -50 </factor>
     <center>
       <x-m>  0.000 </x-m>
@@ -3552,7 +3568,7 @@
   <animation>
     <type>rotate</type>
     <object-name>basket_left_rod_low</object-name>
-    <property>/instrumentation/doors/basketl/position-norm</property>
+    <property>sim/model/ec130/doors/basketl/position-norm</property>
     <factor> -123 </factor>
     <interpolation>
       <entry><ind>0.00</ind><dep>   0.0</dep></entry>
@@ -3575,7 +3591,7 @@
   <animation>
     <type>rotate</type>
     <object-name>basket_left_rod_up</object-name>
-    <property>/instrumentation/doors/basketl/position-norm</property>
+    <property>sim/model/ec130/doors/basketl/position-norm</property>
     <factor> 25 </factor>
     <interpolation>
       <entry><ind>0.00</ind><dep>  0.0</dep></entry>
@@ -3614,13 +3630,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>basketl</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/basketl/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>open/close cover</label>
       </binding>
     </hovered>
   </animation>
@@ -3628,7 +3638,7 @@
   <animation>
     <type>rotate</type>
     <object-name>basketr</object-name>
-    <property>/instrumentation/doors/basketr/position-norm</property>
+    <property>sim/model/ec130/doors/basketr/position-norm</property>
     <factor> 50 </factor>
     <center>
       <x-m>  0.000 </x-m>
@@ -3645,7 +3655,7 @@
   <animation>
     <type>rotate</type>
     <object-name>basket_right_rod_low</object-name>
-    <property>/instrumentation/doors/basketr/position-norm</property>
+    <property>sim/model/ec130/doors/basketr/position-norm</property>
     <factor> 123 </factor>
     <interpolation>
       <entry><ind>0.00</ind><dep>  0.0</dep></entry>
@@ -3668,7 +3678,7 @@
   <animation>
     <type>rotate</type>
     <object-name>basket_right_rod_up</object-name>
-    <property>/instrumentation/doors/basketr/position-norm</property>
+    <property>sim/model/ec130/doors/basketr/position-norm</property>
     <factor> -25 </factor>
     <interpolation>
       <entry><ind>0.00</ind><dep>  0.0</dep></entry>
@@ -3707,13 +3717,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>basketr</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/basketr/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>open/close cover</label>
       </binding>
     </hovered>
   </animation>
@@ -3722,7 +3726,7 @@
   <animation>
     <type>rotate</type>
     <object-name>hook_lowpart</object-name>
-    <property>/instrumentation/doors/hook/position-norm</property>
+    <property>sim/model/ec130/doors/hook/position-norm</property>
     <factor> -50 </factor>
     <center>
       <x-m> -1.830 </x-m>
@@ -3745,7 +3749,7 @@
       <binding>
         <command>nasal</command>
         <script>
-          if ( !getprop("instrumentation/doors/hook/position-norm") ) {
+          if ( !getprop("sim/model/ec130/doors/hook/position-norm") ) {
             setprop("/sim/hitches/aerotow/open",1);
             doors.doorsystem.hookexport();
           } else {
@@ -3761,15 +3765,51 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>hook</tooltip-id>
-        <label>%s</label>
-        <property>/instrumentation/doors/hook/position-norm</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['open', 'close'];
-          return mode[arg[0]];
-        </script>
+        <label>trigger hook</label>
       </binding>
     </hovered>
   </animation>
+
+  <!-- fire -->
+  <model>
+    <name>fire</name>
+    <path>Aircraft/ec130/Models/Effects/Fire.xml</path>
+    <condition>
+      <property>sim/crashed</property>
+      <greater-than>
+        <property>consumables/fuel/tank/level-lbs</property>
+        <value>80</value>
+      </greater-than>
+    </condition>
+    <offsets>
+      <x-m>-1.14</x-m>
+      <y-m>0.00</y-m>
+      <z-m>0.5</z-m>
+      <heading-deg>0</heading-deg>
+      <roll-deg>0</roll-deg>
+      <pitch-deg>0</pitch-deg>
+    </offsets>
+  </model>
+
+  <!-- smoke -->
+  <model>
+    <name>smoke</name>
+    <path>Aircraft/ec130/Models/Effects/Smoke.xml</path>
+    <condition>
+      <property>sim/crashed</property>
+      <greater-than>
+        <property>consumables/fuel/tank/level-lbs</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+    <offsets>
+      <x-m>-1.14</x-m>
+      <y-m>0.00</y-m>
+      <z-m>0.5</z-m>
+      <heading-deg>0</heading-deg>
+      <roll-deg>0</roll-deg>
+      <pitch-deg>0</pitch-deg>
+    </offsets>
+  </model>
 
 </PropertyList>

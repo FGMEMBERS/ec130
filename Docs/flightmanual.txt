@@ -1,18 +1,18 @@
 ##FlightManual EC 130 B4##
-02/19/2012, updated 11/17/2013, 01/31/2015 mhab
+02/19/2012, updated 11/17/2013, 04/30/2015 mhab
 
 1.) Information
 ===============
 This Model of an Eurocopter EC130 B4 is made for FlightGear and stands under the terms of GPLv2.
 
-This model is a work in progress so please accept that there may be things which are working as you want.
-For updates use the GIT-version and read the GIT-logs and some threads in the officiasl FlightGear Forum!
+This model is a work in progress so please accept that there may be things which are not working as you want.
+For updates use the GIT-version and read the GIT-logs and some threads in the official FlightGear Forum!
 
-Im still looking for data about the airfoils, and perfomance data! Help by a real pilot appreciated!
+I'm still looking for data about the airfoils, and perfomance data! Help by a real pilot appreciated!
 The current fdm is just a guess and might be not that realistic.
 
 Note:  EUROCOPTER and it's logo are trade marks of the Eurocopter group, as of 2014 Airbus Helicopters.
-======================================================================================================================
+=======================================================================================================
 Credits:
 Main Author, author 3D-Model:
 
@@ -52,9 +52,6 @@ mfranz@aon.at
 
 3.) To-Do
 =========
-- fixing the FLI to a more realistic behaviour
-- adding the rotorspeed management to FADEC
-- VEMD: switching the pages, fixing of some bugs
 - flight manual as pdf
 - failures
 
@@ -112,13 +109,15 @@ When Ng> 67% engine is now in Idle.
 
  - set Fuel P off. Not needed anymore - the engines suck the fuel now.
  - Run Up, wait until rotor-RPM ~265
- - Twist grip set to Flight (100%) Drag the mouse up with MMB pressed.
+ - Twist Grip set to Flight (100%) Drag the mouse up with MMB pressed.
     (not in Controll-mode or View-mode!) That's like Melchiors Bo105.
+   or use Twist Grip animation or Shortcuts
 
 
 4.4.3.) Before Takeoff:
 
- - Landing Light: as required ("l"-key ( like "L"etter))
+ - Taxi Light: as required ("l"-key ( like "L"etter))
+ - Landing Light: as required ("Shift-L"-key)
  - NavLights: as required
  - When rotor-RPM >340 activate HORN
  - Check alarm tone which ends when rotor-RPM >360
@@ -129,7 +128,7 @@ Please note it is a french system!
 
 4.4.4.) Takeoff Check and Procedure:
 
- - increase collective pitch until you  hover at 5 ft -
+ - increase collective pitch until you hover at 5 ft -
    check all engine values and warning lights off
  - increase airspeed until 40 kts at 10 ft, then increasing to 50kts at 20ft,
    then increase to 70 kts and climb to cruise level.
@@ -148,7 +147,7 @@ Please note it is a french system!
 
 When rotor-RPM <70 Flightreportpage appears and shows flight duration time and the current numbers of flights done.
 
-When FlightGear is exited as usual flightnumber and fuel level state is saved and will be load up again next time.
+When FlightGear is exited as usual flightnumber and fuel level state is saved and will be loaded up again next time.
 
 No warranties!
 
@@ -177,11 +176,16 @@ In the case of ermergency press "Alt-f"-key. The Floates will be inflated immedi
 
 The emergency floats can only be repacked on ground!
 
+ATTENTION:
+Maximum airspeed for inflation:        90 KIAS
+Maximum airspeed with floats inflated: 90 KIAS
 
-7.) Landing Lights
-==================
 
-Press "l"-key (l like "L"etter)
+7.) Taxi Lights / Landing Lights
+================================
+
+Taxi Light: Press "l"-key (l like "L"etter)
+Landing Lights: Press "Shift-L"-key
 
 
 8.) Additional Information
@@ -198,4 +202,3 @@ This is simulated in a simplified manner due to limitations of FlightGear: at ce
 the inputs of the cyclic controls are reduced to zero, depending on a simplified rotorload vs hydraulic force.
 When this happens reduce rotorload by taking down the collective.
 Better: keep away from acrobatic maneuvers!
-

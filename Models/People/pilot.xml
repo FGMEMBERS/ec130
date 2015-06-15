@@ -361,7 +361,7 @@
   <animation>
     <type>rotate</type>
     <object-name>handl</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
 		<factor>-20</factor>
 		<offset-deg>20</offset-deg>
     <center>
@@ -380,7 +380,7 @@
   <animation>
     <type>rotate</type>
     <object-name>forearml</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
 		<factor>-20</factor>
 		<offset-deg>20</offset-deg>
     <center>
@@ -399,7 +399,7 @@
   <animation>
     <type>rotate</type>
     <object-name>arml</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
 		<factor>15</factor>
 		<offset-deg>-10</offset-deg>
     <center>

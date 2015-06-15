@@ -2,22 +2,7 @@
 
 <PropertyList>
 
- <path>AI.ac</path>
-
-  <animation>
-    <type>material</type>
-    <object-name>Aircraft</object-name>
-    <object-name>CagedIndicator</object-name>
-    <object-name>Pitch</object-name>
-    <object-name>Roll</object-name>
-    <object-name>RollReference</object-name>
-    <emission>
-      <red>   0.8 </red>
-      <green> 0.8 </green>
-      <blue>  1.0 </blue>
-      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
-    </emission>
-  </animation>
+  <path>AI.ac</path>
 
   <animation>
     <name>Pitch</name>
@@ -74,79 +59,30 @@
   </animation>
 
   <animation>
-    <type>pick</type>
-    <object-name>AdjustCCW</object-name>
-    <visible>false</visible>
-    <action>
-      <button>0</button>
-      <repeatable>true</repeatable>
-      <binding>
-        <condition>
-          <property>/instrumentation/attitude-indicator/serviceable</property>
-        </condition>
-        <command>property-adjust</command>
-        <property>instrumentation/attitude-indicator/horizon-offset-deg</property>
-        <step type="double">-0.5</step>
-      </binding>
-    </action>
-    <hovered>
-      <binding>
-        <command>set-tooltip</command>
-        <tooltip-id>AdjustCCW</tooltip-id>
-        <label>Offset -</label>
-      </binding>
-    </hovered>
-  </animation>
-
-  <animation>
-    <type>pick</type>
-    <visible>false</visible>
-    <object-name>AdjustCW</object-name>
-    <action>
-      <button>0</button>
-      <repeatable>true</repeatable>
-      <binding>
-        <condition>
-          <property>/instrumentation/attitude-indicator/serviceable</property>
-        </condition>
-        <command>property-adjust</command>
-        <property>instrumentation/attitude-indicator/horizon-offset-deg</property>
-        <step type="double">0.5</step>
-      </binding>
-    </action>
-    <hovered>
-      <binding>
-        <command>set-tooltip</command>
-        <tooltip-id>AdjustCW</tooltip-id>
-        <label>Offset +</label>
-      </binding>
-    </hovered>
-  </animation>
-
-  <animation>
-    <type>pick</type>
+    <type>knob</type>
     <object-name>AdjustKnob</object-name>
-    <visible>true</visible>
+    <drag-direction>vertical</drag-direction>
     <action>
-      <name>Decrease - scrollwheel</name>
-      <button>3</button>
-      <repeatable>true</repeatable>
       <binding>
+        <condition>
+          <property>instrumentation/attitude-indicator/serviceable</property>
+        </condition>
         <command>property-adjust</command>
-        <property>instrumentation/attitude-indicator/horizon-offset-deg</property>
-        <step>-0.5</step>
+        <property>/instrumentation/attitude-indicator/horizon-offset-deg</property>
+        <factor>0.5</factor>
+        <min>-5</min>
+        <max>5</max>
+        <wrap>false</wrap>
       </binding>
     </action>
-    <action>
-      <name>Increase - scrollwheel</name>
-      <button>4</button>
-      <repeatable>true</repeatable>
+    <hovered>
       <binding>
-        <command>property-adjust</command>
+        <command>set-tooltip</command>
+        <tooltip-id>AdjustOffset</tooltip-id>
+        <label>Offset %3.1f</label>
         <property>instrumentation/attitude-indicator/horizon-offset-deg</property>
-        <step>0.5</step>
       </binding>
-    </action>
+    </hovered>
   </animation>
 
   <animation>
@@ -166,13 +102,7 @@
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>CageKnob</tooltip-id>
-        <label>%s</label>
-        <property>instrumentation/attitude-indicator/caged</property>
-        <mapping>nasal</mapping>
-        <script>
-          var mode = ['Pull To Cage', 'release'];
-          return mode[arg[0]];
-        </script>
+        <label>pull/release</label>
       </binding>
     </hovered>
   </animation>
@@ -197,6 +127,50 @@
     </axis>
   </animation>
 
+  <!-- dimming -->
+  <!-- is placed here, because if at the top causes problems with Pitch -->
+  <animation>
+    <name>all</name>
+    <object-name>Aircraft</object-name>
+    <object-name>CagedIndicator</object-name>
+    <object-name>Pitch</object-name>
+    <object-name>Roll</object-name>
+    <object-name>RollReference</object-name>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>all</object-name>
+    <condition>
+      <property>systems/electrical/outputs/instrument-lights-norm</property>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor>0.5</factor>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>all</object-name>
+    <condition>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+    </emission>
+  </animation>
+
 </PropertyList>
-
-

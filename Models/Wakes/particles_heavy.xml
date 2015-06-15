@@ -40,16 +40,16 @@
         <property>/gear/gear/wow</property>
       </not>
       <greater-than>
-        <property>/rotors/main/rpm</property>
+        <property>rotors/main/rpm</property>
         <value> 360 </value>
       </greater-than>
       <less-than>
-        <property>/controls/engines/engine/throttle</property>
+        <property>controls/engines/engine/throttle</property>
         <value> 0.55 </value>
       </less-than>
       <less-than>
-        <property>/position/altitude-agl-ft</property>
-        <value>35</value>
+        <property>sim/multiplay/generic/float[4]</property>
+        <value>12</value>
       </less-than>
       <!-- only if sun is above horizon -->
       <less-than>
@@ -58,7 +58,7 @@
       </less-than>
       <!-- only over water -->
       <not>
-        <property>gear/gear/ground-is-solid</property>
+        <property>sim/multiplay/generic/int[0]</property>
       </not>
     </condition>
 
@@ -68,7 +68,7 @@
       <phi-min-deg> -0.1 </phi-min-deg>
       <phi-max-deg>  0.1 </phi-max-deg>
       <speed-mps>
-        <property>/rotors/main/rpm</property>
+        <property>rotors/main/rpm</property>
         <factor> 0.1 </factor>
         <spread> 2.0 </spread>
       </speed-mps>
@@ -84,8 +84,8 @@
 
     <counter>
       <particles-per-sec>
-        <property>/position/altitude-agl-ft</property>
-        <factor> -40 </factor>
+        <property>sim/multiplay/generic/float[4]</property>
+        <factor> -13 </factor>
         <offset-m> 2000 </offset-m>
       </particles-per-sec>
     </counter>
@@ -97,7 +97,7 @@
           <green><value> 0.6 </value></green>
           <blue><value>  0.6 </value></blue>
           <alpha>
-            <property>/rotors/main/rpm</property>
+            <property>rotors/main/rpm</property>
             <factor> 0.00189 </factor>
             <max> 0.6 </max>
           </alpha>
@@ -113,7 +113,7 @@
           <green><value> 0.9 </value></green>
           <blue><value>  0.9 </value></blue>
           <alpha>
-            <property>/rotors/main/rpm</property>
+            <property>rotors/main/rpm</property>
             <factor> 0.00316 </factor>
             <max> 1.0 </max>
           </alpha>
@@ -142,7 +142,7 @@
   <animation>
     <type>rotate</type>
     <object-name>dirt_heavy</object-name>
-    <property>/orientation/pitch-deg</property>
+    <property>sim/multiplay/generic/float[1]</property>
     <axis>
       <x>  0 </x>
       <y> -1 </y>
@@ -153,7 +153,7 @@
   <animation>
     <type>rotate</type>
     <object-name>dirt_heavy</object-name>
-    <property>/orientation/roll-deg</property>
+    <property>sim/multiplay/generic/float[2]</property>
     <axis>
       <x> 1 </x>
       <y> 0 </y>
@@ -164,7 +164,7 @@
   <animation>
     <type>translate</type>
     <object-name>dirt_heavy</object-name>
-    <property>/position/gear-agl-m</property>
+    <property>sim/multiplay/generic/float[4]</property>
     <axis>
       <x>  0 </x>
       <y>  0 </y>
@@ -173,4 +173,3 @@
   </animation>
 
 </PropertyList>
-

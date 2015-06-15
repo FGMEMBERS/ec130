@@ -29,10 +29,41 @@
     <object-name>cables</object-name>
     <condition>
       <greater-than>
-        <property>/controls/electric/external-power</property>
+        <property>controls/electric/external-power</property>
         <value>0</value>
       </greater-than>
     </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <visible>true</visible>
+    <object-name>MGPU</object-name>
+    <object-name>cables</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>ec130.toggle_powersupply()</script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>MGPU</tooltip-id>
+        <label>remove unit</label>
+<!-- if this is used, errors in tooltip nasal are caused
+        <label>%s</label>
+        <property>controls/electric/external-power</property>
+        <mapping>nasal</mapping>
+        <script>
+          var mode = ['done','remove unit'];
+          return mode[arg[0]];
+        </script>
+-->
+      </binding>
+    </hovered>
   </animation>
 
 </PropertyList>

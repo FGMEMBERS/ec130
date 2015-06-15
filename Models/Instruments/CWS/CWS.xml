@@ -149,6 +149,48 @@
     </condition>
   </animation>
 
+  <!-- Cautions beside -->
+  <animation>
+    <type>select</type>
+    <object-name>LIMITwarn</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/limit</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>LITE</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/lite</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>GYROwarn</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/gyro</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>TRIMwarn</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/trim</property>
+    </condition>
+  </animation>
+
+  <!-- Warning above -->
+  <animation>
+    <type>select</type>
+    <object-name>PA</object-name>
+    <condition>
+      <property>instrumentation/annunciators/warning/pa</property>
+    </condition>
+  </animation>
+
   <!-- Warnings -->
   <animation>
     <type>select</type>
@@ -224,6 +266,11 @@
     <object-name>engfire</object-name>
     <object-name>batttemp</object-name>
     <object-name>twtgrip</object-name>
+    <object-name>LIMITwarn</object-name>
+    <object-name>LITE</object-name>
+    <object-name>GYROwarn</object-name>
+    <object-name>TRIMwarn</object-name>
+    <object-name>PA</object-name>
   </animation>
 
   <animation>
@@ -231,10 +278,47 @@
     <object-name>CWS</object-name>
     <condition>
       <greater-than>
-        <property>/systems/electrical/volts</property>
+        <property>systems/electrical/volts</property>
         <value>6</value>
       </greater-than>
     </condition>
+  </animation>
+
+  <!-- dimming -->
+  <animation>
+    <type>material</type>
+    <object-name>CWS</object-name>
+    <condition>
+      <property>systems/electrical/outputs/instrument-lights-norm</property>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor>1.0</factor>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>CWS</object-name>
+    <condition>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+     </greater-than>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+      <offset>0.5</offset>
+    </emission>
   </animation>
 
   <!--  REMBRANDT support for transparent objects -->
@@ -264,6 +348,11 @@
     <object-name>engfire</object-name>
     <object-name>batttemp</object-name>
     <object-name>twtgrip</object-name>
+    <object-name>LIMITwarn</object-name>
+    <object-name>LITE</object-name>
+    <object-name>GYROwarn</object-name>
+    <object-name>TRIMwarn</object-name>
+    <object-name>PA</object-name>
     <condition>
       <property>sim/rendering/rembrandt/enabled</property>
     </condition>

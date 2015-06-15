@@ -87,7 +87,8 @@
   Remark: The aerodynamic relevant size of the specific optional parts is defined below as Yasim needs it.
 
 -->
-<airplane mass="2835"> <!--equipment reduced!-->
+
+  <airplane mass="2835" version="YASIM_VERSION_32"> <!--equipment reduced!-->
 
   <!--not necessary for helis, but useful to prevent sliding on ground engine-out-->
   <approach speed="75" aoa="16">
@@ -112,7 +113,7 @@
        weightperblade="66" 
        twist="10.7" 
        chord="0.30" 
-       rpm="386" 
+       rpm="386"
        relbladecenter="0.5" 
        dynamic="0.65"
        rellenflaphinge="0.05" 

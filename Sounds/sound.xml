@@ -164,66 +164,6 @@ baboon922@hotmail.com
       <max-dist>10</max-dist>
     </starter>
 
-    <starter>
-      <name>starter1_start</name>
-      <mode>once</mode>
-      <path>Aircraft/ec130/Sounds/starter_start.wav</path>
-      <condition>
-        <property>controls/engines/engine[1]/starter</property>
-      </condition>
-      <volume>
-        <factor>0.3</factor>
-      </volume>
-      <position>
-        <x>-0.88</x>
-        <y>-0.40</y>
-        <z>0.5</z>
-      </position>
-      <reference-dist>5</reference-dist>
-      <max-dist>10</max-dist>
-    </starter>
-
-    <starter>
-      <name>starter1_loop</name>
-      <mode>looped</mode>
-      <path>Aircraft/ec130/Sounds/starter_loop.wav</path>
-      <condition>
-        <property>controls/engines/engine[1]/starter</property>
-      </condition>
-      <delay-sec>11.6</delay-sec>
-      <volume>
-        <factor>0.1</factor>
-      </volume>
-      <position>
-        <x>-0.88</x>
-        <y>-0.40</y>
-        <z>0.5</z>
-      </position>
-      <reference-dist>5</reference-dist>
-      <max-dist>10</max-dist>
-    </starter>
-
-    <starter>
-      <name>starter1_stop</name>
-      <mode>once</mode>
-      <path>Aircraft/ec130/Sounds/starter_stop.wav</path>
-      <condition>
-        <not>
-          <property>controls/engines/engine[1]/starter</property>
-        </not>
-      </condition>
-      <volume>
-        <factor>0.1</factor>
-      </volume>
-      <position>
-        <x>-0.88</x>
-        <y>-0.40</y>
-        <z>0.5</z>
-      </position>
-      <reference-dist>5</reference-dist>
-      <max-dist>10</max-dist>
-    </starter>
-
     <engine>
       <name>turbine0-start</name>
       <mode>once</mode>
@@ -271,66 +211,6 @@ baboon922@hotmail.com
       <condition>
         <not>
           <property>engines/engine[0]/running</property>
-        </not>
-      </condition>
-      <volume>
-        <factor>0.03</factor>
-      </volume>
-      <volume>
-        <property>sim/model/ec130/sound/volume</property>
-        <factor>5</factor>
-      </volume>
-      <reference-dist>50</reference-dist>
-      <max-dist>200</max-dist>
-    </engine>
-
-    <engine>
-      <name>turbine1-start</name>
-      <mode>once</mode>
-      <path>Aircraft/ec130/Sounds/strt_ec135_out2.wav</path>
-      <condition>
-      <greater-than>
-        <property>engines/engine[1]/n1-pct</property>
-        <value>0.1</value>
-      </greater-than>
-      </condition>
-      <volume>
-        <factor>0.03</factor>
-      </volume>
-      <volume>
-        <property>sim/model/ec130/sound/volume</property>
-        <factor>5</factor>
-      </volume>
-      <reference-dist>50</reference-dist>
-      <max-dist>200</max-dist>
-    </engine>
-
-    <engine>
-      <name>turbine1-loop</name>
-      <mode>looped</mode>
-      <path>Aircraft/ec130/Sounds/idle_ec135_out.wav</path>
-      <condition>
-        <property>engines/engine[1]/running</property>
-      </condition>
-      <delay-sec>45</delay-sec>
-      <volume>
-        <factor>0.03</factor>
-      </volume>
-      <volume>
-        <property>sim/model/ec130/sound/volume</property>
-        <factor>5</factor>
-      </volume>
-      <reference-dist>50</reference-dist>
-      <max-dist>200</max-dist>
-    </engine>
-
-    <engine>
-      <name>turbine1-shutdown</name>
-      <mode>once</mode>
-      <path>Sounds/turbine_shutdown.wav</path>
-      <condition>
-        <not>
-          <property>engines/engine[1]/running</property>
         </not>
       </condition>
       <volume>
@@ -393,16 +273,16 @@ baboon922@hotmail.com
             <property>sim/crashed</property>
           </not>
           <not>
-            <property>instrumentation/doors/frontl/position-norm</property>
+            <property>sim/model/ec130/doors/frontl/position-norm</property>
           </not>
           <not>
-            <property>instrumentation/doors/frontr/position-norm</property>
+            <property>sim/model/ec130/doors/frontr/position-norm</property>
           </not>
           <not>
-            <property>instrumentation/doors/passengerl/position-norm</property>
+            <property>sim/model/ec130/doors/passengerl/position-norm</property>
           </not>
           <not>
-            <property>instrumentation/doors/passengerr/position-norm</property>
+            <property>sim/model/ec130/doors/passengerr/position-norm</property>
           </not>
         </and>
       </condition>
@@ -440,10 +320,10 @@ baboon922@hotmail.com
             <property>sim/crashed</property>
           </not>
           <or>
-            <property>instrumentation/doors/frontl/position-norm</property>
-            <property>instrumentation/doors/frontr/position-norm</property>
-            <property>instrumentation/doors/passengerl/position-norm</property>
-            <property>instrumentation/doors/passengerr/position-norm</property>
+            <property>sim/model/ec130/doors/frontl/position-norm</property>
+            <property>sim/model/ec130/doors/frontr/position-norm</property>
+            <property>sim/model/ec130/doors/passengerl/position-norm</property>
+            <property>sim/model/ec130/doors/passengerr/position-norm</property>
           </or>
         </and>
       </condition>
@@ -480,7 +360,7 @@ baboon922@hotmail.com
           <not>
             <property>sim/crashed</property>
           </not>
-          <property>instrumentation/doors/pilotw/position-norm</property>
+          <property>sim/model/ec130/doors/pilotw/position-norm</property>
         </and>
       </condition>
       <volume>
@@ -616,8 +496,8 @@ baboon922@hotmail.com
        <and>
         <property>sim/sound/Intermittent310</property>
         <greater-than>
-        <property>/systems/electrical/outputs/horn</property>
-        <value>24</value>
+         <property>/systems/electrical/outputs/horn</property>
+         <value>24</value>
         </greater-than>
        </and>
        <not>
@@ -968,28 +848,13 @@ baboon922@hotmail.com
       <max-dist>4</max-dist>
     </wind>
 
-    <crash>
-      <name>intense ground contact</name>
-      <mode>once</mode>
-      <path>Sounds/crash.wav</path>
-      <property>sim/crashed</property>
-      <volume>
-        <factor>1</factor>
-      </volume>
-      <pitch>
-        <factor>0.1</factor>
-      </pitch>
-      <reference-dist>100</reference-dist>
-      <max-dist>500</max-dist>
-    </crash>
-
     <door>
       <name>open left frontdoor</name>
       <mode>once</mode>
       <path>Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
-          <property>instrumentation/doors/frontl/position-norm</property>
+          <property>sim/model/ec130/doors/frontl/position-norm</property>
           <value>0</value>
         </greater-than>
       </condition>
@@ -1011,7 +876,7 @@ baboon922@hotmail.com
       <path>Sounds/BaBoOn-R44-Door_close.wav</path>
       <condition>
         <equals>
-          <property>instrumentation/doors/frontl/position-norm</property>
+          <property>sim/model/ec130/doors/frontl/position-norm</property>
           <value>0</value>
         </equals>
       </condition>
@@ -1033,7 +898,7 @@ baboon922@hotmail.com
       <path>Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
-          <property>instrumentation/doors/frontr/position-norm</property>
+          <property>sim/model/ec130/doors/frontr/position-norm</property>
           <value>0</value>
         </greater-than>
       </condition>
@@ -1055,7 +920,7 @@ baboon922@hotmail.com
       <path>Sounds/BaBoOn-R44-Door_close.wav</path>
       <condition>
         <equals>
-          <property>instrumentation/doors/frontr/position-norm</property>
+          <property>sim/model/ec130/doors/frontr/position-norm</property>
           <value>0</value>
         </equals>
       </condition>
@@ -1077,7 +942,7 @@ baboon922@hotmail.com
       <path>Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
-          <property>instrumentation/doors/passengerl/position-norm</property>
+          <property>sim/model/ec130/doors/passengerl/position-norm</property>
           <value>0</value>
         </greater-than>
       </condition>
@@ -1099,11 +964,11 @@ baboon922@hotmail.com
       <path>Sounds/exhaust_loop.wav</path>
       <condition>
         <greater-than>
-          <property>instrumentation/doors/passengerl/position-norm</property>
+          <property>sim/model/ec130/doors/passengerl/position-norm</property>
           <value>0.02</value>
         </greater-than>
         <less-than>
-          <property>instrumentation/doors/passengerl/position-norm</property>
+          <property>sim/model/ec130/doors/passengerl/position-norm</property>
           <value>0.99</value>
         </less-than>
       </condition>
@@ -1116,7 +981,7 @@ baboon922@hotmail.com
         <factor>0.07</factor>
       </volume>
       <pitch>
-        <property>instrumentation/doors/passengerl/position-norm</property>
+        <property>sim/model/ec130/doors/passengerl/position-norm</property>
         <factor>0.1</factor>
         <offset>0.5</offset>
         <min>0.5</min>
@@ -1132,7 +997,7 @@ baboon922@hotmail.com
       <path>Sounds/door_close.wav</path>
       <condition>
         <greater-than>
-          <property>instrumentation/doors/passengerl/position-norm</property>
+          <property>sim/model/ec130/doors/passengerl/position-norm</property>
           <value>0.99</value>
         </greater-than>
       </condition>
@@ -1154,7 +1019,7 @@ baboon922@hotmail.com
       <path>Sounds/BaBoOn-R44-Door_close.wav</path>
       <condition>
         <equals>
-          <property>instrumentation/doors/passengerl/position-norm</property>
+          <property>sim/model/ec130/doors/passengerl/position-norm</property>
           <value>0</value>
         </equals>
       </condition>
@@ -1176,7 +1041,7 @@ baboon922@hotmail.com
       <path>Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
-          <property>instrumentation/doors/passengerr/position-norm</property>
+          <property>sim/model/ec130/doors/passengerr/position-norm</property>
           <value>0</value>
         </greater-than>
       </condition>
@@ -1198,7 +1063,7 @@ baboon922@hotmail.com
       <path>Sounds/BaBoOn-R44-Door_close.wav</path>
       <condition>
         <equals>
-          <property>instrumentation/doors/passengerr/position-norm</property>
+          <property>sim/model/ec130/doors/passengerr/position-norm</property>
           <value>0</value>
         </equals>
       </condition>
@@ -1220,7 +1085,7 @@ baboon922@hotmail.com
       <path>Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
-          <property>instrumentation/doors/luggagel/position-norm</property>
+          <property>sim/model/ec130/doors/luggagel/position-norm</property>
           <value>0</value>
         </greater-than>
       </condition>
@@ -1242,7 +1107,7 @@ baboon922@hotmail.com
       <path>Sounds/door_close.wav</path>
       <condition>
         <equals>
-          <property>instrumentation/doors/luggagel/position-norm</property>
+          <property>sim/model/ec130/doors/luggagel/position-norm</property>
           <value>0</value>
         </equals>
       </condition>
@@ -1264,7 +1129,7 @@ baboon922@hotmail.com
       <path>Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
-          <property>instrumentation/doors/luggager/position-norm</property>
+          <property>sim/model/ec130/doors/luggager/position-norm</property>
           <value>0</value>
         </greater-than>
       </condition>
@@ -1286,7 +1151,7 @@ baboon922@hotmail.com
       <path>Sounds/door_close.wav</path>
       <condition>
         <equals>
-          <property>instrumentation/doors/luggager/position-norm</property>
+          <property>sim/model/ec130/doors/luggager/position-norm</property>
           <value>0</value>
         </equals>
       </condition>
@@ -1308,7 +1173,7 @@ baboon922@hotmail.com
       <path>Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
         <greater-than>
-          <property>instrumentation/doors/doorb/position-norm</property>
+          <property>sim/model/ec130/doors/doorb/position-norm</property>
           <value>0</value>
         </greater-than>
       </condition>
@@ -1330,7 +1195,7 @@ baboon922@hotmail.com
       <path>Sounds/door_close.wav</path>
       <condition>
         <equals>
-          <property>instrumentation/doors/doorb/position-norm</property>
+          <property>sim/model/ec130/doors/doorb/position-norm</property>
           <value>0</value>
         </equals>
       </condition>
@@ -1353,7 +1218,7 @@ baboon922@hotmail.com
       <condition>
         <property>/sim/model/ec130/basket_left</property>
         <greater-than>
-          <property>instrumentation/doors/basketl/position-norm</property>
+          <property>sim/model/ec130/doors/basketl/position-norm</property>
           <value>0</value>
         </greater-than>
       </condition>
@@ -1376,7 +1241,7 @@ baboon922@hotmail.com
       <condition>
         <property>/sim/model/ec130/basket_left</property>
         <equals>
-          <property>instrumentation/doors/basketl/position-norm</property>
+          <property>sim/model/ec130/doors/basketl/position-norm</property>
           <value>0</value>
         </equals>
       </condition>
@@ -1399,7 +1264,7 @@ baboon922@hotmail.com
       <condition>
         <property>/sim/model/ec130/basket_right</property>
         <greater-than>
-          <property>instrumentation/doors/basketr/position-norm</property>
+          <property>sim/model/ec130/doors/basketr/position-norm</property>
           <value>0</value>
         </greater-than>
       </condition>
@@ -1422,7 +1287,7 @@ baboon922@hotmail.com
       <condition>
         <property>/sim/model/ec130/basket_right</property>
         <equals>
-          <property>instrumentation/doors/basketr/position-norm</property>
+          <property>sim/model/ec130/doors/basketr/position-norm</property>
           <value>0</value>
         </equals>
       </condition>
@@ -1445,7 +1310,7 @@ baboon922@hotmail.com
       <max-dist>2</max-dist>
       <reference-dist>1</reference-dist>
       <condition>
-        <property>sim/model/sound/click</property>
+        <property>sim/sound/click</property>
       </condition>
       <volume>
         <property>sim/model/sound/volume</property>
@@ -1465,7 +1330,7 @@ baboon922@hotmail.com
       <reference-dist>1</reference-dist>
       <condition>
         <not>
-          <property>sim/model/sound/click</property>
+          <property>sim/sound/click</property>
         </not>
       </condition>
       <volume>
@@ -1477,6 +1342,76 @@ baboon922@hotmail.com
         <z-m>0.002</z-m>
       </position>
     </click>
+
+    <gong>
+      <name>warning</name>
+      <mode>once</mode>
+      <path>Sounds/beep.wav</path>
+      <max-dist>2</max-dist>
+      <reference-dist>1</reference-dist>
+      <condition>
+        <property>sim/sound/gong</property>
+      </condition>
+      <volume>
+        <property>sim/model/sound/volume</property>
+      </volume>
+      <position>
+        <x-m>-4.567</x-m>
+        <y-m>-0.600</y-m>
+        <z-m>-0.214</z-m>
+      </position>
+    </gong>
+
+    <crash>
+      <name>intense ground contact</name>
+      <mode>once</mode>
+      <path>Sounds/crash.wav</path>
+      <property>sim/crashed</property>
+      <volume>
+        <factor>1</factor>
+      </volume>
+      <pitch>
+        <factor>0.1</factor>
+      </pitch>
+      <reference-dist>100</reference-dist>
+      <max-dist>1000</max-dist>
+    </crash>
+
+    <firefull>
+      <name>full burning fire</name>
+      <mode>looped</mode>
+      <path>Sounds/rumble.wav</path>
+      <condition>
+        <property>sim/crashed</property>
+        <greater-than>
+          <property>consumables/fuel/tank/level-lbs</property>
+          <value>80</value>
+        </greater-than>
+      </condition>
+      <volume>
+        <factor>1</factor>
+      </volume>
+      <reference-dist>100</reference-dist>
+      <max-dist>1000</max-dist>
+    </firefull>
+
+    <firelow>
+      <name>smoking fire</name>
+      <mode>looped</mode>
+      <path>Sounds/rumble.wav</path>
+      <condition>
+        <property>sim/crashed</property>
+        <greater-than>
+          <property>consumables/fuel/tank/level-lbs</property>
+          <value>0</value>
+        </greater-than>
+      </condition>
+      <volume>
+        <factor>0.4</factor>
+      </volume>
+      <reference-dist>100</reference-dist>
+      <max-dist>1000</max-dist>
+    </firelow>
 
   </fx>
 
