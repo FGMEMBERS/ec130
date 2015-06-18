@@ -7,7 +7,7 @@
   <animation>
     <type>rotate</type>
     <object-name>cutofflever</object-name>
-    <property>controls/engines/engine/cutoff</property>
+    <property>controls/engines/engine/cutoff-norm</property>
     <factor>-30</factor>
     <center>
       <x-m> 0     </x-m>
@@ -46,27 +46,27 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
-        <condition>
-          <not>
-            <property>controls/engines/engine/cutoff_guard</property>
-          </not>
-        </condition>
-        <command>property-toggle</command>
-        <property>controls/engines/engine/cutoff</property>
+        <command>nasal</command>
+        <script>ec130.toggle_cutoff();</script>
       </binding>
     </action>
     <hovered>
       <binding>
         <condition>
-          <property>controls/engines/engine/cutoff_guard</property>
+          <not>
+            <property>controls/engines/engine/cutoff_guard</property>
+          </not>
         </condition>
         <command>set-tooltip</command>
-        <tooltip-id>cutoff_guard</tooltip-id>
+        <tooltip-id>cutoff_lever</tooltip-id>
+<!--
+        <label>cut off fuel</label>
+-->
         <label>%s</label>
         <property>controls/engines/engine/cutoff</property>
         <mapping>nasal</mapping>
         <script>
-          var mode = ['cut off', 'open'];
+          var mode = ['cut off fuel', 'open fuel'];
           return mode[arg[0]];
         </script>
       </binding>
@@ -98,7 +98,10 @@
         </condition>
         <command>set-tooltip</command>
         <tooltip-id>cutoff_guard</tooltip-id>
-        <label>%s</label>
+<!--
+        <label>guard</label>
+-->
+        <label>%s cut-off</label>
         <property>controls/engines/engine/cutoff_guard</property>
         <mapping>nasal</mapping>
         <script>

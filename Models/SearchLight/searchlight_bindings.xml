@@ -91,22 +91,6 @@
         </binding>
       </key>
 
-      <key n="76">
-        <name>Shift-L</name>
-        <desc>toggle Search Light ON/OFF</desc>
-        <binding>
-          <condition>
-            <property>controls/electric/engine/generator</property>
-            <or>
-              <property>sim/model/ec130/searchlight</property>
-              <property>sim/model/ec130/searchlight_a800</property>
-            </or>
-          </condition>
-          <command>nasal</command>
-          <script>ec130.slight_toggle_power();</script>
-        </binding>
-      </key>
-
       <key n="108">
         <mod-alt>
           <name>Alt-l</name>
@@ -122,11 +106,17 @@
           </binding>
           <mod-ctrl>
            <name>AltGr-L</name>
-           <desc>cycle speed</desc>
+           <desc>toggle Search Light ON/OFF</desc>
            <binding>
-            <!-- slew rate fraction: 1: fast, 2: medium, 3:slow -->
-            <command>nasal</command>
-            <script>ec130.slight_cycle_slew_rate();</script>
+             <condition>
+               <property>controls/electric/engine/generator</property>
+               <or>
+                 <property>sim/model/ec130/searchlight</property>
+                 <property>sim/model/ec130/searchlight_a800</property>
+               </or>
+             </condition>
+             <command>nasal</command>
+             <script>ec130.slight_toggle_power();</script>
            </binding>
           </mod-ctrl>
         </mod-alt>
@@ -134,12 +124,12 @@
 
       <key n="12">
         <name>Ctrl-l</name>
-        <desc>???</desc>
-         <binding>
-          <command>nasal</command>
-            <script>
-            </script>
-         </binding>
+        <desc>cycle slew rate</desc>
+        <binding>
+         <!-- slew rate fraction: 1: fast, 2: medium, 3:slow -->
+         <command>nasal</command>
+         <script>ec130.slight_cycle_slew_rate();</script>
+        </binding>
       </key>
 
       <!-- searchlight movement -->

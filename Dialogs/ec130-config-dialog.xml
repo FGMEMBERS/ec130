@@ -172,6 +172,7 @@
           <value>HB-ZIN (Heli-Alps)</value>
           <value>D-HSTS (Heli Gourmet)</value>
           <value>N155GC (Grand Canyon)</value>
+          <value>N836GC (Grand Canyon Gold)</value>
           <value>N11QC (Blue Hawaiian)</value>
           <value>N130NE (MedFlight)</value>
           <value>VH-OSA (MAC rescue)</value>
@@ -1836,7 +1837,7 @@
                  setprop("/sim/model/ec130/searchlight",0);
                  setprop("/sim/model/ec130/searchlight_filter",0);
                  ec130.set_searchview();
-                 setprop("instrumentation/doors/passengerr/position-norm",0);
+                 setprop("sim/model/ec130/doors/passengerr/position-norm",0);
                } else {
                   setprop("/sim/weight[12]/weight-lb",0);
                }

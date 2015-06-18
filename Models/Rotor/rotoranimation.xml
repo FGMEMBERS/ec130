@@ -963,7 +963,7 @@
     <object-name>bladecontrol_g</object-name>
     <object-name>swashlink_arm1</object-name>
     <object-name>swashlinklow_arm1</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep> 0.00 </dep></entry>
@@ -981,7 +981,7 @@
   <animation>
     <type>translate</type>
     <object-name>rubber5</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep> 0.00 </dep></entry>
@@ -997,7 +997,7 @@
   <animation>
     <type>rotate</type>
     <object-name>rubber5</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
     <factor>-5</factor>
     <axis>
       <x1-m> -0.154 </x1-m>
@@ -1012,7 +1012,7 @@
   <animation>
     <type>rotate</type>
     <object-name>rubber5</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
     <factor>6</factor>
     <axis>
       <x1-m> -0.145 </x1-m>
@@ -1028,7 +1028,7 @@
   <animation>
     <type>translate</type>
     <object-name>rubber4</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep> 0.000 </dep></entry>
@@ -1044,7 +1044,7 @@
   <animation>
     <type>rotate</type>
     <object-name>rubber4</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
     <factor>-3</factor>
     <axis>
       <x1-m> -0.154 </x1-m>
@@ -1059,7 +1059,7 @@
   <animation>
     <type>rotate</type>
     <object-name>rubber4</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
     <factor>3</factor>
     <axis>
       <x1-m> -0.145 </x1-m>
@@ -1075,7 +1075,7 @@
   <animation>
     <type>translate</type>
     <object-name>rubber3</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep> 0.000 </dep></entry>
@@ -1091,7 +1091,7 @@
   <animation>
     <type>rotate</type>
     <object-name>rubber3</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
     <factor>-1.7</factor>
     <axis>
       <x1-m> -0.154 </x1-m>
@@ -1106,7 +1106,7 @@
   <animation>
     <type>rotate</type>
     <object-name>rubber3</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
     <factor>1.8</factor>
     <axis>
       <x1-m> -0.145 </x1-m>
@@ -1122,7 +1122,7 @@
   <animation>
     <type>translate</type>
     <object-name>rubber2</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep> 0.000 </dep></entry>
@@ -1138,7 +1138,7 @@
   <animation>
     <type>rotate</type>
     <object-name>rubber2</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
     <factor>-0.9</factor>
     <axis>
       <x1-m> -0.154 </x1-m>
@@ -1153,7 +1153,7 @@
   <animation>
     <type>rotate</type>
     <object-name>rubber2</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
     <factor>1</factor>
       <x1-m> -0.145 </x1-m>
       <y1-m>  0.132 </y1-m>
@@ -1168,7 +1168,7 @@
     <type>rotate</type>
     <object-name>plate1</object-name>
     <object-name>plate2</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
     <factor>-6</factor>
     <axis>
       <x1-m> -0.154 </x1-m>
@@ -1184,7 +1184,7 @@
     <type>rotate</type>
     <object-name>plate1</object-name>
     <object-name>plate2</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
     <factor>6</factor>
     <axis>
       <x1-m> -0.145 </x1-m>
@@ -1201,7 +1201,7 @@
   <animation>
     <type>translate</type>
     <object-name>swashcontrol_b</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep>  0.020 </dep></entry>
@@ -1219,7 +1219,7 @@
   <animation>
     <type>translate</type>
     <object-name>swashcontrol_l</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep> -0.020 </dep></entry>
@@ -1237,7 +1237,7 @@
   <animation>
     <type>translate</type>
     <object-name>swashcontrol_r</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep> -0.020 </dep></entry>
@@ -1255,7 +1255,7 @@
   <animation>
     <type>rotate</type>
     <object-name>swashlink_arm2</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
 		<factor>33</factor>
     <offset-deg>-33</offset-deg>
     <axis>
@@ -1271,7 +1271,7 @@
   <animation>
     <type>rotate</type>
     <object-name>swashlink_arm2</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
 		<factor>3</factor>
     <offset-deg>-1</offset-deg>
     <axis>
@@ -1287,7 +1287,7 @@
   <animation>
     <type>rotate</type>
     <object-name>swashlink_arm2</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
 		<factor>8</factor>
     <offset-deg>1</offset-deg>
     <axis>
@@ -1304,7 +1304,7 @@
   <animation>
     <type>rotate</type>
     <object-name>swashlink_arm1</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
 		<factor>17</factor>
     <interpolation>
       <entry><ind>  0.0 </ind><dep> -18 </dep></entry>
@@ -1324,7 +1324,7 @@
   <animation>
     <type>rotate</type>
     <object-name>swashlink_arm1</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
 		<factor>2</factor>
     <offset-deg>-2</offset-deg>
     <axis>
@@ -1340,7 +1340,7 @@
   <animation>
     <type>rotate</type>
     <object-name>swashlink_arm1</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
 		<factor>8</factor>
     <offset-deg>4</offset-deg>
     <axis>
@@ -1356,7 +1356,7 @@
   <animation>
     <type>translate</type>
     <object-name>swashlink_arm1</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep>  0.002 </dep></entry>
@@ -1373,7 +1373,7 @@
   <animation>
     <type>translate</type>
     <object-name>swashlink_arm1</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep> -0.007 </dep></entry>
@@ -1390,7 +1390,7 @@
   <animation>
     <type>translate</type>
     <object-name>swashlink_arm1</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep> -0.005 </dep></entry>
@@ -1407,7 +1407,7 @@
   <animation>
     <type>translate</type>
     <object-name>swashlink_arm1</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep> -0.002 </dep></entry>
@@ -1424,7 +1424,7 @@
   <animation>
     <type>translate</type>
     <object-name>swashlink_arm1</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep> -0.015 </dep></entry>
@@ -1442,7 +1442,7 @@
   <animation>
     <type>rotate</type>
     <object-name>swashlinklow_arm1</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
 		<factor>18</factor>
     <offset-deg>-18</offset-deg>
     <axis>
@@ -1458,7 +1458,7 @@
   <animation>
     <type>rotate</type>
     <object-name>swashlinklow_arm1</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
 		<factor>-2</factor>
     <offset-deg>2</offset-deg>
     <axis>
@@ -1474,7 +1474,7 @@
   <animation>
     <type>rotate</type>
     <object-name>swashlinklow_arm1</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
 		<factor>-2</factor>
     <offset-deg>0</offset-deg>
     <axis>
@@ -1490,7 +1490,7 @@
   <animation>
     <type>translate</type>
     <object-name>swashlinklow_arm1</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep>  0.007 </dep></entry>
@@ -1507,7 +1507,7 @@
   <animation>
     <type>translate</type>
     <object-name>swashlinklow_arm1</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep>  0.010 </dep></entry>
@@ -1524,7 +1524,7 @@
   <animation>
     <type>translate</type>
     <object-name>swashlinklow_arm1</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep> -0.010 </dep></entry>
@@ -1542,7 +1542,7 @@
   <animation>
     <type>rotate</type>
     <object-name>swashlinklow_arm2</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
 		<factor>30</factor>
     <offset-deg>-33</offset-deg>
     <axis>
@@ -1558,7 +1558,7 @@
   <animation>
     <type>rotate</type>
     <object-name>swashlinklow_arm2</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
 		<factor>-3</factor>
     <offset-deg>1</offset-deg>
     <axis>
@@ -1574,7 +1574,7 @@
   <animation>
     <type>rotate</type>
     <object-name>swashlinklow_arm2</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
 		<factor>-3</factor>
     <offset-deg>1</offset-deg>
     <axis>
@@ -1591,7 +1591,7 @@
   <animation>
     <type>rotate</type>
     <object-name>bladecontrol_r</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
 		<factor>3</factor>
     <offset-deg>-3</offset-deg>
     <center>
@@ -1609,7 +1609,7 @@
   <animation>
     <type>rotate</type>
     <object-name>bladecontrol_r</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
 		<factor>1</factor>
     <offset-deg>-1</offset-deg>
     <center>
@@ -1627,7 +1627,7 @@
   <animation>
     <type>translate</type>
     <object-name>bladecontrol_r</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep> -0.020 </dep></entry>
@@ -1644,7 +1644,7 @@
   <animation>
     <type>translate</type>
     <object-name>bladecontrol_r</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep>  0.002 </dep></entry>
@@ -1662,7 +1662,7 @@
   <animation>
     <type>rotate</type>
     <object-name>bladecontrol_y</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
 		<factor>1.5</factor>
     <offset-deg>-1</offset-deg>
     <center>
@@ -1680,7 +1680,7 @@
   <animation>
     <type>translate</type>
     <object-name>bladecontrol_y</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep>  0.010 </dep></entry>
@@ -1697,7 +1697,7 @@
   <animation>
     <type>rotate</type>
     <object-name>bladecontrol_y</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
 		<factor>1</factor>
     <offset-deg>-1</offset-deg>
     <center>
@@ -1715,7 +1715,7 @@
   <animation>
     <type>translate</type>
     <object-name>bladecontrol_y</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep> -0.025 </dep></entry>
@@ -1733,7 +1733,7 @@
   <animation>
     <type>rotate</type>
     <object-name>bladecontrol_g</object-name>
-    <property>/controls/engines/engine/throttle</property>
+    <property>controls/engines/engine/throttle</property>
 		<factor>-1.5</factor>
     <offset-deg>1</offset-deg>
     <center>
@@ -1751,7 +1751,7 @@
   <animation>
     <type>translate</type>
     <object-name>bladecontrol_g</object-name>
-    <property>/controls/flight/aileron</property>
+    <property>controls/flight/aileron</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep>  0.010 </dep></entry>
@@ -1768,7 +1768,7 @@
   <animation>
     <type>rotate</type>
     <object-name>bladecontrol_g</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
 		<factor>1.5</factor>
     <offset-deg>-1</offset-deg>
     <center>
@@ -1786,7 +1786,7 @@
   <animation>
     <type>translate</type>
     <object-name>bladecontrol_g</object-name>
-    <property>/controls/flight/elevator</property>
+    <property>controls/flight/elevator</property>
 		<factor>1</factor>
     <interpolation>
       <entry><ind>  1.0 </ind><dep>  0.022 </dep></entry>
@@ -1812,21 +1812,19 @@
         <script>ec130.cycle_wakes()</script>
       </binding>
     </action>
-<!-- seems to cause errors in combination with other hover tooltips
     <hovered>
       <binding>
         <command>set-tooltip</command>
         <tooltip-id>rotor</tooltip-id>
-        <label>Wake %s</label>
-        <property>/rotors/main/wakevisible</property>
+        <label>"%s" wake visibility (cycle)</label>
+        <property>rotors/main/wakevisible</property>
         <mapping>nasal</mapping>
         <script>
-          var modes = ['invisible', 'low', 'medium', 'high'];
+          var modes = ['zero', 'low', 'medium', 'high'];
           return modes[arg[0]];
         </script>
       </binding>
     </hovered>
--->
   </animation>
 
   <!-- shadow -->
@@ -1835,19 +1833,29 @@
     <type>select</type>
     <object-name>shadow_rotor</object-name>
     <condition>
-      <property>sim/model/ec130/shadow</property>
-      <not>
-        <property>/sim/rendering/shadows-ac</property>
-      </not>
-      <less-than>
-        <property>/sim/time/sun-angle-rad</property>
-        <value>1.40</value>
-      </less-than>
+      <or>
+        <property>sim/rendering/shaders/skydome</property>
+        <and>
+          <property>sim/model/ec130/shadow</property>
+          <not>
+            <property>sim/rendering/shadows-ac</property>
+          </not>
+          <less-than>
+            <property>sim/time/sun-angle-rad</property>
+            <value>1.40</value>
+          </less-than>
+        </and>
+      </or>
       <less-than>
         <property>rotors/main/rpm</property>
         <value>270</value>
       </less-than>
     </condition>
+  </animation>
+
+  <animation>
+    <type>noshadow</type>
+    <object-name>shadow_rotor</object-name>
   </animation>
 
   <!-- shadow rotor -->
@@ -1894,6 +1902,11 @@
     <type>translate</type>
     <object-name>shadow_rotor</object-name>
     <property>position/gear-agl-m</property>
+    <condition>
+      <not>
+        <property>sim/rendering/shaders/skydome</property>
+      </not>
+    </condition>
     <axis>
       <x>0</x>
       <y>0</y>
@@ -1910,5 +1923,10 @@
       <offset>1</offset>
     </transparency>
   </animation>
+
+  <effect>
+    <inherits-from>Effects/shadow</inherits-from>
+    <object-name>shadow_rotor</object-name>
+  </effect>
 
 </PropertyList>

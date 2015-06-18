@@ -2,22 +2,204 @@
 
 <PropertyList>
 
- <path>breakers2.ac</path>
+  <path>breakers2.ac</path>
  
- <model>
-		<name>levers</name>
-		<path>Aircraft/ec130/Models/Instruments/kcs55/ka51b.xml</path>
+  <model>
+    <name>levers</name>
+    <path>Aircraft/ec130/Models/Instruments/kcs55/ka51b.xml</path>
+    <offsets>
+      <x-m>0</x-m>
+      <y-m>-0.062</y-m>
+      <z-m>0.003</z-m>
+      <pitch-deg>-90</pitch-deg>
+    </offsets>
+  </model>
 
-		<offsets>
-			<x-m>0</x-m>
-			<y-m>-0.062</y-m>
-			<z-m>0.003</z-m>
-		<pitch-deg>-90</pitch-deg>
+  <animation>
+  	<type>pick</type>
+  	<object-name>eltswitch</object-name>
+  	<visible>true</visible>
+  	<action>
+  		<button>0</button>
+  		<repeatable>false</repeatable>
+  		<binding>
+  			<command>property-toggle</command>
+  			<property>/ELT/armed</property>
+  			<value>1</value>
+  		</binding>
+  	</action>
+  	<action>
+  		<button>3</button>
+  		<repeatable>false</repeatable>
+  		<binding>
+  			<command>nasal</command>
+        <script>ec130.ELT_test();</script>
+  		</binding>
+  	</action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>elt</tooltip-id>
+        <label>LMB -> toggle ARMED,wheel forward -> Test</label>
+      </binding>
+    </hovered>
+  </animation>
 
-		</offsets>
-</model>
+<!--
+  <animation>
+    <type>knob</type>
+    <object-name>eltswitch</object-name>
+    <visible>true</visible>
+    <drag-direction>vertical</drag-direction>
+    <center>
+      <x-m>0.000</x-m>
+      <y-m>0.000</y-m>
+      <z-m>0.000</z-m>
+    </center>
+    <axis>
+      <x> 0</x>
+      <y> 1</y>
+      <z> 0</z>
+    </axis>
+    <action>
+      <binding>
+        <command>property-adjust</command>
+        <property>/ELT/armed</property>
+        <factor>-1</factor>
+        <min>0</min>
+        <max>1</max>
+        <wrap>false</wrap>
+      </binding>
+    </action>
+    <shift-action>
+      <binding>
+        <command>property-adjust</command>
+        <property>/ELT/test</property>
+        <factor>1</factor>
+        <min>0</min>
+        <max>1</max>
+        <wrap>false</wrap>
+      </binding>
+    </shift-action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>elt</tooltip-id>
+        <label>back toggle ARMED, forward -> Test</label>
+      </binding>
+    </hovered>
+  </animation>
+-->
+  <animation>
+    <type>rotate</type>
+    <object-name>eltswitch</object-name>
+    <factor>15</factor>
+    <property>/ELT/test</property>
+    <center>
+      <x-m>0.000</x-m>
+      <y-m>0.000</y-m>
+      <z-m>0.000</z-m>
+    </center>
+    <axis>
+      <x> 0</x>
+      <y>-1</y>
+      <z> 0</z>
+    </axis>
+  </animation>
 
- 
+  <animation>
+    <type>rotate</type>
+    <object-name>eltswitch</object-name>
+    <property>/ELT/armed</property>
+    <factor>-15</factor>
+    <center>
+      <x-m>0.000</x-m>
+      <y-m>0.000</y-m>
+      <z-m>0.000</z-m>
+    </center>
+    <axis>
+      <x> 0</x>
+      <y>-1</y>
+      <z> 0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>light</object-name>
+    <emission>
+      <red>  1</red>
+      <green>0</green>
+      <blue> 0</blue>
+    </emission>
+    <condition>
+      <or>
+        <and>
+          <property>systems/electrical/outputs/instrument-lights-norm</property>
+          <or>
+            <property>/ELT/test</property>
+            <property>/ELT/armed</property>
+          </or>
+        </and>
+        <and>
+          <property>systems/electrical/outputs/instrument-lights2-norm</property>
+          <or>
+            <property>/ELT/test</property>
+            <property>/ELT/armed</property>
+          </or>
+        </and>
+      </or>
+    </condition>
+  </animation>
+
+  <!-- dimming -->
+  <animation>
+    <type>material</type>
+    <object-name>Plane</object-name>
+    <object-name>Plane.003</object-name>
+    <object-name>eltswitch</object-name>
+    <condition>
+      <property>systems/electrical/outputs/instrument-lights2-norm</property>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor>0.3</factor>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>Plane</object-name>
+    <object-name>Plane.003</object-name>
+    <object-name>eltswitch</object-name>
+    <condition>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights2-norm</factor-prop>
+      <offset>-0.1</offset>
+    </emission>
+  </animation>
+
+  <!--  REMBRANDT support for transparent objects -->
+  <effect>
+    <inherits-from>Effects/model-transparent</inherits-from>
+    <object-name>light</object-name>
+    <condition>
+      <property>sim/rendering/rembrandt/enabled</property>
+    </condition>
+  </effect>
+
 </PropertyList>
-
-

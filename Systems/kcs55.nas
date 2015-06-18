@@ -116,9 +116,19 @@ var KMT112 = {
     # to the dip error but not to acceleration error.
     # This is the part of mag_compass.cxx that models the dip error
 
-    var phi = me._roll_node.getValue() * D2R;
-    var theta = me._pitch_node.getValue() * D2R;
-    var psi = me._heading_node.getValue() * D2R;
+    # mhab fix
+    #var phi = me._roll_node.getValue() * D2R;
+    var phi = me._roll_node.getValue();
+    if ( phi == nil ) phi=0;
+    phi = phi * D2R;
+    #var theta = me._pitch_node.getValue() * D2R;
+    var theta = me._pitch_node.getValue();
+    if ( theta == nil ) theta=0;
+    theta = theta * D2R;
+    #var psi = me._heading_node.getValue() * D2R;
+    var psi = me._heading_node.getValue();
+    if ( psi == nil ) psi=0;
+    psi = psi * D2R;
     var mu = me._dip_node.getValue() * D2R;
 
     # these are expensive: don't repeat

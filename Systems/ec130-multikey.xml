@@ -49,6 +49,9 @@
       <desc>GENE</desc>
       <exit/>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
        <command>property-toggle</command>
        <property>controls/electric/engine[0]/generator</property>
       </binding>
@@ -69,6 +72,9 @@
       <desc>DOME LT</desc>
       <exit/>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
        <command>property-toggle</command>
        <property>controls/lighting/dome-light</property>
       </binding>
@@ -79,6 +85,9 @@
       <desc>AVIONIC</desc>
       <exit/>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
        <command>property-toggle</command>
        <property>controls/electric/avionics-switch</property>
       </binding>
@@ -91,6 +100,9 @@
       <desc>GENE RST</desc>
       <exit/>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>nasal</command>
         <script>
           setprop("/controls/electric/engine[0]/generator",-1);
@@ -104,6 +116,9 @@
       <desc>A/COL LT</desc>
       <exit/>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/lighting/beacon</property>
       </binding>
@@ -119,6 +134,9 @@
       <desc>POS LT</desc>
       <exit/>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/lighting/nav-lights</property>
       </binding>
@@ -129,6 +147,9 @@
       <desc>FUEL P</desc>
       <exit/>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/fuel/tank/boost-pump</property>
       </binding>
@@ -139,8 +160,11 @@
       <desc>INST L1</desc>
       <exit/>
       <binding>
-       <command>property-toggle</command>
-       <property>controls/lighting/instrument-lights</property>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
+        <command>property-toggle</command>
+        <property>controls/lighting/instrument-lights</property>
       </binding>
     </key>
 
@@ -149,8 +173,11 @@
       <desc>INST L2</desc>
       <exit/>
       <binding>
-       <command>property-toggle</command>
-       <property>controls/lighting/instrument-lights2</property>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
+        <command>property-toggle</command>
+        <property>controls/lighting/instrument-lights2</property>
       </binding>
     </key>
 
@@ -159,6 +186,9 @@
       <desc>PITOTS</desc>
       <exit/>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/anti-ice/pitot-heat</property>
       </binding>
@@ -169,6 +199,9 @@
       <desc>HORIZON</desc>
       <exit/>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>instrumentation/attitude-indicator/serviceable</property>
       </binding>
@@ -179,6 +212,9 @@
       <desc>GYRO</desc>
       <exit/>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/electric/gyrocompass</property>
       </binding>
@@ -189,6 +225,9 @@
       <desc>FLOAT ARM</desc>
       <exit/>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/gear/floats-armed</property>
       </binding>
@@ -199,6 +238,9 @@
       <desc>CRANK</desc>
       <exit/>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>property-toggle</command>
         <property>controls/engines/engine/starter</property>
       </binding>
@@ -211,6 +253,9 @@
       <desc>W/LT TST</desc>
       <exit/>
       <binding>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
         <command>nasal</command>
         <script>
           setprop("/controls/electric/warningtest",1);
@@ -224,8 +269,14 @@
       <desc>FIRE TST</desc>
       <exit/>
       <binding>
-        <command>property-toggle</command>
-        <property>controls/electric/firetest</property>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
+        <command>nasal</command>
+        <script>
+          setprop("/controls/electric/firetest",1);
+          settimer( func{ setprop("/controls/electric/firetest",0); },1);
+        </script>
       </binding>
     </key>
 
@@ -234,8 +285,14 @@
       <desc>SERVO TST</desc>
       <exit/>
       <binding>
-        <command>property-toggle</command>
-        <property>controls/electric/servotest</property>
+        <condition>
+          <property>systems/electrical/volts</property>
+        </condition>
+        <command>nasal</command>
+        <script>
+          setprop("/controls/electric/servotest",1);
+          settimer( func{ setprop("/controls/electric/servotest",0); },1);
+        </script>
       </binding>
     </key>
     <!-- End SCU BUTTON handling -->
@@ -413,22 +470,8 @@
       <desc>toggle Starter OFF/FLT</desc>
       <exit/>
       <binding>
-        <condition>
-          <not>
-            <property>controls/engines/engine/switchguard</property>
-          </not>
-        </condition>
-        <command>property-toggle</command>
-        <property>controls/engines/engine/startselector</property>
-      </binding>
-      <binding>
-        <condition>
-          <not>
-            <property>controls/engines/engine/switchguard</property>
-          </not>
-        </condition>
-        <command>property-toggle</command>
-        <property>sim/model/sound/click</property>
+        <command>nasal</command>
+        <script>ec130.switch_startselector();</script>
       </binding>
     </key>
 
@@ -443,6 +486,48 @@
         <command>property-toggle</command>
         <property>controls/engines/engine/switchguard</property>
       </binding>
+    </key>
+
+    <key n="105">
+      <name>i</name>
+      <desc>Light Selector</desc>
+      <binding>
+        <command>null</command>
+      </binding>
+
+			<key n="48">
+				<name>0</name>
+				<desc>Day</desc>
+        <exit/>
+				<binding>
+					<command>property-assign</command>
+					<property>/controls/lighting/instrument-lights-selection</property>
+					<value>0</value>
+				</binding>
+			</key>
+
+			<key n="49">
+				<name>1</name>
+				<desc>Night1</desc>
+        <exit/>
+				<binding>
+					<command>property-assign</command>
+					<property>/controls/lighting/instrument-lights-selection</property>
+					<value>1</value>
+				</binding>
+			</key>
+
+			<key n="50">
+				<name>2</name>
+				<desc>Night2</desc>
+        <exit/>
+				<binding>
+					<command>property-assign</command>
+					<property>/controls/lighting/instrument-lights-selection</property>
+					<value>2</value>
+				</binding>
+			</key>
+
     </key>
 
     <key n="106">
@@ -469,6 +554,164 @@
         <binding>
           <command>nasal</command>
           <script>_ = sprintf("INST.1 = %d%%", ec130.adjust_inst1(-0.05))</script>
+        </binding>
+      </key>
+
+    </key>
+
+    <key n="107">
+      <name>k</name>
+      <desc>INST.2 dimming</desc>
+      <binding>
+        <command>null</command>
+      </binding>
+
+      <key n="94">
+        <name>^</name>
+        <desc>Light +</desc>
+        <no-exit/>
+        <binding>
+          <command>nasal</command>
+          <script>_ = sprintf("INST.2 = %d%%", ec130.adjust_inst2(0.05))</script>
+        </binding>
+      </key>
+
+      <key n="95">
+        <name>_</name>
+        <desc>Light -</desc>
+        <no-exit/>
+        <binding>
+          <command>nasal</command>
+          <script>_ = sprintf("INST.2 = %d%%", ec130.adjust_inst2(-0.05))</script>
+        </binding>
+      </key>
+
+    </key>
+
+    <key n="114">
+      <name>r</name>
+      <desc>RPM dimming</desc>
+      <binding>
+        <command>null</command>
+      </binding>
+
+      <key n="94">
+        <name>^</name>
+        <desc>Light +</desc>
+        <no-exit/>
+        <binding>
+          <command>nasal</command>
+          <script>_ = sprintf("INST.1 = %d%%", ec130.adjust_rpm(0.05))</script>
+        </binding>
+      </key>
+
+      <key n="95">
+        <name>_</name>
+        <desc>Light -</desc>
+        <no-exit/>
+        <binding>
+          <command>nasal</command>
+          <script>_ = sprintf("INST.1 = %d%%", ec130.adjust_rpm(-0.05))</script>
+        </binding>
+      </key>
+
+    </key>
+
+    <key n="115">
+      <name>s</name>
+      <desc>Stretcher adjust</desc>
+      <binding>
+        <command>null</command>
+      </binding>
+
+      <key n="94">
+        <name>^</name>
+        <desc>Backrest +</desc>
+        <no-exit/>
+        <binding>
+          <command>nasal</command>
+          <script>_ = sprintf("angle = %d", ec130.adjust_stretcher(2))</script>
+        </binding>
+      </key>
+
+      <key n="95">
+        <name>_</name>
+        <desc>Backrest -</desc>
+        <no-exit/>
+        <binding>
+          <command>nasal</command>
+          <script>_ = sprintf("angle = %d", ec130.adjust_stretcher(-2))</script>
+        </binding>
+      </key>
+
+    </key>
+
+    <key n="89">
+      <name>Y</name>
+      <desc>Emergency Switch</desc>
+      <key n="117">
+        <name>u</name>
+        <desc>unlock</desc>
+        <exit/>
+        <binding>
+          <command>nasal</command>
+          <script>ec130.unlock_emergency();</script>
+        </binding>
+      </key>
+
+      <key n="120">
+        <name>x</name>
+        <desc>cancel</desc>
+        <exit/>
+        <binding>
+          <command>null</command>
+        </binding>
+      </key>
+
+      <key n="122">
+        <name>z</name>
+        <desc>switch</desc>
+        <exit/>
+        <binding>
+          <command>nasal</command>
+          <script>ec130.switch_emergency();</script>
+        </binding>
+      </key>
+
+    </key>
+
+    <key n="90">
+      <name>Z</name>
+      <desc>ELT Switch</desc>
+      <key n="97">
+        <name>a</name>
+        <desc>arm</desc>
+        <exit/>
+        <binding>
+          <command>property-assign</command>
+          <property>/ELT/armed</property>
+          <value>1</value>
+        </binding>
+      </key>
+
+      <key n="98">
+        <name>b</name>
+        <desc>unarm</desc>
+        <exit/>
+        <binding>
+          <command>property-assign</command>
+          <property>/ELT/armed</property>
+          <value>0</value>
+        </binding>
+      </key>
+
+      <key n="116">
+        <name>t</name>
+        <desc>test</desc>
+        <exit/>
+        <binding>
+          <command>nasal</command>
+          <script>ec130.ELT_test();</script>
         </binding>
       </key>
 
@@ -641,6 +884,86 @@
           <binding>
             <command>nasal</command>
             <script>_ = sprintf("Bearing = %1.0f", ec130.adjust_obs(-1))</script>
+          </binding>
+        </key>
+
+      </key>
+
+    </key>
+
+    <key n="118">
+      <name>v</name>
+      <desc>VEMD controls</desc>
+      <binding>
+        <command>null</command>
+      </binding>
+
+      <key n="49">
+        <name>1</name>
+        <desc>toggle screen 1</desc>
+        <exit/>
+        <binding>
+          <command>property-toggle</command>
+          <property>instrumentation/VEMD/buttons/OFF1</property>
+        </binding>
+      </key>
+
+      <key n="50">
+        <name>2</name>
+        <desc>toggle screen 2</desc>
+        <exit/>
+        <binding>
+          <command>property-toggle</command>
+          <property>instrumentation/VEMD/buttons/OFF2</property>
+        </binding>
+      </key>
+
+      <key n="115">
+        <name>s</name>
+        <desc>scroll</desc>
+        <exit/>
+        <binding>
+          <command>property-assign</command>
+          <property>instrumentation/VEMD/buttons/SCROLL</property>
+          <value>1</value>
+        </binding>
+      </key>
+
+      <key n="114">
+        <name>r</name>
+        <desc>switch</desc>
+        <exit/>
+        <binding>
+          <command>property-assign</command>
+          <property>instrumentation/VEMD/buttons/RESET</property>
+          <value>1</value>
+        </binding>
+      </key>
+
+      <key n="100">
+        <name>d</name>
+        <desc>VEMD dimming</desc>
+        <binding>
+          <command>null</command>
+        </binding>
+
+        <key n="94">
+          <name>^</name>
+          <desc>BRT +</desc>
+          <no-exit/>
+          <binding>
+            <command>nasal</command>
+            <script>_ = sprintf("VEMD = %d%%", ec130.adjust_vemd(0.05))</script>
+          </binding>
+        </key>
+
+        <key n="95">
+          <name>_</name>
+          <desc>BRT -</desc>
+          <no-exit/>
+          <binding>
+            <command>nasal</command>
+            <script>_ = sprintf("VEMD = %d%%", ec130.adjust_vemd(-0.05))</script>
           </binding>
         </key>
 

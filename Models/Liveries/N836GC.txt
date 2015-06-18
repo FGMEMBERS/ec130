@@ -1,0 +1,41 @@
+   Helicopter EC130-T2 (H130)
+   --------------------------
+
+   Registration: N836GC
+   C/N: 8012 (2014)
+   Operator: Grand Canyon Helicopters
+   Operator Id: 50 "Golden Copter"
+   Locations: Tusayan Grand Canyon AZ (KGCN), Las Vegas NV (KLAS), Page AZ (KGPA), USA
+
+   Papillon Airways, founded 1965, is the mother company to Papillon Grand Canyon Helicopters.
+   Originally started as Grand Canyon Helicopters, and later as Papillon Hawaiian Helicopters,
+   the company is incorporated in Washington State. Currently the worlds largest aerial
+   sightseeing company. (Source: http://en.wikipedia.org)
+
+   Today, Papillon Airways Inc. continues to operate its largest base in Grand Canyon, Arizona.
+   The company offers air tours of the Grand Canyon South Rim, Grand Canyon West, Las Vegas,
+   Sedona, Flagstaff, Phoenix and Scottsdale.
+
+   According to http://www.helis.com/database Grand Canyon Helicopters together with
+   Papillon Helicopters operate 15 EC130-B4 Helicopters (as of mid 2014).
+
+   WEB-Links:
+   Homepage: http://www.grandcanyonhelicopter.com/
+   Facebook: https://www.facebook.com/FlyTheCanyon
+   Twitter: https://twitter.com/FlyTheCanyon
+
+   Special Anniversary Model:
+   -------------------------
+   The N836GC with operator id 50 and referred to as the "Golde Copter" has a special gold painting
+   in reference to the 50 year anniversary of Papillon Grand Canyon Helcopters.
+
+   Personal Notes of the Livery Editor (mhab):
+   ------------------------------------------
+   The original heli model is a H130 (EC130 T2) which is a newer variant of the EC130-B4.
+   N155GC of the same company was the first new livery done by me.
+
+   The H130 was improved in many ways and differs from the EC130-B4 in right side doors, engine power,
+   and several other details. For simplicity and until a special H130 variant is available in FG the
+   differences are ignored for the sake of providing this special livery.
+
+   last update: 2015-05-02

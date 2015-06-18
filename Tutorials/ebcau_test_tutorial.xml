@@ -1,0 +1,176 @@
+<PropertyList>
+  <name>EBCAU Check Tutorial</name>
+  <description>
+
+This tutorial teaches the EC130 B4 EBCAU Check.
+
+The EBCAU System (Emergency Backup Control Ancillary Unit) serves as backup in the very rare case when both channels of the dual channel FADEC fail.
+
+The test is performed after engine-, fuel-control or EBCAU maintenance actions.
+
+The test requires a run-up engine at full power.
+
+</description>
+
+  <init>
+    <set>
+      <property>/sim/current-view/view-number</property>
+      <value>0</value>
+    </set>
+  </init>
+
+  <step>
+    <message>
+      -
+      Engine must be started and at full power.
+      EBCAU Test is only to be performed on ground !!
+      -
+    </message>
+    <exit>
+      <condition>
+        <greater-than>
+          <property>/rotors/main/rpm</property>
+          <value>360</value>
+        </greater-than>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <view>
+      <heading-offset-deg>340</heading-offset-deg>
+      <pitch-offset-deg>-40</pitch-offset-deg>
+      <roll-offset-deg>0.0</roll-offset-deg>
+      <x-offset-m>-0.7</x-offset-m>
+      <y-offset-m>0.0</y-offset-m>
+      <z-offset-m>-3.9</z-offset-m>
+      <field-of-view>40</field-of-view>
+    </view>
+
+    <marker>
+      <x-m>-4.4892</x-m>
+      <y-m>-0.4207</y-m>
+      <z-m>-0.5174</z-m>
+      <scale>4.0000</scale>
+    </marker>
+
+    <message>
+      -
+      Open the plastic guard and press TEST button
+      -
+    </message>
+    <exit>
+      <condition>
+        <not>
+          <property>/controls/engines/engine/ebcauguard</property>
+        </not>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <view>
+      <heading-offset-deg>346</heading-offset-deg>
+      <pitch-offset-deg>-15</pitch-offset-deg>
+      <roll-offset-deg>0.0</roll-offset-deg>
+      <x-offset-m>-0.7</x-offset-m>
+      <y-offset-m>0.0</y-offset-m>
+      <z-offset-m>-3.9</z-offset-m>
+      <field-of-view>40</field-of-view>
+    </view>
+
+    <marker>
+      <x-m>-4.570</x-m>
+      <y-m>-0.477</y-m>
+      <z-m>-0.192</z-m>
+      <scale>5.0000</scale>
+    </marker>
+
+    <message>
+    -
+    Check if Rotor RPM increases to 387 ... 393 rpm
+    -
+    </message>
+    <exit>
+      <condition>
+        <property>/controls/engines/engine/ebcautest</property>
+        <greater-than>
+          <property>/rotors/main/rpm</property>
+          <value>386</value>
+        </greater-than>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <view>
+      <heading-offset-deg>340</heading-offset-deg>
+      <pitch-offset-deg>-40</pitch-offset-deg>
+      <roll-offset-deg>0.0</roll-offset-deg>
+      <x-offset-m>-0.7</x-offset-m>
+      <y-offset-m>0.0</y-offset-m>
+      <z-offset-m>-3.9</z-offset-m>
+      <field-of-view>40</field-of-view>
+    </view>
+
+    <marker>
+      <x-m>-4.4892</x-m>
+      <y-m>-0.4207</y-m>
+      <z-m>-0.5174</z-m>
+      <scale>4.0000</scale>
+    </marker>
+
+    <message>
+    -
+    Switch TEST button OFF and close plastic guard
+    -
+
+    </message>
+    <exit>
+      <condition>
+        <not>
+          <property>/controls/engines/engine/ebcautest</property>
+        </not>
+        <property>/controls/engines/engine/ebcauguard</property>
+      </condition>
+    </exit>
+  </step>
+
+  <step>
+    <view>
+      <heading-offset-deg>346</heading-offset-deg>
+      <pitch-offset-deg>-15</pitch-offset-deg>
+      <roll-offset-deg>0.0</roll-offset-deg>
+      <x-offset-m>-0.7</x-offset-m>
+      <y-offset-m>0.0</y-offset-m>
+      <z-offset-m>-3.9</z-offset-m>
+      <field-of-view>40</field-of-view>
+    </view>
+
+    <marker>
+      <x-m>-4.570</x-m>
+      <y-m>-0.477</y-m>
+      <z-m>-0.192</z-m>
+      <scale>5.0000</scale>
+    </marker>
+
+    <message>
+    -
+    Check if Rotor RPM decreases to 374 ... 378 rpm
+    -
+    </message>
+    <exit>
+      <condition>
+        <less-than>
+          <property>/rotors/main/rpm</property>
+          <value>378</value>
+        </less-than>
+      </condition>
+    </exit>
+  </step>
+
+  <wait>10</wait>
+
+	<end>
+	</end>
+</PropertyList>

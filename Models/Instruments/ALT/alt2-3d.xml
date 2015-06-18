@@ -1,24 +1,8 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 
 <PropertyList>
 
   <path>alt2.ac</path>
-
-  <animation>
-    <type>material</type>
-    <object-name>ALTface</object-name>
-    <object-name>needle100</object-name>
-    <object-name>needle1000</object-name>
-    <object-name>needle10000</object-name>
-    <object-name>inhg</object-name>
-    <object-name>InhgKnob</object-name>
-    <emission>
-      <red>   0.8 </red>
-      <green> 0.8 </green>
-      <blue>  1.0 </blue>
-      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
-    </emission>
-  </animation>
 
   <animation>
     <type>rotate</type>
@@ -84,81 +68,81 @@
   </animation>
 
   <animation>
-    <type>pick</type>
-    <object-name>InhgKnobL</object-name>
-    <action>
-      <button>0</button>
-      <repeatable>true</repeatable>
-      <interval-sec>0.1</interval-sec>
-        <binding>
-          <command>property-adjust</command>
-          <property>instrumentation/altimeter/setting-inhg</property>
-          <step>-0.01</step>
-          <min>27.50</min>
-          <max>31.0</max>
-          <wrap>0</wrap>
-       </binding>
-    </action>
-    <hovered>
-      <binding>
-        <command>set-tooltip</command>
-        <tooltip-id>InhgKnobL</tooltip-id>
-        <label>adjust -</label>
-      </binding>
-    </hovered>
-  </animation>
-
-  <animation>
-    <type>pick</type>
-    <object-name>InhgKnobR</object-name>
-    <action>
-      <button>0</button>
-      <repeatable>true</repeatable>
-      <interval-sec>0.1</interval-sec>
-      <binding>
-        <command>property-adjust</command>
-        <property>instrumentation/altimeter/setting-inhg</property>
-        <step>0.01</step>
-        <min>27.50</min>
-        <max>31.0</max>
-        <wrap>0</wrap>
-      </binding>
-    </action>
-    <hovered>
-      <binding>
-        <command>set-tooltip</command>
-        <tooltip-id>InhgKnobR</tooltip-id>
-        <label>adjust +</label>
-      </binding>
-    </hovered>
-  </animation>
-
-  <animation>
-    <type>pick</type>
+    <type>knob</type>
     <object-name>InhgKnob</object-name>
+    <drag-direction>vertical</drag-direction>
     <action>
-      <button>3</button>
       <binding>
         <command>property-adjust</command>
-        <property>instrumentation/altimeter/setting-inhg</property>
-        <step>0.01</step>
-        <min>27.50</min>
-        <max>31.0</max>
-        <wrap>0</wrap>
+        <property>/instrumentation/altimeter/setting-inhg</property>
+        <factor>0.01</factor>
+        <min>26.0</min>
+        <max>33.0</max>
+        <wrap>false</wrap>
       </binding>
     </action>
-    <action>
-      <button>4</button>
+    <hovered>
       <binding>
-        <command>property-adjust</command>
+        <command>set-tooltip</command>
+        <tooltip-id>alt-setting</tooltip-id>
+        <label>%s</label>
         <property>instrumentation/altimeter/setting-inhg</property>
-        <step>-0.01</step>
-        <min>27.50</min>
-        <max>31.0</max>
-        <wrap>0</wrap>
+        <mapping>nasal</mapping>
+        <!-- Source of the conversion formula:
+             <http://en.wikipedia.org/wiki/Inch_of_mercury> (which specifies:
+             "at 0 °C"; I don't think it matters for this application) -->
+        <script>
+          return sprintf("Altimeter: %5.2f inHg (%04d hPa)",
+                         arg[0], math.round(33.86389*arg[0]));
+        </script>
       </binding>
-    </action>
+    </hovered>
+  </animation>
+
+  <!-- dimming -->
+  <animation>
+    <name>all</name>
+    <object-name>ALTface</object-name>
+    <object-name>needle100</object-name>
+    <object-name>needle1000</object-name>
+    <object-name>needle10000</object-name>
+    <object-name>inhg</object-name>
+    <object-name>InhgKnob</object-name>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>all</object-name>
+    <condition>
+      <property>systems/electrical/outputs/instrument-lights-norm</property>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor>0.5</factor>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>all</object-name>
+    <condition>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+    </emission>
   </animation>
 
 </PropertyList>
-

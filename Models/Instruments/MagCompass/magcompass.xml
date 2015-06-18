@@ -5,6 +5,7 @@
 
   <path>magcompass.ac</path>
 
+  <!-- compass light is off if dim selector is in "Night 2" position -->
 	<animation>
     <type>material</type>
 		<object-name>Compass.ball</object-name>
@@ -12,8 +13,14 @@
       <red>0.79</red>
       <green>0.39</green>
       <blue>0.198</blue>
-      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+      <factor>0</factor>
     </emission>
+    <condition>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>1</value>
+      </greater-than>
+    </condition>
   </animation>
 
   <animation>
@@ -25,6 +32,42 @@
       <y>0.0</y>
       <z>1.0</z>
     </axis>
+  </animation>
+
+  <!-- dimming -->
+	<animation>
+    <type>material</type>
+		<object-name>Compass.ball</object-name>
+    <condition>
+      <property>systems/electrical/outputs/instrument-lights-norm</property>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
+    <emission>
+      <red>0.79</red>
+      <green>0.39</green>
+      <blue>0.198</blue>
+      <factor>0.5</factor>
+    </emission>
+  </animation>
+
+	<animation>
+    <type>material</type>
+		<object-name>Compass.ball</object-name>
+    <condition>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+    <emission>
+      <red>0.79</red>
+      <green>0.39</green>
+      <blue>0.198</blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+    </emission>
   </animation>
 
 </PropertyList>

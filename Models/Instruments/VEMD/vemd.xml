@@ -1,108 +1,304 @@
 <PropertyList>
-	<path>vemd.ac</path>
-	
+
+  <path>vemd.ac</path>
+
+  <model>
+    <name>enginestartpage1</name>
+    <path>Aircraft/ec130/Models/Instruments/VEMD/enginestartpage.xml</path>
+    <offsets>
+      <x-m>0.010</x-m>
+      <y-m>-0.061</y-m>
+      <z-m>0.084</z-m>
+      <pitch-deg>0</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>initphasepage1</name>
+    <path>Aircraft/ec130/Models/Instruments/VEMD/initphase.xml</path>
+    <offsets>
+      <x-m>0.010</x-m>
+      <y-m>-0.061</y-m>
+      <z-m>0.084</z-m>
+      <pitch-deg>0</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>initphasepage2</name>
+    <path>Aircraft/ec130/Models/Instruments/VEMD/initphase.xml</path>
+    <offsets>
+      <x-m>0.009</x-m>
+      <y-m>-0.061</y-m>
+      <z-m>-0.008</z-m>
+      <pitch-deg>0</pitch-deg>
+    </offsets>
+  </model>
+
+<!--<model>
+    <name>enginepage</name>
+    <path>Aircraft/ec130/Models/Instruments/VEMD/enginepage.xml</path>
+    <offsets>
+      <x-m>0.010</x-m>
+      <y-m>-0.061</y-m>
+      <z-m>0.084</z-m>
+      <pitch-deg>0</pitch-deg>
+    </offsets>
+</model>-->
+
+  <model>
+    <name>FLIpage</name>
+    <path>Aircraft/ec130/Models/Instruments/VEMD/FLIpage.xml</path>
+    <offsets>
+      <x-m>0.010</x-m>
+      <y-m>-0.044</y-m>
+      <z-m>0.083</z-m>
+      <pitch-deg>0</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>vehiclepage</name>
+    <path>Aircraft/ec130/Models/Instruments/VEMD/vehiclepage.xml</path>
+    <offsets>
+      <x-m>0.009</x-m>
+      <y-m>-0.061</y-m>
+      <z-m>-0.008</z-m>
+      <pitch-deg>0</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>flightreportpage</name>
+    <path>Aircraft/ec130/Models/Instruments/VEMD/flightreportpage.xml</path>
+    <offsets>
+      <x-m>0.009</x-m>
+      <y-m>-0.061</y-m>
+      <z-m>-0.008</z-m>
+      <pitch-deg>0</pitch-deg>
+    </offsets>
+  </model>
+
+  <!-- screens on/off -->
+  <!-- screen 1 -->
+  <animation>
+    <type>select</type>
+    <object-name>initphasepage1</object-name>
+    <condition>
+      <not>
+        <property>instrumentation/VEMD/buttons/OFF1</property>
+      </not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>enginestartpage1</object-name>
+    <condition>
+      <not>
+        <property>instrumentation/VEMD/buttons/OFF1</property>
+      </not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>FLIpage</object-name>
+    <condition>
+      <not>
+        <property>instrumentation/VEMD/buttons/OFF1</property>
+      </not>
+    </condition>
+  </animation>
+
+  <!-- screen 2 -->
+  <animation>
+    <type>select</type>
+    <object-name>initphasepage2</object-name>
+    <condition>
+      <not>
+        <property>instrumentation/VEMD/buttons/OFF2</property>
+      </not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>vehiclepage</object-name>
+    <condition>
+      <not>
+        <property>instrumentation/VEMD/buttons/OFF2</property>
+      </not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>flightreportpage</object-name>
+    <condition>
+      <not>
+        <property>instrumentation/VEMD/buttons/OFF2</property>
+      </not>
+    </condition>
+  </animation>
+
+  <!-- buttons -->
+  <animation>
+    <type>pick</type>
+    <object-name>button_off1</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <interval-sec>1.0</interval-sec>
+      <binding>
+        <command>property-toggle</command>
+        <property>instrumentation/VEMD/buttons/OFF1</property>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>vemd_off1</tooltip-id>
+        <label>toggle Screen 1</label>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>button_off2</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <interval-sec>1.0</interval-sec>
+      <binding>
+        <command>property-toggle</command>
+        <property>instrumentation/VEMD/buttons/OFF2</property>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>vemd_off2</tooltip-id>
+        <label>toggle Screen 2</label>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>button_scroll</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <interval-sec>1.0</interval-sec>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/VEMD/buttons/SCROLL</property>
+        <value>1</value>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>vemd_scroll</tooltip-id>
+        <label>scroll Displays</label>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>button_reset</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <interval-sec>1.0</interval-sec>
+      <binding>
+        <command>property-assign</command>
+        <property>instrumentation/VEMD/buttons/RESET</property>
+        <value>1</value>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>vemd_reset</tooltip-id>
+        <label>reset Displays</label>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>button_brtplus</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>true</repeatable>
+      <interval-sec>0.15</interval-sec>
+      <binding>
+        <command>property-adjust</command>
+        <property>controls/lighting/instrument-lights-vemd-norm</property>
+        <step type="double">0.1</step>
+        <min>0.0</min>
+        <max>1.0</max>
+        <wrap>false</wrap>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>vemd_plus</tooltip-id>
+        <label>Light+ %1.0f%%</label>
+        <mapping>percent</mapping>
+        <property>controls/lighting/instrument-lights-vemd-norm</property>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>button_brtmin</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>true</repeatable>
+      <interval-sec>0.15</interval-sec>
+      <binding>
+        <command>property-adjust</command>
+        <property>controls/lighting/instrument-lights-vemd-norm</property>
+        <step type="double">-0.1</step>
+        <min>0.0</min>
+        <max>1.0</max>
+        <wrap>false</wrap>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>vemd_minus</tooltip-id>
+        <label>Light- %1.0f%%</label>
+        <mapping>percent</mapping>
+        <property>controls/lighting/instrument-lights-vemd-norm</property>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!-- dimming -->
   <animation>
     <type>material</type>
     <object-name>face</object-name>
-       <emission>
-      <red>   0.8 </red>
-      <green> 0.8 </green>
-      <blue>  1.0 </blue>
-    <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+    <condition>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+     </greater-than>
+    </condition>
+    <emission>
+      <red>   0.4 </red>
+      <green> 0.4 </green>
+      <blue>  0.5 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights-vemd-norm</factor-prop>
     </emission>
   </animation>
 
-<model>
-		<name>enginestartpage</name>
-		<path>Aircraft/ec130/Models/Instruments/VEMD/enginestartpage.xml</path>
-
-		<offsets>
-			<x-m>0.010</x-m>
-			<y-m>-0.061</y-m>
-			<z-m>0.084</z-m>
-		<pitch-deg>0</pitch-deg>
-
-		</offsets>
-</model>
-
-<model>
-		<name>initphasepage</name>
-		<path>Aircraft/ec130/Models/Instruments/VEMD/initphase.xml</path>
-
-		<offsets>
-			<x-m>0.010</x-m>
-			<y-m>-0.061</y-m>
-			<z-m>0.084</z-m>
-		<pitch-deg>0</pitch-deg>
-
-		</offsets>
-</model>
-
-<model>
-		<name>initphasepage</name>
-		<path>Aircraft/ec130/Models/Instruments/VEMD/initphase.xml</path>
-
-		<offsets>
-			<x-m>0.009</x-m>
-			<y-m>-0.061</y-m>
-			<z-m>-0.008</z-m>
-		<pitch-deg>0</pitch-deg>
-
-		</offsets>
-</model>
-
-<!--<model>
-		<name>enginepage</name>
-		<path>Aircraft/ec130/Models/Instruments/VEMD/enginepage.xml</path>
-
-		<offsets>
-			<x-m>0.010</x-m>
-			<y-m>-0.061</y-m>
-			<z-m>0.084</z-m>
-		<pitch-deg>0</pitch-deg>
-
-		</offsets>
-</model>-->
-
-<model>
-		<name>FLIpage</name>
-		<path>Aircraft/ec130/Models/Instruments/VEMD/FLIpage.xml</path>
-
-		<offsets>
-			<x-m>0.010</x-m>
-			<y-m>-0.044</y-m>
-			<z-m>0.083</z-m>
-		<pitch-deg>0</pitch-deg>
-
-		</offsets>
-</model>
-
-<model>
-		<name>vehiclepage</name>
-		<path>Aircraft/ec130/Models/Instruments/VEMD/vehiclepage.xml</path>
-
-		<offsets>
-			<x-m>0.009</x-m>
-			<y-m>-0.061</y-m>
-			<z-m>-0.008</z-m>
-		<pitch-deg>0</pitch-deg>
-
-		</offsets>
-</model>
-
-<model>
-		<name>vehiclepage</name>
-		<path>Aircraft/ec130/Models/Instruments/VEMD/flightreportpage.xml</path>
-
-		<offsets>
-			<x-m>0.009</x-m>
-			<y-m>-0.061</y-m>
-			<z-m>-0.008</z-m>
-		<pitch-deg>0</pitch-deg>
-
-		</offsets>
-</model>
-
-
-	
 </PropertyList>

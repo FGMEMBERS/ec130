@@ -1,17 +1,50 @@
 <?xml version="1.0"?>
 
 <PropertyList>
+
   <path>tach.ac</path>
 
   <animation>
-    <type>material</type>
-    <object-name>face.002</object-name>
-    <emission>
-      <red>   0.8 </red>
-      <green> 0.8 </green>
-      <blue>  1.0 </blue>
-      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
-    </emission>
+    <type>rotate</type>
+    <object-name>Knob</object-name>
+    <property>controls/lighting/tach-light-norm</property>
+    <factor>180</factor>
+    <axis>
+      <x>-1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+    <center>
+      <x-m>0.000</x-m>
+      <y-m>-0.017</y-m>
+      <z-m>-0.036</z-m>
+    </center>
+  </animation>
+
+  <animation>
+    <type>knob</type>
+    <object-name>Knob</object-name>
+    <visible>true</visible>
+    <action>
+      <name>scrollwheel</name>
+      <binding>
+        <command>property-adjust</command>
+        <property>controls/lighting/tach-light-norm</property>
+        <factor>0.1</factor>
+        <min>0</min>
+        <max>1.0</max>
+        <wrap>false</wrap>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>tach</tooltip-id>
+        <label>RPM light %1.0f%%</label>
+        <mapping>percent</mapping>
+        <property>controls/lighting/tach-light-norm</property>
+      </binding>
+    </hovered>
   </animation>
 
   <animation>
@@ -68,7 +101,20 @@
       <z>0</z>
     </axis>
   </animation>
-  
+
+  <animation>
+    <type>material</type>
+    <object-name>NR</object-name>
+    <object-name>NF</object-name>
+    <emission>
+      <red>   0.4 </red>
+      <green> 0.4 </green>
+      <blue>  0.4 </blue>
+      <factor-prop>systems/electrical/outputs/tach-light-norm</factor-prop>
+      <offset>0.3</offset>
+    </emission>
+  </animation>
+
   <animation>
     <type>textranslate</type>
     <object-name>NR</object-name>
@@ -90,5 +136,63 @@
     </axis>
   </animation>
 
-</PropertyList>
+  <animation>
+    <type>textranslate</type>
+    <object-name>NF</object-name>
+    <property>/engines/engine/n2-rpm</property>
+    <interpolation>
+      <entry><ind>    0</ind><dep>0     </dep></entry>
+      <entry><ind>14670</ind><dep>0.0281</dep></entry>
+      <entry><ind>25890</ind><dep>0.1312</dep></entry>
+      <entry><ind>27610</ind><dep>0.1531</dep></entry>
+      <entry><ind>30200</ind><dep>0.1875</dep></entry>
+      <entry><ind>32360</ind><dep>0.2562</dep></entry>
+      <entry><ind>34950</ind><dep>0.3406</dep></entry>
+      <entry><ind>37100</ind><dep>0.4094</dep></entry>
+    </interpolation>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
 
+  <!-- dimming -->
+  <animation>
+    <type>material</type>
+    <object-name>face.002</object-name>
+    <object-name>Knob</object-name>
+    <condition>
+      <property>systems/electrical/outputs/instrument-lights-norm</property>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor>0.5</factor>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>face.002</object-name>
+    <object-name>Knob</object-name>
+    <condition>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+    </emission>
+  </animation>
+
+</PropertyList>

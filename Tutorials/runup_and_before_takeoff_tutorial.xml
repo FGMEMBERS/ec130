@@ -22,7 +22,7 @@
 
     <message>
       Set Engine State to "Flight" (100%) by dragging the mouse up with MMB pressed or
-      LMB click (hold) on upper half of stick handle or (Alt-t repeated).
+      by Twist Grip animation on Collective or (Alt-t repeated).
     </message>
     <error>
       <message>Twist Grip not set to Flight!</message>

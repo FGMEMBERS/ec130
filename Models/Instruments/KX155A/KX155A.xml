@@ -173,7 +173,6 @@
     <object-name>NavS5.6</object-name>
     <object-name>NavS5.7</object-name>
     <object-name>NavSDec</object-name> 
-
     <object-name>vitre</object-name>
   </animation>
 
@@ -257,6 +256,7 @@
       <blue>  0 </blue>
     </emission>
     <condition>
+      <property>systems/electrical/outputs/instrument-lights2-norm</property>
       <property>/instrumentation/nav/serviceable</property>
     </condition>
   </animation>
@@ -341,6 +341,7 @@
       <blue>  0 </blue>
     </emission>
     <condition>
+      <property>systems/electrical/outputs/instrument-lights2-norm</property>
       <property>/instrumentation/comm/serviceable</property>
     </condition>
   </animation>

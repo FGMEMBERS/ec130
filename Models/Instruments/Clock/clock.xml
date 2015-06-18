@@ -5,28 +5,11 @@
   <path>clock.ac</path>
 
   <animation>
-    <type>material</type>
-    <object-name>Face</object-name>
-    <object-name>SecondHand</object-name>
-    <object-name>MinuteHand</object-name>
-    <object-name>HourHand</object-name>
-    <emission>
-      <red>   0.8 </red>
-      <green> 0.8 </green>
-      <blue>  1.0 </blue>
-      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
-    </emission>
-  </animation>
-
-  <animation>
     <type>rotate</type>
     <object-name>SecondHand</object-name>
     <expression>
       <prod>
-        <sum>
-          <property>/sim/time/real/second</property>
-          <property>/sim/time/warp</property>
-        </sum>
+        <property>/instrumentation/clock/indicated-sec</property>
         <value>6</value>
       </prod>
     </expression>
@@ -43,15 +26,11 @@
     <expression>
       <prod>
         <sum>
-          <property>/sim/time/real/minute</property>
+          <property>/instrumentation/clock/indicated-min</property>
           <div>
             <property>/sim/time/real/second</property>
             <value>60</value>
           </div>
-          <div>
-            <property>/sim/time/warp</property>
-            <value>60</value>
-          </div>
         </sum>
         <value>6</value>
       </prod>
@@ -69,14 +48,10 @@
     <expression>
       <prod>
         <sum>
-          <property>/sim/time/real/hour</property>
+          <property>/instrumentation/clock/local-hour</property>
           <div>
-            <property>/sim/time/real/minute</property>
+            <property>/instrumentation/clock/indicated-min</property>
             <value>60</value>
-          </div>
-          <div>
-            <property>/sim/time/warp</property>
-            <value>3600</value>
           </div>
         </sum>
         <value>30</value>
@@ -89,6 +64,48 @@
     </axis>
   </animation>
 
+  <!-- dimming -->
+  <animation>
+    <name>all</name>
+    <object-name>Face</object-name>
+    <object-name>SecondHand</object-name>
+    <object-name>MinuteHand</object-name>
+    <object-name>HourHand</object-name>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>all</object-name>
+    <condition>
+      <property>systems/electrical/outputs/instrument-lights-norm</property>
+      <equals>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </equals>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor>0.5</factor>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type>
+    <object-name>all</object-name>
+    <condition>
+      <greater-than>
+        <property>controls/lighting/instrument-lights-selection</property>
+        <value>0</value>
+      </greater-than>
+    </condition>
+    <emission>
+      <red>   0.8 </red>
+      <green> 0.8 </green>
+      <blue>  1.0 </blue>
+      <factor-prop>systems/electrical/outputs/instrument-lights-norm</factor-prop>
+    </emission>
+  </animation>
+
 </PropertyList>
-
-
