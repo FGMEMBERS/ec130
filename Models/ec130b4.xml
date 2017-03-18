@@ -5,7 +5,7 @@
  http://www.flightgear.org/
 
  Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
-           (C) 2013 Michael Habarta, mhabarta@freenet.de
+           (C) 2016 Michael Habarta, mhabarta@freenet.de
 
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License as
@@ -18,9 +18,28 @@
  General Public License for more details.
 -->
 
+<!--
+ATTENTION:
+
+ ec130b4.xml and ec130t2.xml are identical copies of each other.
+
+ This is done for the crazy idea to stay
+ compatible with older versions of ec130 in multiplayer mode.
+
+ It is strongly suggested to maintain one file and copy it immediately.
+
+ To have these identical copies is the only solution I could find for
+ managing two closely related models without ending up in a complete
+ mess of model parts.
+
+ If you know how to do this in a better way feel free to do try, but keep
+ in mind that this should be understandable and maintainable afterwards.
+
+-->
+
 <PropertyList>
 
-  <path>ec130b4.ac</path>
+  <path>ec130b4_t2.ac</path>
   <offsets>
     <z-m>0</z-m>
     <y-m>0</y-m>
@@ -30,62 +49,183 @@
 
   <!-- Tutorial Marker -->
   <model>
+    <path>Models/Aircraft/marker.xml</path>
+  </model>
+  <model>
     <path>Aircraft/Generic/marker.xml</path>
   </model>
 
   <nasal>
     <load>
-      var livery_update = aircraft.livery_update.new("Aircraft/ec130/Models/Liveries", 5, func { print("ec130 livery updated") });
+    <!--
+      ##############################################################################
+      # The on-load Nasal is not executed when this file is loaded as the user
+      # aircraft.
+      ##############################################################################
+    -->
+      var rplay = cmdarg();
 
-      var self = cmdarg();
-<!--
-      var float_0 = self.getNode("sim/multiplay/generic/float[0]", 1);
-      var float_1 = self.getNode("sim/multiplay/generic/float[1]", 1);
--->
-      var frontl_door = self.getNode("sim/model/ec130/doors/frontl/position-norm", 1);
-      var frontr_door = self.getNode("sim/model/ec130/doors/frontr/position-norm", 1);
-      var passengerl_door = self.getNode("sim/model/ec130/doors/passengerl/position-norm", 1);
-      var passengerr_door = self.getNode("sim/model/ec130/doors/passengerr/position-norm", 1);
-      var luggagel = self.getNode("sim/model/ec130/doors/luggagel/position-norm", 1);
-      var luggager = self.getNode("sim/model/ec130/doors/luggager/position-norm", 1);
-      var door = self.getNode("sim/model/ec130/doors/door/position-norm", 1);
-      var pilotw = self.getNode("sim/model/ec130/doors/pilotw/position-norm", 1);
-      var basketl = self.getNode("sim/model/ec130/doors/basketl/position-norm", 1);
-      var basketr = self.getNode("sim/model/ec130/doors/basketr/position-norm", 1);
-      var hook = self.getNode("sim/model/ec130/doors/hook/position-norm", 1);
-<!--
-      frontl_door.alias(float_0);
-      passengerl_door.alias(float_1);
--->
+      <!-- livery handling -->
+      var overlay_update = aircraft.overlay_update.new();
+      var variant=rplay.getValue("sim/model/variant");
+      if ( variant != nil and variant != 0 ) {
+        if ( variant == "1" ) {
+          overlay_update.add("Aircraft/ec130/Models/Liveries_ec130b4","sim/model/livery/file" , func (file,dir) { print("ec130b4 MP livery ",file," updated") });
+        } else {
+          overlay_update.add("Aircraft/ec130/Models/Liveries_ec130t2","sim/model/livery/file" , func (file,dir) { print("ec130t2 MP livery ",file," updated") });
+        }
+      } else {
+        <!-- for compatibility with 2016.1 -->
+        <!-- it will always show the own livery -->
+        overlay_update.add("Aircraft/ec130/Models/Liveries_ec130b4","sim/model/livery/file" , func (file,dir) { print("ec130 MP livery ",file," updated") });
+      }
+
+      var update = func {
+
+        <!-- light -->
+        rplay.getNode("systems/electrical/outputs/taxi-light", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[1]", 1));
+        rplay.getNode("systems/electrical/outputs/nav-lights", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[2]", 1));
+        rplay.getNode("controls/lighting/strobe-state/state", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[3]", 1));
+        rplay.getNode("systems/electrical/outputs/landing-light", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[4]", 1));
+        rplay.getNode("systems/electrical/outputs/beacon", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[5]", 1));
+
+        <!-- equipment -->
+        rplay.getNode("controls/electric/external-power", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[6]", 1));
+
+        rplay.getNode("sim/model/ec130/stabi_strobe", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[7]", 1));
+        rplay.getNode("sim/model/ec130/gear_strobe", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[8]", 1));
+        rplay.getNode("sim/model/ec130/gear_light", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[9]", 1));
+        rplay.getNode("sim/model/ec130/emerg_floats", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[10]", 1));
+        rplay.getNode("sim/model/ec130/searchlight", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[11]", 1));
+        <!-- searchlight and filter joined due to shortage of variables -->
+        rplay.getNode("sim/model/ec130/searchlight_filter", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[11]", 1));
+        rplay.getNode("sim/model/ec130/hoist", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[12]", 1));
+        rplay.getNode("sim/model/ec130/basket_left", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[13]", 1));
+        rplay.getNode("sim/model/ec130/basket_right", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[14]", 1));
+        rplay.getNode("sim/model/ec130/snowshoes", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[15]", 1));
+        rplay.getNode("sim/model/ec130/mirror", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[16]", 1));
+        rplay.getNode("sim/model/ec130/FLIR", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[17]", 1));
+        rplay.getNode("sim/model/ec130/luggage_wide", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[18]", 1));
+        rplay.getNode("sim/model/ec130/wirecutter", 1).
+          alias(rplay.getNode("sim/multiplay/generic/int[19]", 1));
+
+        <!-- doors -->
+        rplay.getNode("gear/gear[6]/position-norm", 1).
+          alias(rplay.getNode("sim/multiplay/generic/float[0]", 1));
+        rplay.getNode("sim/model/ec130/doors/frontl/position-norm", 1).
+          alias(rplay.getNode("sim/multiplay/generic/float[5]", 1));
+        rplay.getNode("sim/model/ec130/doors/frontr/position-norm", 1).
+          alias(rplay.getNode("sim/multiplay/generic/float[6]", 1));
+        rplay.getNode("sim/model/ec130/doors/passengerl/position-norm", 1).
+          alias(rplay.getNode("sim/multiplay/generic/float[7]", 1));
+        rplay.getNode("sim/model/ec130/doors/passengerr/position-norm", 1).
+          alias(rplay.getNode("sim/multiplay/generic/float[8]", 1));
+        rplay.getNode("sim/model/ec130/doors/luggagel/position-norm", 1).
+          alias(rplay.getNode("sim/multiplay/generic/float[9]", 1));
+        rplay.getNode("sim/model/ec130/doors/luggager/position-norm", 1).
+          alias(rplay.getNode("sim/multiplay/generic/float[10]", 1));
+        rplay.getNode("sim/model/ec130/doors/door/position-norm", 1).
+          alias(rplay.getNode("sim/multiplay/generic/float[11]", 1));
+        rplay.getNode("sim/model/ec130/doors/basketl/position-norm", 1).
+          alias(rplay.getNode("sim/multiplay/generic/float[12]", 1));
+        rplay.getNode("sim/model/ec130/doors/basketr/position-norm", 1).
+          alias(rplay.getNode("sim/multiplay/generic/float[13]", 1));
+
+        <!-- searchlight -->
+        rplay.getNode("controls/electric/engine/generator").
+          alias(rplay.getNode("sim/multiplay/generic/float[14]", 1));
+        rplay.getNode("sim/model/searchlight/heading-deg", 1).
+          alias(rplay.getNode("sim/multiplay/generic/float[15]", 1));
+        rplay.getNode("sim/model/searchlight/elevation-deg", 1).
+          alias(rplay.getNode("sim/multiplay/generic/float[16]", 1));
+        rplay.getNode("sim/model/searchlight/state", 1).
+          alias(rplay.getNode("sim/multiplay/generic/float[17]", 1));
+        rplay.getNode("sim/model/searchlight/active", 1).
+          alias(rplay.getNode("sim/multiplay/generic/float[18]", 1));
+        rplay.getNode("sim/model/searchlight/paused", 1).
+          alias(rplay.getNode("sim/multiplay/generic/float[19]", 1));
+
+      <!--
+        ignored due to shortage of variables
+
+        var pilotw          = rplay.getNode("sim/model/ec130/doors/pilotw/position-norm", 1);
+        var hook            = rplay.getNode("sim/model/ec130/doors/hook/position-norm", 1);
+
+        var searchlf = getprop("/sim/model/ec130/searchlight_a800");
+        var searchlfp = getprop("/sim/model/searchlight/filter/position-norm");
+        var searchlfst = getprop("/sim/model/searchlight/filter-state");
+        var searchlcvis = getprop("/sim/model/searchlight/cone-visibility");
+      -->
+
+        settimer(update, 5);
+      }
+
+      update();
+
       ec130.engines.init();
 
     </load>
 
     <unload>
-      livery_update.stop();
-<!--
-      frontl_door.unalias();
-      passengerl_door.unalias();
--->
+      rplay.getNode("systems/electrical/outputs").unalias();
+      rplay.getNode("controls/lighting/strobe-state/state").unalias();
+      rplay.getNode("controls/electric").unalias();
+      rplay.getNode("sim/model/searchlight").unalias();
+      rplay.getNode("sim/model/ec130").unalias();
+      overlay_update.stop();
+
     </unload>
 
   </nasal>
 
   <!--shader-->
-
+  <!-- EC130-B4 -->
   <effect>
-    <inherits-from>Aircraft/ec130/Models/Effects/ec130reflect-uber</inherits-from>
+    <inherits-from>Aircraft/ec130/Models/Effects/ec130_b4_reflect-uber</inherits-from>
     <object-name>fuselage</object-name>
-    <object-name>frontdoorr</object-name>
+    <object-name>fuselage_air_in</object-name>
     <object-name>frontdoorl</object-name>
-    <object-name>backdoorr</object-name>
+    <object-name>frontdoorr</object-name>
     <object-name>backdoorl</object-name>
+    <object-name>backdoorr</object-name>
     <object-name>luggagel</object-name>
     <object-name>luggager</object-name>
     <object-name>luggager_slight</object-name>
     <object-name>doorb</object-name>
     <object-name>exhaust</object-name>
     <object-name>wirecutter</object-name>
+  </effect>
+
+  <!-- H130 (EC130-T2) -->
+  <effect>
+    <inherits-from>Aircraft/ec130/Models/Effects/ec130_t2_reflect-uber</inherits-from>
+    <object-name>fuselage_t2</object-name>
+    <object-name>fuselage_air_in_t2</object-name>
+    <object-name>frontdoorl_t2</object-name>
+    <object-name>frontdoorr_t2</object-name>
+    <object-name>backdoorl_t2</object-name>
+    <object-name>backdoorr_t2</object-name>
+    <object-name>doorbr_lead_t2</object-name>
+    <object-name>top_expipes_t2</object-name>
   </effect>
 
   <effect>
@@ -104,8 +244,10 @@
     <object-name>windows_roof</object-name>
     <object-name>windowl</object-name>
     <object-name>windowr</object-name>
+    <object-name>windowr_t2</object-name>
     <object-name>windowbl</object-name>
     <object-name>windowbr</object-name>
+    <object-name>windowbr_t2</object-name>
     <object-name>fuel</object-name>
     <object-name>pilotw</object-name>
     <object-name>mirror_glass</object-name>
@@ -124,7 +266,7 @@
     <object-name>collectiver_leather_fix</object-name>
   </animation>
 
-  <!--pilot-->
+  <!--Pilot-->
   <model>
     <name>Pilot</name>
     <path>Aircraft/ec130/Models/People/pilot.xml</path>
@@ -134,7 +276,598 @@
       <z-m> 0.0 </z-m>
     </offsets>
   </model>
-  
+
+  <animation>
+    <type>select</type>
+    <object-name>Pilot</object-name>
+    <condition>
+      <property>sim/view[0]/enabled</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>belt_pilot</object-name>
+    <condition>
+      <not>
+        <property>sim/view[0]/enabled</property>
+      </not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>Pilot</object-name>
+    <object-name>seat_pilot</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.toggle_view(0);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>pilot</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("toggle Pilot (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!--Co-Pilot-->
+  <model>
+    <name>Co-Pilot</name>
+    <path>Aircraft/ec130/Models/People/copilot.xml</path>
+    <offsets>
+      <x-m> 0.0 </x-m>
+      <y-m> 0.68</y-m>
+      <z-m> 0.0 </z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>Co-Pilot</object-name>
+    <condition>
+      <property>sim/view[101]/enabled</property>
+      <property>sim/model/ec130/copilot_controls</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>Co-Pilot</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.toggle_view(101);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>copilot</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("toggle Co-Pilot (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>seat_copilot</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.toggle_view(101);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>copilots</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("toggle Co-Pilot/Passenger (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!--Passenger Co-Pilot-->
+  <model>
+    <name>Passenger Co-Pilot</name>
+    <path>Aircraft/ec130/Models/People/passenger_cp.xml</path>
+    <offsets>
+      <x-m>-3.78</x-m>
+      <y-m>0.00</y-m>
+      <z-m>-0.65 </z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>Passenger Co-Pilot</object-name>
+    <condition>
+      <property>sim/view[101]/enabled</property>
+      <not>
+        <property>sim/model/ec130/copilot_controls</property>
+      </not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>belt_copilot</object-name>
+    <condition>
+      <not>
+        <property>sim/view[101]/enabled</property>
+      </not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>Passenger Co-Pilot</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.toggle_view(101);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>copilotp</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("toggle Passenger (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!--Passenger front left-->
+  <model>
+    <name>passenger_fl</name>
+    <path>Aircraft/ec130/Models/People/passenger_fl.xml</path>
+    <offsets>
+      <x-m>-3.92</x-m>
+      <y-m> 0.36</y-m>
+      <z-m>-0.65 </z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>passenger_fl</object-name>
+    <condition>
+      <property>sim/view[102]/enabled</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>belt_fl</object-name>
+    <condition>
+      <not>
+        <property>sim/view[102]/enabled</property>
+      </not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>passenger_fl</object-name>
+    <object-name>seat_pass_front_l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.toggle_view(102);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>pass_fl</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("toggle Passenger (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!--Passenger front right-->
+  <model>
+    <name>passenger_fr</name>
+    <path>Aircraft/ec130/Models/People/passenger_fr.xml</path>
+    <offsets>
+      <x-m>-3.77</x-m>
+      <y-m> 0.74</y-m>
+      <z-m>-0.65 </z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>passenger_fr</object-name>
+    <condition>
+      <property>sim/view[103]/enabled</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>belt_fr</object-name>
+    <condition>
+      <not>
+        <property>sim/view[103]/enabled</property>
+      </not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>passenger_fr</object-name>
+    <object-name>seat_pass_front_r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.toggle_view(103);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>pass_fr</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("toggle Passenger (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!--Passenger rear left-->
+  <model>
+    <name>passenger_rl</name>
+    <path>Aircraft/ec130/Models/People/passenger_rl.xml</path>
+    <offsets>
+      <x-m>-2.8 </x-m>
+      <y-m>-0.70</y-m>
+      <z-m>-0.62 </z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>passenger_rl</object-name>
+    <condition>
+      <property>sim/view[104]/enabled</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>belt_rl</object-name>
+    <condition>
+      <not>
+        <property>sim/view[104]/enabled</property>
+      </not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>passenger_rl</object-name>
+    <object-name>seat_pass_rear_l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.toggle_view(104);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>pass_rl</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("toggle Passenger (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!--Passenger rear mid left-->
+  <model>
+    <name>passenger_rml</name>
+    <path>Aircraft/ec130/Models/People/passenger_rml.xml</path>
+    <offsets>
+      <x-m>-2.8 </x-m>
+      <y-m>-0.22</y-m>
+      <z-m>-0.62 </z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>passenger_rml</object-name>
+    <condition>
+      <property>sim/view[105]/enabled</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>belt_rml</object-name>
+    <condition>
+      <not>
+        <property>sim/view[105]/enabled</property>
+      </not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>passenger_rml</object-name>
+    <object-name>seat_pass_rear_ml</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.toggle_view(105);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>pass_rml</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("toggle Passenger (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!--Passenger rear mid right-->
+  <model>
+    <name>passenger_rmr</name>
+    <path>Aircraft/ec130/Models/People/passenger_rmr.xml</path>
+    <offsets>
+      <x-m>-2.80</x-m>
+      <y-m> 0.26</y-m>
+      <z-m>-0.62 </z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>passenger_rmr</object-name>
+    <condition>
+      <property>sim/view[106]/enabled</property>
+      <greater-than>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>belt_rmr</object-name>
+    <condition>
+      <not>
+        <property>sim/view[106]/enabled</property>
+      </not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>passenger_rmr</object-name>
+    <object-name>seat_pass_rear_mr</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.toggle_view(106);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>pass_rmr</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("toggle Passenger (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!--Patient-->
+  <model>
+    <name>patient</name>
+    <path>Aircraft/ec130/Models/People/patient.xml</path>
+    <offsets>
+      <x-m>-3.60</x-m>
+      <y-m> 0.53</y-m>
+      <z-m>-0.82 </z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>patient</object-name>
+    <condition>
+      <property>sim/view[107]/enabled</property>
+      <equals>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>patient</object-name>
+    <object-name>stretcher</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.toggle_view(107);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>patient</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("toggle Patient (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!--Passenger rear right-->
+  <model>
+    <name>passenger_rr</name>
+    <path>Aircraft/ec130/Models/People/passenger_rr.xml</path>
+    <offsets>
+      <x-m>-2.80</x-m>
+      <y-m> 0.72</y-m>
+      <z-m>-0.62 </z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>passenger_rr</object-name>
+    <condition>
+      <property>sim/view[108]/enabled</property>
+    </condition>
+  </animation>
+
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>belt_rr</object-name>
+    <condition>
+      <not>
+        <property>sim/view[108]/enabled</property>
+      </not>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>passenger_rr</object-name>
+    <object-name>seat_pass_rear_r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.toggle_view(108);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>pass_rr</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("toggle Passenger (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
   <!--mobile Ground Power Unit-->
   <model>
     <name>MGPU</name>
@@ -143,27 +876,9 @@
       <x-m> 0.0 </x-m>
       <y-m> 0.0 </y-m>
       <z-m> 0.0 </z-m>
-      <pitch-deg>0.55</pitch-deg>
+      <pitch-deg>0.2</pitch-deg>
     </offsets>
   </model>
-
-  <animation>
-    <type>rotate</type>
-    <object-name>MGPU</object-name>
-    <object-name>cables</object-name>
-    <property>sim/model/ec130/snowshoes</property>
-    <factor>0.8</factor>
-    <center>
-      <x-m> -1.103</x-m>
-      <y-m>  0.589</y-m>
-      <z-m> -0.560</z-m>
-    </center>
-    <axis>
-      <x> 0 </x>
-      <y> 1 </y>
-      <z> 0 </z>
-    </axis>
-  </animation>
 
   <!-- woolthread -->
   <model>
@@ -202,8 +917,8 @@
   </model>
 
   <model>
-    <name>AI</name>
-    <path>Aircraft/ec130/Models/Instruments/AI/AI.xml</path>
+    <name>AI_b4</name>
+    <path>Aircraft/ec130/Models/Instruments/AI/AI_b4.xml</path>
     <offsets>
       <x-m>-4.556</x-m>
       <y-m>-0.573</y-m>
@@ -211,6 +926,39 @@
       <pitch-deg>-10</pitch-deg>
     </offsets>
   </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>AI_b4</object-name>
+    <condition>
+      <equals>
+        <property>sim/model/variant</property>
+        <value>1</value>
+      </equals>
+    </condition>
+  </animation>
+
+  <model>
+    <name>AI_t2</name>
+    <path>Aircraft/ec130/Models/Instruments/AI/AI_t2.xml</path>
+    <offsets>
+      <x-m>-4.556</x-m>
+      <y-m>-0.573</y-m>
+      <z-m>-0.284</z-m>
+      <pitch-deg>-10</pitch-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>AI_t2</object-name>
+    <condition>
+      <equals>
+        <property>sim/model/variant</property>
+        <value>2</value>
+      </equals>
+    </condition>
+  </animation>
 
   <model>
     <name>ASI</name>
@@ -267,6 +1015,40 @@
     </offsets>
   </model>
 
+  <animation>
+    <type>select</type>
+    <object-name>Turn</object-name>
+    <condition>
+      <equals>
+        <property>sim/model/variant</property>
+        <value>1</value>
+      </equals>
+    </condition>
+  </animation>
+
+  <!-- fill empty for t2 variant -->
+  <model>
+    <name>Turn_empty</name>
+    <path>Aircraft/ec130/Models/Instruments/Turn/Turn_empty.xml</path>
+    <offsets>
+      <x-m>-4.555</x-m>
+      <y-m>-0.671</y-m>
+      <z-m>-0.369</z-m>
+      <pitch-deg>-10</pitch-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>Turn_empty</object-name>
+    <condition>
+      <equals>
+        <property>sim/model/variant</property>
+        <value>2</value>
+      </equals>
+    </condition>
+  </animation>
+
   <model>
     <name>Clock</name>
     <path>Aircraft/ec130/Models/Instruments/Clock/clock.xml</path>
@@ -279,8 +1061,8 @@
   </model>
 
   <model>
-    <name>Warnpanel</name>
-    <path>Aircraft/ec130/Models/Instruments/CWS/CWS.xml</path>
+    <name>Warnpanel_b4</name>
+    <path>Aircraft/ec130/Models/Instruments/CWS/CWS_b4.xml</path>
     <offsets>
       <x-m>-4.567</x-m>
       <y-m>-0.600</y-m>
@@ -288,6 +1070,39 @@
       <pitch-deg>-10</pitch-deg>
     </offsets>
   </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>Warnpanel_b4</object-name>
+    <condition>
+      <equals>
+        <property>sim/model/variant</property>
+        <value>1</value>
+      </equals>
+    </condition>
+  </animation>
+
+  <model>
+    <name>Warnpanel_t2</name>
+    <path>Aircraft/ec130/Models/Instruments/CWS/CWS_t2.xml</path>
+    <offsets>
+      <x-m>-4.567</x-m>
+      <y-m>-0.600</y-m>
+      <z-m>-0.200</z-m>
+      <pitch-deg>-10</pitch-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>Warnpanel_t2</object-name>
+    <condition>
+      <equals>
+        <property>sim/model/variant</property>
+        <value>2</value>
+      </equals>
+    </condition>
+  </animation>
 
   <model>
     <name>Lighting</name>
@@ -377,6 +1192,51 @@
     </offsets>
   </model>
 
+  <animation>
+    <type>select</type>
+    <object-name>EMERSW</object-name>
+    <condition>
+      <equals>
+        <property>sim/model/variant</property>
+        <value>1</value>
+      </equals>
+    </condition>
+  </animation>
+
+  <model>
+    <name>ELT_t2</name>
+    <path>Aircraft/ec130/Models/Instruments/Breakers/ELT_switch_t2.xml</path>
+    <offsets>
+      <x-m>-4.588</x-m>
+      <y-m>-0.190</y-m>
+      <z-m>-0.191</z-m>
+      <pitch-deg>-10</pitch-deg>
+    </offsets>
+  </model>
+
+  <model>
+    <name>ka51b_t2</name>
+    <path>Aircraft/ec130/Models/Instruments/kcs55/ka51b_t2.xml</path>
+    <offsets>
+      <x-m>-4.588</x-m>
+      <y-m>-0.133</y-m>
+      <z-m>-0.193</z-m>
+      <pitch-deg>-10</pitch-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>ELT_t2</object-name>
+    <object-name>ka51b_t2</object-name>
+    <condition>
+      <equals>
+        <property>sim/model/variant</property>
+        <value>2</value>
+      </equals>
+    </condition>
+  </animation>
+
   <model>
     <name>SCU</name>
     <path>Aircraft/ec130/Models/Instruments/SCU/scu.xml</path>
@@ -420,6 +1280,17 @@
      <pitch-deg>0</pitch-deg>
     </offsets>
   </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>Breakers2</object-name>
+    <condition>
+      <equals>
+        <property>sim/model/variant</property>
+        <value>1</value>
+      </equals>
+    </condition>
+  </animation>
 
   <!-- main rotor -->
   <model>
@@ -537,6 +1408,15 @@
     </offsets>
   </model>
 
+  <!--searchlight A800 select animation-->
+  <animation>
+    <type>select</type>
+    <object-name>searchlight_A800</object-name>
+    <condition>
+      <property>sim/model/ec130/searchlight_a800</property>
+    </condition>
+  </animation>
+
   <!-- align mount with arm -->
   <animation>
     <type>rotate</type>
@@ -564,15 +1444,6 @@
     <object-name>landing_light_gear_right</object-name>
     <condition>
       <property>sim/model/ec130/gear_light</property>
-    </condition>
-  </animation>
-
-  <!--searchlight A800 select animation-->
-  <animation>
-    <type>select</type>
-    <object-name>searchlight_A800</object-name>
-    <condition>
-      <property>sim/model/ec130/searchlight_a800</property>
     </condition>
   </animation>
 
@@ -608,6 +1479,27 @@
   </animation>
 
   <animation>
+    <type>pick</type>
+    <object-name>copilot_controls</object-name>
+    <object-name>pedalr_coverbox</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>ec130.toggle_copilot_controls(1)</script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>copilot_control_toggle</tooltip-id>
+        <label>toggle Co-Pilot controls</label>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
     <type>select</type>
     <object-name>pedalr_coverbox</object-name>
     <condition>
@@ -622,6 +1514,63 @@
     <object-name>floats_deflated</object-name>
     <condition>
       <property>sim/model/ec130/emerg_floats</property>
+    </condition>
+  </animation>
+
+  <!-- EC130 B4 specific parts -->
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>fuselage</object-name>
+    <object-name>fuselage_air_in</object-name>
+    <object-name>tail_filter_prot</object-name>
+    <object-name>block</object-name>
+    <object-name>frontdoorl</object-name>
+    <object-name>frontdoorr</object-name>
+    <object-name>frontdoorr.001</object-name>
+    <object-name>windowr</object-name>
+    <object-name>windowr.001</object-name>
+    <object-name>windowr.002</object-name>
+    <object-name>backdoorl</object-name>
+    <object-name>backdoorr</object-name>
+    <object-name>backdoorr.001</object-name>
+    <object-name>windowbr</object-name>
+    <object-name>windowbr.001</object-name>
+    <object-name>windowbr.002</object-name>
+    <condition>
+      <not-equals>
+        <property>sim/model/variant</property>
+        <value>2</value>
+      </not-equals>
+    </condition>
+  </animation>
+
+  <!-- H130 specific parts -->
+  <animation>
+    <type>select</type>
+    <object-name>fuselage_t2</object-name>
+    <object-name>fuselage_air_in_t2</object-name>
+    <object-name>windowr_t2</object-name>
+    <object-name>block_t2</object-name>
+    <object-name>frontdoorl_t2</object-name>
+    <object-name>frontdoorr_t2</object-name>
+    <object-name>frontdoorr_t2.001</object-name>
+    <object-name>windowr_t2.001</object-name>
+    <object-name>windowr_t2.002</object-name>
+    <object-name>backdoorl_t2</object-name>
+    <object-name>backdoorr_t2</object-name>
+    <object-name>backdoorr_t2.001</object-name>
+    <object-name>backdoorr_t2.002</object-name>
+    <object-name>windowbr_t2</object-name>
+    <object-name>doorbr_lead_t2</object-name>
+    <object-name>doorbr_hinge_t2</object-name>
+    <object-name>doorbr_lever_t2</object-name>
+    <object-name>top_expipes_t2</object-name>
+    <condition>
+      <equals>
+        <property>sim/model/variant</property>
+        <value>2</value>
+      </equals>
     </condition>
   </animation>
 
@@ -754,16 +1703,22 @@
       <y> 1 </y>
       <z> 0 </z>
     </axis>
-    <action>
+    <increase>
       <binding>
-        <command>property-adjust</command>
-        <property>controls/seat/stretcher/position-deg</property>
-        <factor>1</factor>
-        <min>0</min>
-        <max>50</max>
-        <wrap>false</wrap>
+        <command>nasal</command>
+        <script>
+          ec130.adjust_stretcher(2);
+        </script>
       </binding>
-    </action>
+    </increase>
+    <decrease>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.adjust_stretcher(-2);
+        </script>
+      </binding>
+    </decrease>
     <hovered>
       <binding>
         <command>set-tooltip</command>
@@ -778,8 +1733,26 @@
     <object-name>frame_upper</object-name>
     <object-name>stretcher_soft_head_up</object-name>
     <object-name>bar_head</object-name>
+    <object-name>beltp_upper</object-name>
     <property>controls/seat/stretcher/position-deg</property>
     <factor>-1.0</factor>
+    <center>
+      <x-m>-3.650 </x-m>
+      <y-m> 0.000 </y-m>
+      <z-m>-0.842 </z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>beltp_lock</object-name>
+    <property>controls/seat/stretcher/position-deg</property>
+    <factor>-0.75</factor>
     <center>
       <x-m>-3.650 </x-m>
       <y-m> 0.000 </y-m>
@@ -819,6 +1792,30 @@
 
   <animation>
     <type>translate</type>
+    <object-name>beltp_lock</object-name>
+    <property>controls/seat/stretcher/position-deg</property>
+    <factor>0.0005</factor>
+    <axis>
+      <x>-1 </x>
+      <y> 0 </y>
+      <z> 0.5 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>beltp_lower</object-name>
+    <property>controls/seat/stretcher/position-deg</property>
+    <factor>0.001</factor>
+    <axis>
+      <x>-1 </x>
+      <y> 0 </y>
+      <z> 0.5 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
     <object-name>stretcher_rod</object-name>
     <property>controls/seat/stretcher/position-deg</property>
     <factor>1</factor>
@@ -841,6 +1838,9 @@
   <animation>
     <type>material</type>
     <object-name>fuselage</object-name>
+    <object-name>fuselage_t2</object-name>
+    <object-name>fuselage_air_in</object-name>
+    <object-name>fuselage_air_in_t2</object-name>
     <object-name>gear_strobe_light_base</object-name>
     <object-name>seats</object-name>
     <object-name>seat_pass_front_l</object-name>
@@ -855,10 +1855,16 @@
     <object-name>luggagerw</object-name>
     <object-name>fuselage_luggagerw</object-name>
     <object-name>frontdoorl</object-name>
+    <object-name>frontdoorl_t2</object-name>
     <object-name>frontdoorr</object-name>
+    <object-name>frontdoorr_t2</object-name>
     <object-name>backdoorr</object-name>
+    <object-name>backdoorr_t2</object-name>
     <object-name>backdoorl</object-name>
+    <object-name>backdoorl_t2</object-name>
     <object-name>doorb</object-name>
+    <object-name>doorbr_lead_t2</object-name>
+    <object-name>top_expipes_t2</object-name>
     <object-name>exhaust</object-name>
     <object-name>wirecutter</object-name>
     <object-name>stator</object-name>
@@ -868,6 +1874,7 @@
     <object-name>vuhf_base</object-name>
     <object-name>hoist_frame</object-name>
     <object-name>hoist_pyramid</object-name>
+    <object-name>tail_filter_prot</object-name>
     <property-base>sim/model/livery/</property-base>
     <texture-prop>texture</texture-prop>
     <texture>default.png</texture>
@@ -1024,9 +2031,11 @@
     <object-name>taxilight</object-name>
     <object-name>Plane.005X</object-name>
     <object-name>Plane.005Xb</object-name>
+    <object-name>Plane.005Xbsl</object-name>
+    <object-name>Plane.005Xbsr</object-name>
     <object-name>basket_mesh_left</object-name>
     <condition>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
     </condition>
   </effect>
 
@@ -1035,7 +2044,7 @@
     <type>select</type>
     <object-name>LandLightVolume</object-name>
     <condition>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
       <greater-than>
         <property>sim/multiplay/generic/int[4]</property>
         <value>24</value>
@@ -1050,7 +2059,7 @@
     <object-name>LandLightVolume_gear_right</object-name>
     <condition>
       <property>sim/model/ec130/gear_light</property>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
       <greater-than>
         <property>sim/multiplay/generic/int[4]</property>
         <value>24</value>
@@ -1064,7 +2073,7 @@
     <object-name>NavLightRightVolume</object-name>
     <object-name>NavLightBackVolume</object-name>
     <condition>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
       <greater-than>
         <property>sim/multiplay/generic/int[2]</property>
         <value>24</value>
@@ -1076,7 +2085,7 @@
     <type>select</type>
     <object-name>TaxiLightVolume</object-name>
     <condition>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
       <greater-than>
         <property>sim/multiplay/generic/int[1]</property>
         <value>24</value>
@@ -1108,7 +2117,7 @@
     <type>select</type>
     <object-name>BeaconVolume</object-name>
     <condition>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
       <greater-than>
         <property>sim/multiplay/generic/int[5]</property>
         <value>24</value>
@@ -1133,13 +2142,48 @@
     </condition>
   </animation>
 
+  <!-- stabi strobes -->
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>Plane.005Xbsl</object-name>
+    <object-name>Plane.005Xbsr</object-name>
+    <condition>
+      <property>sim/model/ec130/stabi_strobe</property>
+      <or>
+        <property>sim/multiplay/generic/int[3]</property>
+        <greater-than>
+          <property>systems/electrical/outputs/strobe</property>
+          <value>24</value>
+        </greater-than>
+      </or>
+    </condition>
+  </animation>
+
   <!-- rembrandt volume -->
   <animation>
     <type>select</type>
     <object-name>GearStrobeVolume</object-name>
     <condition>
       <property>sim/model/ec130/gear_strobe</property>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
+      <or>
+        <property>sim/multiplay/generic/int[3]</property>
+        <greater-than>
+          <property>systems/electrical/outputs/strobe</property>
+          <value>24</value>
+        </greater-than>
+      </or>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>select</type>
+    <object-name>StrobeStabiLeftVolume</object-name>
+    <object-name>StrobeStabiRightVolume</object-name>
+    <condition>
+      <property>sim/model/ec130/stabi_strobe</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
       <or>
         <property>sim/multiplay/generic/int[3]</property>
         <greater-than>
@@ -1157,7 +2201,7 @@
     <name>NavLightLeft</name>
     <object-name>NavLightLeftVolume</object-name>
     <condition>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
     </condition>
     <position>
       <x>2.901</x>
@@ -1188,7 +2232,7 @@
       <a>1.0</a>
     </specular>
     <dim-factor>
-      <property>sim/time/sun-angle-rad</property>
+      <property>/sim/time/sun-angle-rad</property>
       <interpolation>
         <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
         <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
@@ -1220,7 +2264,7 @@
     <name>NavLightRight</name>
     <object-name>NavLightRightVolume</object-name>
     <condition>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
     </condition>
     <position>
       <x>2.901</x>
@@ -1251,7 +2295,7 @@
       <a>1.0</a>
     </specular>
     <dim-factor>
-      <property>sim/time/sun-angle-rad</property>
+      <property>/sim/time/sun-angle-rad</property>
       <interpolation>
         <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
         <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
@@ -1283,7 +2327,7 @@
     <name>NavLightBack</name>
     <object-name>NavLightBackVolume</object-name>
     <condition>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
     </condition>
     <position>
       <x>5.402</x>
@@ -1314,7 +2358,7 @@
       <a>1.0</a>
     </specular>
     <dim-factor>
-      <property>sim/time/sun-angle-rad</property>
+      <property>/sim/time/sun-angle-rad</property>
       <interpolation>
         <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
         <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
@@ -1342,42 +2386,42 @@
 
   <animation>
     <type>light</type>
-	  <light-type>spot</light-type>
-	  <name>TaxiLight</name>
-	  <object-name>TaxiLightVolume</object-name>
+    <light-type>spot</light-type>
+    <name>TaxiLight</name>
+    <object-name>TaxiLightVolume</object-name>
     <condition>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
     </condition>
-	  <position>
-		  <x>-3.6</x>
-		  <y>0.394</y>
-		  <z>-1.314</z>
-	  </position>
-	  <direction>
-		  <x>-1</x>
-		  <y>0</y>
-		  <z>-0.2</z>
-	  </direction>
-	  <ambient>
-		  <r>0.01</r>
-		  <g>0.01</g>
-		  <b>0.01</b>
-		  <a>1.0</a>
-	  </ambient>
-	  <diffuse>
-		  <r>0.97</r>
-		  <g>0.97</g>
-		  <b>0.87</b>
-		  <a>1.0</a>
-	  </diffuse>
-	  <specular>
-		  <r>0.97</r>
-		  <g>0.97</g>
-		  <b>0.87</b>
-		  <a>1.0</a>
-	  </specular>
+    <position>
+      <x>-3.6</x>
+      <y>0.394</y>
+      <z>-1.314</z>
+    </position>
+    <direction>
+      <x>-1</x>
+      <y>0</y>
+      <z>-0.2</z>
+    </direction>
+    <ambient>
+      <r>0.01</r>
+      <g>0.01</g>
+      <b>0.01</b>
+      <a>1.0</a>
+    </ambient>
+    <diffuse>
+      <r>0.97</r>
+      <g>0.97</g>
+      <b>0.87</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>0.97</r>
+      <g>0.97</g>
+      <b>0.87</b>
+      <a>1.0</a>
+    </specular>
     <dim-factor>
-      <property>sim/time/sun-angle-rad</property>
+      <property>/sim/time/sun-angle-rad</property>
       <interpolation>
         <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
         <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
@@ -1393,9 +2437,9 @@
       <offset>0</offset>
     </dim-factor>
     <attenuation>
-		  <c>1.0</c>
-		  <l>0.002</l>
-		  <q>0.00005</q>
+      <c>1.0</c>
+      <l>0.002</l>
+      <q>0.00005</q>
     </attenuation>
     <exponent>40</exponent>
     <near-m>0.5</near-m>
@@ -1409,7 +2453,7 @@
     <name>Landinglight</name>
     <object-name>LandLightVolume</object-name>
     <condition>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
     </condition>
     <position>
       <x>-3.419</x>
@@ -1434,7 +2478,7 @@
       <a>1.0</a>
     </specular>
     <dim-factor>
-      <property>sim/time/sun-angle-rad</property>
+      <property>/sim/time/sun-angle-rad</property>
       <interpolation>
         <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
         <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
@@ -1450,9 +2494,9 @@
       <offset>0</offset>
     </dim-factor>
     <attenuation>
-		  <c>1.0</c>
-		  <l>0.002</l>
-		  <q>0.00005</q>
+      <c>1.0</c>
+      <l>0.002</l>
+      <q>0.00005</q>
     </attenuation>
     <exponent>40</exponent>
     <near-m>0.05</near-m>
@@ -1466,7 +2510,7 @@
     <name>Landinglight_gear_left</name>
     <object-name>LandLightVolume_gear_left</object-name>
     <condition>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
     </condition>
     <position>
       <x-m>-1.260</x-m>
@@ -1491,7 +2535,7 @@
       <a>1.0</a>
     </specular>
     <dim-factor>
-      <property>sim/time/sun-angle-rad</property>
+      <property>/sim/time/sun-angle-rad</property>
       <interpolation>
         <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
         <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
@@ -1507,9 +2551,9 @@
       <offset>0</offset>
     </dim-factor>
     <attenuation>
-		  <c>1.0</c>
-		  <l>0.002</l>
-		  <q>0.00005</q>
+      <c>1.0</c>
+      <l>0.002</l>
+      <q>0.00005</q>
     </attenuation>
     <exponent>40</exponent>
     <near-m>0.05</near-m>
@@ -1523,7 +2567,7 @@
     <name>Landinglight_gear_right</name>
     <object-name>LandLightVolume_gear_right</object-name>
     <condition>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
     </condition>
     <position>
       <x-m>-1.260</x-m>
@@ -1548,7 +2592,7 @@
       <a>1.0</a>
     </specular>
     <dim-factor>
-      <property>sim/time/sun-angle-rad</property>
+      <property>/sim/time/sun-angle-rad</property>
       <interpolation>
         <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
         <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
@@ -1564,9 +2608,9 @@
       <offset>0</offset>
     </dim-factor>
     <attenuation>
-		  <c>1.0</c>
-		  <l>0.002</l>
-		  <q>0.00005</q>
+      <c>1.0</c>
+      <l>0.002</l>
+      <q>0.00005</q>
     </attenuation>
     <exponent>40</exponent>
     <near-m>0.05</near-m>
@@ -1574,12 +2618,13 @@
     <cutoff>40</cutoff>
   </animation>
 
-  <!--beacon, gear strobe-->
-  <!-- ??? object names were missing -->
+  <!--beacon, gear+stabi strobe-->
   <animation>
     <type>range</type>
     <object-name>Plane.005X</object-name>
     <object-name>Plane.005Xb</object-name>
+    <object-name>Plane.005Xbsl</object-name>
+    <object-name>Plane.005Xbsr</object-name>
     <min-m>0</min-m>
     <max-m>25000</max-m>
   </animation>
@@ -1588,10 +2633,12 @@
     <type>alpha-test</type>
     <object-name>Plane.005X</object-name>
     <object-name>Plane.005Xb</object-name>
+    <object-name>Plane.005Xbsl</object-name>
+    <object-name>Plane.005Xbsr</object-name>
     <alpha-factor>0.001</alpha-factor>
     <condition>
       <not>
-        <property>sim/rendering/rembrandt/enabled</property>
+        <property>/sim/rendering/rembrandt/enabled</property>
       </not>
     </condition>
   </animation>
@@ -1620,10 +2667,36 @@
     </axis>
   </animation>
 
+  <!-- stabi strobe left -->
+  <animation>
+    <type>translate</type>
+    <object-name>Plane.005Xbsl</object-name>
+    <offset-m>3.3</offset-m>
+    <axis>
+      <x> 3.5</x>
+      <y>-1.6</y>
+      <z>-0.25</z>
+    </axis>
+  </animation>
+
+  <!-- stabi strobe right -->
+  <animation>
+    <type>translate</type>
+    <object-name>Plane.005Xbsr</object-name>
+    <offset-m>3.3</offset-m>
+    <axis>
+      <x> 3.5</x>
+      <y> 1.6</y>
+      <z>-0.25</z>
+    </axis>
+  </animation>
+
   <animation>
     <type>billboard</type>
     <object-name>Plane.005X</object-name>
     <object-name>Plane.005Xb</object-name>
+    <object-name>Plane.005Xbsl</object-name>
+    <object-name>Plane.005Xbsr</object-name>
     <spherical type="bool">true</spherical>
   </animation>
 
@@ -1677,6 +2750,32 @@
     </interpolation>
   </animation>
 
+  <Plane.005Xbsparams>
+    <light-near>0.2</light-near>
+    <light-med>0.4</light-med>
+    <light-far>6</light-far>
+  </Plane.005Xbsparams>
+
+  <animation>
+    <type>dist-scale</type>
+    <object-name>Plane.005Xbsl</object-name>
+    <object-name>Plane.005Xbsr</object-name>
+    <interpolation>
+      <entry>
+        <ind>0</ind>
+        <dep alias="../../../../Plane.005Xbsparams/light-near"/>
+      </entry>
+      <entry>
+        <ind>500</ind>
+        <dep alias="../../../../Plane.005Xbsparams/light-med"/>
+      </entry>
+      <entry>
+        <ind>16000</ind>
+        <dep alias="../../../../Plane.005Xbsparams/light-far"/>
+      </entry>
+    </interpolation>
+  </animation>
+
   <!--beacon rembrandt -->
   <animation>
     <type>light</type>
@@ -1684,7 +2783,7 @@
     <name>Beacon</name>
     <object-name>BeaconVolume</object-name>
     <condition>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
       <greater-than>
         <property>sim/multiplay/generic/int[5]</property>
         <value>24</value>
@@ -1714,7 +2813,7 @@
       <a>1.0</a>
     </specular>
     <dim-factor>
-      <property>sim/time/sun-angle-rad</property>
+      <property>/sim/time/sun-angle-rad</property>
       <interpolation>
         <entry><ind> 0.00 </ind><dep> 0.30 </dep></entry>
         <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
@@ -1746,7 +2845,7 @@
     <object-name>GearStrobeVolume</object-name>
     <condition>
       <property>sim/model/ec130/gear_strobe</property>
-      <property>sim/rendering/rembrandt/enabled</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
       <or>
         <property>sim/multiplay/generic/int[3]</property>
         <greater-than>
@@ -1779,7 +2878,137 @@
       <a>1.0</a>
     </specular>
     <dim-factor>
-      <property>sim/time/sun-angle-rad</property>
+      <property>/sim/time/sun-angle-rad</property>
+      <interpolation>
+        <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
+        <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
+        <entry><ind> 1.04 </ind><dep> 0.35 </dep></entry>
+        <entry><ind> 1.30 </ind><dep> 0.45 </dep></entry>
+        <entry><ind> 1.40 </ind><dep> 0.55 </dep></entry>
+        <entry><ind> 1.48 </ind><dep> 0.75 </dep></entry>
+        <entry><ind> 1.57 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.10 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.62 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 3.14 </ind><dep> 1.00 </dep></entry>
+      </interpolation>
+      <offset>0</offset>
+    </dim-factor>
+    <attenuation>
+      <c>1.0</c>
+      <l>0.7</l>
+      <q>2</q>
+    </attenuation>
+    <near-m>0.01</near-m>
+    <far-m>15</far-m>
+  </animation>
+
+  <!--stabi strobe left rembrandt -->
+  <animation>
+    <type>light</type>
+    <light-type>point</light-type>
+    <name>StabiStrobeLeft</name>
+    <object-name>StrobeStabiLeftVolume</object-name>
+    <condition>
+      <property>sim/model/ec130/stabi_strobe</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
+      <or>
+        <property>sim/multiplay/generic/int[3]</property>
+        <greater-than>
+          <property>systems/electrical/outputs/strobe</property>
+          <value>24</value>
+        </greater-than>
+      </or>
+    </condition>
+    <position>
+      <x> 3.04</x>
+      <y> 1.38</y>
+      <z>-0.22</z>
+    </position>
+    <ambient>
+      <r>1.0</r>
+      <g>1.0</g>
+      <b>1.0</b>
+      <a>1.0</a>
+    </ambient>
+    <diffuse>
+      <r>1.0</r>
+      <g>1.0</g>
+      <b>1.0</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>1.0</r>
+      <g>1.0</g>
+      <b>1.0</b>
+      <a>1.0</a>
+    </specular>
+    <dim-factor>
+      <property>/sim/time/sun-angle-rad</property>
+      <interpolation>
+        <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
+        <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
+        <entry><ind> 1.04 </ind><dep> 0.35 </dep></entry>
+        <entry><ind> 1.30 </ind><dep> 0.45 </dep></entry>
+        <entry><ind> 1.40 </ind><dep> 0.55 </dep></entry>
+        <entry><ind> 1.48 </ind><dep> 0.75 </dep></entry>
+        <entry><ind> 1.57 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.10 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 2.62 </ind><dep> 1.00 </dep></entry>
+        <entry><ind> 3.14 </ind><dep> 1.00 </dep></entry>
+      </interpolation>
+      <offset>0</offset>
+    </dim-factor>
+    <attenuation>
+      <c>1.0</c>
+      <l>0.7</l>
+      <q>2</q>
+    </attenuation>
+    <near-m>0.01</near-m>
+    <far-m>15</far-m>
+  </animation>
+
+  <!--stabi strobe right rembrandt -->
+  <animation>
+    <type>light</type>
+    <light-type>point</light-type>
+    <name>StabiStrobeRight</name>
+    <object-name>StrobeStabiRightVolume</object-name>
+    <condition>
+      <property>sim/model/ec130/stabi_strobe</property>
+      <property>/sim/rendering/rembrandt/enabled</property>
+      <or>
+        <property>sim/multiplay/generic/int[3]</property>
+        <greater-than>
+          <property>systems/electrical/outputs/strobe</property>
+          <value>24</value>
+        </greater-than>
+      </or>
+    </condition>
+    <position>
+      <x> 3.04</x>
+      <y>-1.38</y>
+      <z>-0.22</z>
+    </position>
+    <ambient>
+      <r>1.0</r>
+      <g>1.0</g>
+      <b>1.0</b>
+      <a>1.0</a>
+    </ambient>
+    <diffuse>
+      <r>1.0</r>
+      <g>1.0</g>
+      <b>1.0</b>
+      <a>1.0</a>
+    </diffuse>
+    <specular>
+      <r>1.0</r>
+      <g>1.0</g>
+      <b>1.0</b>
+      <a>1.0</a>
+    </specular>
+    <dim-factor>
+      <property>/sim/time/sun-angle-rad</property>
       <interpolation>
         <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
         <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
@@ -1902,6 +3131,23 @@
     <object-name>vor_2_roof</object-name>
     <condition>
       <property>sim/model/ec130/vor_2_roof</property>
+      <equals>
+        <property>sim/model/variant</property>
+        <value>1</value>
+      </equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>vor_2_roof_t2</object-name>
+    <condition>
+      <property>sim/model/ec130/vor_2_roof</property>
+      <equals>
+        <property>sim/model/variant</property>
+        <value>2</value>
+      </equals>
     </condition>
   </animation>
 
@@ -2003,6 +3249,7 @@
     <type>translate</type>
     <object-name>seat_pass_front_r</object-name>
     <object-name>seat_pass_front_r_frame</object-name>
+    <object-name>passenger_fr</object-name>
     <property>sim/model/ec130/interior_passengers</property>
     <factor>1</factor>
     <offset>0</offset>
@@ -2053,6 +3300,7 @@
 
   <!-- stretcher -->
   <animation>
+    <nopreview/>
     <type>select</type>
     <object-name>stretcher</object-name>
     <condition>
@@ -2060,6 +3308,24 @@
         <property>sim/model/ec130/interior_passengers</property>
         <value>4</value>
       </equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <nopreview/>
+    <type>select</type>
+    <object-name>beltp_upper</object-name>
+    <object-name>beltp_lower</object-name>
+    <object-name>beltp_lock</object-name>
+    <object-name>beltp_legs</object-name>
+    <condition>
+      <equals>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </equals>
+      <not>
+        <property>sim/view[107]/enabled</property>
+      </not>
     </condition>
   </animation>
 
@@ -2450,6 +3716,7 @@
   <animation>
     <type>rotate</type>
     <object-name>doorfr</object-name>
+    <object-name>doorfr_t2</object-name>
     <property>sim/model/ec130/doors/frontr/position-norm</property>
     <factor>  70.0 </factor>
     <axis>
@@ -2465,6 +3732,7 @@
   <animation>
     <type>pick</type>
     <object-name>doorfr</object-name>
+    <object-name>doorfr_t2</object-name>
     <action>
       <button>0</button>
       <repeatable>false</repeatable>
@@ -2591,7 +3859,7 @@
     </hovered>
   </animation>
 
-  <!-- passenger door back right -->
+  <!-- passenger door back right B4 variant -->
   <animation>
     <type>rotate</type>
     <object-name>doorbr</object-name>
@@ -2610,6 +3878,7 @@
   <animation>
     <type>pick</type>
     <object-name>doorbr</object-name>
+    <object-name>doorbr_t2</object-name>
     <action>
       <button>0</button>
       <repeatable>false</repeatable>
@@ -2629,7 +3898,92 @@
     </hovered>
   </animation>
 
-  <!-- luggage left -->
+  <!-- passenger door back right T2 variant -->
+  <animation>
+    <type>translate</type>
+    <object-name>doorbr_t2</object-name>
+    <object-name>doorbr_lever_t2</object-name>
+    <object-name>doorbr_hinge_t2</object-name>
+    <property>sim/model/ec130/doors/passengerr/position-norm</property>
+    <interpolation>
+      <entry><ind> 0.0 </ind><dep> 0.0  </dep></entry>
+      <entry><ind> 0.5 </ind><dep> 0.42 </dep></entry>
+      <entry><ind> 1.0 </ind><dep> 0.85 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 1 </x>
+      <y> 0 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>doorbr_t2</object-name>
+    <object-name>doorbr_lever_t2</object-name>
+    <object-name>doorbr_hinge_t2</object-name>
+    <property>sim/model/ec130/doors/passengerr/position-norm</property>
+    <interpolation>
+      <entry><ind> 0.00 </ind><dep>  0.00 </dep></entry>
+      <entry><ind> 0.05 </ind><dep>  0.00 </dep></entry>
+      <entry><ind> 0.10 </ind><dep> -0.03 </dep></entry>
+      <entry><ind> 1.00 </ind><dep> -0.07 </dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y>-1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>doorbr_lever_t2</object-name>
+    <property>sim/model/ec130/doors/passengerr/position-norm</property>
+    <factor> 15 </factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep>  0</dep></entry>
+      <entry><ind>0.05</ind><dep> -9</dep></entry>
+      <entry><ind>0.10</ind><dep>-10</dep></entry>
+      <entry><ind>1.00</ind><dep>-18</dep></entry>
+    </interpolation>
+    <center>
+      <x-m> -3.390 </x-m>
+      <y-m>  0.943 </y-m>
+      <z-m>  0.000 </z-m>
+    </center>
+    <axis>
+      <x>0.1</x>
+      <y>0</y>
+      <z>-1</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <nopreview/>
+    <type>rotate</type>
+    <object-name>doorbr_hinge_t2</object-name>
+    <property>sim/model/ec130/doors/passengerr/position-norm</property>
+    <factor> 90 </factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 12</dep></entry>
+      <entry><ind>0.05</ind><dep> 12</dep></entry>
+      <entry><ind>0.10</ind><dep> 20</dep></entry>
+      <entry><ind>1.00</ind><dep> 90</dep></entry>
+    </interpolation>
+    <center>
+      <x-m> -2.545 </x-m>
+      <y-m>  1.016 </y-m>
+      <z-m>  0.000 </z-m>
+    </center>
+    <axis>
+      <x>-0.07</x>
+      <y>0</y>
+      <z>-1</z>
+    </axis>
+  </animation>
+
+  <!-- luggage box left -->
   <animation>
     <type>rotate</type>
     <object-name>luggagel</object-name>
@@ -2669,7 +4023,7 @@
     </hovered>
   </animation>
 
-  <!-- luggage left wide -->
+  <!-- luggage box left wide -->
   <animation>
     <type>rotate</type>
     <object-name>luggagelw</object-name>
@@ -2709,7 +4063,36 @@
     </hovered>
   </animation>
 
-  <!-- luggage right -->
+  <animation>
+    <type>pick</type>
+    <object-name>luggageboxl</object-name>
+    <object-name>luggageboxlw</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(1,8);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>luggagel_lgw</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("add Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!-- luggage box right -->
   <animation>
     <type>rotate</type>
     <object-name>luggager</object-name>
@@ -2753,7 +4136,7 @@
     </hovered>
   </animation>
 
-  <!-- luggage right wide -->
+  <!-- luggage box right wide -->
   <animation>
     <type>rotate</type>
     <object-name>luggagerw</object-name>
@@ -2789,6 +4172,35 @@
         <command>set-tooltip</command>
         <tooltip-id>luggagerw</tooltip-id>
         <label>move door</label>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>luggageboxr</object-name>
+    <object-name>luggageboxrw</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(1,9);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>luggager_lgw</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("add Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
       </binding>
     </hovered>
   </animation>
@@ -2829,6 +4241,34 @@
         <command>set-tooltip</command>
         <tooltip-id>doorb</tooltip-id>
         <label>move door</label>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>doorbox</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(1,10);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>luggageb_lgw</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("add Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
       </binding>
     </hovered>
   </animation>
@@ -3278,7 +4718,7 @@
     </hovered>
   </animation>
 
-  <!-- luggage left wide strut -->
+  <!-- luggage box left wide strut -->
   <animation>
     <type>rotate</type>
     <object-name>luggagelw_cyl</object-name>
@@ -3347,7 +4787,7 @@
     </hovered>
   </animation>
 
-  <!-- luggage right wide strut -->
+  <!-- luggage box right wide strut -->
   <animation>
     <type>rotate</type>
     <object-name>luggagerw_cyl</object-name>
@@ -3415,16 +4855,2156 @@
     </hovered>
   </animation>
 
+  <!-- luggage left -->
+  <model>
+    <name>backp_tramp_50l</name>
+    <path>Aircraft/ec130/Models/Luggage/backp_tramp_50.xml</path>
+    <offsets>
+      <x-m> -1.99 </x-m>
+      <y-m> -0.48 </y-m>
+      <z-m> -0.95 </z-m>
+      <pitch-deg>-2</pitch-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backp_tramp_50l</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[8]/luggage-cnt</property>
+        <value>1</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backp_tramp_50l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,8);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_l1</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_red_30l</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_red_30.xml</path>
+    <offsets>
+      <x-m> -2.32 </x-m>
+      <y-m> -0.65 </y-m>
+      <z-m> -0.95 </z-m>
+      <pitch-deg>-3</pitch-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_red_30l</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[8]/luggage-cnt</property>
+        <value>2</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_red_30l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,8);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_l2</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_blue_30l</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_blue_30.xml</path>
+    <offsets>
+      <x-m> -1.95 </x-m>
+      <y-m> -0.57 </y-m>
+      <z-m> -0.94 </z-m>
+      <pitch-deg>-3</pitch-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_blue_30l</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[8]/luggage-cnt</property>
+        <value>3</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_blue_30l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,8);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_l3</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_green_30l</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_green_30.xml</path>
+    <offsets>
+      <x-m> -2.29 </x-m>
+      <y-m> -0.35 </y-m>
+      <z-m> -0.40 </z-m>
+      <pitch-deg>-3</pitch-deg>
+      <roll-deg>-95</roll-deg>
+      <heading-deg>180</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_green_30l</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[8]/luggage-cnt</property>
+        <value>4</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_green_30l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,8);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_l4</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_dark_grey_30l</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_dark_grey_30.xml</path>
+    <offsets>
+      <x-m> -1.59 </x-m>
+      <y-m> -0.52 </y-m>
+      <z-m> -0.41 </z-m>
+      <pitch-deg>-3</pitch-deg>
+      <roll-deg>-95</roll-deg>
+      <heading-deg>90</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_dark_grey_30l</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[8]/luggage-cnt</property>
+        <value>5</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_dark_grey_30l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,8);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_l5</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_light_blue_20l</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_light_blue_20.xml</path>
+    <offsets>
+      <x-m> -1.61 </x-m>
+      <y-m> -0.57 </y-m>
+      <z-m> -0.89 </z-m>
+      <pitch-deg>-3</pitch-deg>
+      <heading-deg>20</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_light_blue_20l</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[8]/luggage-cnt</property>
+        <value>6</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_light_blue_20l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,8);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_l6</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_dark_red_20l</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_dark_red_20.xml</path>
+    <offsets>
+      <x-m> -1.42 </x-m>
+      <y-m> -0.57 </y-m>
+      <z-m> -0.86 </z-m>
+      <pitch-deg>-3</pitch-deg>
+      <heading-deg>90</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_dark_red_20l</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[8]/luggage-cnt</property>
+        <value>7</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_dark_red_20l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,8);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_l7</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_dark_grey_20l</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_dark_grey_20.xml</path>
+    <offsets>
+      <x-m> -1.61 </x-m>
+      <y-m> -0.76 </y-m>
+      <z-m> -0.885 </z-m>
+      <pitch-deg>-5</pitch-deg>
+      <heading-deg>10</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_dark_grey_20l</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[8]/luggage-cnt</property>
+        <value>8</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_dark_grey_20l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,8);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_l8</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>pack_orange_20l</name>
+    <path>Aircraft/ec130/Models/Luggage/pack_orange_20.xml</path>
+    <offsets>
+      <x-m> -1.47 </x-m>
+      <y-m> -0.80 </y-m>
+      <z-m> -0.40 </z-m>
+      <pitch-deg>0</pitch-deg>
+      <roll-deg>-90</roll-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>pack_orange_20l</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[8]/luggage-cnt</property>
+        <value>9</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>pack_orange_20l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,8);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_l9</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!-- luggage right -->
+  <model>
+    <name>backpack_green_30r</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_green_30.xml</path>
+    <offsets>
+      <x-m> -2.38 </x-m>
+      <y-m>  0.85 </y-m>
+      <z-m> -0.95 </z-m>
+      <pitch-deg>0</pitch-deg>
+      <roll-deg>-90</roll-deg>
+      <heading-deg>180</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_green_30r</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[9]/luggage-cnt</property>
+        <value>1</value>
+      </greater-than-equals>
+      <greater-than>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>backpack_green_30r</object-name>
+    <property>sim/model/ec130/searchlight</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind> 0.0 </ind><dep> 0.00</dep></entry>
+      <entry><ind> 1.0 </ind><dep> 0.02</dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>backpack_green_30r</object-name>
+    <property>sim/model/ec130/searchlight</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>1.00</ind><dep> 7.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m>  0.00 </x-m>
+      <y-m>  0.60 </y-m>
+      <z-m> -0.85 </z-m>
+    </center>
+    <axis>
+      <x>1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>backpack_green_30r</object-name>
+    <property>sim/weight[9]/luggage-cnt</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>1.00</ind><dep>-5.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m> -2.38 </x-m>
+      <y-m>  0.00 </y-m>
+      <z-m> -0.95 </z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_green_30r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,9);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_r1</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_red_30r</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_red_30.xml</path>
+    <offsets>
+      <x-m> -2.00 </x-m>
+      <y-m>  0.82 </y-m>
+      <z-m> -0.93 </z-m>
+      <pitch-deg>0</pitch-deg>
+      <roll-deg>-90</roll-deg>
+      <heading-deg>179</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_red_30r</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[9]/luggage-cnt</property>
+        <value>2</value>
+      </greater-than-equals>
+      <greater-than>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>backpack_red_30r</object-name>
+    <property>sim/weight[9]/luggage-cnt</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>1.00</ind><dep>-5.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m> -2.00 </x-m>
+      <y-m>  0.00 </y-m>
+      <z-m> -0.93 </z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_red_30r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,9);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_r2</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_blue_30r</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_blue_30.xml</path>
+    <offsets>
+      <x-m> -2.32 </x-m>
+      <y-m>  0.83 </y-m>
+      <z-m> -0.74 </z-m>
+      <pitch-deg>0</pitch-deg>
+      <roll-deg>-90</roll-deg>
+      <heading-deg>180</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_blue_30r</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[9]/luggage-cnt</property>
+        <value>3</value>
+      </greater-than-equals>
+      <greater-than>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>backpack_blue_30r</object-name>
+    <property>sim/model/ec130/searchlight</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind> 0.0 </ind><dep> 0.00</dep></entry>
+      <entry><ind> 1.0 </ind><dep> 0.02</dep></entry>
+    </interpolation>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>backpack_blue_30r</object-name>
+    <property>sim/model/ec130/searchlight</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>1.00</ind><dep> 7.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m>  0.00 </x-m>
+      <y-m>  0.60 </y-m>
+      <z-m> -0.85 </z-m>
+    </center>
+    <axis>
+      <x>1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_blue_30r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,9);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_r3</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_dark_grey_30r</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_dark_grey_30.xml</path>
+    <offsets>
+      <x-m> -1.39 </x-m>
+      <y-m>  0.27 </y-m>
+      <z-m> -0.88 </z-m>
+      <pitch-deg>4</pitch-deg>
+      <roll-deg>0</roll-deg>
+      <heading-deg>180</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_dark_grey_30r</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[9]/luggage-cnt</property>
+        <value>4</value>
+      </greater-than-equals>
+      <greater-than>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_dark_grey_30r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,9);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_r4</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_dark_grey_30r2</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_dark_grey_30.xml</path>
+    <offsets>
+      <x-m> -1.55 </x-m>
+      <y-m>  0.51 </y-m>
+      <z-m> -0.90 </z-m>
+      <pitch-deg>0</pitch-deg>
+      <roll-deg>5</roll-deg>
+      <heading-deg>-90</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_dark_grey_30r2</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[9]/luggage-cnt</property>
+        <value>5</value>
+      </greater-than-equals>
+      <greater-than>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_dark_grey_30r2</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,9);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_r5</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_dark_red_20r</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_dark_red_20.xml</path>
+    <offsets>
+      <x-m> -2.05 </x-m>
+      <y-m>  0.83 </y-m>
+      <z-m> -0.61 </z-m>
+      <pitch-deg>0</pitch-deg>
+      <roll-deg>-90</roll-deg>
+      <heading-deg>180</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_dark_red_20r</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[9]/luggage-cnt</property>
+        <value>6</value>
+      </greater-than-equals>
+      <greater-than>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>backpack_dark_red_20r</object-name>
+    <property>sim/model/ec130/searchlight</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>1.00</ind><dep> 3.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m>  0.00 </x-m>
+      <y-m>  0.60 </y-m>
+      <z-m> -0.65 </z-m>
+    </center>
+    <axis>
+      <x>1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>backpack_dark_red_20r</object-name>
+    <property>sim/weight[9]/luggage-cnt</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>1.00</ind><dep>30.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m> -2.05 </x-m>
+      <y-m>  0.00 </y-m>
+      <z-m> -0.61 </z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_dark_red_20r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,9);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_r6</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_dark_grey_20r</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_dark_grey_20.xml</path>
+    <offsets>
+      <x-m> -2.27 </x-m>
+      <y-m>  0.83 </y-m>
+      <z-m> -0.46 </z-m>
+      <pitch-deg>0</pitch-deg>
+      <roll-deg>-90</roll-deg>
+      <heading-deg>180</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_dark_grey_20r</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[9]/luggage-cnt</property>
+        <value>7</value>
+      </greater-than-equals>
+      <greater-than>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>backpack_dark_grey_20r</object-name>
+    <property>sim/model/ec130/searchlight</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>1.00</ind><dep> 7.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m>  0.00 </x-m>
+      <y-m>  0.60 </y-m>
+      <z-m> -0.85 </z-m>
+    </center>
+    <axis>
+      <x>1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>backpack_dark_grey_20r</object-name>
+    <property>sim/weight[9]/luggage-cnt</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>1.00</ind><dep>-20.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m> -2.27 </x-m>
+      <y-m>  0.00 </y-m>
+      <z-m> -0.46 </z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_dark_grey_20r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,9);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_r7</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_light_blue_20r</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_light_blue_20.xml</path>
+    <offsets>
+      <x-m> -2.03 </x-m>
+      <y-m>  0.83 </y-m>
+      <z-m> -0.41 </z-m>
+      <pitch-deg>0</pitch-deg>
+      <roll-deg>-90</roll-deg>
+      <heading-deg>180</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_light_blue_20r</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[9]/luggage-cnt</property>
+        <value>8</value>
+      </greater-than-equals>
+      <greater-than>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>backpack_light_blue_20r</object-name>
+    <property>sim/model/ec130/searchlight</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>1.00</ind><dep> 3.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m>  0.00 </x-m>
+      <y-m>  0.60 </y-m>
+      <z-m> -0.65 </z-m>
+    </center>
+    <axis>
+      <x>1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>backpack_light_blue_20r</object-name>
+    <property>sim/weight[9]/luggage-cnt</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>1.00</ind><dep>40.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m> -2.03 </x-m>
+      <y-m>  0.00 </y-m>
+      <z-m> -0.41 </z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_light_blue_20r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,9);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_r8</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>pack_orange_20r</name>
+    <path>Aircraft/ec130/Models/Luggage/pack_orange_20.xml</path>
+    <offsets>
+      <x-m> -1.25 </x-m>
+      <y-m>  0.70 </y-m>
+      <z-m> -0.865 </z-m>
+      <pitch-deg>17</pitch-deg>
+      <roll-deg>-94</roll-deg>
+      <heading-deg>90</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>pack_orange_20r</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[9]/luggage-cnt</property>
+        <value>9</value>
+      </greater-than-equals>
+      <greater-than>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>pack_orange_20r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,9);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_r9</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_green_30r2</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_green_30.xml</path>
+    <offsets>
+      <x-m> -1.73 </x-m>
+      <y-m>  0.70 </y-m>
+      <z-m> -0.52 </z-m>
+      <pitch-deg>-85</pitch-deg>
+      <roll-deg>0</roll-deg>
+      <heading-deg>180</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_green_30r2</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[9]/luggage-cnt</property>
+        <value>10</value>
+      </greater-than-equals>
+      <greater-than>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_green_30r2</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,9);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_r10</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>backpack_dark_grey_20r2</name>
+    <path>Aircraft/ec130/Models/Luggage/backpack_dark_grey_20.xml</path>
+    <offsets>
+      <x-m> -1.31 </x-m>
+      <y-m>  0.50 </y-m>
+      <z-m> -0.36 </z-m>
+      <pitch-deg>90</pitch-deg>
+      <roll-deg>-90</roll-deg>
+      <heading-deg>180</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>backpack_dark_grey_20r2</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[9]/luggage-cnt</property>
+        <value>11</value>
+      </greater-than-equals>
+      <greater-than>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </greater-than>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>backpack_dark_grey_20r2</object-name>
+    <property>sim/weight[9]/luggage-cnt</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>1.00</ind><dep>-10.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m> -1.33 </x-m>
+      <y-m>  0.64 </y-m>
+      <z-m> -0.36 </z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>backpack_dark_grey_20r2</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,9);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_r11</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>stretcher_roller_30r</name>
+    <path>Aircraft/ec130/Models/Luggage/stretcher_roller_30.xml</path>
+    <offsets>
+      <x-m> -1.95 </x-m>
+      <y-m>  0.40 </y-m>
+      <z-m> -0.62 </z-m>
+      <pitch-deg>4</pitch-deg>
+      <roll-deg>0</roll-deg>
+      <heading-deg>180</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>stretcher_roller_30r</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[9]/luggage-cnt</property>
+        <value>1</value>
+      </greater-than-equals>
+      <equals>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>stretcher_roller_30r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,9);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_re1</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>first_aid_pack</name>
+    <path>Aircraft/ec130/Models/Luggage/pack_orange_20.xml</path>
+    <offsets>
+      <x-m> -2.45 </x-m>
+      <y-m>  0.45 </y-m>
+      <z-m> -0.96 </z-m>
+      <pitch-deg>0</pitch-deg>
+      <roll-deg>-89</roll-deg>
+      <heading-deg>0</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>first_aid_pack</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[9]/luggage-cnt</property>
+        <value>2</value>
+      </greater-than-equals>
+      <equals>
+        <property>sim/model/ec130/interior_passengers</property>
+        <value>4</value>
+      </equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>first_aid_pack</object-name>
+    <property>sim/model/ec130/searchlight</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>1.00</ind><dep> 5.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m>  0.00 </x-m>
+      <y-m>  0.45 </y-m>
+      <z-m> -0.94 </z-m>
+    </center>
+    <axis>
+      <x>1</x>
+      <y>0</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>first_aid_pack</object-name>
+    <property>sim/weight[9]/luggage-cnt</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>1.00</ind><dep>-5.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m> -2.45 </x-m>
+      <y-m>  0.00 </y-m>
+      <z-m> -0.94 </z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>first_aid_pack</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,9);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_re2</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!-- luggage back -->
+  <model>
+    <name>pack_back_1_30</name>
+    <path>Aircraft/ec130/Models/Luggage/pack_grey_30.xml</path>
+    <offsets>
+      <x-m> -0.77 </x-m>
+      <y-m>  0.00 </y-m>
+      <z-m> -0.80 </z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>pack_back_1_30</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[10]/luggage-cnt</property>
+        <value>1</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>pack_back_1_30</object-name>
+    <property>sim/weight[10]/luggage-cnt</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>1.00</ind><dep>-10.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m> -0.77 </x-m>
+      <y-m>  0.00 </y-m>
+      <z-m> -0.80 </z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>pack_back_1_30</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,10);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_b1</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>pack_back_2_30</name>
+    <path>Aircraft/ec130/Models/Luggage/pack_grey_30.xml</path>
+    <offsets>
+      <x-m> -0.78 </x-m>
+      <y-m>  0.05 </y-m>
+      <z-m> -0.54 </z-m>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>pack_back_2_30</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[10]/luggage-cnt</property>
+        <value>2</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>pack_back_2_30</object-name>
+    <property>sim/weight[10]/luggage-cnt</property>
+    <factor>1</factor>
+    <interpolation>
+      <entry><ind>0.00</ind><dep> 0.0</dep></entry>
+      <entry><ind>1.00</ind><dep>-10.0</dep></entry>
+    </interpolation>
+    <center>
+      <x-m> -0.78 </x-m>
+      <y-m>  0.00 </y-m>
+      <z-m> -0.54 </z-m>
+    </center>
+    <axis>
+      <x>0</x>
+      <y>1</y>
+      <z>0</z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>pack_back_2_30</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,10);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_b2</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!-- luggage basket left -->
+  <model>
+    <name>ski_pack_1_20l</name>
+    <path>Aircraft/ec130/Models/Luggage/ski_pack_blue_20.xml</path>
+    <offsets>
+      <x-m> -2.08 </x-m>
+      <y-m> -1.37 </y-m>
+      <z-m> -1.35 </z-m>
+      <roll-deg>-50</roll-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>ski_pack_1_20l</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[11]/luggage-cnt</property>
+        <value>1</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>ski_pack_1_20l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,11);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_bsl1</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>ski_pack_2_20l</name>
+    <path>Aircraft/ec130/Models/Luggage/ski_pack_green_20.xml</path>
+    <offsets>
+      <x-m> -2.08 </x-m>
+      <y-m> -1.47 </y-m>
+      <z-m> -1.35 </z-m>
+      <roll-deg>-10</roll-deg>
+      <heading-deg>180</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>ski_pack_2_20l</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[11]/luggage-cnt</property>
+        <value>2</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>ski_pack_2_20l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,11);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_bsl2</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>ski_pack_3_20l</name>
+    <path>Aircraft/ec130/Models/Luggage/ski_pack_red_20.xml</path>
+    <offsets>
+      <x-m> -1.98 </x-m>
+      <y-m> -1.33 </y-m>
+      <z-m> -1.26 </z-m>
+      <roll-deg>-100</roll-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>ski_pack_3_20l</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[11]/luggage-cnt</property>
+        <value>3</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>ski_pack_3_20l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,11);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_bsl3</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>ski_pack_4_20l</name>
+    <path>Aircraft/ec130/Models/Luggage/ski_pack_yellow_20.xml</path>
+    <offsets>
+      <x-m> -1.95 </x-m>
+      <y-m> -1.57 </y-m>
+      <z-m> -1.25 </z-m>
+      <roll-deg>-80</roll-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>ski_pack_4_20l</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[11]/luggage-cnt</property>
+        <value>4</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>ski_pack_4_20l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,11);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_bsl4</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>ski_pack_5_20l</name>
+    <path>Aircraft/ec130/Models/Luggage/ski_pack_red_20.xml</path>
+    <offsets>
+      <x-m> -1.95 </x-m>
+      <y-m> -1.43 </y-m>
+      <z-m> -1.23 </z-m>
+      <roll-deg>-30</roll-deg>
+      <heading-deg>180</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>ski_pack_5_20l</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[11]/luggage-cnt</property>
+        <value>5</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>ski_pack_5_20l</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,11);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_bsl5</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!-- luggage basket right -->
+  <model>
+    <name>ski_pack_1_20r</name>
+    <path>Aircraft/ec130/Models/Luggage/ski_pack_green_20.xml</path>
+    <offsets>
+      <x-m> -2.08 </x-m>
+      <y-m>  1.37 </y-m>
+      <z-m> -1.35 </z-m>
+      <roll-deg>-50</roll-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>ski_pack_1_20r</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[12]/luggage-cnt</property>
+        <value>1</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>ski_pack_1_20r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,12);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_bsr1</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>ski_pack_2_20r</name>
+    <path>Aircraft/ec130/Models/Luggage/ski_pack_red_20.xml</path>
+    <offsets>
+      <x-m> -2.08 </x-m>
+      <y-m>  1.47 </y-m>
+      <z-m> -1.35 </z-m>
+      <roll-deg>-10</roll-deg>
+      <heading-deg>180</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>ski_pack_2_20r</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[12]/luggage-cnt</property>
+        <value>2</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>ski_pack_2_20r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,12);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_bsr2</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>ski_pack_3_20r</name>
+    <path>Aircraft/ec130/Models/Luggage/ski_pack_blue_20.xml</path>
+    <offsets>
+      <x-m> -1.98 </x-m>
+      <y-m>  1.33 </y-m>
+      <z-m> -1.26 </z-m>
+      <roll-deg>-100</roll-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>ski_pack_3_20r</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[12]/luggage-cnt</property>
+        <value>3</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>ski_pack_3_20r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,12);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_bsr3</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>ski_pack_4_20r</name>
+    <path>Aircraft/ec130/Models/Luggage/ski_pack_yellow_20.xml</path>
+    <offsets>
+      <x-m> -1.95 </x-m>
+      <y-m>  1.52 </y-m>
+      <z-m> -1.28 </z-m>
+      <roll-deg>-80</roll-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>ski_pack_4_20r</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[12]/luggage-cnt</property>
+        <value>4</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>ski_pack_4_20r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,12);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_bsr4</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <model>
+    <name>ski_pack_5_20r</name>
+    <path>Aircraft/ec130/Models/Luggage/ski_pack_green_20.xml</path>
+    <offsets>
+      <x-m> -1.95 </x-m>
+      <y-m>  1.43 </y-m>
+      <z-m> -1.23 </z-m>
+      <roll-deg>-30</roll-deg>
+      <heading-deg>180</heading-deg>
+    </offsets>
+  </model>
+
+  <animation>
+    <type>select</type>
+    <object-name>ski_pack_5_20r</object-name>
+    <condition>
+      <greater-than-equals>
+        <property>sim/weight[12]/luggage-cnt</property>
+        <value>5</value>
+      </greater-than-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>ski_pack_5_20r</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(-1,12);
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>lugg_handle_bsr5</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("remove Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
   <!-- == PARTICLE SYSTEMS , Thanks to Oliver Thurau == -->
-	<model>
-		<name>mainrotors_dirt</name>
-		<path>Aircraft/ec130/Models/Wakes/rotor_particle.xml</path>
-		<offsets>
+  <model>
+    <name>mainrotors_dirt</name>
+    <path>Aircraft/ec130/Models/Wakes/rotor_particle.xml</path>
+    <offsets>
       <x-m> -1.900 </x-m>
       <y-m>  0.000 </y-m>
       <z-m> -1.600 </z-m>
-		</offsets>
-	</model>
+    </offsets>
+  </model>
 
   <!-- wakes, from Alouette II adapted mhab -->
   <!-- low wake -->
@@ -3472,7 +7052,7 @@
             <property>sim/rendering/shadows-ac</property>
           </not>
           <less-than>
-            <property>sim/time/sun-angle-rad</property>
+            <property>/sim/time/sun-angle-rad</property>
             <value>1.40</value>
           </less-than>
         </and>
@@ -3542,10 +7122,22 @@
   </animation>
 
   <animation>
+    <name>basketl_low</name>
+    <object-name>basket_left</object-name>
+    <object-name>basket_mesh_left</object-name>
+  </animation>
+
+  <animation>
     <name>basketr</name>
     <object-name>basket_right_cover</object-name>
     <object-name>basket_mesh_right_cover</object-name>
     <object-name>basket_right_rod_up</object-name>
+  </animation>
+
+  <animation>
+    <name>basketr_low</name>
+    <object-name>basket_right</object-name>
+    <object-name>basket_mesh_right</object-name>
   </animation>
 
   <animation>
@@ -3631,6 +7223,52 @@
         <command>set-tooltip</command>
         <tooltip-id>basketl</tooltip-id>
         <label>open/close cover</label>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>basketl_low</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <condition>
+          <greater-than>
+            <property>sim/model/ec130/doors/basketl/position-norm</property>
+            <value>0.9</value>
+          </greater-than>
+        </condition>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(1,11);
+        </script>
+      </binding>
+      <binding>
+        <condition>
+          <less-than>
+            <property>sim/model/ec130/doors/basketl/position-norm</property>
+            <value>0.9</value>
+          </less-than>
+        </condition>
+        <command>nasal</command>
+        <script>
+          screen.log.write("Open basket to add luggage !");
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>basketl_lgw</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("add Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
       </binding>
     </hovered>
   </animation>
@@ -3722,6 +7360,130 @@
     </hovered>
   </animation>
 
+  <animation>
+    <type>pick</type>
+    <object-name>basketr_low</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <condition>
+          <greater-than>
+            <property>sim/model/ec130/doors/basketr/position-norm</property>
+            <value>0.9</value>
+          </greater-than>
+        </condition>
+        <command>nasal</command>
+        <script>
+          ec130.handle_luggage(1,12);
+        </script>
+      </binding>
+      <binding>
+        <condition>
+          <less-than>
+            <property>sim/model/ec130/doors/basketr/position-norm</property>
+            <value>0.9</value>
+          </less-than>
+        </condition>
+        <command>nasal</command>
+        <script>
+          screen.log.write("Open basket to add luggage !");
+        </script>
+      </binding>
+    </action>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>basketl_lgw</tooltip-id>
+        <label>%s</label>
+        <property>/yasim/gross-weight-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("add Luggage (%d%% MTOW)",
+                         arg[0]/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <!-- fuel -->
+  <animation>
+    <type>knob</type>
+    <object-name>fuel</object-name>
+    <drag-direction>vertical</drag-direction>
+    <factor>1.0</factor>
+    <center>
+      <x-m>-1.267 </x-m>
+      <y-m>-0.638 </y-m>
+      <z-m>-0.204 </z-m>
+    </center>
+    <axis>
+      <x> 1 </x>
+      <y> 0 </y>
+      <z> 0 </z>
+    </axis>
+    <increase>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.adjust_fuel(2);
+        </script>
+      </binding>
+    </increase>
+    <decrease>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.adjust_fuel(-2);
+        </script>
+      </binding>
+    </decrease>
+    <hovered>
+      <binding>
+        <command>set-tooltip</command>
+        <tooltip-id>fuelknb</tooltip-id>
+        <label>%s</label>
+        <property>/consumables/fuel/tank/level-lbs</property>
+        <mapping>nasal</mapping>
+        <script>
+          return sprintf("Fuel: %3.0f lbs (%d%% tank, %d%% MTOW)",
+                         arg[0], arg[0]/getprop("/limits/tank")*100,
+                         getprop("/yasim/gross-weight-lbs")/getprop("/limits/mass-and-balance/maximum-takeoff-mass-lbs")*100);
+        </script>
+      </binding>
+    </hovered>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>fuel</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.adjust_fuel(2);
+        </script>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>pick</type>
+    <object-name>fuel</object-name>
+    <action>
+      <button>2</button>
+      <repeatable>true</repeatable>
+      <binding>
+        <command>nasal</command>
+        <script>
+          ec130.adjust_fuel(-2);
+        </script>
+      </binding>
+    </action>
+  </animation>
+
   <!-- hook -->
   <animation>
     <type>rotate</type>
@@ -3776,6 +7538,7 @@
     <path>Aircraft/ec130/Models/Effects/Fire.xml</path>
     <condition>
       <property>sim/crashed</property>
+      <property>sim/fire/enabled</property>
       <greater-than>
         <property>consumables/fuel/tank/level-lbs</property>
         <value>80</value>
@@ -3797,6 +7560,7 @@
     <path>Aircraft/ec130/Models/Effects/Smoke.xml</path>
     <condition>
       <property>sim/crashed</property>
+      <property>sim/smoke/enabled</property>
       <greater-than>
         <property>consumables/fuel/tank/level-lbs</property>
         <value>0</value>

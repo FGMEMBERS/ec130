@@ -4,7 +4,7 @@ Status: 8.1.2014
 
 Background:
 ----------
-The liveries used in Flightgear in directory "ec130\Models\Liveries" have a resolution
+The liveries used in Flightgear in directory "ec130\Models\Liveries*" have a resolution
 of 2048x1024.
 
 The lower resolution shall help to optimize/minimize usage of graphic ressources.

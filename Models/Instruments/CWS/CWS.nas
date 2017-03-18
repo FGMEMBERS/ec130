@@ -12,6 +12,8 @@ WarningPanelUpdate = func {
   var pitot = props.globals.getValue("/controls/anti-ice/pitot-heat") or 0;
   var horn = props.globals.getValue("/controls/electric/horn") or 0;
   var door = props.globals.getValue("/sim/model/ec130/doors/door-open") or 0;
+  var instlight1 = props.globals.getValue("/controls/lighting/instrument-lights") or 0;
+  var instlight2 = props.globals.getValue("/controls/lighting/instrument-lights2") or 0;
   var engp = props.globals.getValue("/engines/engine/oil-pressure-bar") or 0;
   var oilp = props.globals.getValue("/engines/engine/oil-pressure-bar-filter") or 0;
   var mgbp = props.globals.getValue("/rotors/gear/mgb-oil-pressure-bar") or 0;
@@ -28,6 +30,13 @@ WarningPanelUpdate = func {
   var gyro = props.globals.getValue("/controls/electric/gyrocompass") or 0;
 
 ###cautions###
+
+  if (LaL or TxL or test)
+  {
+    setprop("/instrumentation/annunciators/warning/lite",1);
+  } else {
+    setprop("/instrumentation/annunciators/warning/lite",0.0);
+  }
 
   if ((fuel <106) or test)
   {
@@ -50,30 +59,6 @@ WarningPanelUpdate = func {
     setprop("/instrumentation/annunciators/warning/fuelf",0.0);
   }
 
-  # value unclear, guess only
-  if ((servo < 10) or servotest or test)
-  {
-    setprop("/instrumentation/annunciators/warning/servo",1);
-  } else {
-    setprop("/instrumentation/annunciators/warning/servo",0.0);
-  }
-
-  # value unclear, guess only
-  if ((hydr < 10) or test)
-  {
-    setprop("/instrumentation/annunciators/warning/hydr",1);
-  } else {
-    setprop("/instrumentation/annunciators/warning/hydr",0.0);
-  }
-
-  # not in real use yet
-  if (test)
-  {
-    setprop("/instrumentation/annunciators/warning/emergxmit",1);
-  } else {
-    setprop("/instrumentation/annunciators/warning/emergxmit",0.0);
-  }
-
   if ((genload<0.3) or test)
   {
     setprop("/instrumentation/annunciators/warning/gen",1);
@@ -86,6 +71,14 @@ WarningPanelUpdate = func {
     setprop("/instrumentation/annunciators/warning/batt",1);
   } else {
     setprop("/instrumentation/annunciators/warning/batt",0.0);
+  }
+
+  # not in real use yet
+  if (test)
+  {
+    setprop("/instrumentation/annunciators/warning/emergxmit",1);
+  } else {
+    setprop("/instrumentation/annunciators/warning/emergxmit",0.0);
   }
 
   # not in real use yet
@@ -110,6 +103,20 @@ WarningPanelUpdate = func {
     setprop("/instrumentation/annunciators/warning/horn",0.0);
   }
 
+  if (door or test)
+  {
+    setprop("/instrumentation/annunciators/warning/door",1);
+  } else {
+    setprop("/instrumentation/annunciators/warning/door",0.0);
+  }
+
+  if ((!instlight1 and !instlight2) or test)
+  {
+    setprop("/instrumentation/annunciators/warning/instlight",1);
+  } else {
+    setprop("/instrumentation/annunciators/warning/instlight",0.0);
+  }
+
   # not in real use yet
   if (test)
   {
@@ -126,11 +133,12 @@ WarningPanelUpdate = func {
     setprop("/instrumentation/annunciators/warning/mgbtemp",0.0);
   }
 
-  if (door or test)
+  # not in real use yet
+  if (test)
   {
-    setprop("/instrumentation/annunciators/warning/door",1);
+    setprop("/instrumentation/annunciators/warning/p2ovht",1);
   } else {
-    setprop("/instrumentation/annunciators/warning/door",0.0);
+    setprop("/instrumentation/annunciators/warning/p2ovht",0.0);
   }
 
   if ( !gov or test)
@@ -164,11 +172,20 @@ WarningPanelUpdate = func {
     setprop("/instrumentation/annunciators/warning/tgbchip",0.0);
   }
 
-  if (LaL or TxL or test)
+  # value unclear, guess only
+  if ((servo < 10) or servotest or test)
   {
-    setprop("/instrumentation/annunciators/warning/lite",1);
+    setprop("/instrumentation/annunciators/warning/servo",1);
   } else {
-    setprop("/instrumentation/annunciators/warning/lite",0.0);
+    setprop("/instrumentation/annunciators/warning/servo",0.0);
+  }
+
+  # value unclear, guess only
+  if ((hydr < 10) or test)
+  {
+    setprop("/instrumentation/annunciators/warning/hydr",1);
+  } else {
+    setprop("/instrumentation/annunciators/warning/hydr",0.0);
   }
 
   # LIMIT is cotrolled via limits.nas
@@ -218,14 +235,6 @@ WarningPanelUpdate = func {
     setprop("/instrumentation/annunciators/cautions/mgbp",0);
   }
 
-  if ( !gov or test )
-  {
-    setprop("/instrumentation/annunciators/warning/redgov",1);
-    setprop("/sim/sound/gong", 1);
-  } else {
-    setprop("/instrumentation/annunciators/warning/redgov",0.0);
-  }
-
   if (firetest or test)
   {
     setprop("/instrumentation/annunciators/warning/engfire",1);
@@ -241,6 +250,14 @@ WarningPanelUpdate = func {
     setprop("/sim/sound/gong", 1);
   } else {
     setprop("/instrumentation/annunciators/warning/battemp",0.0);
+  }
+
+  if ( !gov or test )
+  {
+    setprop("/instrumentation/annunciators/warning/redgov",1);
+    setprop("/sim/sound/gong", 1);
+  } else {
+    setprop("/instrumentation/annunciators/warning/redgov",0.0);
   }
 
   if ((twtgrip < 0.99) or test)

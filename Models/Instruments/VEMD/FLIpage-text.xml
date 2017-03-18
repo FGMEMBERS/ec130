@@ -8,9 +8,9 @@
 <PropertyList>
 
   <animation>
-	  <type>select</type>
-	  <object-name>text</object-name>
-	  <condition>
+    <type>select</type>
+    <object-name>text</object-name>
+    <condition>
       <greater-than>
         <property>instrumentation/VEMD/Phase/flight</property>
         <value>0</value>

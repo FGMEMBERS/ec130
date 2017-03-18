@@ -1,6 +1,6 @@
 <PropertyList>
   <name>Engine Prestart Check</name>
-  <description>This tutorial teaches the EC130 B4 Engine Prestart Check procedure</description>
+  <description>This tutorial teaches the EC130/H130 Engine Prestart Check procedure</description>
 
   <init>
     <set>
@@ -8,6 +8,29 @@
       <value>0</value>
     </set>
   </init>
+
+  <step>
+    <view>
+    </view>
+
+    <marker>
+    </marker>
+
+    <message>
+
+      Make sure you have enough fuel.
+      If necessary fill up tank (Alt-o) ...
+
+    </message>
+    <exit>
+      <condition>
+        <greater-than>
+         <property>/consumables/fuel/tank/level-lbs</property>
+         <value>106</value>
+        </greater-than>
+      </condition>
+    </exit>
+  </step>
 
   <step>
     <view>
@@ -74,7 +97,7 @@
         <property>/controls/engines/engine/cutoff</property>
         <value>0.1</value>
       </less-than>
-      <property>/controls/engines/engine/cutoff_guard</property>
+      <property>/controls/engines/engine/cutoffguard</property>
       </condition>
     </exit>
   </step>
@@ -137,7 +160,7 @@
 
   <wait>5</wait>
 
-	<step>
+  <step>
     <view>
       <heading-offset-deg>332.00</heading-offset-deg>
       <pitch-offset-deg>-21.7</pitch-offset-deg>
@@ -150,10 +173,10 @@
       Continue with "Engine Starting Tutorial"
       -
     </message>
-	</step>
+  </step>
 
   <wait>10</wait>
 
-	<end>
-	</end>
+  <end>
+  </end>
 </PropertyList>

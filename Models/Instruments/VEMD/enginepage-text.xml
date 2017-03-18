@@ -8,20 +8,20 @@
 <PropertyList>
 
   <animation>
-	  <type>select</type>
-	  <object-name>text</object-name>
-	  <condition>
-	    <and>
-		    <greater-than>
-				  <property>instrumentation/VEMD/Phase/tested</property>
-				  <value>0</value>
-		    </greater-than>
-		    <less-than>
-				  <property>instrumentation/VEMD/Phase/flight</property>
-				  <value>1</value>
-		    </less-than>
-	    </and>
-	  </condition>
+    <type>select</type>
+    <object-name>text</object-name>
+    <condition>
+      <and>
+        <greater-than>
+          <property>instrumentation/VEMD/Phase/tested</property>
+          <value>0</value>
+        </greater-than>
+        <less-than>
+          <property>instrumentation/VEMD/Phase/flight</property>
+          <value>1</value>
+        </less-than>
+      </and>
+    </condition>
   </animation>
 
   <params>

@@ -24,7 +24,7 @@
   <animation>
     <type>rotate</type>
     <object-name>cutoff_guard</object-name>
-    <property>controls/engines/engine/cutoff_guard</property>
+    <property>controls/engines/engine/cutoffguard</property>
     <factor>30</factor>
     <offset-deg>-30</offset-deg>
     <center>
@@ -54,7 +54,7 @@
       <binding>
         <condition>
           <not>
-            <property>controls/engines/engine/cutoff_guard</property>
+            <property>controls/engines/engine/cutoffguard</property>
           </not>
         </condition>
         <command>set-tooltip</command>
@@ -86,7 +86,7 @@
           </not>
         </condition>
         <command>property-toggle</command>
-        <property>controls/engines/engine/cutoff_guard</property>
+        <property>controls/engines/engine/cutoffguard</property>
       </binding>
     </action>
     <hovered>
@@ -102,7 +102,7 @@
         <label>guard</label>
 -->
         <label>%s cut-off</label>
-        <property>controls/engines/engine/cutoff_guard</property>
+        <property>controls/engines/engine/cutoffguard</property>
         <mapping>nasal</mapping>
         <script>
           var mode = ['guard', 'release'];

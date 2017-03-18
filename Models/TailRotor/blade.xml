@@ -14,7 +14,7 @@
     <condition>
       <less-than>
         <property>rotors/tail/rpm</property>
-	      <value>300</value>
+        <value>300</value>
       </less-than>
     </condition>
   </animation>

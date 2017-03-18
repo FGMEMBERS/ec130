@@ -1,9 +1,9 @@
-##FlightManual EC 130 B4##
-02/19/2012, updated 11/17/2013, 04/30/2015 mhab
+##FlightManual EC 130 B4 / H130 ##
+02/19/2012, updated 11/17/2013, 07/01/2016 mhab
 
 1.) Information
 ===============
-This Model of an Eurocopter EC130 B4 is made for FlightGear and stands under the terms of GPLv2.
+This Model of an Eurocopter EC130 B4 / H130 is made for FlightGear and stands under the terms of GPLv2.
 
 This model is a work in progress so please accept that there may be things which are not working as you want.
 For updates use the GIT-version and read the GIT-logs and some threads in the official FlightGear Forum!
@@ -41,7 +41,7 @@ mfranz@aon.at
  - accurate simulation of the systems including FADEC and FLI according to real Flight Manual,
    including Flight Report page.
  - accurate Flight Dynamic
- - Autostart after 15 flights
+ - Autostart after 5 flights
  - fuel state saved on exit
  - Force Trim Release
  - Emergency floats
@@ -161,11 +161,11 @@ Some helis, the Ec130 as an option on demand, has a 4-way trim switch. This will
 
 The EC130 here will only make use by FTR. Sorry, no money left for extra gadgets! ;-)#
 that is how to use it:
-	(1) move the stick such that the heli is in an orientation that
-	    you want to trim for (forward flight, hover, ...)
-	(2) press FTR button (f-key)and keep it pressed
-	(3) move stick/yoke to neutral position (center)
-	(4) release FTR button (f-key)
+  (1) move the stick such that the heli is in an orientation that
+      you want to trim for (forward flight, hover, ...)
+  (2) press FTR button (f-key)and keep it pressed
+  (3) move stick/yoke to neutral position (center)
+  (4) release FTR button (f-key)
 
 
 6.) Emergency Floats

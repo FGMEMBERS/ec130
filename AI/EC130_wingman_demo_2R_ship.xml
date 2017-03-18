@@ -4,6 +4,8 @@
 
 	<scenario>
 
+    <name>EC130 2 wingmen right</name>
+
 		<description>
  3 ship - Non-tactical formation
 
@@ -20,7 +22,7 @@
 		<entry>
 			<name>Heli-2</name>
 			<type>wingman</type>
-			<model>AI/Aircraft/ec130/Models/ec130b4-wingman.xml</model>
+			<model>AI/Aircraft/ec130/Models/ec130-wingman.xml</model>
 			<x-offset>-45</x-offset>
 			<y-offset>45</y-offset>
 			<z-offset>0</z-offset>
@@ -37,7 +39,7 @@
 		<entry>
 			<name>Heli-4</name>
 			<type>wingman</type>
-			<model>AI/Aircraft/ec130/Models/ec130b4-wingman.xml</model>
+			<model>AI/Aircraft/ec130/Models/ec130-wingman.xml</model>
 			<x-offset>-45</x-offset>
 			<y-offset>45</y-offset>
 			<z-offset>0</z-offset>

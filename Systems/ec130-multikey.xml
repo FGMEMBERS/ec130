@@ -21,7 +21,7 @@
 
   <key n="65">
     <name>A</name>
-    <desc>EC130-B4 Controls</desc><!-- reserved for aircraft extensions -->
+    <desc>EC130/H130 Controls</desc><!-- reserved for aircraft extensions -->
 
     <!-- begin SCU BUTTON handling -->
     <key n="65">
@@ -475,6 +475,35 @@
       </binding>
     </key>
 
+    <key n="102">
+      <name>f</name>
+      <desc>Fuel adjust</desc>
+      <binding>
+        <command>null</command>
+      </binding>
+
+      <key n="94">
+        <name>^</name>
+        <desc>Fuel +</desc>
+        <no-exit/>
+        <binding>
+          <command>nasal</command>
+          <script>_ = sprintf("Fuel = %d lbs (%d%%)", ec130.adjust_fuel(2),getprop("/consumables/fuel/tank/level-lbs")/getprop("/limits/tank")*100)</script>
+        </binding>
+      </key>
+
+      <key n="95">
+        <name>_</name>
+        <desc>Fuel -</desc>
+        <no-exit/>
+        <binding>
+          <command>nasal</command>
+          <script>_ = sprintf("Fuel = %d lbs (%d%%)", ec130.adjust_fuel(-2),getprop("/consumables/fuel/tank/level-lbs")/getprop("/limits/tank")*100)</script>
+        </binding>
+      </key>
+
+    </key>
+
     <key n="103">
       <name>g</name>
       <desc>toggle Selector Guard</desc>
@@ -495,38 +524,38 @@
         <command>null</command>
       </binding>
 
-			<key n="48">
-				<name>0</name>
-				<desc>Day</desc>
+      <key n="48">
+        <name>0</name>
+        <desc>Day</desc>
         <exit/>
-				<binding>
-					<command>property-assign</command>
-					<property>/controls/lighting/instrument-lights-selection</property>
-					<value>0</value>
-				</binding>
-			</key>
+        <binding>
+          <command>property-assign</command>
+          <property>/controls/lighting/instrument-lights-selection</property>
+          <value>0</value>
+        </binding>
+      </key>
 
-			<key n="49">
-				<name>1</name>
-				<desc>Night1</desc>
+      <key n="49">
+        <name>1</name>
+        <desc>Night1</desc>
         <exit/>
-				<binding>
-					<command>property-assign</command>
-					<property>/controls/lighting/instrument-lights-selection</property>
-					<value>1</value>
-				</binding>
-			</key>
+        <binding>
+          <command>property-assign</command>
+          <property>/controls/lighting/instrument-lights-selection</property>
+          <value>1</value>
+        </binding>
+      </key>
 
-			<key n="50">
-				<name>2</name>
-				<desc>Night2</desc>
+      <key n="50">
+        <name>2</name>
+        <desc>Night2</desc>
         <exit/>
-				<binding>
-					<command>property-assign</command>
-					<property>/controls/lighting/instrument-lights-selection</property>
-					<value>2</value>
-				</binding>
-			</key>
+        <binding>
+          <command>property-assign</command>
+          <property>/controls/lighting/instrument-lights-selection</property>
+          <value>2</value>
+        </binding>
+      </key>
 
     </key>
 

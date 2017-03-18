@@ -3,13 +3,13 @@
 <PropertyList>
 
 <!--texture by Torsten Dreyer-->
-	<name>GTX330</name>
-	<path>GTX330.ac</path>
-	
-	<!--<animation>
+  <name>GTX330</name>
+  <path>GTX330.ac</path>
+
+  <!--<animation>
         <type>material</type>
-		<object-name>Cube</object-name>
-		<object-name>face3</object-name>
+    <object-name>Cube</object-name>
+    <object-name>face3</object-name>
             <emission>
        <red>   0.886 </red>
       <green> 0.984 </green>

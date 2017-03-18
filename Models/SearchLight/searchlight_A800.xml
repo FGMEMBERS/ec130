@@ -571,7 +571,7 @@
       <r>1.0</r><g>1.0</g><b>1.0</b><a>1.0</a>
     </specular>
     <dim-factor>
-      <property>sim/time/sun-angle-rad</property>
+      <property>/sim/time/sun-angle-rad</property>
       <interpolation>
         <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
         <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
@@ -587,9 +587,9 @@
       <offset>0</offset>
     </dim-factor>
     <attenuation>
-		  <c>0.5</c>
-		  <l>0.0002</l>
-		  <q>0.000005</q>
+      <c>0.5</c>
+      <l>0.0002</l>
+      <q>0.000005</q>
     </attenuation>
     <exponent>80</exponent>
     <near-m>0.0</near-m>
@@ -638,7 +638,7 @@
       <r>1.0</r><g>0.9</g><b>0.0</b><a>1.0</a>
     </specular>
     <dim-factor>
-      <property>sim/time/sun-angle-rad</property>
+      <property>/sim/time/sun-angle-rad</property>
       <interpolation>
         <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
         <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
@@ -654,9 +654,9 @@
       <offset>0</offset>
     </dim-factor>
     <attenuation>
-		  <c>0.5</c>
-		  <l>0.0002</l>
-		  <q>0.000005</q>
+      <c>0.5</c>
+      <l>0.0002</l>
+      <q>0.000005</q>
     </attenuation>
     <exponent>80</exponent>
     <near-m>0.0</near-m>
@@ -705,7 +705,7 @@
       <r>1.0</r><g>0.3</g><b>0.0</b><a>1.0</a>
     </specular>
     <dim-factor>
-      <property>sim/time/sun-angle-rad</property>
+      <property>/sim/time/sun-angle-rad</property>
       <interpolation>
         <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
         <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
@@ -721,9 +721,9 @@
       <offset>0</offset>
     </dim-factor>
     <attenuation>
-		  <c>0.5</c>
-		  <l>0.0002</l>
-		  <q>0.000005</q>
+      <c>0.5</c>
+      <l>0.0002</l>
+      <q>0.000005</q>
     </attenuation>
     <exponent>80</exponent>
     <near-m>0.0</near-m>
@@ -772,7 +772,7 @@
       <r>0.3</r><g>0.3</g><b>0.3</b><a>1.0</a>
     </specular>
     <dim-factor>
-      <property>sim/time/sun-angle-rad</property>
+      <property>/sim/time/sun-angle-rad</property>
       <interpolation>
         <entry><ind> 0.00 </ind><dep> 0.25 </dep></entry>
         <entry><ind> 0.52 </ind><dep> 0.30 </dep></entry>
@@ -788,9 +788,9 @@
       <offset>0</offset>
     </dim-factor>
     <attenuation>
-		  <c>0.5</c>
-		  <l>0.0002</l>
-		  <q>0.000005</q>
+      <c>0.5</c>
+      <l>0.0002</l>
+      <q>0.000005</q>
     </attenuation>
     <exponent>80</exponent>
     <near-m>0.0</near-m>

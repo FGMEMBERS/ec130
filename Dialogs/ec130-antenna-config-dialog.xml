@@ -6,7 +6,7 @@
  http://www.flightgear.org/
 
  Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
-           (C) 2014 Michael Habarta, mhabarta@freenet.de
+           (C) 2016 Michael Habarta, mhabarta@freenet.de
 
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License as
@@ -24,10 +24,10 @@
   <name>Antenna_Config</name>
 
   <layout>vbox</layout>
-	<resizable>false</resizable>
+  <resizable>false</resizable>
   <modal>false</modal>
   <draggable>true</draggable>
-	<default-padding>3</default-padding>
+  <default-padding>3</default-padding>
 
   <nasal>
     <open>
@@ -54,29 +54,36 @@
       if ( p == 1 ) { setprop("/sim/model/ec130/antenna_square_tail_flag_0",1); }
       if ( p == 2 ) { setprop("/sim/model/ec130/antenna_square_tail_flag_1",1); }
 
+      <!-- set title -->
+      if ( getprop("/sim/model/variant") == "1" ) {
+        setprop("/sim/gui/dialogs/ec130/antenna/dialog/group/text/label", "EC130-B4 Antenna Setup   (Alt-a)");
+      } else {
+        setprop("/sim/gui/dialogs/ec130/antenna/dialog/group/text/label", "H130 Antenna Setup   (Alt-a)");
+      }
     </open>
     <close># just kept for educational purposes :-)</close>
   </nasal>
 
 
   <!-- Title with Esc knob for closing -->
-	<group>
+  <group>
 
     <layout>hbox</layout>
-	  <empty><stretch>1</stretch></empty>
+    <empty><stretch>1</stretch></empty>
 
-		<text>
-			<label>EC130 Antenna Setup   (Alt-a)</label>
-		</text>
+    <!-- title is set through nasal script above -->
+    <text>
+      <label>x</label>
+    </text>
 
-		<empty><stretch>true</stretch></empty>
+    <empty><stretch>true</stretch></empty>
 
-		<button>
-			<legend></legend>
-			<key>Esc</key>
-			<pref-width>16</pref-width>
-			<pref-height>16</pref-height>
-			<binding>
+    <button>
+      <legend></legend>
+      <key>Esc</key>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <binding>
         <command>nasal</command>
         <script>
           if ( getprop("/sim/model/ec130/config_dialog_active") ) {
@@ -85,11 +92,11 @@
           ec130.antenna_config_dialog.toggle();
           setprop("/sim/model/ec130/antenna_dialog_active",0);
         </script>
-			</binding>
-		</button>
-	</group>
+      </binding>
+    </button>
+  </group>
 
-	<hrule/>
+  <hrule/>
 
   <!-- BEGIN box with 2 columns left/right -->
   <group>
@@ -560,11 +567,11 @@
   <!-- END box with 2 columns left/right -->
   </group>
 
-	<hrule/>
+  <hrule/>
 
   <group>
     <layout>hbox</layout>
-		<default-padding>3</default-padding>
+    <default-padding>3</default-padding>
 
     <button>
       <legend>Close</legend>

@@ -1,15 +1,15 @@
    Introduction:
    ==========
-   The Configuration Dialog for the EC130-B4 is a highly integrated dialog and combines
-   several standard FlightGear dialogs into one. Numerous interactions between the
-   settings are implemented in order to allow a very consistent setup of different
+   The Configuration Dialog for the EC130-B4/H130 is a highly integrated dialog and 
+   combines several standard FlightGear dialogs into one. Numerous interactions between
+   the settings are implemented in order to allow a very consistent setup of different
    helicopter variants.
 
    It is possible to:
 
     - select a livery
     - choose the seating configuration
-    - choose EC130 specific views
+    - choose aircraft specific views
     - set fuel amount
     - set weights of passengers and luggage
     - choose exterior equipment
@@ -23,27 +23,36 @@
    There are several principles defined for the helicopter configuration, which
    are ensured by dependencies between different settings.
 
-    - Each internal view corresponds to a specific seat.
+    - Each internal view corresponds to a specific seat and passenger.
     - A view can only be active if the corresponding seat-weight is set to some
-      value &gt; 30 lbs, i.e. the weight of an empty seat.
-    - If a view is activated, the corresponding seat-weight is set to 30+150lbs,
+      value > 30lbs (the weight of an empty seat), i.e. a passenger is present.
+    - If a view is activated, or the corresponding passenger is seated by clicking
+      a seat, the corresponding seat-weight is set to 30+150lbs,
       i.e. the default passenger is a person with 150lbs weight.
-    - If a view is deactivated the corresponding seat-weight is set to minimum.
+    - If a view is deactivated, or the passenger removed, the corresponding
+      seat-weight is set to minimum.
     - If - on the other hand - a seat-related weight is set to minimum (30lbs)
-      in the weight settings, then the corresponding view is deactivated.
-    - Either pilot or co-pilot must be present (min weight 120lbs)
+      in the weight settings, then the corresponding view is deactivated and the
+      passenger removed.
+    - If co-pilot controls are not there a passenger is seated in the co-pilot
+      seat.
+    - Either pilot or co-pilot must be present. i.e. if the pilot is removed
+      the co-pilot (and his controls) are activated if necessary.
+    - If only the co-pilot is there, his controls cannot be removed.
     - Seats which are optional (i.e. not there in 5 pass. or Rescue (EMS) variant)
       have a min. weight of 0, all other seats have a min weight of 30 lbs.
 
-    Remark: The stretcher in the EMS configuration (Emergency Medical Service) is handled
-    as 2 seats (for simplicity), but only one related view is assigned (rear-mid-right)
+    Remark: The stretcher in the EMS configuration (Emergency Medical Service)
+    replaces 2 seats, but only one related view is assigned (Patient View).
 
 
    Interior:
    ======
-   The EC130 cabin can be setup in three different variants which result in different
+   The cabin can be setup in three different variants which result in different
    numbers of available seats and internal views.
 
+   Seats can be clicked to activate the passenger. Passengers can be clicked in
+   order to be removed.
 
    Weights:
    =======
@@ -71,8 +80,6 @@
 
    If exclusive equipment is selected, it deactivates any conflicting other equipment.
 
-   Have fun in setting up your desired helicopter variant, and have safe flights.
-
 
    Antenna Setup:
    =============
@@ -81,6 +88,7 @@
    of available antennas e.g. due to conflicting mounting positions. In case of conflict
    antennas are disabled.
 
+   Have fun in setting up your desired helicopter variant, and have safe flights.
 
 
    Some Remarks on View-Handling:
@@ -89,26 +97,26 @@
    provide a realistic setup. This however implies quite a number of different views,
    which add up to the various predefined views in FlightGear.
 
-   With standard FlightGear setup (FG 2.12) and its limited view-control functionality,
+   With standard FlightGear setup (FG 3.4) and its limited view-control functionality,
    which only allows to scroll forward or backward between ALL active views, this may
    seem unrealistic and hard to handle .
 
    View handling gets much easier, if the view control is configured to allow more
    flexibility.
 
-   In the installation, where the EC130-B4 was developed and refined, the view control
-   is configured in a way, so that all predefined FG views are deactivated and accessed
-   directly through various Fx function keys. The built-in FG view-scroll functionality
-   is then used only for the EC130-B4 specific views.
+   In the installation environment, where the EC130 was developed and refined, the view 
+   control is configured in a way, so that all predefined FG views are deactivated and 
+   accessed directly through various Fx function keys. The built-in FG view-scroll 
+   functionality is then used only for the EC130 specific views.
 
-   Limitation: For now (FG 3.0) the improved view handling can only be done through
+   Limitation: For now (FG 3.4) the improved view handling can only be done through
    changing the keyboard assignments on a deeper level (keyboard.xml) and not through
    some customization dialog. Hope is, that this will be improved in future FG versions.
 
    Alternative with Minimum Number of Active Views:
    -----------------------------------------------
    If you prefer to have a limited number of views active you may disable most/all views.
-   In order to have enough weight assigned to the helicopter you may increase the
+   In order to still have enough weight assigned to the helicopter you may increase the
    weight of active pilots/passengers (realistic weight distribution) or just increase
    the luggage weight, which is less realistic for weight distribution.
 

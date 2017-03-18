@@ -171,6 +171,6 @@ The test requires a run-up engine at full power.
 
   <wait>10</wait>
 
-	<end>
-	</end>
+  <end>
+  </end>
 </PropertyList>

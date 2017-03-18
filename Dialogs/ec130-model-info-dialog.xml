@@ -5,7 +5,7 @@
  http://www.flightgear.org/
 
  Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
-           (C) 2014 Michael Habarta, mhabarta@freenet.de
+           (C) 2016 Michael Habarta, mhabarta@freenet.de
 
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License as
@@ -22,17 +22,24 @@
   <name>Model_Info</name>
 
   <layout>vbox</layout>
-	<resizable>false</resizable>
+  <resizable>false</resizable>
   <modal>false</modal>
   <draggable>true</draggable>
-	<default-padding>3</default-padding>
+  <default-padding>3</default-padding>
 
   <nasal>
     <open>
       <!-- flag for open dialog -->
       setprop("/sim/model/ec130/info_dialog_active",1);
 
-      var path = getprop("/sim/aircraft-dir") ~ "/Models/Liveries/";
+      <!-- set path / title -->
+      if ( getprop("/sim/model/variant") == "1" ) {
+        var path = getprop("/sim/aircraft-dir") ~ "/Models/Liveries_ec130b4/";
+        setprop("/sim/gui/dialogs/ec130/model_info/dialog/group/text/label", "EC130-B4 Operator/Model Info    (Alt-i)");
+      } else {
+        var path = getprop("/sim/aircraft-dir") ~ "/Models/Liveries_ec130t2/";
+        setprop("/sim/gui/dialogs/ec130/model_info/dialog/group/text/label", "H130 Operator/Model Info    (Alt-i)");
+      }
       var info_filename = path ~ getprop("sim/model/livery/file") ~ ".txt";
       setprop("/sim/model/ec130/model-info", io.readfile(info_filename));
 
@@ -42,23 +49,24 @@
 
 
   <!-- Title with Esc knob for closing -->
-	<group>
+  <group>
 
     <layout>hbox</layout>
-	  <empty><stretch>1</stretch></empty>
+    <empty><stretch>1</stretch></empty>
 
-		<text>
-			<label>EC130 Operator/Model Info    (Alt-i)</label>
-		</text>
+    <!-- title is set through nasal script above -->
+    <text>
+      <label>x</label>
+    </text>
 
-		<empty><stretch>true</stretch></empty>
+    <empty><stretch>true</stretch></empty>
 
-		<button>
-			<legend></legend>
-			<key>Esc</key>
-			<pref-width>16</pref-width>
-			<pref-height>16</pref-height>
-			<binding>
+    <button>
+      <legend></legend>
+      <key>Esc</key>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <binding>
         <command>nasal</command>
         <script>
           if ( getprop("/sim/model/ec130/config_dialog_active") ) {
@@ -67,11 +75,11 @@
           ec130.model_info_dialog.toggle();
           setprop("/sim/model/ec130/info_dialog_active",0);
         </script>
-			</binding>
-		</button>
-	</group>
+      </binding>
+    </button>
+  </group>
 
-	<hrule/>
+  <hrule/>
 
   <group>
 
@@ -105,12 +113,12 @@
 
   </group>
 
-	<hrule/>
+  <hrule/>
 
   <group>
 
     <layout>hbox</layout>
-		<default-padding>3</default-padding>
+    <default-padding>3</default-padding>
 
     <button>
       <legend>Close</legend>
