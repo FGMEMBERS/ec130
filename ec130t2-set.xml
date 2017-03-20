@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!--
+************************************************************************
+EC 130 simulation config.
+
+************************************************************************
+
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
+           (C) 2016 Michael Habarta, mhabarta@freenet.de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+
+<PropertyList include="ec130-base.xml">
+  <sim>
+    <description>Eurocopter H130</description>
+    <author>Heiko Schulz, Melchior Franz (Nasal), Michael Habarta (Model-Details, Animations, Liveries)</author>
+    <status>production</status>
+
+    <rating>
+      <FDM type="int">4</FDM>
+      <systems type="int">4</systems>
+      <cockpit type="int">3</cockpit>
+      <model type="int">5</model>
+    </rating>
+    <license>GPL v2</license>
+    <version>20160210</version>
+
+    <startup>
+<!--
+      <splash-title>Airbus Helicopter EC130-T2 (Ecostar)</splash-title>
+-->
+      <splash-texture>Aircraft/ec130/Splashs/splash_EC130_T2.jpg</splash-texture>
+    </startup>
+
+    <flight-model>yasim</flight-model>
+    <aero>Models/ec130t2_fdm</aero>
+
+    <model>
+      <path archive="y">Aircraft/ec130/Models/ec130t2.xml</path>
+      <livery>
+        <file type="string">FlightGear</file>
+      </livery>
+      <variant type="int">2</variant>
+    </model>
+
+    <help>
+      <title>H130 Ecostar - Help</title>
+
+      <text>
+   Characteristics:
+   Cruise speed:        100-137 kts (best 120 kts)
+   Never exceed (Vne): 155 kts (Pwr on), 125 kts (Pwr off), 90 kts (Floats inflated)
+
+   Main Rotor Limits:
+   Normal Range:   375 - 405 rpm
+   Warning Range:  360 - 410 rpm
+   Caution Range:  320 - 430 rpm
+
+   Rotor brake:      0-170 rpm
+
+   TRQ as required (best at 82%)
+
+   Temperature Min.: -20 deg C ( -4 deg F)
+   Temperature Max.: +50 deg C (122 deg F)
+
+   Empty Weight: 3159 lbs
+   MTOW:         5512 lbs
+
+   Service ceiling:
+       3968 lbs:  23000ft (7010m)
+       5350 lbs:  15655ft (4770m) = MTOW
+
+   Max Hover IGE (MTOW):  10165ft (3100m)
+   Max Hover OGE (MTOW):   8325ft (2535m)
+
+   Additional Help:
+   For startup see "Help/Tutorials", and follow "Help/Aircraft Checklists",
+   and see Flightmanual at "Aircraft/ec130/Docs/flightmanual.txt"
+
+   Special Handling of Twist Grip:
+   Power control between 63% = "idle" and 100% = "flight" can be done either
+    a) by dragging MMB up/down (middle mouse button pressed)
+    b) by Twist Grip animation on Collective
+    c) by keyboard shortcut Alt-t for + and AltGr-t for -
+
+   Emergency Switch (on Panel) must be unlocked before switching is possible.
+   Click the wire to unlock. ATTENTION: Once switched, no reset is possible !!!.
+
+   Autostart/Autoshutdown:
+   Is enabled after 5 flights, so to encourage learning of realistic heli-handling.
+
+   Misc:
+   Various Click-Animations are implemented, in cockpit use Knob-animations and
+   check with Ctrl-c, watch Tooltips and try Searchlight, ...
+      </text>
+    </help>
+
+  </sim>
+
+  <limits>
+    <vne>155</vne>
+    <vne-floats>90</vne-floats>
+    <vne-door-open>80</vne-door-open>
+    <mass-and-balance>
+      <maximum-takeoff-mass-lbs>5512</maximum-takeoff-mass-lbs>
+    </mass-and-balance>
+    <rpm-min>360</rpm-min>
+    <rpm-max>410</rpm-max>
+    <trq-max>100</trq-max>
+    <tot-max>915</tot-max>
+    <ng-max>101.1</ng-max>
+    <max-positive-g>2.5</max-positive-g>
+    <max-negative-g>-0.5</max-negative-g>
+    <min-temp-degc>-20</min-temp-degc>
+    <max-temp-degc>50</max-temp-degc>
+    <tank>941</tank>
+  </limits>
+
+</PropertyList>

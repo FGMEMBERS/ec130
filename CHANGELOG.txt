@@ -49,6 +49,9 @@ General:
     - Emergency switch removed
  - Multiplayer support optimized
  - External Power Unit appears/disappears more realistic
+ - FDM improvements
+   - more stable hover behaviour
+   - simulate main rotor downwash on horizontal stabilizers
 
 Liveries:
 --------

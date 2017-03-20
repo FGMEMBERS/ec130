@@ -1,9 +1,0 @@
-Helicopter EC130-B4
--------------------
-
-Operator: Flightgear
-
-FLIGHTGEAR livery is a demo variant and designed as a promotion model for the simulator.
-
-
-last update: 2014-03-15

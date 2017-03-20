@@ -273,7 +273,7 @@
   <!-- rotor torque increases and airspeed reduces it    -->
   <thruster x="-2.95" y="0.00" z="-0.2" vx="0" vy="0" vz="-1" thrust="60">
     <control-input axis="/rotors/main/torque"     src0="0" src1="6000" dst0="0" dst1="+1.0" control="THROTTLE"/>
-    <control-input axis="/velocities/airspeed-kt" src0="0" src1="155"  dst0="0" dst1="-1.0" control="THROTTLE"/>
+    <control-input axis="/velocities/airspeed-kt" src0="0" src1="75"   dst0="0" dst1="-1.0" control="THROTTLE"/>
   </thruster>
 
   <vstab x="-4.066" y="0" z="0.251"

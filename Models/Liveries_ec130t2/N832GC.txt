@@ -1,0 +1,31 @@
+   Helicopter H130 (EC130-T2)
+   --------------------------
+
+   Registration: N832GC
+   C/N: 7667 (2013)
+   Operator: Grand Canyon Helicopters
+   Operator Id: 6
+   Locations: Tusayan Grand Canyon AZ (KGCN), Las Vegas NV (KLAS), Page AZ (KGPA), USA
+
+   Papillon Airways, founded 1965, is the mother company to Papillon Grand Canyon Helicopters.
+   Originally started as Grand Canyon Helicopters, and later as Papillon Hawaiian Helicopters,
+   the company is incorporated in Washington State. Currently the worlds largest aerial
+   sightseeing company. (Source: http://en.wikipedia.org)
+
+   Today, Papillon Airways Inc. continues to operate its largest base in Grand Canyon, Arizona.
+   The company offers air tours of the Grand Canyon South Rim, Grand Canyon West, Las Vegas,
+   Sedona, Flagstaff, Phoenix and Scottsdale.
+
+   According to http://www.helis.com/database Grand Canyon Helicopters together with
+   Papillon Helicopters operate 15 EC130-B4 Helicopters.
+
+   WEB-Links:
+   Homepage: http://www.grandcanyonhelicopter.com/
+   Facebook: https://www.facebook.com/FlyTheCanyon
+   Twitter: https://twitter.com/FlyTheCanyon
+
+   Personal Notes of the Livery Editor (mhab):
+   ------------------------------------------
+   Based on the N155GC with small adaptions.
+
+   last update: 2016-01-01
