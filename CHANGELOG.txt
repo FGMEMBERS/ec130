@@ -1,8 +1,8 @@
 H130/EC130B4 Updates
 ====================
 
-Updates After FG 2016:
----------------------
+Updates as of FG 2017.2:
+-----------------------
 
 General:
 -------
@@ -52,6 +52,7 @@ General:
  - FDM improvements
    - more stable hover behaviour
    - simulate main rotor downwash on horizontal stabilizers
+ - Use of new fresnel effect in reflection shader
 
 Liveries:
 --------

@@ -9,7 +9,7 @@ MATERIAL "text" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 1 1 1  shi 32  trans 0
 MATERIAL "led3" rgb 0 0 0.8  amb 0.266667 0.266667 0.266667  emis 0.266667 0.266667 0.266667  spec 1 1 1  shi 32  trans 0
 MATERIAL "led" rgb 0.255 1 0.165  amb 0.145 0.145 0.145  emis 0 0 0  spec 0 0 0  shi 32  trans 0
 OBJECT world
-kids 67
+kids 65
 OBJECT poly
 name "text"
 loc -9.98378e-007 0.016921 -8.50037e-005
@@ -17558,12 +17558,6 @@ refs 4
 78 0.37981 0.0555795
 kids 0
 OBJECT poly
-name "Sphere.001"
-data 10
-Sphere.001
-crease 30.000000
-kids 0
-OBJECT poly
 name "acollt"
 data 10
 Circle.010
@@ -25654,12 +25648,6 @@ refs 4
 0 0.997933 0.122519
 101 0.997933 0.122519
 114 1 0.87748
-kids 0
-OBJECT poly
-name "floatarm.001"
-data 6
-Circle
-crease 30.000000
 kids 0
 OBJECT poly
 name "floatarm_led"

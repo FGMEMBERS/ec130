@@ -47,7 +47,9 @@
       </ec130>
     </model>
     <rendering>
-      <refl_correction type="string">+0.00</refl_correction>
+      <refl_correction type="string">-0.2</refl_correction>
+      <refl-type type="string">1</refl-type>
+      <fresnel-factor type="string">0.5</fresnel-factor>
     </rendering>
   </sim>
 </PropertyList>

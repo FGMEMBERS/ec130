@@ -35,6 +35,8 @@
       <reflection-enabled type="int">1</reflection-enabled>
       <reflect-map-enabled type="int">1</reflect-map-enabled>
       <reflection-correction type="float"><use>/sim/rendering/refl_correction</use></reflection-correction>
+	<reflection-fresnel-factor type="float"><use>/sim/rendering/fresnel-factor</use></reflection-fresnel-factor>
+	<reflection-type type="int"><use>/sim/rendering/refl-type</use></reflection-type>
       <reflection-dynamic type="int">1</reflection-dynamic>
       <texture n="4">
         <image>Aircraft/ec130/Models/Effects/greymap.png</image>

@@ -4,7 +4,7 @@ MATERIAL "digit3.001" rgb 1 1 1  amb 1 1 1  emis 1 1 1  spec 0 0 0  shi 32  tran
 MATERIAL "face.001" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0 0 0  shi 32  trans 0
 MATERIAL "bare-metal" rgb 1 1 1  amb 0.233 0.233 0.233  emis 0 0 0  spec 0.906 0.902 0.902  shi 128  trans 0
 OBJECT world
-kids 9
+kids 7
 OBJECT poly
 name "Knob"
 loc -0.0089217 -0.00392061 -0.0154104
@@ -195,12 +195,6 @@ refs 4
 0 0.0749086 0.0760259
 11 0.0593355 0.0850171
 23 0.0593354 0.0850171
-kids 0
-OBJECT poly
-name "Circle.001"
-data 10
-Circle.002
-crease 30.000000
 kids 0
 OBJECT poly
 name "NF"
@@ -999,12 +993,6 @@ refs 4
 22 1.00301 0.496207
 25 0.0126801 0.496207
 80 0.0126801 0.485092
-kids 0
-OBJECT poly
-name "Plane.002"
-data 9
-Plane.014
-crease 30.000000
 kids 0
 OBJECT poly
 name "digit1"
