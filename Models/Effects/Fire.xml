@@ -39,7 +39,7 @@
 
     <counter>
       <particles-per-sec>
-        <value>25</value>
+        <property>sim/fire/part-per-sec</property>
         <spread>15</spread>
       </particles-per-sec>
     </counter>
@@ -70,7 +70,7 @@
         </size>
       </end>
       <life-sec>
-        <value>2.0</value>
+        <property>sim/fire/life-sec</property>
       </life-sec>
       <mass-kg>1.3</mass-kg>
       <radius-m>0.03</radius-m>

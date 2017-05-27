@@ -16,7 +16,8 @@ doors.new = func {
           pilotw : aircraft.door.new("/sim/model/ec130/doors/pilotw", 1.0),
           basketl : aircraft.door.new("/sim/model/ec130/doors/basketl", 2.0),
           basketr : aircraft.door.new("/sim/model/ec130/doors/basketr", 2.0),
-          hook : aircraft.door.new("/sim/model/ec130/doors/hook", 2.0)
+          hook : aircraft.door.new("/sim/model/ec130/doors/hook", 2.0),
+          mgpu : aircraft.door.new("/sim/model/ec130/mgpu", 7.0)
         };
   return obj;
 };
@@ -26,10 +27,16 @@ doors.frontlexport = func {
 }
 
 doors.frontrexport = func {
-  if ( !getprop("/sim/model/ec130/doors/passengerr/position-norm") ) {
-    me.frontr.toggle();
+  if ( getprop("/sim/model/variant") == "1" ) {
+    # EC130 B4 has door dependencies on right side
+    if ( !getprop("/sim/model/ec130/doors/passengerr/position-norm") ) {
+      me.frontr.toggle();
+    } else {
+      screen.log.write("Passenger Door must be closed !!!");
+    }
   } else {
-    screen.log.write("Passenger Door must be closed !!!");
+    # H130 has no door dependencies on right side
+    me.frontr.toggle();
   }
 }
 
@@ -42,19 +49,35 @@ doors.passengerlexport = func {
 }
 
 doors.passengerrexport = func {
-  if ( !getprop("/sim/model/ec130/basket_right") and getprop("/sim/model/ec130/doors/frontr/position-norm") ) {
-    me.passengerr.toggle();
-  } else {
-    if ( !getprop("/sim/model/ec130/doors/frontr/position-norm") ) {
-      screen.log.write("Front Door must be open !!!");
+  if ( getprop("/sim/model/variant") == "1" ) {
+    # EC130 B4 has door dependencies on right side
+    if ( !getprop("/sim/model/ec130/basket_right") and getprop("/sim/model/ec130/doors/frontr/position-norm") ) {
+      me.passengerr.toggle();
+    } else {
+      if ( !getprop("/sim/model/ec130/doors/frontr/position-norm") ) {
+        screen.log.write("Front Door must be open !!!");
+      }
+      if ( getprop("/sim/model/ec130/basket_right") ) {
+        screen.log.write("Basket blocks Passenger Door !!!");
+      }
     }
-    if ( getprop("/sim/model/ec130/basket_right") ) {
-      screen.log.write("Basket blocks Passenger Door !!!");
+  } else {
+    # H130 has same slide door dependencies as left side
+    if ( !getprop("/sim/model/ec130/doors/luggager/position-norm") ) {
+      me.passengerr.toggle();
+    } else {
+      screen.log.write("Luggage Door blocks Passenger Door !!!");
     }
   }
 }
 
 doors.luggagelexport = func {
+
+  if ( !getprop("gear/gear[0]/wow") and !getprop("gear/gear[1]/wow") and !getprop("gear/gear[2]/wow") and !getprop("gear/gear[3]/wow") ) {
+    screen.log.write("Only possible on ground !!!");
+    return;
+  }
+
   if ( !getprop("/sim/model/ec130/doors/passengerl/position-norm") ) {
     if ( !getprop("/sim/model/ec130/doors/basketl/position-norm") ) {
       me.luggagel.toggle();
@@ -67,14 +90,39 @@ doors.luggagelexport = func {
 }
 
 doors.luggagerexport = func {
-  if ( !getprop("/sim/model/ec130/doors/basketr/position-norm") ) {
-    me.luggager.toggle();
+
+  if ( !getprop("gear/gear[0]/wow") and !getprop("gear/gear[1]/wow") and !getprop("gear/gear[2]/wow") and !getprop("gear/gear[3]/wow") ) {
+    screen.log.write("Only possible on ground !!!");
+    return;
+  }
+
+  if ( getprop("/sim/model/variant") == "1" ) {
+    if ( !getprop("/sim/model/ec130/doors/basketr/position-norm") ) {
+      me.luggager.toggle();
+    } else {
+      screen.log.write("Right basket must be closed !!!");
+    }
   } else {
-    screen.log.write("Right basket must be closed !!!");
+    # H130 same luggage door dependencies as left side
+    if ( !getprop("/sim/model/ec130/doors/passengerr/position-norm") ) {
+      if ( !getprop("/sim/model/ec130/doors/basketr/position-norm") ) {
+        me.luggager.toggle();
+      } else {
+        screen.log.write("Right basket must be closed !");
+      }
+    } else {
+      screen.log.write("Passenger Door blocks Luggage Door !!!");
+    }
   }
 }
 
 doors.doorbexport = func {
+
+  if ( !getprop("gear/gear[0]/wow") and !getprop("gear/gear[1]/wow") and !getprop("gear/gear[2]/wow") and !getprop("gear/gear[3]/wow") ) {
+    screen.log.write("Only possible on ground !!!");
+    return;
+  }
+
   me.doorb.toggle();
 }
 
@@ -87,12 +135,24 @@ doors.pilotwexport = func {
 }
 
 doors.basketlexport = func {
+
+  if ( !getprop("gear/gear[0]/wow") and !getprop("gear/gear[1]/wow") and !getprop("gear/gear[2]/wow") and !getprop("gear/gear[3]/wow") ) {
+    screen.log.write("Only possible on ground !!!");
+    return;
+  }
+
   if ( getprop("/sim/model/ec130/basket_left") ) {
     me.basketl.toggle();
   }
 }
 
 doors.basketrexport = func {
+
+  if ( !getprop("gear/gear[0]/wow") and !getprop("gear/gear[1]/wow") and !getprop("gear/gear[2]/wow") and !getprop("gear/gear[3]/wow") ) {
+    screen.log.write("Only possible on ground !!!");
+    return;
+  }
+
   if ( getprop("/sim/model/ec130/basket_right") ) {
     me.basketr.toggle();
   }
@@ -108,6 +168,12 @@ doors.hookexport = func {
       gui.popupTip("Hook closing ...",2);
     }
     settimer(func { gui.popupTip("Hook " ~ (p ? "closed !" : "open !"));},2.1);
+  }
+}
+
+doors.mgpuexport = func {
+  if ( getprop("/controls/electric/external-power") ) {
+    me.mgpu.toggle();
   }
 }
 

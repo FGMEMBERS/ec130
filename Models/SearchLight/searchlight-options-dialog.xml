@@ -27,10 +27,10 @@
   <name>Searchlight-Options</name>
 
   <layout>vbox</layout>
-	<resizable>false</resizable>
+  <resizable>false</resizable>
   <modal>false</modal>
   <draggable>true</draggable>
-	<default-padding>3</default-padding>
+  <default-padding>3</default-padding>
 
   <nasal>
     <open>
@@ -54,30 +54,30 @@
 
 
   <!-- Title with Esc knob for closing -->
-	<group>
+  <group>
 
     <layout>hbox</layout>
-	  <empty><stretch>1</stretch></empty>
+    <empty><stretch>1</stretch></empty>
 
-		<text>
-			<label>Searchlight Options (AltGr-s)</label>
-		</text>
+    <text>
+      <label>Searchlight Options (AltGr-s)</label>
+    </text>
 
-		<empty><stretch>true</stretch></empty>
+    <empty><stretch>true</stretch></empty>
 
-		<button>
-			<legend></legend>
-			<key>Esc</key>
-			<pref-width>16</pref-width>
-			<pref-height>16</pref-height>
-			<binding>
+    <button>
+      <legend></legend>
+      <key>Esc</key>
+      <pref-width>16</pref-width>
+      <pref-height>16</pref-height>
+      <binding>
         <command>nasal</command>
         <script>ec130.searchlight_options_dialog.toggle()</script>
-			</binding>
-		</button>
-	</group>
+      </binding>
+    </button>
+  </group>
 
-	<hrule/>
+  <hrule/>
 
   <text>
     <label>  Light-Cone Visibility:   (Alt-L)</label>
@@ -207,11 +207,11 @@
 
   </group>
 
-	<hrule/>
+  <hrule/>
 
   <group>
     <layout>hbox</layout>
-		<default-padding>3</default-padding>
+    <default-padding>3</default-padding>
 
     <button>
       <legend>Close</legend>

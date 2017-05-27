@@ -8,9 +8,9 @@
 <PropertyList>
 
   <animation>
-	  <type>select</type>
-	  <object-name>text</object-name>
-	  <condition>
+    <type>select</type>
+    <object-name>text</object-name>
+    <condition>
       <greater-than>
         <property>/systems/electrical/volts</property>
         <value>22</value>

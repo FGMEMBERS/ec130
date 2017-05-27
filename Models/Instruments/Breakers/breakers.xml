@@ -16,26 +16,26 @@
   </model>
 
   <animation>
-  	<type>pick</type>
-  	<object-name>eltswitch</object-name>
-  	<visible>true</visible>
-  	<action>
-  		<button>0</button>
-  		<repeatable>false</repeatable>
-  		<binding>
-  			<command>property-toggle</command>
-  			<property>/ELT/armed</property>
-  			<value>1</value>
-  		</binding>
-  	</action>
-  	<action>
-  		<button>3</button>
-  		<repeatable>false</repeatable>
-  		<binding>
-  			<command>nasal</command>
+    <type>pick</type>
+    <object-name>eltswitch</object-name>
+    <visible>true</visible>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>property-toggle</command>
+        <property>/ELT/armed</property>
+        <value>1</value>
+      </binding>
+    </action>
+    <action>
+      <button>3</button>
+      <repeatable>false</repeatable>
+      <binding>
+        <command>nasal</command>
         <script>ec130.ELT_test();</script>
-  		</binding>
-  	</action>
+      </binding>
+    </action>
     <hovered>
       <binding>
         <command>set-tooltip</command>

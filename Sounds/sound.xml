@@ -39,8 +39,6 @@ baboon922@hotmail.com
         <y>-0.358245</y>
         <z>1.43194</z>
       </position>
-      <reference-dist>1</reference-dist>
-      <max-dist>2</max-dist>
       <volume>
         <property>/systems/electrical/outputs/avionics-switch</property>
         <max>0.15</max>
@@ -52,6 +50,8 @@ baboon922@hotmail.com
         <max>1.0</max>
         <offset>0.0</offset>
       </pitch>
+      <reference-dist>1</reference-dist>
+      <max-dist>2</max-dist>
     </avionic>
   
     <HSI-gyro>
@@ -64,8 +64,6 @@ baboon922@hotmail.com
         <y>-0.358245</y>
         <z>1.43194</z>
       </position>
-      <reference-dist>1</reference-dist>
-      <max-dist>2</max-dist>
       <volume>
         <property>/instrumentation/kcs55/kg102/spin-norm</property>
         <max>0.1</max>
@@ -77,10 +75,11 @@ baboon922@hotmail.com
         <max>1.0</max>
         <offset>0.0</offset>
       </pitch>
+      <reference-dist>1</reference-dist>
+      <max-dist>2</max-dist>
     </HSI-gyro>
 
     <fuelpump>
-      <type>avionics</type>
       <name>Fuelpump</name>
       <mode>looped</mode>
       <path>Sounds/fuelpump.wav</path>
@@ -89,8 +88,6 @@ baboon922@hotmail.com
         <y>-0.358245</y>
         <z>1.43194</z>
       </position>
-      <reference-dist>1</reference-dist>
-      <max-dist>2</max-dist>
       <volume>
         <property>/systems/electrical/outputs/boost-pump</property>
         <max>0.1</max>
@@ -102,6 +99,8 @@ baboon922@hotmail.com
         <max>1.0</max>
         <offset>0.0</offset>
       </pitch>
+      <reference-dist>1</reference-dist>
+      <max-dist>2</max-dist>
     </fuelpump>
 
     <starter>
@@ -235,7 +234,7 @@ baboon922@hotmail.com
           </not>
           <greater-than>
             <property>rotors/main/rpm</property>
-            <value>120</value>
+            <value>50</value>
           </greater-than>
           <not>
             <property>sim/crashed</property>
@@ -253,21 +252,20 @@ baboon922@hotmail.com
         <min>0</min>
         <max>1.5</max>
       </pitch>
-      <reference-dist>200</reference-dist>
-      <max-dist>2000</max-dist>
+      <reference-dist>100</reference-dist>
+      <max-dist>4000</max-dist>
     </rotor>
 
     <rotor>
       <name>rotor-inside</name>
       <mode>looped</mode>
-      <path>Sounds/rotor.wav</path>
       <path>Aircraft/ec130/Sounds/ec_rotor_in.wav</path>
       <condition>
         <and>
           <property>sim/current-view/internal</property>
           <greater-than>
             <property>rotors/main/rpm</property>
-            <value>120</value>
+            <value>50</value>
           </greater-than>
           <not>
             <property>sim/crashed</property>
@@ -307,14 +305,13 @@ baboon922@hotmail.com
     <rotor>
       <name>rotor-inside-door-open</name>
       <mode>looped</mode>
-      <path>Sounds/rotor.wav</path>
       <path>Aircraft/ec130/Sounds/flight_ec135_out.wav</path>
       <condition>
         <and>
           <property>sim/current-view/internal</property>
           <greater-than>
             <property>rotors/main/rpm</property>
-            <value>120</value>
+            <value>50</value>
           </greater-than>
           <not>
             <property>sim/crashed</property>
@@ -348,14 +345,13 @@ baboon922@hotmail.com
     <rotor>
       <name>rotor-inside-window-open</name>
       <mode>looped</mode>
-      <path>Sounds/rotor.wav</path>
       <path>Aircraft/ec130/Sounds/flight_ec135_out.wav</path>
       <condition>
         <and>
           <property>sim/current-view/internal</property>
           <greater-than>
             <property>rotors/main/rpm</property>
-            <value>120</value>
+            <value>50</value>
           </greater-than>
           <not>
             <property>sim/crashed</property>
@@ -565,7 +561,7 @@ baboon922@hotmail.com
         <factor>0.01</factor>
       </pitch>
       <reference-dist>5.0</reference-dist>
-      <max-dist>10.0</max-dist>
+      <max-dist>50.0</max-dist>
     </contact>
 
     <contact>
@@ -582,7 +578,7 @@ baboon922@hotmail.com
         <factor>0.01</factor>
       </pitch>
       <reference-dist>5.0</reference-dist>
-      <max-dist>10.0</max-dist>
+      <max-dist>50.0</max-dist>
     </contact>
 
     <contact>
@@ -599,7 +595,7 @@ baboon922@hotmail.com
         <factor>0.01</factor>
       </pitch>
       <reference-dist>5.0</reference-dist>
-      <max-dist>10.0</max-dist>
+      <max-dist>50.0</max-dist>
     </contact>
 
     <contact>
@@ -616,7 +612,7 @@ baboon922@hotmail.com
         <factor>0.01</factor>
       </pitch>
       <reference-dist>5.0</reference-dist>
-      <max-dist>10.0</max-dist>
+      <max-dist>50.0</max-dist>
     </contact>
 
     <contact>
@@ -633,7 +629,7 @@ baboon922@hotmail.com
         <factor>0.01</factor>
       </pitch>
       <reference-dist>5.0</reference-dist>
-      <max-dist>10.0</max-dist>
+      <max-dist>50.0</max-dist>
     </contact>
 
     <contact>
@@ -650,7 +646,7 @@ baboon922@hotmail.com
         <factor>0.01</factor>
       </pitch>
       <reference-dist>5.0</reference-dist>
-      <max-dist>10.0</max-dist>
+      <max-dist>50.0</max-dist>
     </contact>
 
     <contact>
@@ -667,7 +663,7 @@ baboon922@hotmail.com
         <factor>0.01</factor>
       </pitch>
       <reference-dist>5.0</reference-dist>
-      <max-dist>10.0</max-dist>
+      <max-dist>50.0</max-dist>
     </contact>
 
     <contact>
@@ -684,7 +680,7 @@ baboon922@hotmail.com
         <factor>0.01</factor>
       </pitch>
       <reference-dist>5.0</reference-dist>
-      <max-dist>10.0</max-dist>
+      <max-dist>50.0</max-dist>
     </contact>
 
     <slide>
@@ -709,6 +705,8 @@ baboon922@hotmail.com
       <pitch>
         <property>sim/model/ec130/sound/slide[0]/pitch</property>
       </pitch>
+      <reference-dist>3.0</reference-dist>
+      <max-dist>50</max-dist>
     </slide>
 
     <slide>
@@ -733,6 +731,8 @@ baboon922@hotmail.com
       <pitch>
         <property>sim/model/ec130/sound/slide[1]/pitch</property>
       </pitch>
+      <reference-dist>3.0</reference-dist>
+      <max-dist>50</max-dist>
     </slide>
 
     <slide>
@@ -757,6 +757,8 @@ baboon922@hotmail.com
       <pitch>
         <property>sim/model/ec130/sound/slide[2]/pitch</property>
       </pitch>
+      <reference-dist>3.0</reference-dist>
+      <max-dist>50</max-dist>
     </slide>
 
     <slide>
@@ -779,6 +781,8 @@ baboon922@hotmail.com
       <pitch>
         <property>sim/model/ec130/sound/slide[3]/pitch</property>
       </pitch>
+      <reference-dist>3.0</reference-dist>
+      <max-dist>50</max-dist>
     </slide>
 
     <contact>
@@ -813,7 +817,7 @@ baboon922@hotmail.com
         <factor>0.01</factor>
       </pitch>
       <reference-dist>5.0</reference-dist>
-      <max-dist>10.0</max-dist>
+      <max-dist>50.0</max-dist>
     </contact>
 
     <wind>
@@ -1035,11 +1039,16 @@ baboon922@hotmail.com
       <max-dist>50</max-dist>
     </door>
 
+    <!-- only EC130 B4 variant -->
     <door>
       <name>open right backdoor</name>
       <mode>once</mode>
       <path>Sounds/BaBoOn-R44-Door_open.wav</path>
       <condition>
+        <equals>
+          <property>sim/model/variant</property>
+          <value>1</value>
+        </equals>
         <greater-than>
           <property>sim/model/ec130/doors/passengerr/position-norm</property>
           <value>0</value>
@@ -1057,6 +1066,7 @@ baboon922@hotmail.com
       <max-dist>50</max-dist>
     </door>
 
+    <!-- only EC130 B4 variant -->
     <door>
       <name>close right backdoor</name>
       <mode>once</mode>
@@ -1074,6 +1084,98 @@ baboon922@hotmail.com
       </position>
       <volume>
         <factor>0.15</factor>
+      </volume>
+      <reference-dist>15</reference-dist>
+      <max-dist>50</max-dist>
+    </door>
+
+    <!-- only H130 -->
+    <door>
+      <name>open right backdoor</name>
+      <mode>once</mode>
+      <path>Sounds/BaBoOn-R44-Door_open.wav</path>
+      <condition>
+        <equals>
+          <property>sim/model/variant</property>
+          <value>2</value>
+        </equals>
+        <greater-than>
+          <property>sim/model/ec130/doors/passengerr/position-norm</property>
+          <value>0</value>
+        </greater-than>
+      </condition>
+      <position>
+        <x>-3.1</x>
+        <y>-1.0</y>
+        <z>-0.3</z>
+      </position>
+      <volume>
+        <factor>0.3</factor>
+      </volume>
+      <reference-dist>15</reference-dist>
+      <max-dist>50</max-dist>
+    </door>
+
+    <!-- only H130 -->
+    <door>
+      <name>slide right backdoor</name>
+      <mode>looped</mode>
+      <path>Sounds/exhaust_loop.wav</path>
+      <condition>
+        <equals>
+          <property>sim/model/variant</property>
+          <value>2</value>
+        </equals>
+        <greater-than>
+          <property>sim/model/ec130/doors/passengerr/position-norm</property>
+          <value>0.02</value>
+        </greater-than>
+        <less-than>
+          <property>sim/model/ec130/doors/passengerr/position-norm</property>
+          <value>0.99</value>
+        </less-than>
+      </condition>
+      <position>
+        <x>-3.1</x>
+        <y>-1.0</y>
+        <z>-0.3</z>
+      </position>
+      <volume>
+        <factor>0.07</factor>
+      </volume>
+      <pitch>
+        <property>sim/model/ec130/doors/passengerr/position-norm</property>
+        <factor>0.1</factor>
+        <offset>0.5</offset>
+        <min>0.5</min>
+        <max>1.0</max>
+      </pitch>
+      <reference-dist>15</reference-dist>
+      <max-dist>50</max-dist>
+    </door>
+
+    <!-- only H130 variant -->
+    <door>
+      <name>open right backdoor endclick</name>
+      <mode>once</mode>
+      <path>Sounds/door_close.wav</path>
+      <condition>
+        <equals>
+          <property>sim/model/variant</property>
+          <value>2</value>
+        </equals>
+        <greater-than>
+          <property>sim/model/ec130/doors/passengerr/position-norm</property>
+          <value>0.99</value>
+        </greater-than>
+      </condition>
+      <position>
+        <x>-3.1</x>
+        <y>-1.0</y>
+        <z>-0.3</z>
+      </position>
+      <volume>
+        <factor>0.05</factor>
       </volume>
       <reference-dist>15</reference-dist>
       <max-dist>50</max-dist>
@@ -1374,7 +1476,7 @@ baboon922@hotmail.com
         <factor>0.1</factor>
       </pitch>
       <reference-dist>100</reference-dist>
-      <max-dist>1000</max-dist>
+      <max-dist>2000</max-dist>
     </crash>
 
     <firefull>
@@ -1383,6 +1485,7 @@ baboon922@hotmail.com
       <path>Sounds/rumble.wav</path>
       <condition>
         <property>sim/crashed</property>
+        <property>sim/fire/enabled</property>
         <greater-than>
           <property>consumables/fuel/tank/level-lbs</property>
           <value>80</value>
@@ -1401,6 +1504,7 @@ baboon922@hotmail.com
       <path>Sounds/rumble.wav</path>
       <condition>
         <property>sim/crashed</property>
+        <property>sim/smoke/enabled</property>
         <greater-than>
           <property>consumables/fuel/tank/level-lbs</property>
           <value>0</value>

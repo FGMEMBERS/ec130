@@ -4,6 +4,7 @@
  http://www.flightgear.org/
 
  Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
+           (C) 2016 Michael Habarta, mhabarta@freenet.de
 
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License as
@@ -29,6 +30,7 @@
     <object-name>armr</object-name>
     <object-name>forearml</object-name>
     <object-name>forearmr</object-name>
+    <object-name>handl</object-name>
     <object-name>handr</object-name>
     <object-name>thighl</object-name>
     <object-name>thighr</object-name>
@@ -36,6 +38,7 @@
     <object-name>legr</object-name>
     <object-name>footl</object-name>
     <object-name>footr</object-name>
+    <object-name>belt</object-name>
 
     <!-- Objets transparents -->
     <!-- transparent objects -->
@@ -55,10 +58,10 @@
     <object-name>head</object-name>
     <object-name>shield</object-name>
     <condition>
-      <greater-than>
+      <not-equals>
         <property>sim/current-view/view-number</property>
         <value>0</value>
-      </greater-than>
+      </not-equals>
     </condition>
   </animation>
 
@@ -362,8 +365,8 @@
     <type>rotate</type>
     <object-name>handl</object-name>
     <property>controls/engines/engine/throttle</property>
-		<factor>-20</factor>
-		<offset-deg>20</offset-deg>
+    <factor>-20</factor>
+    <offset-deg>20</offset-deg>
     <center>
       <x-m> -3.829 </x-m>
       <y-m> -0.910 </y-m>
@@ -381,8 +384,8 @@
     <type>rotate</type>
     <object-name>forearml</object-name>
     <property>controls/engines/engine/throttle</property>
-		<factor>-20</factor>
-		<offset-deg>20</offset-deg>
+    <factor>-20</factor>
+    <offset-deg>20</offset-deg>
     <center>
       <x-m> -3.829 </x-m>
       <y-m> -0.910 </y-m>
@@ -400,8 +403,8 @@
     <type>rotate</type>
     <object-name>arml</object-name>
     <property>controls/engines/engine/throttle</property>
-		<factor>15</factor>
-		<offset-deg>-10</offset-deg>
+    <factor>15</factor>
+    <offset-deg>-10</offset-deg>
     <center>
       <x-m> -3.653 </x-m>
       <y-m> -0.890 </y-m>
@@ -642,4 +645,3 @@
   </animation>
 
 </PropertyList>
-

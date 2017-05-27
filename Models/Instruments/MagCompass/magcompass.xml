@@ -6,9 +6,9 @@
   <path>magcompass.ac</path>
 
   <!-- compass light is off if dim selector is in "Night 2" position -->
-	<animation>
+  <animation>
     <type>material</type>
-		<object-name>Compass.ball</object-name>
+    <object-name>Compass.ball</object-name>
     <emission>
       <red>0.79</red>
       <green>0.39</green>
@@ -35,9 +35,9 @@
   </animation>
 
   <!-- dimming -->
-	<animation>
+  <animation>
     <type>material</type>
-		<object-name>Compass.ball</object-name>
+    <object-name>Compass.ball</object-name>
     <condition>
       <property>systems/electrical/outputs/instrument-lights-norm</property>
       <equals>
@@ -53,9 +53,9 @@
     </emission>
   </animation>
 
-	<animation>
+  <animation>
     <type>material</type>
-		<object-name>Compass.ball</object-name>
+    <object-name>Compass.ball</object-name>
     <condition>
       <greater-than>
         <property>controls/lighting/instrument-lights-selection</property>

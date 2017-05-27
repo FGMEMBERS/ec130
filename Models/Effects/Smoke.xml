@@ -2,7 +2,7 @@
   <!-- copied from BAE-Hawk FGUK model -->
   <particlesystem>
 
-    <name>Fire</name>
+    <name>Smoke</name>
     <texture>smoke.png</texture>
     <emissive>false</emissive>
     <lighting>false</lighting>
@@ -39,7 +39,7 @@
 
     <counter>
       <particles-per-sec>
-        <value>25</value>
+        <property>sim/smoke/part-per-sec</property>
         <spread>20</spread>
       </particles-per-sec>
     </counter>
@@ -70,7 +70,7 @@
         </size>
       </end>
       <life-sec>
-        <value>6.5</value>
+        <property>sim/smoke/life-sec</property>
       </life-sec>
       <mass-kg>1.0</mass-kg>
       <radius-m>0.03</radius-m>

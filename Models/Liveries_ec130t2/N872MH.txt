@@ -1,0 +1,25 @@
+   Helicopter H130 (EC130-T2)
+   --------------------------
+
+   Registration: N872MH
+   C/N: 7355 (2012)
+   Operator: Maverick Helicopters
+   Location: Las Vegas NV (KLAS), Grand Canyon AZ (KGCN), USA
+
+   Maverick Helicopters operates EC130 since 2003.
+
+   According to http://www.helis.com/database, Maverick Helicopters
+   operates 8 H130 EC130-T2 Ecostar helicopters.
+
+
+   WEB-Links:
+   Homepage: http://www.maverickhelicopter.com/default.aspx
+   Facebook: https://www.facebook.com/MaverickHelicopters
+   Twitter: https://twitter.com/MaverickVegas
+
+   Personal Notes of the Livery Editor (mhab):
+   ------------------------------------------
+   Based on the N812MH with small adaptions.
+
+
+   last update: 2016-01-01

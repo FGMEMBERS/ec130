@@ -1,6 +1,7 @@
 # (c) Melchior FRANZ  < mfranz # flightgear : org > Thanks for it- currently there is no better solutionout there!
 
 #print("\x1b[35m
+if ( getprop("/sim/model/variant") == "1" ) {
 print("\x1b
   ______   _____      __   ____     ___       ____    _  _
  |  ____| /  ___|    /_ | |__  \   / _ \     |  _ \  | || |
@@ -9,7 +10,16 @@ print("\x1b
  | |____  | |___      | |  __) |  | |_| |    | |_) |    | |
  |______| \_____|     |_| |____/   \___/     |____/     |_|
 \x1b");
-
+} else {
+print("\x1b
+  _    _    __   ____     ___
+ | |  | |  /_ | |__  \   / _ \
+ | |__| |   | |  __) |  | | | |
+ |  __  |   | | |__ <   | | | |
+ | |  | |   | |  __) |  | |_| |
+ |_|  |_|   |_| |____/   \___/
+\x1b");
+}
 
 if (!contains(globals, "cprint"))
   var cprint = func nil;
@@ -29,8 +39,11 @@ var min = func(a, b) a < b ? a : b;
 
 # liveries =========================================================
 # mhab: use index in listing liveries
-aircraft.livery.init("/Aircraft/ec130/Models/Liveries", "/sim/model/livery/name", "/sim/model/livery/index");
-
+if ( getprop("/sim/model/variant") == "1" ) {
+  aircraft.livery.init("Aircraft/ec130/Models/Liveries_ec130b4", "sim/model/livery/name", "sim/model/livery/index");
+} else {
+  aircraft.livery.init("Aircraft/ec130/Models/Liveries_ec130t2", "sim/model/livery/name", "sim/model/livery/index");
+}
 # timers ============================================================
 aircraft.timer.new("/sim/time/hobbs/helicopter", nil).start();
 
@@ -504,6 +517,7 @@ var procedure = {
   },
 };
 
+################################
 # toggle floats (inflate/repack)
 # mhab 20131104
 toggle_floats = func () {
@@ -526,20 +540,50 @@ toggle_floats = func () {
   }
 }
 
+###################################
+# floats reset (for options dialog)
+# mhab 20160312
+floats_reset = func () {
+
+  setprop("/sim/model/ec130/emerg_floats",0);
+  setprop("/controls/gear/floats-inflat",0);
+  setprop("/controls/gear/floats-armed",0);
+}
+
+####################
 # toggle_powersupply
-# mhab 20130606
+# mhab 20160429
 toggle_powersupply = func () {
 
   var p = getprop("/controls/electric/external-power");
 
-  if ( p or getprop("/rotors/main/rpm") < 300 ) {
-    setprop("/controls/electric/external-power", !p);
-  } else {
-    screen.log.write("External power cannot be connected when Rotor RPM 300+ !!!");
+  if ( !p and getprop("/rotors/main/rpm") < 300 ) {
+    setprop("/controls/electric/external-power", 1);
+    doors.doorsystem.mgpuexport();
+  }
+  if ( p ) {
+    doors.doorsystem.mgpuexport();
+    settimer(func {
+      # if toggle was repeated make sure mgpu is offside before removing
+      if ( getprop("/sim/model/ec130/mgpu/position-norm") < 0.01 ) {
+        setprop("/controls/electric/external-power", 0);
+      }
+    }, 8);
+  }
+
+  if ( !p ) {
+    if ( !getprop("gear/gear[0]/wow") and !getprop("gear/gear[1]/wow") and !getprop("gear/gear[2]/wow") and !getprop("gear/gear[3]/wow") ) {
+      screen.log.write("Only possible on ground !!!");
+    } else {
+      if ( getprop("/rotors/main/rpm") > 300 ) {
+        screen.log.write("External power cannot be connected when Rotor RPM 300+ !!!");
+      }
+    }
   }
 
 }
 
+###################
 # autostart routine
 # mhab 20130606
 autostart = func () {
@@ -547,8 +591,20 @@ autostart = func () {
   var ready_msg = func () {
     # switch off FUEL P
     setprop("/controls/fuel/tank/boost-pump", 0);
+    # remove external power
+    toggle_powersupply();
     # startup complete
     gui.popupTip("use Twist Grip for 100% ... Take-off when Rotor RPM 370+", 5);
+
+    if ( getprop("/controls/engines/engine/power") < 1.0 ) {
+      # wait 10 sec and run up if nothing happened
+      settimer(func {
+        if ( getprop("/controls/engines/engine/power") < 1.0 ) {
+          adjust_twist_grip(1);
+          settimer(thisfunc(), 0.2);
+        }
+      }, 10); # check after 10 seconds
+    }
 
     settimer(func {
       #print ("rotor reach 275 rpm wait loop");
@@ -560,21 +616,21 @@ autostart = func () {
         settimer(func { setprop("/controls/lighting/beacon", 1);                       },2.5);
         settimer(func { setprop("/controls/lighting/strobe", 1);                       },3.0);
       } else {
-        settimer(thisfunc(), 1);
+        settimer(thisfunc(), 1); # check once per second
       }
-    }, 1); # check once per second
+    }, 1); # check after 1 second
 
     settimer(func {
       #print ("rotor reach 340 rpm wait loop");
       if (getprop("/rotors/main/rpm") > 339) {
         setprop("/controls/electric/horn", 1);
       } else {
-        settimer(thisfunc(), 1);
+        settimer(thisfunc(), 1); # check once per second
       }
-    }, 1); # check once per second
+    }, 1); # check after 1 second
   }
 
-  var fuellines_filled = func () {
+  var fuellines_filled = func() {
     # start selector and switch guard
     setprop("/controls/engines/engine/startselector", 1);
     # switch guard delayed for 1 sec, looks more realistic
@@ -590,57 +646,75 @@ autostart = func () {
         if ( getprop("/rotors/main/rpm") > 165 ) {
           ready_msg ();
         } else {
-          settimer(thisfunc(), 1);
+          settimer(thisfunc(), 1); # check once per second
         }
-      }, 1); # check once per second
+      }, 1); # check after 1 second
+    }
+  }
+
+  var runup_primary = func() {
+
+    gui.popupTip("Automatic startup routine ... please wait ...  ",28);
+    # release rotorbreak
+    settimer(func { setprop("/controls/rotor/brake-locked", 0);                },0.3);
+    settimer(func { interpolate("/controls/rotor/brake", 0, 1);                },0.5);
+    settimer(func { setprop("/controls/rotor/brake-locked", 1);                },1.7);
+    # release cutoff lever
+    settimer(func { interpolate("/controls/engines/engine/cutoff-norm", 0, 1); },1.2);
+    settimer(func { setprop("/controls/engines/engine/cutoff", 0);             },2.0);
+    settimer(func { setprop("/controls/engines/engine/cutoffguard", 1);       },2.2);
+    # activate all buttons
+    settimer(func { setprop("/controls/electric/directbat-switch", 1);         },2.5);
+    settimer(func { setprop("/controls/electric/battery-switch", 1);           },3.0);
+    settimer(func { setprop("/controls/electric/engine/generator", 1);         },3.5);
+    settimer(func { setprop("/controls/fuel/tank/boost-pump", 1);              },4.0);
+    settimer(func { setprop("/controls/lighting/nav-lights", 1);               },4.5);
+    settimer(func { setprop("/controls/lighting/taxi-light", 1);               },5.0);
+    settimer(func { setprop("/controls/lighting/dome-light", 1);               },5.5);
+    settimer(func { setprop("/controls/lighting/instrument-lights", 1);        },6.0);
+    settimer(func { setprop("/controls/lighting/instrument-lights2", 1);       },6.5);
+
+    if ( getprop("/controls/fuel/tank/fuellines_filled") > 0.98 ) {
+      fuellines_filled();
+    } else {
+      settimer(func {
+      #  print ("fuellines filled wait loop");
+        if (getprop("/controls/fuel/tank/fuellines_filled") > 0.98) {
+          fuellines_filled();
+        } else {
+          settimer(thisfunc(), 1); # check once per second
+        }
+      }, 1); # check after 1 second
     }
   }
 
   # check if autostart enabled
   if ( getprop("/sim/model/ec130/flightnumber") >= getprop("/sim/model/ec130/minflights") ) {
     if ( !getprop("/controls/electric/emergency-switch") ) {
-      if ( getprop("/controls/electric/external-power")) {
-        gui.popupTip("Automatic startup routine ... please wait ...  ",20);
-        # release rotorbreak
-        settimer(func { setprop("/controls/rotor/brake-locked", 0);                },0.3);
-        settimer(func { interpolate("/controls/rotor/brake", 0, 1);                },0.5);
-        settimer(func { setprop("/controls/rotor/brake-locked", 1);                },1.7);
-        # release cutoff lever
-        settimer(func { interpolate("/controls/engines/engine/cutoff-norm", 0, 1); },1.2);
-        settimer(func { setprop("/controls/engines/engine/cutoff", 0);             },2.0);
-        settimer(func { setprop("/controls/engines/engine/cutoff_guard", 1);       },2.2);
-        # activate all buttons
-        settimer(func { setprop("/controls/electric/directbat-switch", 1);         },2.5);
-        settimer(func { setprop("/controls/electric/battery-switch", 1);           },3.0);
-        settimer(func { setprop("/controls/electric/engine/generator", 1);         },3.5);
-        settimer(func { setprop("/controls/fuel/tank/boost-pump", 1);              },4.0);
-        settimer(func { setprop("/controls/lighting/nav-lights", 1);               },4.5);
-        settimer(func { setprop("/controls/lighting/taxi-light", 1);               },5.0);
-        settimer(func { setprop("/controls/lighting/dome-light", 1);               },5.5);
-        settimer(func { setprop("/controls/lighting/instrument-lights", 1);        },6.0);
-        settimer(func { setprop("/controls/lighting/instrument-lights2", 1);       },6.5);
-
-        if ( getprop("/controls/fuel/tank/fuellines_filled") > 0.98 ) {
-          fuellines_filled ();
-        } else {
-          settimer(func {
-          #  print ("fuellines filled wait loop");
-            if (getprop("/controls/fuel/tank/fuellines_filled") > 0.98) {
-              fuellines_filled ();
-            } else {
-              settimer(thisfunc(), 1);
-            }
-          }, 1); # check once per second
-        }
+      if ( getprop("/controls/electric/external-power") ) {
+        runup_primary();
       } else {
-        screen.log.write("External power supply (Alt-p) is necessary for startup !!!");
+        gui.popupTip("External power supply requested ...",10);
+        toggle_powersupply();
+        settimer(func {
+        #  print ("external power wait loop");
+          if ( getprop("/sim/model/ec130/mgpu/position-norm") > 0.99 ) {
+            runup_primary();
+          } else {
+            gui.popupTip("waiting for external power supply ...",4);
+            settimer(thisfunc(), 2); # check every 2 seconds
+          }
+        }, 3); # check after 3 seconds
       }
     } else {
       screen.log.write("Emergency Shutdown is active !!!");
     }
+  } else {
+    gui.popupTip("Autostart is disabled !!!",4);
   }
 }
 
+######################
 # autoshutdown routine
 # mhab
 autoshutdown = func () {
@@ -648,7 +722,7 @@ autoshutdown = func () {
   var rotor_slow_enough_to_brake = func () {
     gui.popupTip("Rotor is slow enough ...",40);
     # set cutoff lever
-    settimer(func { setprop("/controls/engines/engine/cutoff_guard", 0);           },0.3);
+    settimer(func { setprop("/controls/engines/engine/cutoffguard", 0);           },0.3);
     settimer(func { setprop("/controls/engines/engine/cutoff", 1);                 },0.5);
     settimer(func { interpolate("/controls/engines/engine/cutoff-norm", 1, 1);     },0.5);
     # set rotorbreak
@@ -1139,6 +1213,147 @@ var searchlight_watch_view_handler = {
 view.manager.register(view.indexof(searchlight_watch_view_handler.view_name),
                                                    searchlight_watch_view_handler);
 
+###############################################################################
+# view handler for "Front Right Seat View"
+# mhab
+var front_right_view_handler = {
+    view_name : "Front Right Seat View",
+    init : func {
+        me.view_name = "Front Right Seat View";
+        me.view  = view.views[view.indexof(me.view_name)];
+        me.shown = 0;
+    },
+    start  : func {
+        if (!me.shown) {
+        }
+        me.shown = 1;
+    },
+    stop   : func {
+        if (me.shown) {
+        }
+        me.shown = 0;
+    },
+    update : func {
+        var cur = props.globals.getNode("/sim/current-view");
+        var head = getprop("/sim/current-view/heading-offset-deg");
+        var seats = getprop("/sim/model/ec130/interior_passengers");
+
+        # shift view to the left for 5 seat config
+        if ( seats < 6 ) {
+          cur.getNode("x-offset-m").setValue(0.550);
+          cur.getNode("y-offset-m").setValue(0.050);
+          cur.getNode("z-offset-m").setValue(-3.930);
+        } else {
+          cur.getNode("x-offset-m").setValue(0.730);
+          cur.getNode("y-offset-m").setValue(0.050);
+          cur.getNode("z-offset-m").setValue(-3.930);
+        }
+
+        # handle limits
+        if ( (head > 140) and (head < 180) ) {
+          cur.getNode("goal-heading-offset-deg").setValue(140);
+        }
+
+        if ( (head > 180) and (head < 220) ) {
+          cur.getNode("goal-heading-offset-deg").setValue(220);
+        }
+
+        return 0.0;
+    }
+};
+
+view.manager.register(view.indexof(front_right_view_handler.view_name),
+                                                   front_right_view_handler);
+
+###############################################################################
+# view handler for "Patient View"
+# mhab
+var patient_view_handler = {
+    view_name : "Patient View",
+    init : func {
+        me.view_name = "Patient View";
+        me.view  = view.views[view.indexof(me.view_name)];
+        me.shown = 0;
+    },
+    start  : func {
+        if (!me.shown) {
+        }
+        me.shown = 1;
+        # set pitch from property tree
+        setprop("/sim/current-view/pitch-offset-deg",getprop("/sim/view[107]/config/pitch-offset-deg"));
+    },
+    stop   : func {
+        if (me.shown) {
+        }
+        me.shown = 0;
+    },
+    update : func {
+        var cur = props.globals.getNode("/sim/current-view");
+        var head = getprop("/sim/current-view/heading-offset-deg");
+        var pitch = getprop("/sim/current-view/pitch-offset-deg");
+        var seats = getprop("/sim/model/ec130/interior_passengers");
+        var restpos = getprop("/controls/seat/stretcher/position-deg");
+
+        # adjust view to backrest position
+        if ( seats == 4 ) {
+          # up
+          y_off = -0.600 + 0.6*sin(restpos);
+          # back
+          z_off = -3.160 - 0.6*(1-cos(restpos));
+
+          cur.getNode("y-offset-m").setValue(y_off);
+          cur.getNode("z-offset-m").setValue(z_off);
+
+          # limit pitch for patient
+          if ( pitch < 0-restpos ) {
+            pitch = 0-restpos;
+            cur.getNode("pitch-offset-deg").setValue(pitch);
+          }
+
+          # remember view setting
+          setprop("/sim/view[107]/config/heading-offset-deg",head);
+          setprop("/sim/view[107]/config/pitch-offset-deg",pitch);
+
+        }
+
+        # handle limits
+        if ( (head > 140) and (head < 180) ) {
+          cur.getNode("goal-heading-offset-deg").setValue(140);
+        }
+
+        if ( (head > 180) and (head < 220) ) {
+          cur.getNode("goal-heading-offset-deg").setValue(220);
+        }
+
+        return 0.0;
+    }
+};
+
+view.manager.register(view.indexof(patient_view_handler.view_name),
+                                                   patient_view_handler);
+
+###################################
+# mhab
+var set_pilot_view = func {
+
+  # if disabled switch to Co-Pilot view
+  if ( getprop("/sim/view[0]/enabled") ) {
+    setprop("sim/current-view/view-number", 0);
+  } else {
+    # Remark: as in current FG (3.4) there is no function to jump to a
+    # specific view this is copied from FG view.nas and it
+    # is a limited solution, it is not a full-qualified view change
+    # as it doesn't honor extensions in view changes which maybe
+    # implemented in view.nas (e.g. autohide HUD)
+    setprop("sim/current-view/view-number", view.indexof("Co-Pilot View"));
+  }
+
+  # And pop up a nice reminder
+  var popup=getprop("/sim/view-name-popup");
+  if(popup == 1 or popup==nil) gui.popupTip(getprop("/sim/current-view/name"));
+}
+
+
 ##############################################
 # mhab merged from woolthread.nas
 # Simple vibrating yawstring
@@ -1362,36 +1577,36 @@ run();
 ################
 
 var save_list = [ "/sim/model/fuel/tank[0]/level-gal_us",
-		 "/engines/engine/oil-temperature-degc-filter",
-		 "/sim/model/ec130/flightnumber",
-#		 "/sim/model/ec130/antenna_left",
-#		 "/sim/model/ec130/antenna_tail_front",
-#		 "/sim/model/ec130/vor_2_roof",
-#		 "/sim/model/ec130/adf_bottom",
-#		 "/sim/model/ec130/adf_roof",
-#		 "/sim/model/ec130/VUHF",
-#		 "/sim/model/ec130/VUHF_front",
-#		 "/sim/model/ec130/antenna_flat_tail",
-#		 "/sim/model/ec130/antenna_square_tail",
-#		 "/sim/model/ec130/DME",
-#		 "/sim/model/ec130/DME_small",
-#		 "/sim/model/ec130/copilot_controls",
-#		 "/sim/model/ec130/interior_passengers",
-#		 "/sim/model/ec130/show_gsdi",
-#		 "/sim/model/ec130/wirecutter",
-#		 "/sim/model/ec130/mirror",
-#		 "/sim/model/ec130/FLIR",
-#		 "/sim/model/ec130/emerg_floats",
-#		 "/sim/model/ec130/basket_left",
-#		 "/sim/model/ec130/basket_right",
-#		 "/sim/model/ec130/searchlight_a800",
-#		 "/sim/model/ec130/searchlight",
-#		 "/sim/model/ec130/searchlight_filter",
-#		 "/sim/model/ec130/snowshoes",
-#		 "/sim/model/ec130/hoist",
-#		 "/sim/model/ec130/gear_strobe",
-#		 "/sim/model/ec130/gear_light",
-#		 "/sim/model/ec130/luggage_wide",
+     "/engines/engine/oil-temperature-degc-filter",
+     "/sim/model/ec130/flightnumber",
+#     "/sim/model/ec130/antenna_left",
+#     "/sim/model/ec130/antenna_tail_front",
+#     "/sim/model/ec130/vor_2_roof",
+#     "/sim/model/ec130/adf_bottom",
+#     "/sim/model/ec130/adf_roof",
+#     "/sim/model/ec130/VUHF",
+#     "/sim/model/ec130/VUHF_front",
+#     "/sim/model/ec130/antenna_flat_tail",
+#     "/sim/model/ec130/antenna_square_tail",
+#     "/sim/model/ec130/DME",
+#     "/sim/model/ec130/DME_small",
+#     "/sim/model/ec130/copilot_controls",
+#     "/sim/model/ec130/interior_passengers",
+#     "/sim/model/ec130/show_gsdi",
+#     "/sim/model/ec130/wirecutter",
+#     "/sim/model/ec130/mirror",
+#     "/sim/model/ec130/FLIR",
+#     "/sim/model/ec130/emerg_floats",
+#     "/sim/model/ec130/basket_left",
+#     "/sim/model/ec130/basket_right",
+#     "/sim/model/ec130/searchlight_a800",
+#     "/sim/model/ec130/searchlight",
+#     "/sim/model/ec130/searchlight_filter",
+#     "/sim/model/ec130/snowshoes",
+#     "/sim/model/ec130/hoist",
+#     "/sim/model/ec130/gear_strobe",
+#     "/sim/model/ec130/gear_light",
+#     "/sim/model/ec130/luggage_wide",
 ];
 
 aircraft.data.add(save_list);
@@ -1571,6 +1786,14 @@ var external_weights = func {
 
   setprop("/sim/weight[13]/weight-lb",weight_equipment);
 
+  # floats menu entries activate/deactivate
+  # cross-check menubar definition
+  if ( !getprop("/sim/model/ec130/emerg_floats") ) {
+    setprop("/sim/menubar/default/menu[10]/item[6]/enabled",0);
+  } else {
+    setprop("/sim/menubar/default/menu[10]/item[6]/enabled",1);
+  }
+
   # mhab deactivated
   #  settimer(weights,0.1);
 }
@@ -1581,11 +1804,11 @@ external_weights();
 # mhab merged from dialog.nas
 # dialogs
 
-var options_dialog = gui.Dialog.new("/sim/gui/dialogs/ec130/options/dialog", "Aircraft/ec130/Dialogs/ec130-options-dialog.xml");
-var config_dialog = gui.Dialog.new("/sim/gui/dialogs/ec130/config/dialog", "Aircraft/ec130/Dialogs/ec130-config-dialog.xml");
+var options_dialog        = gui.Dialog.new("/sim/gui/dialogs/ec130/options/dialog", "Aircraft/ec130/Dialogs/ec130-options-dialog.xml");
+var config_dialog         = gui.Dialog.new("/sim/gui/dialogs/ec130/config/dialog", "Aircraft/ec130/Dialogs/ec130-config-dialog.xml");
 var antenna_config_dialog = gui.Dialog.new("/sim/gui/dialogs/ec130/antenna/dialog", "Aircraft/ec130/Dialogs/ec130-antenna-config-dialog.xml");
-var help_config_dialog = gui.Dialog.new("/sim/gui/dialogs/ec130/help_config/dialog", "Aircraft/ec130/Dialogs/ec130-help-config-dialog.xml");
-var model_info_dialog = gui.Dialog.new("/sim/gui/dialogs/ec130/model_info/dialog", "Aircraft/ec130/Dialogs/ec130-model-info-dialog.xml");
+var help_config_dialog    = gui.Dialog.new("/sim/gui/dialogs/ec130/help_config/dialog", "Aircraft/ec130/Dialogs/ec130-help-config-dialog.xml");
+var model_info_dialog     = gui.Dialog.new("/sim/gui/dialogs/ec130/model_info/dialog", "Aircraft/ec130/Dialogs/ec130-model-info-dialog.xml");
 
 ##seats weights and views##
 
@@ -1602,12 +1825,15 @@ var set_seats = func {
 
   var p = getprop("/sim/model/ec130/interior_passengers");
 
-  # pilot or co-pilot must be present (min weight 30+90lbs)
-  if ( getprop("/sim/weight[0]/weight-lb") < 120 ) {
-    if ( getprop("/sim/weight[1]/weight-lb") < 120 ) {
+  # pilot or co-pilot must be present (seat weight 30lbs)
+  if ( getprop("/sim/weight[0]/weight-lb") < 40 ) {
+    if ( getprop("/sim/weight[1]/weight-lb") < 40 ) {
       setprop("/sim/weight[0]/weight-lb",180)
     }
   }
+
+  # set label for Rear Mid Right/EMS configuration
+  setprop("/sim/weight[6]/name", "Rear Mid Right");
 
   # 5 seats
   if ( p == 5 ) {
@@ -1635,6 +1861,9 @@ var set_seats = func {
     setprop("/sim/weight[3]/weight-lb",30);
     setprop("/sim/weight[7]/weight-lb",0);
 
+    # set label for Rear Mid Right/EMS configuration
+    setprop("/sim/weight[6]/name", "Patient");
+
     if ( getprop("/sim/weight[6]/weight-lb") == 0 ) {
       setprop("/sim/weight[6]/weight-lb",50);
     }
@@ -1646,59 +1875,105 @@ var set_seats = func {
 
 var set_views = func {
 
+  var p = getprop("/sim/model/ec130/interior_passengers");
+
   # weights
-  var copilotw = getprop("/sim/weight[1]/weight-lb");
-  var frontlw =  getprop("/sim/weight[2]/weight-lb");
-  var frontrw =  getprop("/sim/weight[3]/weight-lb");
-  var rearlw =   getprop("/sim/weight[4]/weight-lb");
-  var rearmlw =  getprop("/sim/weight[5]/weight-lb");
-  var rearmrw =  getprop("/sim/weight[6]/weight-lb");
-  var rearrw =   getprop("/sim/weight[7]/weight-lb");
+  var pilotw  = getprop("/sim/weight[0]/weight-lb");
+  var copilotw= getprop("/sim/weight[1]/weight-lb");
+  var frontlw = getprop("/sim/weight[2]/weight-lb");
+  var frontrw = getprop("/sim/weight[3]/weight-lb");
+  var rearlw  = getprop("/sim/weight[4]/weight-lb");
+  var rearmlw = getprop("/sim/weight[5]/weight-lb");
+  var rearmrw = getprop("/sim/weight[6]/weight-lb");
+  var rearrw  = getprop("/sim/weight[7]/weight-lb");
 
   # views
-  var copilotv = "sim/view[101]/enabled";
-  var frontlv =  "sim/view[102]/enabled";
-  var frontrv =  "sim/view[103]/enabled";
-  var rearlv =   "sim/view[104]/enabled";
-  var rearmlv =  "sim/view[105]/enabled";
-  var rearmrv =  "sim/view[106]/enabled";
-  var rearrv =   "sim/view[107]/enabled";
+  var pilotv  = "sim/view[0]/enabled";
+  var copilotv= "sim/view[101]/enabled";
+  var frontlv = "sim/view[102]/enabled";
+  var frontrv = "sim/view[103]/enabled";
+  var rearlv  = "sim/view[104]/enabled";
+  var rearmlv = "sim/view[105]/enabled";
+  var rearmrv = "sim/view[106]/enabled";
+  var patientv= "sim/view[107]/enabled";
+  var rearrv =  "sim/view[108]/enabled";
 
-  # set views
-  # pilotview cannot be disabled (is a fixed predefined view)
+  if ( pilotw   < 40 ){ setprop(pilotv,0)   } else { setprop(pilotv,1)   };
   if ( copilotw < 40 ){ setprop(copilotv,0) } else { setprop(copilotv,1) };
   if ( frontlw  < 40 ){ setprop(frontlv,0)  } else { setprop(frontlv,1)  };
   if ( frontrw  < 40 ){ setprop(frontrv,0)  } else { setprop(frontrv,1)  };
   if ( rearlw   < 40 ){ setprop(rearlv,0)   } else { setprop(rearlv,1)   };
   if ( rearmlw  < 40 ){ setprop(rearmlv,0)  } else { setprop(rearmlv,1)  };
-  if ( rearmrw  < 40 ){ setprop(rearmrv,0)  } else { setprop(rearmrv,1)  };
-  if ( rearrw   < 40 ){ setprop(rearrv,0)   } else { setprop(rearrv,1)   };
 
+  # rearmr and patient interchange
+  if ( rearmrw < 40 ) {
+    setprop(rearmrv,0);
+    setprop(patientv,0);
+  } else {
+    if ( p == 4 ) {
+      setprop(patientv,1);
+      setprop(rearmrv,0);
+    } else {
+      setprop(patientv,0);
+      setprop(rearmrv,1);
+    }
+  }
+
+  if ( rearrw < 40 ){ setprop(rearrv,0) } else { setprop(rearrv,1) };
+
+  # set patient view
+  set_patient_view();
+
+  # if current view was just disabled
+  # switch to previous internal view
+
+  var views = props.globals.getNode("/sim").getChildren("view");
+
+  foreach (var v; views) {
+    var i = v.getIndex();
+
+    vname   = getprop("/sim/view[" ~ i ~ "]/name");
+    enabled = getprop("/sim/view[" ~ i ~ "]/enabled");
+
+    if ( vname == getprop("/sim/current-view/name") and !enabled ) {
+      # switch to previous view
+      # hopefully the previous view is internal and active
+      view.stepView(-1);
+
+      # if no internal aircraft view was left switch to Cockpit View
+      # or Co-Pilot View if Cockpit is disabled
+      if ( !getprop("/sim/current-view/internal") ) {
+        set_pilot_view();
+      }
+    }
+  }
 }
 
 var set_searchview = func {
 
-  var searchw   = "sim/view[110]/enabled";
-  var searchv   = "sim/view[111]/enabled";
+  var searchw   = "sim/view[111]/enabled";
+  var searchv   = "sim/view[112]/enabled";
 
   setprop(searchw,0);
   setprop(searchv,0);
 
   if ( getprop("/sim/model/ec130/searchlight") or getprop("/sim/model/ec130/searchlight_a800") ) {
-    if ( getprop("/sim/view[110]/enabled_flag") ) setprop(searchw,1);
-    if ( getprop("/sim/view[111]/enabled_flag") ) setprop(searchv,1);
+    if ( getprop("/sim/view[111]/enabled_flag") ) setprop(searchw,1);
+    if ( getprop("/sim/view[112]/enabled_flag") ) setprop(searchv,1);
   }
 
 }
 
-var set_menu = func {
+var set_patient_view = func {
 
-  # cross-check menubar definition
-  if ( !getprop("/sim/model/ec130/emerg_floats") ) {
-    setprop("/sim/menubar/default/menu[10]/item[6]/enabled",0);
-  } else {
-    setprop("/sim/menubar/default/menu[10]/item[6]/enabled",1);
+  var pv = -15;
+
+  if ( getprop("/sim/model/ec130/interior_passengers") == 4 ){
+    var po = getprop("/controls/seat/stretcher/position-deg");
+    if ( po != nil ) { pv= 90-po-15; }
   }
+
+  setprop("/sim/view[107]/config/pitch-offset-deg",pv);
 
 }
 
@@ -1826,11 +2101,11 @@ mgbp_bar();
 #
 # the EC130 here will only make use by FTR. Sorry, no money left for extra gadgets! ;-)#
 # that's how to use it:
-#	(1) move the stick such that the heli is in an orientation that
-#	    you want to trim for (forward flight, hover, ...)
-#	(2) press FTR button (f-key)and keep it pressed
-#	(3) move stick/yoke to neutral position (center)
-#	(4) release FTR button (f-key)
+#  (1) move the stick such that the heli is in an orientation that
+#      you want to trim for (forward flight, hover, ...)
+#  (2) press FTR button (f-key)and keep it pressed
+#  (3) move stick/yoke to neutral position (center)
+#  (4) release FTR button (f-key)
 #
 
 var cyclaileron =props.globals.getNode("/controls/flight/aileron", 1);
@@ -2154,6 +2429,7 @@ avrs();
 
 ###########################
 # mhab added
+#
 var toggle_ebcautest = func () {
 
   var ebt = getprop("/controls/engines/engine/ebcautest");
@@ -2182,6 +2458,7 @@ var toggle_ebcautest = func () {
 
 ###########################
 # mhab added
+#
 var adjust_twist_grip = func (delta) {
 
   var p = getprop("/controls/engines/engine/power");
@@ -2227,6 +2504,7 @@ var adjust_twist_grip = func (delta) {
 
 ###########################
 # mhab added
+#
 var adjust_inst1 = func (delta) {
 
   var p = getprop("/controls/lighting/instrument-lights-norm");
@@ -2244,6 +2522,7 @@ var adjust_inst1 = func (delta) {
 
 ###########################
 # mhab added
+#
 var adjust_inst2 = func (delta) {
 
   var p = getprop("/controls/lighting/instrument-lights2-norm");
@@ -2261,6 +2540,7 @@ var adjust_inst2 = func (delta) {
 
 ###########################
 # mhab added
+#
 var adjust_vemd = func (delta) {
 
   var p = getprop("/controls/lighting/instrument-lights-vemd-norm");
@@ -2278,6 +2558,7 @@ var adjust_vemd = func (delta) {
 
 ###########################
 # mhab added
+#
 var adjust_rpm = func (delta) {
 
   var p = getprop("/controls/lighting/tach-light-norm");
@@ -2295,6 +2576,7 @@ var adjust_rpm = func (delta) {
 
 ###########################
 # mhab added
+#
 var adjust_heading = func (delta) {
 
   var p = getprop("/instrumentation/kcs55/ki525/selected-heading-deg");
@@ -2329,6 +2611,7 @@ var adjust_obs = func (delta) {
 
 ###########################
 # mhab added
+#
 var adjust_horizon_offset = func (delta) {
 
   var p = 0;
@@ -2349,6 +2632,7 @@ var adjust_horizon_offset = func (delta) {
 
 ###########################
 # mhab added
+#
 var adjust_altimeter = func (delta) {
 
   var p = getprop("/instrumentation/altimeter/setting-inhg");
@@ -2366,16 +2650,37 @@ var adjust_altimeter = func (delta) {
 
 ###########################
 # mhab added
+#
 var adjust_stretcher = func (delta) {
 
-  var p = getprop("/controls/seat/stretcher/position-deg");
+  p = 0;
 
-  p +=delta;
+  # only do something if stretcher is available
+  if ( getprop("/sim/model/ec130/interior_passengers") == 4 ) {
+    var p  = getprop("/controls/seat/stretcher/position-deg");
+    var po = getprop("/sim/view[107]/config/pitch-offset-deg");
 
-  if ( p > 50.0  ) p = 50.0;
-  if ( p < 0.0 ) p = 0.0;
+    p  +=delta;
+    po -=delta;
 
-  setprop("/controls/seat/stretcher/position-deg", p);
+    if ( delta > 0 and p > 40.0  ) {
+      p = 40.0;
+      po +=delta;
+    }
+
+    if ( delta < 0 and p < 0.0 ) {
+      p = 0.0;
+      po +=delta;
+    }
+
+    setprop("/controls/seat/stretcher/position-deg", p);
+
+    # adjust view setting
+    setprop("/sim/view[107]/config/pitch-offset-deg",po);
+    if ( getprop("/sim/current-view/name") == "Patient View" ) {
+      setprop("/sim/current-view/pitch-offset-deg",po);
+    }
+  }
 
   return p;
 
@@ -2383,12 +2688,47 @@ var adjust_stretcher = func (delta) {
 
 ###########################
 # mhab added
+#
+var adjust_fuel = func (delta) {
+
+  if ( getprop("gear/gear[0]/wow") or getprop("gear/gear[1]/wow") or getprop("gear/gear[2]/wow") or getprop("gear/gear[3]/wow") ) {
+
+    var p  = getprop("/consumables/fuel/tank/level-lbs");
+    var max= getprop("/limits/tank");
+
+    p  +=delta;
+
+    if ( delta > 0 and p > max  ) {
+      p = max;
+    }
+
+    if ( delta < 0 and p < 0.0 ) {
+      p = 0.0;
+    }
+
+    setprop("/consumables/fuel/tank/level-lbs", p);
+
+  } else {
+    screen.log.write("Fuel adjust only possible on ground !!!");
+  }
+  return p;
+
+}
+
+###########################
+# mhab added
+#
 var toggle_all_doors = func () {
 
   doors.doorsystem.frontlexport();
   doors.doorsystem.frontrexport();
   doors.doorsystem.passengerlexport();
-  doors.doorsystem.luggagerexport();
+  if ( getprop("/sim/model/variant") == "1" ) {
+    doors.doorsystem.luggagerexport();
+  } else {
+    doors.doorsystem.passengerrexport();
+    doors.doorsystem.basketrexport();
+  }
   doors.doorsystem.doorbexport();
   doors.doorsystem.basketlexport();
 
@@ -2396,6 +2736,7 @@ var toggle_all_doors = func () {
 
 ###########################
 # mhab added
+#
 var switch_startselector = func () {
 
   var p = getprop("/controls/engines/engine/startselector");
@@ -2452,11 +2793,14 @@ var switch_emergency = func () {
   }
 }
 
+###########################
+# mhab added
+#
 var inhibit_emergency = func () {
 
     # disable systems
     # engine
-    setprop("/controls/engines/engine/cutoff_guard",0);
+    setprop("/controls/engines/engine/cutoffguard",0);
     setprop("/controls/engines/engine/cutoff",1);
     setprop("/controls/engines/engine/cutoff-norm",1);
     setprop("/controls/engines/engine/switchguard",0);
@@ -2486,6 +2830,7 @@ var inhibit_emergency = func () {
 
 ###########################
 # mhab added
+#
 var ELT_test = func () {
 
   if ( !getprop("/ELT/test") ) {
@@ -2497,6 +2842,7 @@ var ELT_test = func () {
 
 ###########################
 # mhab added
+#
 var toggle_rotorbrake = func () {
 
   var l = getprop("/controls/rotor/brake-locked");
@@ -2520,9 +2866,10 @@ var toggle_rotorbrake = func () {
 
 ###########################
 # mhab added
+#
 var toggle_cutoff = func () {
 
-  var l = getprop("/controls/engines/engine/cutoff_guard");
+  var l = getprop("/controls/engines/engine/cutoffguard");
   var b = getprop("/controls/engines/engine/cutoff");
   var n = getprop("/controls/engines/engine/cutoff-norm");
 
@@ -2544,13 +2891,377 @@ var toggle_cutoff = func () {
 
 }
 
+###########################
+# mhab added
+#
+# used in:
+#  - config dialog (view property not toggled)
+#  - pick animation (with view property toggled)
+###########################
+var toggle_copilot_controls = func (n) {
+
+  if ( getprop("gear/gear[0]/wow") or getprop("gear/gear[1]/wow") or getprop("gear/gear[2]/wow") or getprop("gear/gear[3]/wow") ) {
+    if ( n > 0 ) {
+      setprop("/sim/model/ec130/copilot_controls", !getprop("/sim/model/ec130/copilot_controls"));
+    }
+
+    # if Pilot is not there Co-Pilot ( and i.e. his controls) must
+    if ( getprop("/sim/weight[0]/weight-lb") < 40 ) {
+      setprop("/sim/model/ec130/copilot_controls",1);
+      screen.log.write("One Pilot must be available !!!");
+    }
+
+    ec130.set_seats();
+
+  } else {
+    screen.log.write("Only possible on ground !!!");
+  }
+}
+
+###########################
+# mhab added
+#
+# used in:
+#  - config dialog (view property not toggled)
+#  - pick animations (with view property toggled)
+###########################
+var toggle_view = func(n) {
+
+  if ( getprop("gear/gear[0]/wow") or getprop("gear/gear[1]/wow") or getprop("gear/gear[2]/wow") or getprop("gear/gear[3]/wow") ) {
+    # negativ n means don't toggle property
+    if ( n < 0 ) {
+      n=n*-1;
+      # -1 means view 0 (pilot view)
+      if (n == 1) n=0;
+    } else {
+      setprop("/sim/view[" ~ n ~ "]/enabled", !getprop("/sim/view[" ~ n ~ "]/enabled"));
+    }
+
+    if ( n == 0 ) {
+      if ( getprop("/sim/view[0]/enabled") ) {
+        setprop("/sim/weight[0]/weight-lb",180);
+      } else {
+        setprop("/sim/weight[0]/weight-lb",0);
+        # if pilot is not there co-pilot must
+        setprop("/sim/weight[1]/weight-lb",180);
+        setprop("/sim/model/ec130/copilot_controls",1);
+      }
+    } else if (n == 101) {
+      if ( getprop("/sim/view[101]/enabled") ) {
+        setprop("/sim/weight[1]/weight-lb",180);
+      } else {
+        setprop("/sim/weight[1]/weight-lb",0);
+        # if co-Pilot is not there pilot must
+        setprop("/sim/weight[0]/weight-lb",180);
+      }
+    } else if (n == 102) {
+      if ( getprop("/sim/view[102]/enabled") ) {
+        setprop("/sim/weight[2]/weight-lb",180);
+      } else {
+        setprop("/sim/weight[2]/weight-lb",0);
+      }
+    } else if (n == 103) {
+      if ( getprop("/sim/view[103]/enabled") ) {
+        setprop("/sim/weight[3]/weight-lb",180);
+      } else {
+        setprop("/sim/weight[3]/weight-lb",0);
+      }
+    } else if (n == 104) {
+      if ( getprop("/sim/view[104]/enabled") ) {
+        setprop("/sim/weight[4]/weight-lb",180);
+      } else {
+        setprop("/sim/weight[4]/weight-lb",0);
+      }
+    } else if (n == 105) {
+      if ( getprop("/sim/view[105]/enabled") ) {
+        setprop("/sim/weight[5]/weight-lb",180);
+      } else {
+        setprop("/sim/weight[5]/weight-lb",0);
+      }
+    } else if (n == 106) {
+      if ( getprop("/sim/view[106]/enabled") ) {
+        setprop("/sim/weight[6]/weight-lb",180);
+      } else {
+        setprop("/sim/weight[6]/weight-lb",0);
+      }
+    } else if (n == 107) {
+      if ( getprop("/sim/view[107]/enabled") ) {
+        setprop("/sim/weight[6]/weight-lb",180);
+      } else {
+        setprop("/sim/weight[6]/weight-lb",0);
+      }
+    } else if (n == 108) {
+      if ( getprop("/sim/view[108]/enabled") ) {
+        setprop("/sim/weight[7]/weight-lb",180);
+      } else {
+        setprop("/sim/weight[7]/weight-lb",0);
+      }
+    }
+
+    ec130.set_seats();
+
+  } else {
+    screen.log.write("Only possible on ground !!!");
+  }
+
+}
+
+###########################
+# mhab added
+#
+# This function can add/remove luggage step by step.
+#
+# Luggage Concept:
+#
+# For some predefined weights a special luggage handling is implemented.
+# The following weights are possible to use:
+#    weight  8 ... Luggage Left
+#    weight  9 ... Luggage Right
+#    weight 10 ... Luggage Back
+#    weight 11 ... Basket Left
+#    weight 12 ... Basket Right
+#
+# There may be several pieces of luggage with differing weights defined
+# for each compartment.
+#
+# The compartment is specified by the weight number (wn) as defined
+# for the aircraft.
+#
+# The upper limit of each compartment is defined by "/sim/weight[wn]/max-lb"
+# The weight of each piece of luggage is defined by "/sim/weight[wn]/luggage[n]/weight-lb"
+#
+# The max number of pieces may be less than the max weight would allow.
+# If the weight is changed through the configuration dialog it can only be
+# changed in steps related to available luggage.
+#
+# Wide luggage boxes:
+# Wide luggage boxes can take more luggage than the regular ones.
+# This dependency is marked in weight/luggage definition ("wide" flag).
+# wide: 0 ... not with wide boxes
+#       1 ... with wide boxes (default)
+#       2 ... only with wide boxes
+#
+# EMS (rescue) configuration:
+# In EMS configuration the right luggagebox is used for special equipment.
+# In order to control the use of luggage in EMS config the "ems" flag
+# in weight/luggage definition is used.
+# ems:  0 ... not with EMS configuration
+#       1 ... with EMS (default)
+#       2 ... only with EMS
+###########################
+var handle_luggage = func(n,wn) {
+
+  # only handle selected weight positions
+  if ( wn<8 or wn>12 ) {
+    screen.log.write(sprintf("Weight %i not usable for luggage handling !",wn));
+    return;
+  }
+
+  # not really necessary here, because doors are not operable off ground
+  # still here to be sure
+  if ( !getprop("gear/gear[0]/wow") and !getprop("gear/gear[1]/wow") and !getprop("gear/gear[2]/wow") and !getprop("gear/gear[3]/wow") ) {
+    screen.log.write("Only possible on ground !!!");
+    return;
+  }
+
+  n = n > 0 ? 1 : -1;
+
+  var cnt     = getprop("/sim/weight[" ~ wn ~ "]/luggage-cnt");
+  var wgt     = getprop("/sim/weight[" ~ wn ~ "]/weight-lb");
+  var wgt_max = getprop("/sim/weight[" ~ wn ~ "]/max-lb");
+  var wid     = getprop("/sim/model/ec130/luggage_wide");
+  var ems     = getprop("/sim/model/ec130/interior_passengers");
+
+  var luggage = props.globals.getNode("/sim/weight[" ~ wn ~ "]").getChildren("luggage");
+
+  ems = ems > 4 ? 0 : 1;
+
+  var wid_use  = 0;
+  var ems_use  = 0;
+  var cnt_ori  = cnt;
+  var lmax_ems = 0;
+
+  cnt_idx = n > 0 ? cnt : cnt-1;
+
+  cnt+=n;
+
+  if ( cnt >= 0 ) {
+
+    # get maximum luggage count in ems config
+    if ( ems ) {
+      for(var i=0; i< size(luggage); i+=1) {
+        ems_use  = getprop("/sim/weight[" ~ wn ~ "]/luggage[" ~ i ~ "]/ems");
+        if ( ems_use == nil ) ems_use=1;
+        if ( ems_use > 0) lmax_ems+=1;
+      }
+    }
+
+    for(var i=cnt_idx; i< size(luggage); i+=1) {
+
+      if ( ems and cnt > lmax_ems ) break;
+
+      wgt_diff = getprop("/sim/weight[" ~ wn ~ "]/luggage[" ~ i ~ "]/weight-lb");
+      wid_use  = getprop("/sim/weight[" ~ wn ~ "]/luggage[" ~ i ~ "]/wide");
+      ems_use  = getprop("/sim/weight[" ~ wn ~ "]/luggage[" ~ i ~ "]/ems");
+      if ( wid_use == nil ) wid_use=1;
+      if ( ems_use == nil ) ems_use=1;
+
+      # no more luggage available or usable
+      if ( ( wgt_diff == nil )     or
+           ( wid and wid_use == 0) or
+           (!wid and wid_use == 2) or
+           ( ems and ems_use == 0) or
+           (!ems and ems_use == 2)    ) {
+        continue;
+      }
+
+      wgt_new=wgt+wgt_diff*n;
+
+      if ( wgt_new > wgt_max ) {
+        wgt_new=wgt;
+        cnt=cnt-1;
+        screen.log.write("Weight limit exceeded !");
+      }
+
+      if ( wgt_new < 0 ) wgt_new=0;
+
+      setprop("/sim/weight[" ~ wn ~ "]/weight-lb",wgt_new);
+      setprop("/sim/weight[" ~ wn ~ "]/luggage-cnt",cnt);
+      if ( ems ) setprop("/sim/weight[" ~ wn ~ "]/luggage-cnt-ems",cnt);
+      break;
+    }
+  } else {
+    setprop("/sim/weight[" ~ wn ~ "]/weight-lb",0);
+    setprop("/sim/weight[" ~ wn ~ "]/luggage-cnt",0);
+  }
+
+  cnt = getprop("/sim/weight[" ~ wn ~ "]/luggage-cnt");
+  if ( cnt == cnt_ori ) {
+    if ( cnt > 0 ) {
+      screen.log.write("No (more) usable luggage defined !");
+    } else {
+      screen.log.write("All luggage removed !");
+    }
+  }
+
+}
+
+###########################
+# mhab added
+#
+# This function fills up pieces of luggage until the weight is reached
+# and readjusts the weight according to available luggage if necessary
+#
+# Luggage Concept: see above comment for function handle_luggage()
+#
+###########################
+var set_luggage = func(wn) {
+
+  # only handle selected weight positions
+  if ( wn<8 or wn>12 ) {
+    screen.log.write(sprintf("Weight %i not usable for luggage handling !",wn));
+    return;
+  }
+
+  if ( wn == 11 ) {
+    if ( !getprop("/sim/model/ec130/basket_left") ) {
+      # reset basket left
+      setprop("/sim/weight[" ~ wn ~ "]/luggage-cnt",0);
+      setprop("/sim/weight[" ~ wn ~ "]/weight-lb",0);
+      setprop("/sim/model/ec130/doors/basketl/position-norm",0);
+      return;
+    }
+  }
+
+  if ( wn == 12 ) {
+    if ( !getprop("/sim/model/ec130/basket_right") ) {
+      # reset basket right
+      setprop("/sim/weight[" ~ wn ~ "]/luggage-cnt",0);
+      setprop("/sim/weight[" ~ wn ~ "]/weight-lb",0);
+      setprop("/sim/model/ec130/doors/basketr/position-norm",0);
+      return;
+    }
+  }
+
+  var wgt     = getprop("/sim/weight[" ~ wn ~ "]/weight-lb");
+  var wgt_max = getprop("/sim/weight[" ~ wn ~ "]/max-lb");
+  var wid     = getprop("/sim/model/ec130/luggage_wide");
+  var ems     = getprop("/sim/model/ec130/interior_passengers");
+
+  ems = ems > 4 ? 0 : 1;
+
+  var lcnt    = 0;
+  var wgt_sum = 0;
+  var wgt_cur = 0;
+  var wid_use = 0;
+
+  var luggage = props.globals.getNode("/sim/weight[" ~ wn ~ "]").getChildren("luggage");
+
+  for(var i=0; i<size(luggage); i+=1) {
+
+    wgt_cur = luggage[i].getValue("weight-lb");
+    wid_use = luggage[i].getValue("wide");
+    ems_use = luggage[i].getValue("ems");
+
+    if ( wid_use == nil ) wid_use=1;
+    if ( ems_use == nil ) ems_use=1;
+
+    if ( !(( wgt_cur == nil )      or
+           ( wid and wid_use == 0) or
+           (!wid and wid_use == 2) or
+           ( ems and ems_use == 0) or
+           (!ems and ems_use == 2)    ) ) {
+
+      lcnt+=1;
+      # add up weight
+      wgt_sum+=wgt_cur;
+
+      if ( wgt_sum > wgt or wgt_sum > wgt_max ) {
+        wgt_sum-=wgt_cur;
+        lcnt-=1;
+        break;
+      }
+    }
+  }
+
+  # set luggage count and weight
+  setprop("/sim/weight[" ~ wn ~ "]/luggage-cnt",lcnt);
+  setprop("/sim/weight[" ~ wn ~ "]/weight-lb",wgt_sum);
+
+  if ( size(luggage) == 0 and lcnt == 0 ) {
+    screen.log.write("No luggage usable !");
+  }
+
+}
+
+###########################
+# mhab added
+#
+var set_luggage_all = func() {
+  ec130.set_luggage(8);
+  ec130.set_luggage(9);
+  ec130.set_luggage(10);
+  ec130.set_luggage(11);
+  ec130.set_luggage(12);
+}
+###########################
+# mhab added
+#
+var aircraft_init = func() {
+
+  ec130.set_seats();
+  ec130.set_luggage_all();
+  ec130.external_weights();
+
+}
+
 ##############################################
 
 # main() ============================================================
 var delta_time = props.globals.getNode("/sim/time/delta-sec", 1);
 var hi_heading = props.globals.getNode("/instrumentation/heading-indicator/indicated-heading-deg", 1);
 var vertspeed = props.globals.initNode("/velocities/vertical-speed-fps");
-var gross_weight_lb = props.globals.initNode("/yasim/gross-weight-lbs");
+var gross_weight_lb = props.globals.initNode("/fdm/yasim/gross-weight-lbs");
 var gross_weight_kg = props.globals.initNode("/sim/model/gross-weight-kg");
 props.globals.getNode("/instrumentation/adf/rotation-deg", 1).alias(hi_heading);
 
@@ -2563,7 +3274,7 @@ var main_loop = func {
   var vspeed=vertspeed.getValue();
   if ( vspeed == nil ) vspeed=0;
   vert_speed_fpm.setDoubleValue(vspeed * 60);
-  gross_weight_kg.setDoubleValue(gross_weight_lb.getValue() * LB2KG);
+  gross_weight_kg.setDoubleValue(gross_weight_lb.getValue() or 0 * LB2KG);
 
   var dt = delta_time.getValue();
   update_torque(dt);
@@ -2610,6 +3321,22 @@ setlistener("/sim/signals/fdm-initialized", func {
     engines.engine[1].timer.stop();
     if (n.getBoolValue())
       crash(crashed = 1);
+    # mhab start smoke and fire gradually
+    settimer(func { setprop("/sim/smoke/enabled",1); }, 5);
+    settimer(func { setprop("/sim/smoke/part-per-sec",8); }, 5);
+    settimer(func { setprop("/sim/smoke/life-sec",2); }, 5);
+    settimer(func { setprop("/sim/smoke/part-per-sec",12); }, 7);
+    settimer(func { setprop("/sim/smoke/life-sec",4); }, 7);
+    settimer(func { setprop("/sim/smoke/part-per-sec",25); }, 15);
+    settimer(func { setprop("/sim/smoke/life-sec",6.5); }, 15);
+
+    settimer(func { setprop("/sim/fire/enabled",1); }, 15);
+    settimer(func { setprop("/sim/fire/part-per-sec",8); }, 5);
+    settimer(func { setprop("/sim/fire/life-sec",0.5); }, 5);
+    settimer(func { setprop("/sim/fire/part-per-sec",12); }, 10);
+    settimer(func { setprop("/sim/fire/life-sec",1); }, 10);
+    settimer(func { setprop("/sim/fire/part-per-sec",25); }, 15);
+    settimer(func { setprop("/sim/fire/life-sec",2); }, 15);
   });
 
   setlistener("/sim/freeze/replay-state", func(n) {

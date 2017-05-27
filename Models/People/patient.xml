@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ This file is part of FlightGear, the free flight simulator
+ http://www.flightgear.org/
+
+ Copyright (C) 2009 Heiko Schulz, Heiko.H.Schulz@gmx.net
+           (C) 2016 Michael Habarta, mhabarta@freenet.de
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+-->
+<PropertyList>
+
+  <path>patient.ac</path>
+
+  <animation>
+    <nopreview/>
+    <!-- Objets opaques -->
+    <!-- opaque objects -->
+    <object-name>pillow</object-name>
+    <object-name>head</object-name>
+    <object-name>corps</object-name>
+    <object-name>arml</object-name>
+    <object-name>armr</object-name>
+    <object-name>forearml</object-name>
+    <object-name>forearmr</object-name>
+    <object-name>handl</object-name>
+    <object-name>handr</object-name>
+    <object-name>thighl</object-name>
+    <object-name>thighr</object-name>
+    <object-name>legl</object-name>
+    <object-name>legr</object-name>
+    <object-name>footl</object-name>
+    <object-name>footr</object-name>
+    <object-name>pillow</object-name>
+    <object-name>belt</object-name>
+    <object-name>belt_legs</object-name>
+
+    <!-- Objets transparents -->
+    <!-- transparent objects -->
+  </animation>
+
+  <!-- Visière invisible depuis le cockpit -->
+  <!-- head, shield invisible from the cockpit -->
+  <animation>
+    <type>select</type>
+    <object-name>head</object-name>
+    <condition>
+      <not-equals>
+        <property>sim/current-view/name</property>
+        <value>Patient View</value>
+      </not-equals>
+    </condition>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>head</object-name>
+    <object-name>pillow</object-name>
+    <object-name>corps</object-name>
+    <object-name>arml</object-name>
+    <object-name>armr</object-name>
+    <object-name>belt</object-name>
+    <property>controls/seat/stretcher/position-deg</property>
+    <center>
+      <x-m> 0.0 </x-m>
+      <y-m> 0.0 </y-m>
+      <z-m> 0.0 </z-m>
+    </center>
+    <axis>
+      <x> 0.000 </x>
+      <y>-1.000 </y>
+      <z> 0.000 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>armr</object-name>
+    <object-name>arml</object-name>
+    <property>controls/seat/stretcher/position-deg</property>
+    <factor>0.3</factor>
+    <center>
+      <x-m> 0.36 </x-m>
+      <y-m> 0.0  </y-m>
+      <z-m> 0.10 </z-m>
+    </center>
+    <axis>
+      <x> 0.000 </x>
+      <y>-1.000 </y>
+      <z> 0.000 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>forearmr</object-name>
+    <property>controls/seat/stretcher/position-deg</property>
+    <factor>0.3</factor>
+    <center>
+      <x-m>-0.16 </x-m>
+      <y-m> 0.0  </y-m>
+      <z-m> 0.15 </z-m>
+    </center>
+    <axis>
+      <x> 0.000 </x>
+      <y> 1.000 </y>
+      <z> 0.000 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>belt_legs</object-name>
+    <property>controls/seat/stretcher/position-deg</property>
+    <factor>0.3</factor>
+    <center>
+      <x-m>-0.60 </x-m>
+      <y-m> 0.0  </y-m>
+      <z-m>-0.18 </z-m>
+    </center>
+    <axis>
+      <x> 0.000 </x>
+      <y>-1.000 </y>
+      <z> 0.000 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>forearml</object-name>
+    <object-name>forearmr</object-name>
+    <object-name>handl</object-name>
+    <object-name>handr</object-name>
+    <object-name>thighl</object-name>
+    <object-name>thighr</object-name>
+    <object-name>legl</object-name>
+    <object-name>legr</object-name>
+    <object-name>footl</object-name>
+    <object-name>footr</object-name>
+    <property>controls/seat/stretcher/position-deg</property>
+    <factor>0.002</factor>
+    <axis>
+      <x>-1 </x>
+      <y> 0 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>head</object-name>
+    <object-name>pillow</object-name>
+    <object-name>corps</object-name>
+    <object-name>arml</object-name>
+    <object-name>armr</object-name>
+    <object-name>belt</object-name>
+    <property>controls/seat/stretcher/position-deg</property>
+    <factor>0.001</factor>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+
+</PropertyList>

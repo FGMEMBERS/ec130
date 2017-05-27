@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!-- by mhab -->
+
+<PropertyList>
+  <sim>
+    <model>
+      <livery>
+        <name type="string">N11QC (Blue Hawaiian)</name>
+        <index type="int">7</index>
+        <texture>Liveries_ec130b4/N11QC.png</texture>
+      </livery>
+      <variant>1</variant>
+      <ec130>
+        <model-info>no detailed info available</model-info>
+        <!-- 0: only right, 1: only left, 2: left and right -->
+        <antenna_left type="int">0</antenna_left>
+        <antenna_tail_front type="bool">false</antenna_tail_front>
+        <vor_2_roof type="bool">false</vor_2_roof>
+        <adf_bottom type="bool">false</adf_bottom>
+        <adf_roof type="bool">false</adf_roof>
+        <VUHF type="bool">false</VUHF>
+        <VUHF_front type="bool">false</VUHF_front>
+        <antenna_flat_tail type="bool">false</antenna_flat_tail>
+        <!-- 0: off, 1: front, 2: rear -->
+        <antenna_square_tail type="int">0</antenna_square_tail>
+        <DME type="bool">false</DME>
+        <DME_small type="bool">false</DME_small>
+        <copilot_controls type="bool">false</copilot_controls>
+        <!-- 4: rescue configuration, 5/6: number of seats  -->
+        <interior_passengers type="float">6</interior_passengers>
+        <show_gsdi type="bool">false</show_gsdi>
+        <wirecutter type="bool">false</wirecutter>
+        <mirror type="bool">false</mirror>
+        <FLIR type="bool">false</FLIR>
+        <emerg_floats type="bool">true</emerg_floats>
+        <basket_left type="bool">false</basket_left>
+        <basket_right type="bool">false</basket_right>
+        <searchlight_a800 type="bool">false</searchlight_a800>
+        <searchlight type="bool">false</searchlight>
+        <searchlight_filter type="bool">false</searchlight_filter>
+        <snowshoes type="bool">false</snowshoes>
+        <hoist type="bool">false</hoist>
+        <stabi_strobe type="bool">false</stabi_strobe>
+        <gear_strobe type="bool">true</gear_strobe>
+        <gear_light type="bool">false</gear_light>
+        <luggage_wide type="bool">false</luggage_wide>
+      </ec130>
+    </model>
+    <rendering>
+      <refl_correction type="string">-0.275</refl_correction>
+      <refl-type type="string">1</refl-type>
+      <fresnel-factor type="string">0.5</fresnel-factor>
+    </rendering>
+  </sim>
+</PropertyList>

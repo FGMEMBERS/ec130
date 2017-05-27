@@ -39,7 +39,7 @@
          <property>/controls/engines/engine/cutoff</property>
          <value>0</value>
         </equals>
-        <property>/controls/engines/engine/cutoff_guard</property>
+        <property>/controls/engines/engine/cutoffguard</property>
       </condition>
     </item>
     <item>
@@ -130,6 +130,12 @@
     <item>
       <name>Check Fuel</name>
       <value>SUFFICIENT</value>
+      <condition>
+        <greater-than>
+         <property>/consumables/fuel/tank/level-lbs</property>
+         <value>106</value>
+        </greater-than>
+      </condition>
       <binding>
        <command>nasal</command>
        <script>ec130.config_dialog.toggle()</script>
@@ -160,7 +166,7 @@
       <value></value>
       <condition>
         <greater-than>
-         <property>controls/fuel/tank/fuellines_filled</property>
+         <property>/controls/fuel/tank/fuellines_filled</property>
          <value>0.98</value>
         </greater-than>
       </condition>
@@ -478,7 +484,7 @@
          <value>1</value>
         </equals>
         <equals>
-         <property>controls/engines/engine/cutoff_guard</property>
+         <property>controls/engines/engine/cutoffguard</property>
          <value>0</value>
         </equals>
       </condition>

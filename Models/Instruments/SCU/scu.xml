@@ -266,7 +266,7 @@
         <property>controls/electric/engine[0]/generator</property>
         <value type="double">-1</value>
       </binding>
-	    <mod-up>
+      <mod-up>
        <binding>
          <condition>
            <property>systems/electrical/volts</property>
@@ -800,8 +800,16 @@
       <button>0</button>
       <repeatable>false</repeatable>
       <binding>
-        <command>property-toggle</command>
-        <property>controls/gear/floats-armed</property>
+        <command>nasal</command>
+        <script>
+          var f = getprop("/controls/gear/floats-armed");
+          if ( getprop("/sim/model/ec130/emerg_floats") ) {
+            setprop("/controls/gear/floats-armed",!f);
+            gui.popupTip("Floats " ~ (f ? "disabled !" : "armed !"));
+          } else {
+            screen.log.write("NO Floats available !!!");
+          }
+        </script>
       </binding>
     </action>
   </animation>

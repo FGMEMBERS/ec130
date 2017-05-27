@@ -4275,7 +4275,7 @@ refs 4
 kids 0
 OBJECT poly
 name "light"
-loc -0.00325269 -3.08999e-005 -0.0607617
+loc 0.00348198 -3.08999e-005 -0.051452
 data 8
 Cube.002
 crease 30.000000

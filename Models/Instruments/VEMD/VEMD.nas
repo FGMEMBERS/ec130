@@ -46,7 +46,7 @@ var compare_roc = func {
     }else{
       interpolate ("/instrumentation/VEMD/FLI/FLI", fliT4, 2)
     }
-	}
+  }
 
   settimer(compare_roc, 0.1);
 }
@@ -123,9 +123,9 @@ var start_time = props.globals.getValue(p ~ "start-time", 1);
 var accu = props.globals.getValue(p ~ "accu", 1);
 
 if (start_time == nil)
-	start_time = 0;
+  start_time = 0;
 if (accu == nil)
-	accu = 0;
+  accu = 0;
 
 var r = props.globals.getNode(p ~ "running");
 var running = r != nil ? r.getBoolValue() : 0;

@@ -1,5 +1,80 @@
-EC130B4 Updates
-===============
+H130/EC130B4 Updates
+====================
+
+Updates as of FG 2017.2:
+-----------------------
+
+General:
+-------
+ - H130 (EC130 T2) variant added
+   - engine params
+   - 3D Model
+     - new/changed doors on right side
+     - new bumpmap
+   - liveries split up EC130 B4 and H130
+   - menu/dialogs adjusted
+   - config dialog handles liveries dynamic at runtime
+   - wingman adapted to both variants
+ - Co-Pilot, Passenger and Patient models added
+   - Co-Pilot animated model (like pilot)
+   - Patient follows backrest adjustment
+   - Passengers with small variations in look
+   - internal views adjusted and limited to
+     human view behaviour
+ - Pilots/Passengers can be seated/removed by clicking
+ - Co-Pilot can fly without Pilot
+ - Flight/hover behaviour more stable
+ - EMS configuration: Patient View (Rear Mid Right Seat)
+   adjusts to stretcher and follows backrest movement
+ - Autostart enabled after 5 flights (previous 15)
+ - full autostart implemented, with getting external power
+   and twist grip
+ - visible luggage is added according to weight
+   including a stretcher-roller in EMS config
+ - stabilizer strobe light added
+ - pick/knob animation to fill up fuel
+ - weight related tooltips show MTOW reserve
+ - VNE warning considers altitude and pwr on/off
+   checks for open doors
+ - New Temperature warning if outside range -20 <-> +50 °C
+ - improved limit warnings with more details
+ - two limit warnings simultaneously possible
+ - Fix: Slip indicator ball movement
+ - panel for EC130 T2 (H130)
+    - Turn indicator removed
+    - CWS redesigned
+    - Horizon (AI) redesigned
+    - ELT switch moved to panel
+    - ka51b moved to panel
+    - Emergency switch removed
+ - Multiplayer support optimized
+ - External Power Unit appears/disappears more realistic
+ - FDM improvements
+   - more stable hover behaviour
+   - simulate main rotor downwash on horizontal stabilizers
+ - Use of new fresnel effect in reflection shader
+
+Liveries:
+--------
+
+ - HB-ZAZ Air Zermatt (H130)
+    - NEW
+ - N836GC Grand Canyon Gold
+    - converted to H130
+ - N832GC Grand Canyon Helicopters
+    - adapted from EC130-B4 model N155GC
+ - N11EQ  Blue Hawaiian Helicopters
+    - adapted from EC130-B4 model N11QC
+ - N872MH Maverick Helicopters
+    - adapted from EC130-B4 model N812MH
+
+
+Instruments:
+-----------
+ - SCU: FLOATS ARM button identical behaviour as shortcut Shift-F
+ - Fix: ELT message
+ - Fix: wingmen fire/smoke after crash
+
 
 Updates After FG 3.5:
 --------------------
@@ -266,7 +341,7 @@ Models\ec130.nas:
    --> necessary parts moved to Nasal\ec130.nas
 
 Nasal/ec130.nas:
- - use sort for Liveries 
+ - use sort for Liveries
  - EC130 Logo
  - do not Connect power with fast Rotor (>300rpm)
 
@@ -385,6 +460,28 @@ left_float.xml:
 right_float.xml:
  - pick animation for toggle inflate/repack
 
+Shortcut conflicts:
+ FG BUG: differing number of conditional properties in multiple
+ bindings for same shortcut
+
+ needed Fix:
+ - AltGr-p Fuel Pump  (vs. AI cycle formation)
+    Verdacht: Condition Tags und Script + property-toggle Mix
+ - Alt-f   Floats arm (vs. AI select formation)
+
+ was working:
+ - Alt-c   Cutoff lever (toggle) (vs. Carrier release Catapult)
+ - Alt-d   toggle doors          (vs. Carrier toggle deck lights)
+ - AltGr-c Cutoff Lever guard    (vs. Carrier controls dialog)
+ - Alt-L   cycle Light Cone vis. (vs. Carrier engage Launch bar)
+
+ - Alt-b   toggle Basket covers (vs. toggle Pushback)
+ - Alt-i   operator Info (vs. Multiplayer Immatriculation)
+ - Alt-t   Twist Grip   (vs. AI request tanker)
+ - Alt-w   Warn Tst     (vs. AI toggle Wingman Controls)
+ - AltGr-t TWST Grip -  (vs. AI pause formation transition)
+ - AltGr-L Searchlight  (vs. cycle liveries)
+
 Wiki Images uploaded (Newsletter images NOT included):
 [[File:EC130 Grand Canyon winter.jpg|thumb|EC130-B4 N155GC on a wintertime flight over Grand Canyon]]
 [[File:EC130 Grand Canyon winter 2.jpg|thumb|EC130-B4 N155GC on a wintertime flight over Grand Canyon]]
@@ -476,18 +573,49 @@ http://wiki.flightgear.org/File:EC130-B4_MAC_rescue_equipment_2.jpg
 [[File:EC130 crash fire smoke-021.jpg|thumb|EC130 post crash fire with smoke]]
 [[File:EC130 crash fire smoke-023.jpg|thumb|EC130 post crash fire smoking]]
 
+[[File:H130 Air Zermatt.png|thumb|H130 of Air Zermatt]]
+[[File:H130 new air intake and passengers.png|thumb|H130 new air intake and passengers]]
+
+[[File:EC130 stretcher patient-003.png|thumb|Patient on stretcher with backrest lifted]]
+[[File:EC130 stretcher-001.png|thumb|Stretcher empty]]
+[[File:H130 people fgfs-screen-001.jpg|thumb|People seated]]
+[[File:H130 BH fgfs-screen-003.png|thumb|new Blue Hawaiian H130 version]]
+[[File:H130 MH fgfs-screen-004.png|thumb|new Maverick Helicopters H130 version]]
+[[File:H130 BH fgfs-screen-001.png|thumb|Blue Hawaiian H130]]
+[[File:H130 GC fgfs-screen-002.jpg|thumb|Grand Canyon Helicopters H130]]
+[[File:H130 people fgfs-screen-019.jpg|thumb|View from inside with passengers]]
+
+[[File:EC130 luggage 1.png|thumb|H130 one piece of luggage loaded]]
+[[File:EC130 luggage full.png|thumb|H130 luggage box full]]
+[[File:EC130 luggage wide full.png|thumb|EC130 with wide luggage box and full packed]]
+
+[[File:H130 ski luggage.jpg|thumb|Luggage in left luggage box]]
+[[File:H130 ski luggage some.jpg|thumb|Luggage in left luggage box]]
+[[File:H130 ski luggage closed.jpg|thumb|Luggage in left luggage box]]
+
+[[File:H130 add luggage tooltip.jpg|thumb|H130 add luggage tooltip]]
+[[File:H130 remove luggage tooltip.jpg|thumb|H130 remove luggage tooltip]]
+[[File:H130 right luggage full.jpg|thumb|H130 right luggage full]]
+[[File:H130 some luggage right.jpg|thumb|H130 some luggage in right compartment]]
+
+[[File:EC130 EMS equipment.jpg|thumb|EC130 EMS equipment]]
+[[File:EC130 EMS equipment with patient.jpg|thumb|EC130 EMS equipment with patient]]
+
+[[File:H130 fuel animation.jpg|thumb|H130 tooltip of "Fuel" animation]]
+
+[[File:H130 panel-001.jpg|thumb|Updated panel of H130]]
+[[File:H130 Air Zermatt crashed.jpg|thumb|H130 Air Zermatt crashed on Patscherkofel]]
 
 To-Do:
 -----
  - PDF aktualisieren Mitarbeiter, etc.(HHS)
  - Lightmap anpassen
     - gear strobe
+    - stabi strobe
     - gear landing lights (additional)
  - Bumpmap für wide luggage boxes
 
 Prio 3
- - Livery in Configuration dynamisch integrieren
-   hint: /sim/aircraft-dir ... aktuelles Verzeichnis
  - Hauptrotor Animation mit incidence-deg
    - Rotor nach abstellen NICHT synchronisiert !
  - Netz in Luggage-Boxes
@@ -495,20 +623,21 @@ Prio 3
  - Hauptrotor Textur
  - hoist/hook Animation
  - Wake Farbe abhängig von Untergrund/Schnee
+ - Innenausstattung mit mediz. Gerät
 
 
 Prio 2
  - Rembrandt: Strobe in Kabine unsichtbar
    --> undurchsichtige Fuselage lösen
-
-Prio 1
+ - Hebel für Floats inflate
  - Beleuchtung Radio, ...
  - Stromkreis INST.2
- - Hebel für Floats inflate
+
+Prio 1
  - Turbine Hobbs werden falsch gezählt
+ - Console anpassen fuer T2
 
 Prio 0 (nächster Commit):
-
 
 
 Crash stack:
@@ -539,4 +668,6 @@ Nasal runtime error: nil used in numeric context
   called from: C:/Users/michael/Documents/FlightGear/Aircraft/ec130/Systems/kcs55.nas, line 438
   called from: C:/Users/michael/Documents/FlightGear/Aircraft/ec130/Systems/kcs55.nas, line 443
 Nasal getprop: property /accelerations[0]/pilot-g[0] is NaN
+
+
 
