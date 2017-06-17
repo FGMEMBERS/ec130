@@ -44,6 +44,19 @@ EC 130 simulation config.
       <splash-texture>Aircraft/ec130/Splashs/splash_EC130_B4.jpg</splash-texture>
     </startup>
 
+    <previews>
+      <preview>
+	 <type>exterior</type>
+	 <splash type="bool">true</splash>
+	 <path>Splashs/ec130-exterior.jpg</path>
+      </preview>
+      <preview>
+	 <type>panel</type>
+	 <splash type="bool">false</splash>
+	 <path>Splashs/ec130-interior.jpg</path>
+      </preview>
+    </previews>
+
     <flight-model>yasim</flight-model>
     <aero>Models/ec130b4_fdm</aero>
 
