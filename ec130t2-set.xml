@@ -37,6 +37,16 @@ EC 130 simulation config.
     <license>GPL v2</license>
     <version>20160210</version>
 
+    <variant-of>ec130b4</variant-of>
+	
+      <previews>
+	<preview>
+	  <type>exterior</type>
+	  <splash type="bool">true</splash>
+	  <path>Splashs/ec130t2-exterior.jpg</path>
+	</preview>
+      </previews>
+
     <startup>
 <!--
       <splash-title>Airbus Helicopter EC130-T2 (Ecostar)</splash-title>
